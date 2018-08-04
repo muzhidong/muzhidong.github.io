@@ -8,7 +8,7 @@ subtitle: 关注和学习大前端技术
 description: 关注和学习大前端技术
 keywords: 大前端
 author: 请叫我大猿猴
-language: zh-CN
+language: zh-Hans
 timezone:
 
 # URL
@@ -73,7 +73,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: Nayo
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
