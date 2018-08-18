@@ -10,31 +10,32 @@ menu:
 # site title 
 # 页面的标题
 # title为空时 Hexo/_config.yml 配置有效
-title: hexo-theme-nayo
+title: 
 
 # author profile
 # source/imgaes/
 # 作者信息
 # author为空时 Hexo/_config.yml 配置有效
 profile: 
-  author: Lemon
-  avatar: /images/header.jpg  
-  description: hi,i am lemon
+  author: 
+  avatar: /images/avatar.png  
+  description: 
 
 # site favicon
 # source/imgaes/
 # 站点图标
-favicon: /images/favicon.png
+favicon:  /images/favicon.png
 
 # social link
 social:  
-  Github: https://github.com/Lemonreds/hexo-theme-nayo 
-  Weibo:
+  Github: https://github.com/muzhidong 
+# Weibo:
 # Zhihu:
-  Facebook:
-  Twitter:
-  Instagram:
-  LinkedIn:
+# Facebook:
+# Twitter:
+# Instagram:
+# LinkedIn:
+  JueJin: https://juejin.im/user/57dbd39967f35600569b20c8
 
 
 # toc
@@ -45,23 +46,23 @@ toc:
 # site analytics 
 # 站点访问统计
 # [ analytics id ]
-baidu_analytics:
- 636802045446222199ae541e32c8133e 
-google_analytics: 
+#baidu_analytics:
+# 636802045446222199ae541e32c8133e 
+#google_analytics: 
 
 # comment
 
 # disqus(https://disqus.com/)
 disqus:
   comment: true
-  shortname: lemonreds
+  shortname: 给我留言
 
 # valine(https://github.com/xCss/Valine)
 # 创建 leancloud 应用 获取 id|key 填入即可
-leancloud:  
-  comment: false
-  app_id: cFM0eCo0CQ9xmBXmHi1eltol-gzGzoHsz
-  app_key: oh9tizsnvV2vNvWgqEvoNtQO
+#leancloud:  
+#  comment: false
+#  app_id: cFM0eCo0CQ9xmBXmHi1eltol-gzGzoHsz
+#  app_key: oh9tizsnvV2vNvWgqEvoNtQO
 
 # mob share(http://www.mob.com)
 # 文章分享功能
@@ -72,11 +73,11 @@ share_item:
 - qq
 - weixin
 - weibo
-- douban
-- facebook
-- twitter
+#- douban
+#- facebook
+#- twitter
 #- tumblr
-- google
+#- google
 
 
 # donate
@@ -84,9 +85,11 @@ share_item:
 # source/imgaes/
 donate:
   enable: true
-  word: 世界美好 你也是
-  wechat: /images/donate1.png
-  alipay: /images/donate2.png
+  word: 
+  #wechat: /images/donate1.png
+  #alipay: /images/donate2.png
+  wechat:  /images/wechat.png
+  #alipay:   
 
 # mathjax 
 # 渲染LateX公式
@@ -105,11 +108,11 @@ mathjax:
 # footer
 # 底部信息
 footer:
-  author: Lemon
-  since: 2017
+  author: greatApe
+  since: 2018
 
 
 # theme version
 #
 version:
-  0.3.0
+  0.0.1
