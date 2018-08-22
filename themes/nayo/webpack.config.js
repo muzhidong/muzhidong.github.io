@@ -1,19 +1,20 @@
  const path = require('path'),
-     webpack = require('webpack'),
-     ExtractTextPlugin = require('extract-text-webpack-plugin'),
-     CleanPlugin = require('clean-webpack-plugin');
+       webpack = require('webpack'),
+       ExtractTextPlugin = require('extract-text-webpack-plugin'),
+       CleanPlugin = require('clean-webpack-plugin');
 
  module.exports = {
      entry: {
          main: './src/scripts/main.js'
      },
      output: {
+        // path.resolve第二参数不必加/，不然报错
          path: path.resolve(__dirname, 'source'),
-         filename: 'nayo.bundle.js'
+         filename: 'mudong.bundle.js'
      },
      module: {
          rules: [{
-                 test: require.resolve('./src/scripts/jquery'),
+                 test: path.resolve(__dirname, 'src/scripts/jquery'),
                  use: [{
                      loader: 'expose-loader',
                      options: '$'
@@ -21,21 +22,31 @@
              },
              {
                  test: /\.js$/,
+                 include:[
+                   path.resolve(__dirname,'src/scripts')
+                 ],
+                 exclude:[
+                    path.resolve(__dirname,"src/scripts/jquery")
+                 ],
                  use: {
                      loader: 'babel-loader',
                      options: {
+                        // ?
                          presets: ['es2015']
                      }
                  },
-                 exclude: /node_modules/
              },
              {
                  test: /\.(styl|css)$/,
+                 include:[
+                   path.resolve(__dirname,'src/css')
+                 ],
                  use: ExtractTextPlugin.extract({
                      fallback: 'style-loader',
                      use: [{
                              loader: 'css-loader',
                              options: {
+                                // ?
                                  importLoaders: 2,
                                  minimize: true
                              }
@@ -43,6 +54,7 @@
                          {
                              loader: 'postcss-loader',
                              options: {
+                                // ?
                                  plugins: [require("autoprefixer")({
                                      browsers: ['last 5 versions']
                                  })]
@@ -54,31 +66,46 @@
              },
              {
                  test: /\.(png|jpg|gif)$/,
+                 include:[
+                   path.resolve(__dirname,'source/images')
+                 ],
                  use: [{
                      loader: 'url-loader',
                      options: {
-                         name: 'img/[name].[hash:4].[ext]',
-                         limit: 1024
+                         name: '/newimg/[name].[hash:4].[ext]',
+                         limit: 4096,
+                         fallback:"file-loader"
                      }
                  }]
              },
              {
                  test: /\.(woff|svg|eot|ttf)\??.*$/,
+                 include:[
+                   path.resolve(__dirname,'src/css/fonts'),
+                 ],
                  use: {
                      loader: 'file-loader',
                      options: {
-                         name: 'fonts/[name].[hash:4].[ext]'
+                         name: '/fonts/[name].[hash:4].[ext]'
                      }
                  }
              }
          ]
      },
      plugins: [
-         new ExtractTextPlugin('nayo.min.css'),
-         new CleanPlugin('./source', {
-             exclude: ['images', 'fonts']
+         //npm install extract-text-webpack-plugin@next -D，webpack4加上@next
+         new ExtractTextPlugin('mudong.min.css'),
+         new CleanPlugin('source', {
+             exclude: ['images', 'fonts','404.html']
          }),
-         new webpack.optimize.OccurrenceOrderPlugin(),
-         new webpack.optimize.UglifyJsPlugin()
-     ]
+         // 按发生顺序排序模块和块，节省空间，这样常用的模块和块获得更小的ID
+         new webpack.optimize.OccurrenceOrderPlugin()
+     ],
+     // uglifyjs-webpack-plugin使用下面方式替代
+     optimization:{
+        minimize:true,
+        // splitChunks:{
+        //     chunks:"all",
+        // },
+     },
  }

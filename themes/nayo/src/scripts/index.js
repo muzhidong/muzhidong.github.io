@@ -89,7 +89,7 @@ function listenerScroll() {
             //  1 未移动: fix Header
             //  2 下滑 :  hide Header
             //  3 上滑:  show Header
-            scroll <= 0 ? fixedHeader() : ((scroll - last > 0) ? hideHeader() : showHeader());
+            scroll <= 0 ? fixedHeader() : ((scroll - last > 0) ?  showHeader(): hideHeader());
         }
     }
 }

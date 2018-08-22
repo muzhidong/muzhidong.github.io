@@ -24,24 +24,25 @@ profile:
 # site favicon
 # source/imgaes/
 # 站点图标
-favicon:  /images/favicon.png
+favicon: /images/favicon.png
 
 # social link
 social:  
   Github: https://github.com/muzhidong 
+  Juejin: https://juejin.im/user/57dbd39967f35600569b20c8 
 # Weibo:
 # Zhihu:
 # Facebook:
 # Twitter:
 # Instagram:
 # LinkedIn:
-  JueJin: https://juejin.im/user/57dbd39967f35600569b20c8
+  
 
 
 # toc
 # 文章的目录 
-toc:
-    false
+toc: true
+    
 
 # site analytics 
 # 站点访问统计
@@ -85,11 +86,9 @@ share_item:
 # source/imgaes/
 donate:
   enable: true
-  word: 
-  #wechat: /images/donate1.png
-  #alipay: /images/donate2.png
-  wechat:  /images/wechat.png
-  #alipay:   
+  word: 觉得不错就赞赏一下吧
+  alipay: /images/alipay.png
+  wechat: /images/wechat.png  
 
 # mathjax 
 # 渲染LateX公式
@@ -109,7 +108,7 @@ mathjax:
 # 底部信息
 footer:
   author: greatApe
-  since: 2018
+  since: 2018.07
 
 
 # theme version

@@ -1,5 +1,6 @@
 ---
 title: {{ title }}
 date: {{ date }}
-tags:
+tags: 
+excerpt: {{这是一个摘要。}}
 ---
