@@ -105,3 +105,22 @@ time
    vertical-align -.3em
    fill currentColor
    overflow hidden
+   
+// IE兼容性
+// type=text ,叉图案
+input::-ms-clear 
+   display: none
+
+// type=pasword ,小眼睛
+input::-ms-reveal 
+    display: none
+    
+.after-footer
+  width 100%
+  padding-top 5px
+  margin-bottom 26px
+  text-align center
+  color rgba(0,0,0,.35)
+  line-height 22px
+  font-size 12px
+  

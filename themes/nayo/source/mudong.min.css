@@ -1176,6 +1176,15 @@ input::-ms-clear {
 input::-ms-reveal {
   display: none;
 }
+.after-footer {
+  width: 100%;
+  padding-top: 5px;
+  margin-bottom: 26px;
+  text-align: center;
+  color: rgba(0,0,0,0.35);
+  line-height: 22px;
+  font-size: 12px;
+}
 .header {
   width: 100%;
 }
@@ -1894,7 +1903,6 @@ input::-ms-reveal {
   color: rgba(0,0,0,0.35);
   line-height: 22px;
   font-size: 12px;
-  margin-bottom: 26px;
 }
 #footer .footer-copyright a {
   color: #1890ff !important;
