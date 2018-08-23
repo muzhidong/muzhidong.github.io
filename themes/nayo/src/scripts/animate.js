@@ -20,7 +20,8 @@ module.exports = {
             let offsetTop = [];
             for (let i = 0; i < obj.length; i++) {
 
-                offsetTop.push(obj.eq(i).offset().top + (objH / 3));
+                // offsetTop.push(obj.eq(i).offset().top + (objH / 3));
+                offsetTop.push(obj.eq(i).offset().top);
 
             }
 

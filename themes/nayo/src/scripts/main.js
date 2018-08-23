@@ -1,4 +1,5 @@
 import Stlye from '../css/style.styl'
+
 import './iconfont.js'
 
 import Index from './index.js'
@@ -10,7 +11,9 @@ import Hover from './hover.js'
 import Gallery from './gallery.js'
 import Lazyload from './lazyload.js'
 
-const $ = require('expose-loader?$!./jquery.js')
+const $ = require('expose-loader?$!./jquery.js');
+
+const hljs = require('./highlight.js');
 
 $(function () {
 
@@ -20,6 +23,12 @@ $(function () {
             fn.init()
         }
 
-    })([Index, Mobile, Search, Anm, Post, Lazyload, Hover, Gallery])
+    })([Index, Mobile, Search, Anm, Post, Lazyload, Hover, Gallery]);
+
+    // enable highlight
+    hljs.initHighlightingOnLoad();        
+    $('pre code').each(function(i, block) {    
+      hljs.highlightBlock(block);
+    });
 
 })

@@ -25,9 +25,6 @@
                  include:[
                    path.resolve(__dirname,'src/scripts')
                  ],
-                 exclude:[
-                    path.resolve(__dirname,"src/scripts/jquery")
-                 ],
                  use: {
                      loader: 'babel-loader',
                      options: {
@@ -45,11 +42,9 @@
                      fallback: 'style-loader',
                      use: [{
                              loader: 'css-loader',
-                             options: {
-                                // ?
-                                 importLoaders: 2,
-                                 minimize: true
-                             }
+                             // options: {
+                             //     importLoaders: 1,
+                             // }
                          },
                          {
                              loader: 'postcss-loader',

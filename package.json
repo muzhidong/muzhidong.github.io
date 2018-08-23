@@ -15,9 +15,11 @@
     "hexo-renderer-ejs": "^0.3.0",
     "hexo-renderer-marked": "^0.3.0",
     "hexo-renderer-stylus": "^0.3.1",
-    "hexo-server": "^0.2.0"
+    "hexo-server": "^0.2.0",
+    "hexo-generator-search": "^2.2.5"
   },
   "devDependencies": {
-    "extract-text-webpack-plugin": "^3.0.2"
+    "extract-text-webpack-plugin": "^3.0.2",
+    "hexo-generator-search": "^2.2.5"
   }
 }

@@ -4,7 +4,6 @@ date: 2018-08-05 02:08:44
 tags: 
 - HTML
 - JavaScript
-comments: true
 ---
 认识两个HTML5标签，分别是video和source。
 
@@ -21,7 +20,7 @@ comments: true
 ### source标签属性
 * src：指定要链接的媒介资源URL 
 * type：表示资源的MIME类型。比如在video标签中支持类型有video/mp4、video/ogg和video/webm
-
+<!-- more -->
 ## 如何制作一个简易版弹幕视频？
 * HTML部分  
   
