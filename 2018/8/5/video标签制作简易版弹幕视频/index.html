@@ -12,12 +12,6 @@
     <link rel="icon" href="/images/favicon.png">
   
 
-  <script type="text/javascript" src="https://cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script>
-  <script type="text/javascript">
-     
-     $youziku.load("body", "0ade91791a534626ab1aeba263cdab77", "TSSunOld");
-     $youziku.draw();
-  </script>
 
   <link rel="stylesheet" href="/mudong.min.css"> 
 </head>  
@@ -90,7 +84,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			4529
+			4528
 		</span>
 	
 </div>
@@ -116,87 +110,86 @@
 </ul>
 <h3 id="source标签属性"><a href="#source标签属性" class="headerlink" title="source标签属性"></a>source标签属性</h3><ul>
 <li>src：指定要链接的媒介资源URL </li>
-<li>type：表示资源的MIME类型。比如在video标签中支持类型有video/mp4、video/ogg和video/webm</li>
-</ul>
-<h2 id="如何制作一个简易版弹幕视频？"><a href="#如何制作一个简易版弹幕视频？" class="headerlink" title="如何制作一个简易版弹幕视频？"></a>如何制作一个简易版弹幕视频？</h2><ul>
+<li>type：表示资源的MIME类型。比如在video标签中支持类型有video/mp4、video/ogg和video/webm<a id="more"></a>
+<h2 id="如何制作一个简易版弹幕视频？"><a href="#如何制作一个简易版弹幕视频？" class="headerlink" title="如何制作一个简易版弹幕视频？"></a>如何制作一个简易版弹幕视频？</h2></li>
 <li><p>HTML部分  </p>
 <p> 内容分为屏幕层和弹幕层，屏幕层由视频、输入框和按钮组成，比较简单。</p>
-<pre><code>&lt;!--屏幕层--&gt;
-&lt;div class=&quot;screen&quot;&gt;
-    &lt;!--视频--&gt;
-    &lt;video class=&quot;screen-video&quot; autoplay loop&gt;
-        &lt;source src=&quot;./video/happy.mp4&quot; type=&quot;video/mp4&quot;&gt;
-        您的浏览器不支持 video 标签。
-    &lt;/video&gt;
-    &lt;!--输入框--&gt;
-    &lt;input type=&quot;text&quot; class=&quot;screen-input&quot;&gt;
-    &lt;!--发送按钮--&gt;
-    &lt;input type=&quot;button&quot; value=&quot;发送&quot; class=&quot;screen-button&quot; onclick=&quot;send()&quot;&gt;
-&lt;/div&gt;
-&lt;!--弹幕层--&gt;
-&lt;div class=&quot;barrage&quot;&gt;&lt;/div&gt;
+<pre><code>  &lt;!--屏幕层--&gt;
+  &lt;div class=&quot;screen&quot;&gt;
+      &lt;!--视频--&gt;
+      &lt;video class=&quot;screen-video&quot; autoplay loop&gt;
+          &lt;source src=&quot;./video/happy.mp4&quot; type=&quot;video/mp4&quot;&gt;
+          您的浏览器不支持 video 标签。
+      &lt;/video&gt;
+      &lt;!--输入框--&gt;
+      &lt;input type=&quot;text&quot; class=&quot;screen-input&quot;&gt;
+      &lt;!--发送按钮--&gt;
+      &lt;input type=&quot;button&quot; value=&quot;发送&quot; class=&quot;screen-button&quot; onclick=&quot;send()&quot;&gt;
+  &lt;/div&gt;
+  &lt;!--弹幕层--&gt;
+  &lt;div class=&quot;barrage&quot;&gt;&lt;/div&gt;
 </code></pre></li>
 <li><p>CSS部分</p>
 <p>  布局结合百分比布局和REM布局，使网页响应式，体验稍好。</p>
-<pre><code>.screen-video {    
-    width:80%;
-    margin: 1rem 10%;
-    border: 1px solid white; 
+<pre><code>  .screen-video {    
+      width:80%;
+      margin: 1rem 10%;
+      border: 1px solid white; 
 
-    /*填充父元素，IE和Edge不支持,真头疼！！！*/
-    object-fit: fill;      
-}
+      /*填充父元素，IE和Edge不支持,真头疼！！！*/
+      object-fit: fill;      
+  }
 
-.screen-input {
-    position: absolute;
-    left:10%;
+  .screen-input {
+      position: absolute;
+      left:10%;
 
-    height: 1.5rem;
+      height: 1.5rem;
 
-    line-height: 1.5rem;
-    font-size: 1rem;
-}
+      line-height: 1.5rem;
+      font-size: 1rem;
+  }
 
-.screen-button {
-    position: absolute;
-    right: 10%;
+  .screen-button {
+      position: absolute;
+      right: 10%;
 
-    height: 1.5rem;
+      height: 1.5rem;
 
-    line-height: 1.5rem;
-    letter-spacing: 0.2em;
-    font-size: 0.8rem;
+      line-height: 1.5rem;
+      letter-spacing: 0.2em;
+      font-size: 0.8rem;
 
-    cursor: pointer;
-}
+      cursor: pointer;
+  }
 
-.barrage {
-    position: absolute;
-    left:10%;
+  .barrage {
+      position: absolute;
+      left:10%;
 
-    width: 80%;
+      width: 80%;
 
-    /*x轴方向上超过则隐藏内容*/
-    overflow-x: hidden;
+      /*x轴方向上超过则隐藏内容*/
+      overflow-x: hidden;
 
-    z-index: 999;
-}
+      z-index: 999;
+  }
 </code></pre></li>
 </ul>
 <ul>
 <li><p>JavaScript部分</p>
 <p>  第一步，设置事件监听</p>
-<pre><code>//窗口加载时初始化
-window.addEventListener(&quot;load&quot;,init,false);
-//窗口大小变化时重新初始化
-window.addEventListener(&quot;resize&quot;,init,false);
-//输入框回车时发送弹幕文字
-content.addEventListener(&quot;keyup&quot;,function(event) {
-    var e = event||window.event;
-    if (e.which == &quot;13&quot;|| e.keyCode ==&quot;13&quot;) {
-        send();
-    }
-},false);
+<pre><code>  //窗口加载时初始化
+  window.addEventListener(&quot;load&quot;,init,false);
+  //窗口大小变化时重新初始化
+  window.addEventListener(&quot;resize&quot;,init,false);
+  //输入框回车时发送弹幕文字
+  content.addEventListener(&quot;keyup&quot;,function(event) {
+      var e = event||window.event;
+      if (e.which == &quot;13&quot;|| e.keyCode ==&quot;13&quot;) {
+          send();
+      }
+  },false);
 </code></pre><p> 第二步，事件处理  </p>
 <ul>
 <li><p>初始化  </p>
@@ -220,8 +213,8 @@ content.addEventListener(&quot;keyup&quot;,function(event) {
     barrage.style.height = video.offsetHeight +&quot;px&quot;; 
 }
 </code></pre><p>以前通过获取样式对象进行初始化，如下，</p>
-<pre><code>var sstyle = screen.currentStyle||window.getComputedStyle(screen);
-var vstyle = video.currentStyle||window.getComputedStyle(video);
+<pre><code> var sstyle = screen.currentStyle||window.getComputedStyle(screen);
+ var vstyle = video.currentStyle||window.getComputedStyle(video);
 </code></pre><p>之后放弃使用这种方式，一是有兼容性，比如获取margin，在Chrome和FF正常，但是到了IE和FF则不支持了，获取marginTop、marginLeft等则正常，虽然可以解决，但是为了这点问题，折腾半天，实在没必要。二是JS需要关注CSS是否应用了该样式，如果没有，那么获取的是默认值，比如margin默认值是auto，但是我想获取具体的数值，这就不好处理了。总之，涉及BOM操作的还是少用比较好。</p>
 </li>
 <li><p>发送弹幕内容</p>
@@ -391,24 +384,6 @@ var vstyle = video.currentStyle||window.getComputedStyle(video);
   </div>
 </div> 
 	
-
-
-    
-    <div id="disqus_thread"></div>
-
-    <script>
-    (function() { 
-    var d = document, s = d.createElement('script');
-    s.src = 'https://'+'给我留言'+'.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());    
-    (d.head || d.body).appendChild(s);
-    })();
-    </script>
-
-    <noscript>Please enable JavaScript to view the  <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-    </noscript>
-
-
 	
 </article>
 
@@ -475,6 +450,15 @@ var vstyle = video.currentStyle||window.getComputedStyle(video);
       
 </div>        
     
+	<script type="text/javascript">
+		var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+		document.write(unescape("%3Cspan id='cnzz_stat_icon_1274542692'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274542692%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    	document.write(unescape("%3Cspan id='cnzz_stat_icon_1274542692'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274542692%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+
 
 
 
@@ -503,8 +487,7 @@ var vstyle = video.currentStyle||window.getComputedStyle(video);
 	 
 </footer>   
 
-  
 
-    <script src="/mudong.bundle.js"></script>           
+    <script src="/mudong.bundle.js"></script> 
   </body>        
 </html>

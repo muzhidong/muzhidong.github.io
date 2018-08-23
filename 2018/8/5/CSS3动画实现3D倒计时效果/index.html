@@ -12,12 +12,6 @@
     <link rel="icon" href="/images/favicon.png">
   
 
-  <script type="text/javascript" src="https://cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script>
-  <script type="text/javascript">
-     
-     $youziku.load("body", "0ade91791a534626ab1aeba263cdab77", "TSSunOld");
-     $youziku.draw();
-  </script>
 
   <link rel="stylesheet" href="/mudong.min.css"> 
 </head>  
@@ -125,16 +119,16 @@
 </ul>
 <ol start="2">
 <li><p>元素应用动画  </p>
-<pre><code>elemSelector{  
-    animation: animationName animationDuration;   
-}
+<pre><code> elemSelector{  
+     animation: animationName animationDuration;   
+ }
 </code></pre><p>说明：</p>
 </li>
 </ol>
 <ul>
 <li>elemSelector表示元素选择器</li>
 <li>执行一个动画至少指定动画名称animationName和动画时长animationDuration</li>
-<li>animation属性是以下属性的简写形式，每个属性的含义说明如下表，<table style="border:1px solid black;"><tr style="text-align:center;"><td style="border-right:1px solid black;">属性名称</td><td>含义</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-name</td><td>@keyframe动画的名称</td></tr><tr><td style="border-right:1px solid black;">animation-duration</td><td>动画的时长，需指定单位如s或ms，默认值为0</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-timing-function</td><td>动画的速度曲线，默认值为ease，其他取值有ease-in、ease-out、ease-in-out、linear、step-start、step-end、贝塞尔曲线函数cubic-bezier、步进函数steps</td></tr><tr><td style="border-right:1px solid black;">animation-delay</td><td>动画延时多久开始，需指定指定单位如s或ms，默认为0，，取正值表示延时，负值表示超前</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-iteration-count</td><td>动画播放次数，默认为1</td></tr><tr><td style="border-right:1px solid black;">animation-direction</td><td>动画是否在下一周期逆向播放，默认是normal，其他取值有reverse、alternate、alternate-reverse</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-play-state</td><td>动画的播放状态，是运行还是暂停，默认是running，其他取值有paused</td></tr><tr><td style="border-right:1px solid black;">animation-fill-mode</td><td>动画执行前、后是否应用目标状态，默认是none，其他取值有forwards、backwards、both</td></tr></table>
+<li>animation属性是以下属性的简写形式，每个属性的含义说明如下表，<a id="more"></a><table style="border:1px solid black;"><tr style="text-align:center;"><td style="border-right:1px solid black;">属性名称</td><td>含义</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-name</td><td>@keyframe动画的名称</td></tr><tr><td style="border-right:1px solid black;">animation-duration</td><td>动画的时长，需指定单位如s或ms，默认值为0</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-timing-function</td><td>动画的速度曲线，默认值为ease，其他取值有ease-in、ease-out、ease-in-out、linear、step-start、step-end、贝塞尔曲线函数cubic-bezier、步进函数steps</td></tr><tr><td style="border-right:1px solid black;">animation-delay</td><td>动画延时多久开始，需指定指定单位如s或ms，默认为0，，取正值表示延时，负值表示超前</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-iteration-count</td><td>动画播放次数，默认为1</td></tr><tr><td style="border-right:1px solid black;">animation-direction</td><td>动画是否在下一周期逆向播放，默认是normal，其他取值有reverse、alternate、alternate-reverse</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-play-state</td><td>动画的播放状态，是运行还是暂停，默认是running，其他取值有paused</td></tr><tr><td style="border-right:1px solid black;">animation-fill-mode</td><td>动画执行前、后是否应用目标状态，默认是none，其他取值有forwards、backwards、both</td></tr></table>
 
 </li>
 </ul>
@@ -145,155 +139,155 @@
 <p>下面对主要代码进行说明，</p>
 <ul>
 <li><p>HTML部分</p>
-<pre><code>&lt;!--用于呈现数字--&gt;
-&lt;div id=&quot;number&quot;&gt;&lt;/div&gt;
-&lt;!--用于重新倒计时--&gt;
-&lt;button class=&quot;button&quot;&gt;再来一次&lt;/button&gt;
- &lt;!--用于最后的声音播放。--&gt;
-&lt;audio &gt;&lt;/audio&gt;
+<pre><code>  &lt;!--用于呈现数字--&gt;
+  &lt;div id=&quot;number&quot;&gt;&lt;/div&gt;
+  &lt;!--用于重新倒计时--&gt;
+  &lt;button class=&quot;button&quot;&gt;再来一次&lt;/button&gt;
+   &lt;!--用于最后的声音播放。--&gt;
+  &lt;audio &gt;&lt;/audio&gt;
 </code></pre></li>
 <li><p>CSS部分</p>
-<pre><code>/*初始化数字div样式*/
-#number {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+<pre><code>  /*初始化数字div样式*/
+  #number {
+      position: absolute;
+      top: 50%;
+      left: 50%;
 
-    text-align: center;
+      text-align: center;
 
-    -webkit-transform: translate3d(-50%, -50%, 0);
-    -moz-transform: translate3d(-50%, -50%, 0);
-    transform: translate3d(-50%, -50%, 0);
-}
+      -webkit-transform: translate3d(-50%, -50%, 0);
+      -moz-transform: translate3d(-50%, -50%, 0);
+      transform: translate3d(-50%, -50%, 0);
+  }
 
-/*绑定动画*/
-.number-anim {
-    -webkit-animation: animation_in 10s linear;
-    -moz-animation: animation_in 10s linear;
-    /*动画时长是10s，且动画的速度是线性的*/
-    animation: animation_in 10s linear;
-}
+  /*绑定动画*/
+  .number-anim {
+      -webkit-animation: animation_in 10s linear;
+      -moz-animation: animation_in 10s linear;
+      /*动画时长是10s，且动画的速度是线性的*/
+      animation: animation_in 10s linear;
+  }
 
-/*定义动画规则*/
-@keyframes animation_in {
-    0 {}
-    10% {
-        /*由于动画时长是10s，此时是1s时刻,字体大小变为100px，z方向距离主屏幕为300px*/
-        font-size: 100px;
-        -webkit-transform: translate3d(-50%, -50%, -300px);
-        -moz-transform: translate3d(-50%, -50%, -300px);
-        transform: translate3d(-50%, -50%, -300px);
-    }
-    11% {
-        /*随后字体大小变为300px，z方向距离主屏幕为0，后面每到整秒数都会重复进行*/
-        font-size: 300px;
-        -webkit-transform: translate3d(-50%, -50%, 0);
-        -moz-transform: translate3d(-50%, -50%, 0);
-        transform: translate3d(-50%, -50%, 0);
-    }
-    20% {
-        font-size: 100px;
-        -webkit-transform: translate3d(-50%, -50%, -300px);
-        -moz-transform: translate3d(-50%, -50%, -300px);
-        transform: translate3d(-50%, -50%, -300px);
-    }
-    21% {
-        font-size: 300px;
-        -webkit-transform: translate3d(-50%, -50%, 0);
-        -moz-transform: translate3d(-50%, -50%, 0);
-        transform: translate3d(-50%, -50%, 0);
-    }
-    30% {
-        font-size: 100px;
-        -webkit-transform: translate3d(-50%, -50%, -300px);
-        -moz-transform: translate3d(-50%, -50%, -300px);
-        transform: translate3d(-50%, -50%, -300px);
-    }
-    31% {
-        font-size: 300px;
-        -webkit-transform: translate3d(-50%, -50%, 0);
-        -moz-transform: translate3d(-50%, -50%, 0);
-        transform: translate3d(-50%, -50%, 0);
-    }
-    40% {
-        font-size: 100px;
-        -webkit-transform: translate3d(-50%, -50%, -300px);
-        -moz-transform: translate3d(-50%, -50%, -300px);
-        transform: translate3d(-50%, -50%, -300px);
-    }
-    41% {
-        font-size: 300px;
-        -webkit-transform: translate3d(-50%, -50%, 0);
-        -moz-transform: translate3d(-50%, -50%, 0);
-        transform: translate3d(-50%, -50%, 0);
-    }
-    50% {
-        font-size: 100px;
-        -webkit-transform: translate3d(-50%, -50%, -300px);
-        -moz-transform: translate3d(-50%, -50%, -300px);
-        transform: translate3d(-50%, -50%, -300px);
-    }
-    51% {
-        font-size: 300px;
-        -webkit-transform: translate3d(-50%, -50%, 0);
-        -moz-transform: translate3d(-50%, -50%, 0);
-        transform: translate3d(-50%, -50%, 0);
-    }
-    60% {
-        font-size: 100px;
-        -webkit-transform: translate3d(-50%, -50%, -300px);
-        -moz-transform: translate3d(-50%, -50%, -300px);
-        transform: translate3d(-50%, -50%, -300px);
-    }
-    61% {
-        font-size: 300px;
-        -webkit-transform: translate3d(-50%, -50%, 0);
-        -moz-transform: translate3d(-50%, -50%, 0);
-        transform: translate3d(-50%, -50%, 0);
-    }
-    70% {
-        font-size: 100px;
-        -webkit-transform: translate3d(-50%, -50%, -300px);
-        -moz-transform: translate3d(-50%, -50%, -300px);
-        transform: translate3d(-50%, -50%, -300px);
-    }
-    71% {
-        font-size: 300px;
-        -webkit-transform: translate3d(-50%, -50%, 0);
-        -moz-transform: translate3d(-50%, -50%, 0);
-        transform: translate3d(-50%, -50%, 0);
-    }
-    80% {
-        font-size: 100px;
-        -webkit-transform: translate3d(-50%, -50%, -300px);
-        -moz-transform: translate3d(-50%, -50%, -300px);
-        transform: translate3d(-50%, -50%, -300px);
-    }
-    81% {
-        font-size: 300px;
-        -webkit-transform: translate3d(-50%, -50%, 0);
-        -moz-transform: translate3d(-50%, -50%, 0);
-        transform: translate3d(-50%, -50%, 0);
-    }
-    90% {
-        font-size: 100px;
-        -webkit-transform: translate3d(-50%, -50%, -300px);
-        -moz-transform: translate3d(-50%, -50%, -300px);
-        transform: translate3d(-50%, -50%, -300px);
-    }
-    91% {
-        font-size: 300px;
-        -webkit-transform: translate3d(-50%, -50%, 0);
-        -moz-transform: translate3d(-50%, -50%, 0);
-        transform: translate3d(-50%, -50%, 0);
-    }
-    100% {
-        font-size: 100px;
-        -webkit-transform: translate3d(-50%, -50%, -300px);
-        -moz-transform: translate3d(-50%, -50%, -300px);
-        transform: translate3d(-50%, -50%, -300px);
-    }
- }
+  /*定义动画规则*/
+  @keyframes animation_in {
+      0 {}
+      10% {
+          /*由于动画时长是10s，此时是1s时刻,字体大小变为100px，z方向距离主屏幕为300px*/
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      11% {
+          /*随后字体大小变为300px，z方向距离主屏幕为0，后面每到整秒数都会重复进行*/
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      20% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      21% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      30% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      31% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      40% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      41% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      50% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      51% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      60% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      61% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      70% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      71% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      80% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      81% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      90% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      91% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      100% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+   }
 </code></pre></li>
 <li><p>JS部分</p>
 <pre><code>window.onload = function() {
@@ -314,95 +308,95 @@
 
 }
 </code></pre><p>  初始化函数声明如下，</p>
-<pre><code> function init() {
-    numberDiv.innerHTML = num;
-    numberDiv.style.color =  getRandomColor();
-    numberDiv.style.fontSize = &quot;300px&quot;;
-    numberDiv.className = &quot;number-anim&quot;;
+<pre><code>   function init() {
+      numberDiv.innerHTML = num;
+      numberDiv.style.color =  getRandomColor();
+      numberDiv.style.fontSize = &quot;300px&quot;;
+      numberDiv.className = &quot;number-anim&quot;;
 
-    button.addEventListener(&quot;click&quot;, function() {
-        if (isCounting) {
-            return;
-        }
-        isCounting = true;
-        num = 10;
+      button.addEventListener(&quot;click&quot;, function() {
+          if (isCounting) {
+              return;
+          }
+          isCounting = true;
+          num = 10;
 
-        numberDiv.innerHTML = num;
-        numberDiv.style.color = getRandomColor();   
-        numberDiv.style.fontSize = &quot;300px&quot;;
+          numberDiv.innerHTML = num;
+          numberDiv.style.color = getRandomColor();   
+          numberDiv.style.fontSize = &quot;300px&quot;;
 
-        //先解绑，再使用setTimeout使浏览器重新渲染页面，重新绑定
-        //setTimeout只是一种方式，只要能使浏览器重新渲染即可      
-        numberDiv.className = null;
-        setTimeout(function() {
-            numberDiv.className = &quot;number-anim&quot;;
+          //先解绑，再使用setTimeout使浏览器重新渲染页面，重新绑定
+          //setTimeout只是一种方式，只要能使浏览器重新渲染即可      
+          numberDiv.className = null;
+          setTimeout(function() {
+              numberDiv.className = &quot;number-anim&quot;;
 
-            timer = setInterval(count, 1000);
-        }, 30); 
-    }, false);
-}
+              timer = setInterval(count, 1000);
+          }, 30); 
+      }, false);
+  }
 </code></pre><p>  倒计数函数声明如下，</p>
-<pre><code>function count() {
+<pre><code>  function count() {
 
-    numberDiv.innerHTML = --num;
-    numberDiv.style.color = getRandomColor();
+      numberDiv.innerHTML = --num;
+      numberDiv.style.color = getRandomColor();
 
-    if (num == 0) {
-        clearInterval(timer);
+      if (num == 0) {
+          clearInterval(timer);
 
-        audio.src=&quot;./audio/readygo.mp3&quot;;
-        audio.play();
+          audio.src=&quot;./audio/readygo.mp3&quot;;
+          audio.play();
 
-        numberDiv.innerHTML = &quot;Ready Go!&quot;;
-        numberDiv.style.color = getRandomColor();
-        numberDiv.style.fontSize = &quot;100px&quot;;
+          numberDiv.innerHTML = &quot;Ready Go!&quot;;
+          numberDiv.style.color = getRandomColor();
+          numberDiv.style.fontSize = &quot;100px&quot;;
 
-        numberDiv.style.opacity = 0.8;
-        numberDiv.style.filter = &quot;alpha(opacity=80)&quot;;
-        CompatibleFunc(numberDiv, &quot;Transition&quot;, &quot;opacity 1s&quot;);
+          numberDiv.style.opacity = 0.8;
+          numberDiv.style.filter = &quot;alpha(opacity=80)&quot;;
+          CompatibleFunc(numberDiv, &quot;Transition&quot;, &quot;opacity 1s&quot;);
 
-        isCounting = false;
-    }
-}
+          isCounting = false;
+      }
+  }
 </code></pre></li>
 </ul>
 <p>这里有一个地方需要特别注意，避免以后踩坑。  </p>
 <h4 id="关于动画样式的解绑与绑定。"><a href="#关于动画样式的解绑与绑定。" class="headerlink" title="关于动画样式的解绑与绑定。"></a>关于动画样式的解绑与绑定。</h4><p>动画样式animation一执行结束，就不再起作用了，要使其重新生效，需要重新绑定。我试了4种方式。</p>
 <ul>
 <li><p>第一种是直接解绑，然后再绑定。  </p>
-<pre><code>numberDiv.className = null;
-numberDiv.className = &quot;number-anim&quot;;
+<pre><code>  numberDiv.className = null;
+  numberDiv.className = &quot;number-anim&quot;;
 </code></pre><p>  结果是不能使动画重新生效。</p>
 </li>
 <li><p>第二种是使用classlist属性进行解绑定。  </p>
-<pre><code>numberDiv.classList.toggle(&quot;number-anim&quot;);
-numberDiv.classList.toggle(&quot;number-anim&quot;);
+<pre><code>  numberDiv.classList.toggle(&quot;number-anim&quot;);
+  numberDiv.classList.toggle(&quot;number-anim&quot;);
 </code></pre><p>  classList返回类名列表对象，调用toggle方法，若类名存在则删除，返回false，若类名不存在则添加，返回true，所以要调用两次，第一次删除类名，第二次添加类名。但是结果依然是不能使动画重新生效。</p>
 </li>
 <li><p>第三种是开启定时器。  </p>
 <p>  先解绑，再利用定时器使浏览器重新渲染页面，重新绑定。setTimeout只是一种方式，只要能使浏览器重新渲染即可，最终动画重新生效。</p>
-<pre><code>numberDiv.className = null;
-setTimeout(function() {
-    numberDiv.className = &quot;number-anim&quot;;
-}, 30); 
+<pre><code>  numberDiv.className = null;
+  setTimeout(function() {
+      numberDiv.className = &quot;number-anim&quot;;
+  }, 30); 
 </code></pre><p>  在mozilla官方文档介绍了另一种重新渲染方式，</p>
 <pre><code>https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Animations/Tips
 </code></pre><p>  应用在这里的话，写法是，</p>
-<pre><code>numberDiv.className = null;
-window.requestAnimationFrame(function(){
-    window.requestAnimationFrame(function(){
-        numberDiv.className = &quot;number-anim&quot;;
-    });
-});
+<pre><code>  numberDiv.className = null;
+  window.requestAnimationFrame(function(){
+      window.requestAnimationFrame(function(){
+          numberDiv.className = &quot;number-anim&quot;;
+      });
+  });
 </code></pre></li>
 <li><p>第四种是借助其他重新渲染途径，如颜色、内容、大小的变化。</p>
-<pre><code>numberDiv.className = null;
+<pre><code>  numberDiv.className = null;
 
-numberDiv.innerHTML = num;
-numberDiv.style.color = getRandomColor();   
-numberDiv.style.fontSize = &quot;300px&quot;;
+  numberDiv.innerHTML = num;
+  numberDiv.style.color = getRandomColor();   
+  numberDiv.style.fontSize = &quot;300px&quot;;
 
-numberDiv.className = &quot;number-anim&quot;;
+  numberDiv.className = &quot;number-anim&quot;;
 </code></pre><p>  结果IE和Microsoft Edge 浏览器是支持的，但是FireFox和Chrome不支持，<br>但这是不是也说明了Chrome和FireFox已经对浏览器渲染做了优化？</p>
 </li>
 </ul>
@@ -495,24 +489,6 @@ numberDiv.className = &quot;number-anim&quot;;
   </div>
 </div> 
 	
-
-
-    
-    <div id="disqus_thread"></div>
-
-    <script>
-    (function() { 
-    var d = document, s = d.createElement('script');
-    s.src = 'https://'+'给我留言'+'.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());    
-    (d.head || d.body).appendChild(s);
-    })();
-    </script>
-
-    <noscript>Please enable JavaScript to view the  <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-    </noscript>
-
-
 	
 </article>
 
@@ -579,6 +555,15 @@ numberDiv.className = &quot;number-anim&quot;;
       
 </div>        
     
+	<script type="text/javascript">
+		var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+		document.write(unescape("%3Cspan id='cnzz_stat_icon_1274542692'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274542692%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    	document.write(unescape("%3Cspan id='cnzz_stat_icon_1274542692'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274542692%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+
 
 
 
@@ -607,8 +592,7 @@ numberDiv.className = &quot;number-anim&quot;;
 	 
 </footer>   
 
-  
 
-    <script src="/mudong.bundle.js"></script>           
+    <script src="/mudong.bundle.js"></script> 
   </body>        
 </html>
