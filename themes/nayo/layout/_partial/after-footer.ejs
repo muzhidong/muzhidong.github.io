@@ -1,12 +1,15 @@
 <% if(theme.umeng_analytics){%>
-	<script type="text/javascript">
-		var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-		document.write(unescape("%3Cspan id='cnzz_stat_icon_1274542692'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274542692%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-    </script>
+    <% if(window.location.hostname === "muzhidong.github.io"){%>
     <script type="text/javascript">
     	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
     	document.write(unescape("%3Cspan id='cnzz_stat_icon_1274542692'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274542692%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
 	</script>
+	<%}else if(window.location.hostname === "blog.mudong.xyz"){%>
+		<script type="text/javascript">
+		var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+		document.write(unescape("%3Cspan id='cnzz_stat_icon_1274614490'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274614490%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	<%}%>
 <% }else if (theme.baidu_analytics){ %>
 	<script>
 	var _hmt = _hmt || [];

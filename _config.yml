@@ -72,10 +72,15 @@ theme: Nayo
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repository: https://github.com/muzhidong/muzhidong.github.io.git
+- type: git
+  repo: https://github.com/muzhidong/muzhidong.github.io.git
+  branch: master
+- type: git
+  repo: root@118.89.62.218:/root/project/blog/.git
   branch: master
 
+# support https
+fullHttps: true  
 ######################################################################
 
 # Home page setting
