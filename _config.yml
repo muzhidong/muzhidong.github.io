@@ -80,7 +80,9 @@ deploy:
   branch: master
 
 # support https
-fullHttps: true  
+fullHttps: true
+
+  
 ######################################################################
 
 # Home page setting
