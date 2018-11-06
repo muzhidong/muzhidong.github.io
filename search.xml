@@ -3,6 +3,21 @@
   
     
     <entry>
+      <title>MarkDown入门</title>
+      <link href="/2018/11/6/MarkDown%E5%85%A5%E9%97%A8/"/>
+      <url>/2018/11/6/MarkDown%E5%85%A5%E9%97%A8/</url>
+      <content type="html"><![CDATA[<p></p><h2>MarkDown简介</h2><p></p><p></p><h4>目标</h4><p></p><p><ul><br>    <li>易读易写</li><br>    <li>兼容HTML</li><br></ul></p><p></p><h4>区块元素</h4><p></p><p><ul><br>    <li>段落和换行</li><br>    <li>标题</li><br>    <li>引用</li><br>    <li>列表</li><br>    <li>代码块</li><br>    <li>分隔线</li><br></ul></p><p></p><h4>区段元素</h4><p></p><p><ul><br>    <li>链接</li><br>    <li>强调</li><br>    <li>行内代码</li><br>    <li>图片</li><br></ul></p><p></p><h4>其他</h4><p></p><p><ul><br>    <li>自动链接</li><br>    <li>转义</li><br></ul><br><a id="more"></a></p><h2 id="MarkDown语法"><a href="#MarkDown语法" class="headerlink" title="MarkDown语法"></a>MarkDown语法</h2><h4 id="1-标题"><a href="#1-标题" class="headerlink" title="1. 标题"></a>1. 标题</h4><p>书写如下，</p><pre><code>###### 标题六使用6个######  标题五使用5个#####   标题四使用4个####    标题三使用3个###     标题二使用2个##      标题一使用1个#</code></pre><p>效果如下，</p><h6 id="标题六使用6个"><a href="#标题六使用6个" class="headerlink" title="标题六使用6个"></a>标题六使用6个</h6><h5 id="标题五使用5个"><a href="#标题五使用5个" class="headerlink" title="标题五使用5个"></a>标题五使用5个</h5><h4 id="标题四使用4个"><a href="#标题四使用4个" class="headerlink" title="标题四使用4个"></a>标题四使用4个</h4><h3 id="标题三使用3个"><a href="#标题三使用3个" class="headerlink" title="标题三使用3个"></a>标题三使用3个</h3><h2 id="标题二使用2个"><a href="#标题二使用2个" class="headerlink" title="标题二使用2个"></a>标题二使用2个</h2><h1 id="标题一使用1个"><a href="#标题一使用1个" class="headerlink" title="标题一使用1个"></a>标题一使用1个</h1><h4 id="2-引用"><a href="#2-引用" class="headerlink" title="2. 引用"></a>2. 引用</h4><p>书写如下，</p><pre><code>&gt;行首使用 &#39;&gt;&#39;，即可构成区块引用&gt;&gt;This is a blockquote.This is a blockquote.This is a blockquote.&gt;这是区块引用。&gt;&gt;内部使用了另一个区块引用。&gt;&gt;回到上个区块引用</code></pre><p>效果如下，</p><blockquote><p>行首使用 ‘&gt;’，即可构成区块引用</p><p>This is a blockquote.This is a blockquote.This is a blockquote.</p></blockquote><blockquote><p>这是区块引用。</p><blockquote><p>内部使用了另一个区块引用。</p></blockquote><p>回到上个区块引用。</p></blockquote><h4 id="3-列表"><a href="#3-列表" class="headerlink" title="3. 列表"></a>3. 列表</h4><ol><li><p>无序列表</p><p> 书写如下，</p><pre><code> * red * green * blue + white + black + yellow - gray - orange - pink</code></pre><p> 效果如下，</p></li></ol><ul><li>red</li><li>green</li><li>blue</li></ul><ul><li>white</li><li>black</li><li>yellow</li></ul><ul><li>gray</li><li>orange</li><li>pink</li></ul><ol start="2"><li><p>有序列表</p><p> 书写如下，</p><pre><code> 1. angry     2. happy 3. sad 1. amazing 0. lazy</code></pre><p> 效果如下，</p><ol><li>angry    </li><li>happy</li><li>sad</li><li>amazing</li><li>lazy</li></ol></li></ol><h4 id="4-代码块"><a href="#4-代码块" class="headerlink" title="4. 代码块"></a>4. 代码块</h4><pre><code>这是一个代码区块。代码区块从有缩进的一行开始，一直到没有缩进的一行结束。代码区块不认别任何语法，一切视为纯文本。</code></pre><h4 id="5-分隔线"><a href="#5-分隔线" class="headerlink" title="5. 分隔线"></a>5. 分隔线</h4><p>书写如下，</p><pre><code>***---</code></pre><p>效果如下，</p><hr><hr><h4 id="6-链接"><a href="#6-链接" class="headerlink" title="6. 链接"></a>6. 链接</h4><ol><li><p>行内式链接</p><p> 书写如下，</p><pre><code> [百度](http://www.baidu.com) [腾讯](http://www.tencent.com) [关于我](/aboutMe/)</code></pre><p> 效果如下，</p><p> <a href="http://www.baidu.com">百度</a><br> <a href="http://www.tencent.com">腾讯</a><br> <a href="/aboutMe/">关于我</a></p></li><li><p>参考式链接</p><p> 书写如下，</p><pre><code> [个人][person] [Google][] [person]:  http://www.baidu.com     (Hello,Welcome to my world!) [Google]: http://google.com     (Welcome to access Google.)</code></pre><p> 效果如下，</p><p> [个人][person]<br> [Google][]</p><p> [person]:  <a href="http://www.baidu.com">http://www.baidu.com</a></p><pre><code> (Hello,Welcome to my world!)</code></pre><p> [Google]: <a href="http://google.com">http://google.com</a></p><pre><code> (Welcome to access Google.)</code></pre><p> <em>注意：链接辨别标签不区分大小写，比如person与PERSON是等价的。</em></p></li></ol><h4 id="7-强调"><a href="#7-强调" class="headerlink" title="7. 强调"></a>7. 强调</h4><p>书写如下，</p><pre><code>斜体：*斜体*_斜体_加粗：我在**强调**这两字。看到 __强调__ 这两字了没。</code></pre><p>效果如下，</p><p>斜体：<br><em>斜体</em><br>_斜体_</p><p>加粗：<br>我在<strong>强调</strong>这两字。看到 <strong>强调</strong> 这两字了没。</p><h4 id="8-行内代码"><a href="#8-行内代码" class="headerlink" title="8. 行内代码"></a>8. 行内代码</h4><p>书写如下，</p><pre><code>``console.log(这是反引号`，用来标记行内代码。行内代码不认任何语法，一切视为纯文本。);``</code></pre><p>效果如下，</p><p><code>console.log(这是反引号`，用来标记行内代码。行内代码不认任何语法，一切视为纯文本。);</code></p><h4 id="9-图片"><a href="#9-图片" class="headerlink" title="9. 图片"></a>9. 图片</h4><ol><li><p>行内式图片链接</p><p> 书写如下，</p><pre><code> ![I love markdown](https://user-gold-cdn.xitu.io/2018/11/6/166e909169a5ce47? w=900&amp;h=600&amp;f=jpeg&amp;s=29383)</code></pre><p> 效果如下，<br> <img src="https://user-gold-cdn.xitu.io/2018/11/6/166e909169a5ce47?w=900&amp;h=600&amp;f=jpeg&amp;s=29383" alt="I love markdown"></p></li><li><p>参考式图片链接</p><p> 书写如下，</p><pre><code> ![皮卡丘][id] [id]: https://user-gold-cdn.xitu.io/2018/7/24/164cbad56f1fd1a9? w=494&amp;h=480&amp;f=jpeg&amp;s=17358 &quot;皮卡丘&quot;</code></pre><p> 效果如下，<br> ![皮卡丘][id]</p><p> [id]: <a href="https://user-gold-cdn.xitu.io/2018/7/24/164cbad56f1fd1a9?w=494&amp;h=480&amp;f=jpeg&amp;s=17358">https://user-gold-cdn.xitu.io/2018/7/24/164cbad56f1fd1a9?w=494&amp;h=480&amp;f=jpeg&amp;s=17358</a> “皮卡丘”</p></li></ol><h4 id="10-自动链接"><a href="#10-自动链接" class="headerlink" title="10. 自动链接"></a>10. 自动链接</h4><p>书写如下，</p><pre><code>&lt;http://www.baidu.com&gt;&lt;1234567890@163.com&gt;</code></pre><p>效果如下：</p><p><a href="http://www.baidu.com">http://www.baidu.com</a></p><p><a href="mailto:&#49;&#50;&#51;&#x34;&#53;&#54;&#x37;&#56;&#x39;&#x30;&#x40;&#49;&#54;&#51;&#x2e;&#99;&#111;&#x6d;">&#49;&#50;&#51;&#x34;&#53;&#54;&#x37;&#56;&#x39;&#x30;&#x40;&#49;&#54;&#51;&#x2e;&#99;&#111;&#x6d;</a></p><h4 id="11-反斜杠"><a href="#11-反斜杠" class="headerlink" title="11. 反斜杠"></a>11. 反斜杠</h4><p>支持下面字符的转义，书写如下，</p><pre><code>\\ \` \_ \* \{ \} \[ \] \( \) \# \+ \- \. \!</code></pre><p>效果如下：</p><p>\ ` _ * { } [ ] ( ) # + - . !</p><h2 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h2><pre><code>https://github.com/riku/Markdown-Syntax-CN/blob/master/syntax.md</code></pre>]]></content>
+      
+      
+        <tags>
+            
+            <tag> 工具 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Video标签制作简易版弹幕视频</title>
       <link href="/2018/8/5/video%E6%A0%87%E7%AD%BE%E5%88%B6%E4%BD%9C%E7%AE%80%E6%98%93%E7%89%88%E5%BC%B9%E5%B9%95%E8%A7%86%E9%A2%91/"/>
       <url>/2018/8/5/video%E6%A0%87%E7%AD%BE%E5%88%B6%E4%BD%9C%E7%AE%80%E6%98%93%E7%89%88%E5%BC%B9%E5%B9%95%E8%A7%86%E9%A2%91/</url>
@@ -11,9 +26,9 @@
       
         <tags>
             
-            <tag> JavaScript </tag>
-            
             <tag> HTML </tag>
+            
+            <tag> JavaScript </tag>
             
         </tags>
       
@@ -28,9 +43,9 @@
       
         <tags>
             
-            <tag> CSS </tag>
-            
             <tag> JavaScript </tag>
+            
+            <tag> CSS </tag>
             
         </tags>
       
