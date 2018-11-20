@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  异步操作系列之Generator函数与Async函数 |   大猿猴的前端世界 </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/mudong.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+   
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-menu">          
+              
+            
+
+              <a class="header-menu-link" id="header-menu-home" href="/">首页</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-archives" href="/archives">归档</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-tags" href="/tags">标签</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-about" href="/about">关于</a>     
+
+            
+            
+            
+
+              <a class="iconfont icon-menu-search header-menu-link" id="header-menu-search"></a>
+
+            
+                
+    </div>  
+    
+  </nav>
+</header>   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		异步操作系列之Generator函数与Async函数
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		11月 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1237
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="post-content slideDownMin">
+
+		
+
+			
+					<h2 id="Generator函数"><a href="#Generator函数" class="headerlink" title="Generator函数"></a>Generator函数</h2><h3 id="形式"><a href="#形式" class="headerlink" title="形式"></a>形式</h3><pre><code>function* myGenerator(){
+   yield &#39;Hello&#39;;
+   yield &#39;World&#39;;
+   return &#39;ECMAScript&#39;;
+}
+</code></pre><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>相当于一个状态机。<br><a id="more"></a></p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>function关键字带有星号*</li>
+<li>函数体内使用关键字yield</li>
+</ul>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>调用generator函数后，函数不执行，返回结果自然不是函数运行结果，而是返回<strong>一个遍历器对象</strong>，可以依次遍历generator函数内部的每一个状态。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
+<li>定义一个generator函数如上。</li>
+<li><p>调用generator函数，获取迭代器对象。</p>
+<pre><code> const gen = myGenerator();
+</code></pre></li>
+<li><p>调用返回对象的next方法，  执行generator的下一状态。</p>
+<pre><code>var obj = gen.next();
+</code></pre></li>
+<li><p>继续调用next方法，执行下一状态，直至obj对象的done属性值为true为止。</p>
+</li>
+</ol>
+<h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><ol>
+<li>yield语句只能在generator函数使用，否则报语法错误。</li>
+<li>yield语句在函数中可以执行多次，return语句在函数中只能执行一次。但是yield语句和return语句都可后跟一个表达式的值。</li>
+<li>next方法可以带一个参数，来表示上一条yield语句的返回值。</li>
+</ol>
+<h2 id="Async函数"><a href="#Async函数" class="headerlink" title="Async函数"></a>Async函数</h2><h3 id="形式-1"><a href="#形式-1" class="headerlink" title="形式"></a>形式</h3><pre><code>function func1()
+  return new Promise((resolve,reject) =&gt; {resolve(&quot;Hello&quot;)});
+}
+function func2(){
+  return new Promise((resolve,reject) =&gt; {resolve(&quot;World&quot;)});
+}
+async function myAsyncFunc(){
+   await func1();
+   await func2();
+}
+</code></pre><h3 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h3><p>generator函数的语法糖。目的只是为了简化书写，提高阅读性。</p>
+<h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><ol>
+<li>关键字async取代星号*</li>
+<li>await语句取代yield语句</li>
+</ol>
+<h3 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h3><p>调用async函数后，函数执行，并返回一个<strong>Promise对象</strong>，可以看出async函数是将多个异步操作包装成一个Promise对象，而await语句相当于then操作的语法糖。</p>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><ol>
+<li>定义一个async函数如上。</li>
+<li><p>调用async函数，获取Promise对象。</p>
+<pre><code> const pro = myAsyncFunc();
+</code></pre></li>
+<li><p>调用Promise对象的then方法，  获取每次异步操作的结果。</p>
+<pre><code>pro.then((result) =&gt; {console.log(result)},(error) =&gt; {console.log(error)});
+</code></pre></li>
+</ol>
+<h3 id="细节-1"><a href="#细节-1" class="headerlink" title="细节"></a>细节</h3><p>1.yield语句后只能跟Thunk函数或Promise对象，await语句后可跟Promise对象或基本数据类型的值，但此时是同步操作。<br>2.await语句后跟Promise对象时，使用try…catch语句，防止报错。</p>
+  	
+					
+	  </div>     
+	  
+
+	
+<div class="post-meta">
+      	
+
+      
+        <i class="iconfont icon-tag"></i>     
+          <a class="tag-link" href="/tags/ES6/">ES6</a>    
+      	
+</div>
+
+
+
+
+
+<div class="post-footer">
+  <div class="pf-left">
+      <img class="pf-avatar" src="/images/avatar.png">
+      <p class="pf-des">大猿猴</p>
+  </div>
+
+  <div class="pf-right">           
+      <div class="pf-links">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">觉得不错就赞赏一下吧</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+        
+	
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		   			             
+            <a class="iconfont  icon-share-qq -mob-share-qq"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weixin -mob-share-weixin"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weibo -mob-share-weibo"></a>		
+     	   
+	</div>	
+
+      </div>  
+    <nav class="pf-paginator">
+           
+        
+      
+        
+        <a href="/2018/11/6/MarkDown入门/" data-hover="MarkDown入门"> 下一篇</a>
+            
+  </nav>   
+  </div>
+</div> 
+	
+	
+</article>
+
+	<div class="sidebar">
+		<h4 class="toc-title">目录</h4>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Generator函数"><span class="toc-text">Generator函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#形式"><span class="toc-text">形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用"><span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特点"><span class="toc-text">特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#返回值"><span class="toc-text">返回值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#细节"><span class="toc-text">细节</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Async函数"><span class="toc-text">Async函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#形式-1"><span class="toc-text">形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用-1"><span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特点-1"><span class="toc-text">特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#返回值-1"><span class="toc-text">返回值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-1"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#细节-1"><span class="toc-text">细节</span></a></li></ol></li></ol>
+	</div>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">  
+            <span class="search-cancel iconfont icon-cancel"></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018.07-
+		
+		2018.11		
+	
+		greatApe
+		<!-- <br/> -->
+
+		<!-- Theme By -->
+		<!-- <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	 -->
+		</div>			
+	 
+</footer>   
+    <div class="after-footer">
+    
+    <script type="text/javascript">
+    	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    	if(window.location.hostname === "muzhidong.github.io"){	
+	    	document.write(unescape("%3Cspan id='cnzz_stat_icon_1274542692'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274542692%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+    	}else if(window.location.hostname === "blog.mudong.xyz"){
+			document.write(unescape("%3Cspan id='cnzz_stat_icon_1274614490'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274614490%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+    	}
+	</script>
+
+
+
+
+     
+    </div> 
+
+    <script src="/mudong.bundle.js"></script> 
+  </body>        
+</html>
