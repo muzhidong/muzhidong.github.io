@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  异步操作系列之Promise对象 |   大猿猴的前端世界 </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/mudong.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+   
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-menu">          
+              
+            
+
+              <a class="header-menu-link" id="header-menu-home" href="/">首页</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-archives" href="/archives">归档</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-tags" href="/tags">标签</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-about" href="/about">关于</a>     
+
+            
+            
+            
+
+              <a class="iconfont icon-menu-search header-menu-link" id="header-menu-search"></a>
+
+            
+                
+    </div>  
+    
+  </nav>
+</header>   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		异步操作系列之Promise对象
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		11月 27, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1782
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="post-content slideDownMin">
+
+		
+
+			
+					<h2 id="Promise定义"><a href="#Promise定义" class="headerlink" title="Promise定义"></a>Promise定义</h2><p>一个对象，用于传递异步操作的消息。通过new关键字创建实例。</p>
+<h2 id="Promise特点"><a href="#Promise特点" class="headerlink" title="Promise特点"></a>Promise特点</h2><ul>
+<li><p>状态封闭性。状态不受外界改变，只有异步操作结果可以决定当前的状态。共3种状态，分别是Pending、Resolved和Rejected。 只有两种状态改变，即从Pending变为Resolved以及从Pending变为Rejected。</p>
+</li>
+<li><p>状态不变性。一旦状态改变就不会再变，一直保持这个结果。比如一个Promise对象的状态已经为Resolved，根据状态不变性，再在主线程中抛错是无效的。</p>
+</li>
+<li><p>状态连锁性。如果一个Promise实例传递了另一个Promise实例，那么该实例会随着要传递的Promise实例的状态变化而变化。</p>
+<a id="more"></a>
+</li>
+</ul>
+<h2 id="创建Promise实例"><a href="#创建Promise实例" class="headerlink" title="创建Promise实例"></a>创建Promise实例</h2><pre><code>var promise = new Promise(function(resolve,reject){
+    var image = new Image();
+    image.src = &quot;https://www.baidu.com/img/bd_logo1.png&quot;;
+    image.addEventListener(&quot;load&quot;,()=&gt;{
+         resolve(image);
+    });
+    image.addEventListener(&quot;error&quot;,()=&gt;{
+         reject(new Error(&quot;wrong...&quot;));
+    });
+});
+</code></pre><p>说明：创建Promise实例时需要传入一个函数，传入的函数带有resolve函数参数和reject函数参数，这两个参数由JS引擎提供。resolve函数会将Promise对象从Pending状态转为Resolved状态，并在操作成功时将异步操作结果作为参数传递出去；而reject函数会将Promise对象从Pending状态转为Rejected状态，并在操作失败时将错误对象传递出去。</p>
+<h2 id="Promise-API"><a href="#Promise-API" class="headerlink" title="Promise API"></a>Promise API</h2><h3 id="1-then-successCallback-errorCallback"><a href="#1-then-successCallback-errorCallback" class="headerlink" title="1.  then(successCallback[,errorCallback])"></a>1.  then(successCallback[,errorCallback])</h3><ul>
+<li>作用：当状态改变时进行回调处理</li>
+<li>参数：successCallback表示当异步操作成功时被调用的回调，errorCallback表示当异步操作失败时被调用的回调。两个回调函数都将接收Promise对象传出的值作为函数参数</li>
+<li>返回值：新的Promise实例，可通过链式调用需顺序执行的操作</li>
+</ul>
+<h3 id="2-catch-callback"><a href="#2-catch-callback" class="headerlink" title="2. catch(callback)"></a>2. catch(callback)</h3><ul>
+<li>作用：相当于then(null,callback)，当异步操作失败时进行的回调处理</li>
+<li>参数：callback表示异步操作失败时被调用的回调</li>
+<li>返回值：新的Promise实例 ，不管有无被捕获都会继续执行接下来的方法</li>
+</ul>
+<h3 id="3-all-iterator"><a href="#3-all-iterator" class="headerlink" title="3. all(iterator)"></a>3. all(iterator)</h3><ul>
+<li>作用：将多个Promise实例包装成一个新的Promise实例</li>
+<li>参数：迭代器对象，每个成员都是Promise对象</li>
+<li>返回值：新的Promise实例。当迭代器对象每个成员状态均为resolved时，状态为resolved，传递一个由各成员的返回值组成的数组，否则状态为rejected，传递第一个被rejected的成员的返回值</li>
+</ul>
+<h3 id="4-race-iterator"><a href="#4-race-iterator" class="headerlink" title="4.race(iterator)"></a>4.race(iterator)</h3><p>基本同all方法，不同之处在于迭代器中任一成员的状态发生变化，新实例的状态也会随之变化</p>
+<h3 id="5-resolve-obj"><a href="#5-resolve-obj" class="headerlink" title="5.resolve([obj])"></a>5.resolve([obj])</h3><ul>
+<li>作用：转化为Promise对象，且状态为resolved</li>
+<li>参数：任意对象。不传递参数时直接创建Promise对象</li>
+<li>返回值：新的Promise对象，并传递obj参数给回调函数</li>
+</ul>
+<h3 id="6-reject-reason"><a href="#6-reject-reason" class="headerlink" title="6.reject(reason)"></a>6.reject(reason)</h3><p>基本同resolve方法，不同之处在于返回的新的Promise对象的状态为rejected</p>
+<h3 id="7-done-successCallback-errorCallback"><a href="#7-done-successCallback-errorCallback" class="headerlink" title="7.done([successCallback][,errorCallback])"></a>7.done([successCallback][,errorCallback])</h3><ul>
+<li>作用：保证抛出任何可能出现的错误</li>
+<li>参数：同then方法参数</li>
+<li>返回值：新的Promise对象</li>
+</ul>
+<h3 id="8-finally-callback"><a href="#8-finally-callback" class="headerlink" title="8.finally(callback)"></a>8.finally(callback)</h3><ul>
+<li>作用：不管Promise对象最后状态如何都会执行的动作</li>
+<li>参数：必须执行的回调函数</li>
+<li>返回值：新的Promise对象</li>
+</ul>
+<h2 id="Promise-缺点"><a href="#Promise-缺点" class="headerlink" title="Promise 缺点"></a>Promise 缺点</h2><ul>
+<li>一旦创建Promise实例就无法停止异步操作</li>
+<li>当处于Pending状态时无法得知进展到哪一阶段(刚刚开始还是即将完成)</li>
+</ul>
+  	
+					
+	  </div>     
+	  
+
+	
+<div class="post-meta">
+      	
+
+      
+        <i class="iconfont icon-tag"></i>     
+          <a class="tag-link" href="/tags/ES6/">ES6</a>    
+      	
+</div>
+
+
+
+
+
+<div class="post-footer">
+  <div class="pf-left">
+      <img class="pf-avatar" src="/images/avatar.png">
+      <p class="pf-des">大猿猴</p>
+  </div>
+
+  <div class="pf-right">           
+      <div class="pf-links">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">觉得不错就赞赏一下吧</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+        
+	
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		   			             
+            <a class="iconfont  icon-share-qq -mob-share-qq"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weixin -mob-share-weixin"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weibo -mob-share-weibo"></a>		
+     	   
+	</div>	
+
+      </div>  
+    <nav class="pf-paginator">
+           
+        
+      
+        
+        <a href="/2018/11/20/异步操作系列之Generator函数与Async函数/" data-hover="异步操作系列之Generator函数与Async函数"> 下一篇</a>
+            
+  </nav>   
+  </div>
+</div> 
+	
+	
+</article>
+
+	<div class="sidebar">
+		<h4 class="toc-title">目录</h4>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise定义"><span class="toc-text">Promise定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise特点"><span class="toc-text">Promise特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建Promise实例"><span class="toc-text">创建Promise实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-API"><span class="toc-text">Promise API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-then-successCallback-errorCallback"><span class="toc-text">1.  then(successCallback[,errorCallback])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-catch-callback"><span class="toc-text">2. catch(callback)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-all-iterator"><span class="toc-text">3. all(iterator)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-race-iterator"><span class="toc-text">4.race(iterator)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-resolve-obj"><span class="toc-text">5.resolve([obj])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-reject-reason"><span class="toc-text">6.reject(reason)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-done-successCallback-errorCallback"><span class="toc-text">7.done([successCallback][,errorCallback])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-finally-callback"><span class="toc-text">8.finally(callback)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-缺点"><span class="toc-text">Promise 缺点</span></a></li></ol>
+	</div>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">  
+            <span class="search-cancel iconfont icon-cancel"></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018.07-
+		
+		2018.11		
+	
+		greatApe
+		<!-- <br/> -->
+
+		<!-- Theme By -->
+		<!-- <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	 -->
+		</div>			
+	 
+</footer>   
+    <div class="after-footer">
+    
+    <script type="text/javascript">
+    	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    	if(window.location.hostname === "muzhidong.github.io"){	
+	    	document.write(unescape("%3Cspan id='cnzz_stat_icon_1274542692'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274542692%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+    	}else if(window.location.hostname === "blog.mudong.xyz"){
+			document.write(unescape("%3Cspan id='cnzz_stat_icon_1274614490'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274614490%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+    	}
+	</script>
+
+
+
+
+     
+    </div> 
+
+    <script src="/mudong.bundle.js"></script> 
+  </body>        
+</html>
