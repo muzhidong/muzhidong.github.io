@@ -108,6 +108,114 @@
 	   
 	<div class="article-header">
 	    
+		<a class="article-title" href="/2019/1/2/ES6 模块/">认识ES6 模块</a>  
+	       
+		 
+
+		<div class="article-meta">
+			1月 02, 2019
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/ES6/">ES6</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="article-excerpt">	
+		
+			<p>介绍ES6模块之前先认识几种模块规范。</p>
+<h2 id="AMD、CMD与CommonJS规范"><a href="#AMD、CMD与CommonJS规范" class="headerlink" title="AMD、CMD与CommonJS规范"></a>AMD、CMD与CommonJS规范</h2><h3 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h3><ul>
+<li><p>概念</p>
+<p>中文译为异步模块定义，典型代表是requirejs。在浏览器环境中，要从服务端加载模块，必须采用异步模式，因此浏览器一般采用AMD规范。</p>
+</li>
+<li><p>特点</p>
+<p>模块是异步加载的，对依赖提前异步加载</p>
+</li>
+<li><p>加载模块</p>
+<pre><code>  requirejs([&#39;jquery&#39;, &#39;canvas&#39;, &#39;app/sub&#39;],function($,canvas,sub) {
+    //$、canvas、sub代表被加载的模块jquery、canvas、app/sub
+    //可以直接进行调用
+  });
+</code></pre></li>
+<li><p>定义模块         </p>
+<p>定义一个模块有键值对定义、函数式定义、存在依赖的函数式定义三种方式。你觉得下面是用哪种方式？</p>
+<pre><code> define([&#39;jquery&#39;,&#39;moment&#39;],function($,m){
+   var obj = {
+        ele:$(&#39;div&#39;),
+          time:m().unix(),
+   }
+   return obj;
+ });
+</code></pre></li>
+</ul>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2019/1/2/ES6 模块/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2019/1/2/DvaJS/">DvaJS快速使用</a>  
+	       
+		 
+
+		<div class="article-meta">
+			1月 02, 2019
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/React/">React</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="article-excerpt">	
+		
+			<h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>react + react-router + redux + saga + fetch</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>易学易用，6个API</li>
+<li>elm概念</li>
+<li>插件机制</li>
+<li>支持HMR</li>
+</ul>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2019/1/2/DvaJS/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
 		<a class="article-title" href="/2018/12/10/BOM学习总结/">BOM学习总结</a>  
 	       
 		 
@@ -117,9 +225,9 @@
 			
 				<span class="iconfont icon-star"></span>
 				            
-						<a class="article-tag" href="/tags/BOM/">BOM</a>           
-				            
 						<a class="article-tag" href="/tags/JavaScript/">JavaScript</a>           
+				            
+						<a class="article-tag" href="/tags/BOM/">BOM</a>           
 				
 			
 		</div>
@@ -158,9 +266,9 @@
 			
 				<span class="iconfont icon-star"></span>
 				            
-						<a class="article-tag" href="/tags/JavaScript/">JavaScript</a>           
-				            
 						<a class="article-tag" href="/tags/HTML5/">HTML5</a>           
+				            
+						<a class="article-tag" href="/tags/JavaScript/">JavaScript</a>           
 				
 			
 		</div>
@@ -226,89 +334,6 @@
 
 	<div class="article-bottom">
 		<a class="article-readmore" href="/2018/11/27/异步操作系列之Promise对象/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/11/20/异步操作系列之Generator函数与Async函数/">异步操作系列之Generator函数与Async函数</a>  
-	       
-		 
-
-		<div class="article-meta">
-			11月 20, 2018
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/ES6/">ES6</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="article-excerpt">	
-		
-			<h2 id="Generator函数"><a href="#Generator函数" class="headerlink" title="Generator函数"></a>Generator函数</h2><h3 id="形式"><a href="#形式" class="headerlink" title="形式"></a>形式</h3><pre><code>function* myGenerator(){
-   yield &#39;Hello&#39;;
-   yield &#39;World&#39;;
-   return &#39;ECMAScript&#39;;
-}
-</code></pre><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>相当于一个状态机。<br>
-		  	  
-	</p></div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/11/20/异步操作系列之Generator函数与Async函数/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/11/6/MarkDown入门/">MarkDown入门</a>  
-	       
-		 
-
-		<div class="article-meta">
-			11月 06, 2018
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/工具/">工具</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="article-excerpt">	
-		
-			<p>MarkDown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。<br>
-		  	  
-	</p></div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/11/6/MarkDown入门/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -399,7 +424,7 @@
 				
 		2018.07-
 		
-		2018.12		
+		2019.01		
 	
 		greatApe
 		<!-- <br/> -->
