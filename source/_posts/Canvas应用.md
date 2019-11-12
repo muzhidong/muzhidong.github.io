@@ -1,5 +1,5 @@
 ---
-title: Canvas应用
+title: canvas应用
 tags: 
 - HTML5
 - JavaScript
@@ -24,14 +24,14 @@ tags:
 ## CanvasRenderingContext2D API
 ### 属性
 - fillStyle
- 
+
   表示填充风格
 - strokeStyle
- 
+
   表示轮廓风格
 
 - globalAlpha
- 
+
   设置图像透明度
 - globalCompositeOperation
 
@@ -203,9 +203,9 @@ tags:
 	//画线
 	function drawLine(context, x0, y0, x1, y1, color) {
 	   context.save();
-
+	
 	   context.beginPath();
-
+	
 	   if (color == null) {
 	       context.strokeStyle = "#A7AEB0";
 	   } else {
@@ -214,20 +214,20 @@ tags:
 	   context.moveTo(x0, y0);
 	   context.lineTo(x1, y1);
 	   context.stroke();
-
+	
 	   context.closePath();
-
+	
 	   context.restore();
-    }
-
+	}
+	
 	//画球
 	function draw3DBall(context, x0, y0, c0, c1) {
 	   context.save();
-
+	
 	   context.beginPath();
-
+	
 	   context.translate(x0, y0);
-
+	
 	   var gradient = context.createRadialGradient(3, 3, 0, 0, 0, 10);
 	   if (c0 == null) {
 	       gradient.addColorStop(0, "#eee");
@@ -242,9 +242,9 @@ tags:
 	   context.fillStyle = gradient;
 	   context.arc(0, 0, 10, 0, 2 * Math.PI);
 	   context.fill();
-
+	
 	   context.closePath();
-
+	
 	   context.restore();
 	}
 源码地址，
@@ -258,24 +258,24 @@ tags:
 
 	//画旗帜
 	function drawFlag(x0, y0, x1, y1, offsetX) {
-
-        con.beginPath();
-
-        con.moveTo(x0, y0 + 50 * Math.sin(offsetX * Math.PI * 2 / (x1 - x0)));
-        for (var i = 1; i <= x1 - x0; i++) {
-            con.lineTo(x0 + i, y0 + 50 * Math.sin((offsetX + i) * Math.PI * 2 / (x1 - x0)));
-        }
-        con.lineTo(x1, y1 + 50 * Math.sin(offsetX * Math.PI * 2 / (x1 - x0)));
-        for (var j = 1; j <= x1 - x0; j++) {
-            con.lineTo(x1 - j, y1 + 50 * Math.sin((offsetX + x1 - x0 - j) * Math.PI * 2 / (x1 - x0)));
-        }
-        con.lineTo(x0, y0 + 50 * Math.sin(offsetX * Math.PI * 2 / (x1 - x0)));
-
-        con.closePath();
-
-        con.fillStyle = "#1890ff";
-        con.fill();
-    }
+	
+	    con.beginPath();
+	
+	    con.moveTo(x0, y0 + 50 * Math.sin(offsetX * Math.PI * 2 / (x1 - x0)));
+	    for (var i = 1; i <= x1 - x0; i++) {
+	        con.lineTo(x0 + i, y0 + 50 * Math.sin((offsetX + i) * Math.PI * 2 / (x1 - x0)));
+	    }
+	    con.lineTo(x1, y1 + 50 * Math.sin(offsetX * Math.PI * 2 / (x1 - x0)));
+	    for (var j = 1; j <= x1 - x0; j++) {
+	        con.lineTo(x1 - j, y1 + 50 * Math.sin((offsetX + x1 - x0 - j) * Math.PI * 2 / (x1 - x0)));
+	    }
+	    con.lineTo(x0, y0 + 50 * Math.sin(offsetX * Math.PI * 2 / (x1 - x0)));
+	
+	    con.closePath();
+	
+	    con.fillStyle = "#1890ff";
+	    con.fill();
+	}
 源码地址，
 
     https://github.com/muzhidong/frontend-demo/tree/master/flutteredflag

@@ -1,5 +1,5 @@
 ---
-title: BOM学习总结
+title: BOM知识小结
 tags: 
 - BOM
 - JavaScript
@@ -33,10 +33,10 @@ BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于
   获取当前窗口
 - innerWidth
 
-  获取窗口像素宽度
+  获取页面的像素宽度，受resize事件影响
 - innerHeight
 
-  获取窗口像素高度
+  获取页面的像素高度，受resize事件影响
 - pageXOffset
 
   获取页面相对于窗口显示区左上角的X方向偏移量
@@ -51,10 +51,10 @@ BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于
   获取窗口相对于屏幕的Y方向位置
 - outerWidth
 
-  获取窗口可见区域宽度
+  获取浏览器窗口的可见区域宽度，受resize事件影响
 - outerHeight
 
-  获取窗口可见区域高度
+  获取浏览器窗口的可见区域高度，受resize事件影响
 - opener
 
   获取对创建此窗口的窗口的引用。比如在a.html打开b.html，需要从b.html传递一个数据给a.html上某节点，代码如下，
@@ -215,7 +215,7 @@ BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于
     location.hostname = "www.baidu.com";
     location.pathname = "/home/index";
     location.serach = "?key=liu&password=123456";
-	...
+    ...
 
 ### 页面跳转几种方式
     window.location = url;
@@ -226,7 +226,7 @@ BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于
 ### 页面重载
     window.reload();//从缓存中重新加载
     window.reload(true);//从服务器重新获取数据进行加载
-    
+
    该方法建议放在代码最后，因为该方法调用后的接下来的代码可能执行也可能不执行，取决于网络延迟或系统资源等因素。
 
 ## navigator
@@ -291,7 +291,7 @@ BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于
             return "Safari";
         }
     }
-   
+
 #### 插件检测
 
 

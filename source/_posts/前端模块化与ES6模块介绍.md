@@ -1,8 +1,3 @@
----
-title: 认识ES6 模块
-tags: 
-- ES6
----
 
 介绍ES6模块之前先认识几种模块规范。
 
@@ -26,13 +21,11 @@ tags:
 
        define(['jquery','moment'],function($,m){
 	     var obj = {
-		 	 ele:$('div'),
-			    time:m().unix(),
-		 }
+	     	 ele:$('div'),
+	    	    time:m().unix(),
+	     }
 	     return obj;
 	   });
-	   
-<!--more-->
 	
 ### CMD
 - 概念
@@ -44,13 +37,13 @@ tags:
 - 加载模块
 两种加载方式，
 	 - 同步加载
-	 
+	
 	   		require('./util.js')	
-	 - 异步加载
+	- 异步加载
 	
 	   	    require.async('./util.js',callback)
 - 定义模块
-   
+  
 	   define(factory)
 
     其中参数factory可以是一个函数，也可以是一个对象或字符串。当参数是一个函数时，形式如function(require, exports, module) {}，当中的参数exports 是一个对象，用来向外提供模块接口，module也是一个对象，存储了与当前模块相关联的一些属性和方法。
@@ -95,7 +88,6 @@ tags:
 	- 禁止this指向全局对象
 	- 不能使用fn.caller和fn.arguments获取函数调用的堆栈
 	- 增加保留字，如protected、static和interface
-
 ### export
 - 概念
 
@@ -111,7 +103,7 @@ tags:
 		  ...
 		}
 		import {func} from 'util';
-		
+	
   默认输出
 
 		export default  function func(){
@@ -137,7 +129,6 @@ tags:
   2. 使用module命令取代import
 
 	    	module util from './util';
-
 ### 模块继承
 模块继承通过export * 实现，如
 
@@ -148,3 +139,10 @@ tags:
 - ES6模块输出的值是值的引用，而非值的拷贝，具体理解为当模块执行import命令时，并不执行模块，而是生成一个动态的只读引用，等真正用到这个值时再到模块中取值，并且这个值是不被缓存的。
 - 由于ES6输入的模块变量仅是一个符号链接，是只读的，对其进行值的改变会报错，但可以对其添加属性。
 - 循环加载，即当a脚本的执行依赖b脚本，而b脚本的执行又依赖a脚本。与CommonJS循环加载有所差异，CommonJS加载并执行，进行深拷贝缓存，一旦出现循环加载，只输出已经执行的部分，未执行的部分不输出，容易报错，而ES6加载仅引用，进行浅拷贝，当需要时再进行动态引用，不会报错。
+
+### ES6模块与CommonJS的区别
+
+- ES6是编译时加载，CommonJS是运行时加载，于是ES6模块的效率要更高
+
+- ES6在浏览器和服务端上均适用，而CommonJS只适于服务端
+

@@ -1,8 +1,8 @@
 ---
-title: CSS3动画实现3D倒计时效果
+title: CSS3动画实现3D倒计时
 date: 2018-08-05 02:08:14
 tags: 
-- CSS
+- CSS3
 - JavaScript
 ---
 <p style="margin:30px 0;">先介绍CSS3动画如何使用？两步即可搞定。</p>
@@ -201,10 +201,10 @@ tags:
         numberDiv = document.querySelector("#number");
         audio = document.querySelector("audio");
         button = document.querySelector(".button");
-    
+        
         //第二步：初始化
         init();
-    
+        
         //第三步：开始倒计时
         timer = setInterval(count, 1000);
           
@@ -239,9 +239,9 @@ tags:
                 }, 30); 
             }, false);
         }
-    
+  
     倒计数函数声明如下，
-    
+  
         function count() {
         
             numberDiv.innerHTML = --num;
@@ -293,7 +293,7 @@ tags:
         }, 30); 
     
     在mozilla官方文档介绍了另一种重新渲染方式，
-     
+    
       https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Animations/Tips
     
     应用在这里的话，写法是，
@@ -308,7 +308,7 @@ tags:
 * 第四种是借助其他重新渲染途径，如颜色、内容、大小的变化。
   
         numberDiv.className = null;
-    
+        
         numberDiv.innerHTML = num;
         numberDiv.style.color = getRandomColor();   
         numberDiv.style.fontSize = "300px";
@@ -321,4 +321,4 @@ tags:
 好了，附上源码链接。
 
     https://github.com/muzhidong/frontend-demo/tree/master/countdown
-   
+

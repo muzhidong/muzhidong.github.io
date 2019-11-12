@@ -1,8 +1,15 @@
+# ignore files
 .deploy*/
-node_modules/
-
 public/
 db.json
+
+# dependencies
+node_modules/
+
+# Other
 package-lock.json
+
+# System Files
+.DS_Store
 
 

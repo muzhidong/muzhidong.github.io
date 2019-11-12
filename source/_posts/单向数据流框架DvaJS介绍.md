@@ -1,19 +1,11 @@
----
-title: DvaJS快速使用
-tags: 
-- React
----
-
 ### 组成
-react + react-router + redux + saga + fetch
+react-router + redux + redux-saga + fetch
 
 ### 特性
 - 易学易用，6个API
 - elm概念
 - 插件机制
 - 支持HMR
-
-<!--more-->
 
 ### 安装、运行或构建
 
@@ -22,7 +14,7 @@ react + react-router + redux + saga + fetch
     dva new your-project
     cd your-project
     npm start [npm run build]
-    
+
 扩展：
 安装antdesign和babel-plugin-import[用于按需加载antd脚本和样式]
 
@@ -74,7 +66,7 @@ react + react-router + redux + saga + fetch
   包括同步更新 state 的 reducers，处理异步逻辑的 effects，订阅数据源的 subscriptions。
 
    新建 models/hello.js
-   
+  
       export default {
         namespace: 'hello',
         state: {
@@ -92,7 +84,7 @@ reducers 等同于 redux 里的 reducer，接收 action，同步更新 state
 
   编辑index.js，载入modal
   
-   	app.model(require('./models/hello').default);
+   		app.model(require('./models/hello').default);
 
 - 视图与模型的连接
 
@@ -111,7 +103,7 @@ reducers 等同于 redux 里的 reducer，接收 action，同步更新 state
       }))(Hello);
 
      编辑index.js，启动dva
-    
+  
       const app = dva();
 
    于是乎，一个dva项目就建立起来了！！！

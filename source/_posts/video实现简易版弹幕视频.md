@@ -1,8 +1,8 @@
 ---
-title: video标签制作简易版弹幕视频
+title: video实现简易版弹幕视频
 date: 2018-08-05 02:08:44
 tags: 
-- HTML
+- HTML5
 - JavaScript
 ---
 认识两个HTML5标签，分别是video和source。
@@ -93,7 +93,7 @@ tags:
 * JavaScript部分
 
     第一步，设置事件监听
- 
+
         //窗口加载时初始化
         window.addEventListener("load",init,false);
         //窗口大小变化时重新初始化
@@ -105,7 +105,7 @@ tags:
                 send();
             }
         },false);
- 
+
    第二步，事件处理  
   + 初始化  
     
@@ -117,7 +117,7 @@ tags:
             if(parseInt(html.style.fontSize)<12){
                 html.style.fontSize = "12px";
             }
-        
+            
             //设置video的高度
             video.style.height =  parseInt(video.offsetWidth/16*9)+"px";
             //设置input的宽度
@@ -217,5 +217,5 @@ tags:
         barrage.appendChild(span);
     
 #### 附上源码：
-   
+
     https://github.com/muzhidong/frontend-demo/tree/master/barrage-video  
