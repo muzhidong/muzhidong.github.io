@@ -1,0 +1,598 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  CSS3动画实现3D倒计时 |   大猿猴的前端世界 </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/mudong.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+   
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-menu">          
+              
+            
+
+              <a class="header-menu-link" id="header-menu-home" href="/">首页</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-archives" href="/archives">归档</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-tags" href="/tags">标签</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-about" href="/about">关于</a>     
+
+            
+            
+            
+
+              <a class="iconfont icon-menu-search header-menu-link" id="header-menu-search"></a>
+
+            
+                
+    </div>  
+    
+  </nav>
+</header>   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		CSS3动画实现3D倒计时
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		8月 05, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			7305
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="post-content slideDownMin">
+
+		
+
+			
+					<p style="margin:30px 0;">先介绍CSS3动画如何使用？两步即可搞定。</p>
+
+<ol>
+<li><p>定义动画规则  </p>
+<pre><code>@keyframe animationName{  
+     timeStamp{  
+         attr1:value1;  
+         attr2:value2;  
+         ...
+         attrn,valuen;  
+     }  
+ }
+</code></pre><p>说明：   </p>
+</li>
+</ol>
+<ul>
+<li>animationName表示动画名称；</li>
+<li>timeStamp表示时间点，可取值from，to或0-100%，from表示0，to表示100%；</li>
+<li>每个时间点可以指定多个样式属性attr与对应值value。</li>
+</ul>
+<ol start="2">
+<li><p>元素应用动画  </p>
+<pre><code> elemSelector{  
+     animation: animationName animationDuration;   
+ }
+</code></pre><p>说明：</p>
+</li>
+</ol>
+<ul>
+<li>elemSelector表示元素选择器</li>
+<li>执行一个动画至少指定动画名称animationName和动画时长animationDuration</li>
+<li>animation属性是以下属性的简写形式，每个属性的含义说明如下表，<a id="more"></a><table style="border:1px solid black;"><tr style="text-align:center;"><td style="border-right:1px solid black;">属性名称</td><td>含义</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-name</td><td>@keyframe动画的名称</td></tr><tr><td style="border-right:1px solid black;">animation-duration</td><td>动画的时长，需指定单位如s或ms，默认值为0</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-timing-function</td><td>动画的速度曲线，默认值为ease，其他取值有ease-in、ease-out、ease-in-out、linear、step-start、step-end、贝塞尔曲线函数cubic-bezier、步进函数steps</td></tr><tr><td style="border-right:1px solid black;">animation-delay</td><td>动画延时多久开始，需指定指定单位如s或ms，默认为0，，取正值表示延时，负值表示超前</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-iteration-count</td><td>动画播放次数，默认为1</td></tr><tr><td style="border-right:1px solid black;">animation-direction</td><td>动画是否在下一周期逆向播放，默认是normal，其他取值有reverse、alternate、alternate-reverse</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-play-state</td><td>动画的播放状态，是运行还是暂停，默认是running，其他取值有paused</td></tr><tr><td style="border-right:1px solid black;">animation-fill-mode</td><td>动画执行前、后是否应用目标状态，默认是none，其他取值有forwards、backwards、both</td></tr></table>
+
+</li>
+</ul>
+<p style="margin:10px 0;">重点来了，一个倒计时效果是如何实现的，先看效果。由于是压缩生成的gif，所以看起来会很快。</p>
+
+<center><img src="https://user-gold-cdn.xitu.io/2018/8/1/164f36b9a19869a1?w=493&amp;h=429&amp;f=gif&amp;s=507656" alt="倒计时"></center>
+
+<p>下面对主要代码进行说明，</p>
+<ul>
+<li><p>HTML部分</p>
+<pre><code>  &lt;!--用于呈现数字--&gt;
+  &lt;div id=&quot;number&quot;&gt;&lt;/div&gt;
+  &lt;!--用于重新倒计时--&gt;
+  &lt;button class=&quot;button&quot;&gt;再来一次&lt;/button&gt;
+   &lt;!--用于最后的声音播放。--&gt;
+  &lt;audio &gt;&lt;/audio&gt;
+</code></pre></li>
+<li><p>CSS部分</p>
+<pre><code>  /*初始化数字div样式*/
+  #number {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+      text-align: center;
+
+      -webkit-transform: translate3d(-50%, -50%, 0);
+      -moz-transform: translate3d(-50%, -50%, 0);
+      transform: translate3d(-50%, -50%, 0);
+  }
+
+  /*绑定动画*/
+  .number-anim {
+      -webkit-animation: animation_in 10s linear;
+      -moz-animation: animation_in 10s linear;
+      /*动画时长是10s，且动画的速度是线性的*/
+      animation: animation_in 10s linear;
+  }
+
+  /*定义动画规则*/
+  @keyframes animation_in {
+      0 {}
+      10% {
+          /*由于动画时长是10s，此时是1s时刻,字体大小变为100px，z方向距离主屏幕为300px*/
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      11% {
+          /*随后字体大小变为300px，z方向距离主屏幕为0，后面每到整秒数都会重复进行*/
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      20% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      21% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      30% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      31% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      40% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      41% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      50% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      51% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      60% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      61% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      70% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      71% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      80% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      81% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      90% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+      91% {
+          font-size: 300px;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+      }
+      100% {
+          font-size: 100px;
+          -webkit-transform: translate3d(-50%, -50%, -300px);
+          -moz-transform: translate3d(-50%, -50%, -300px);
+          transform: translate3d(-50%, -50%, -300px);
+      }
+   }
+</code></pre></li>
+<li><p>JS部分</p>
+<pre><code>window.onload = function() {
+
+  //第一步：定义全局变量
+  num = 10;//数字内容
+  isCounting = true;//是否正在计数
+  timer = null;//定时器
+  numberDiv = document.querySelector(&quot;#number&quot;);
+  audio = document.querySelector(&quot;audio&quot;);
+  button = document.querySelector(&quot;.button&quot;);
+
+  //第二步：初始化
+  init();
+
+  //第三步：开始倒计时
+  timer = setInterval(count, 1000);
+
+}
+</code></pre><p>  初始化函数声明如下，</p>
+<pre><code>   function init() {
+      numberDiv.innerHTML = num;
+      numberDiv.style.color =  getRandomColor();
+      numberDiv.style.fontSize = &quot;300px&quot;;
+      numberDiv.className = &quot;number-anim&quot;;
+
+      button.addEventListener(&quot;click&quot;, function() {
+          if (isCounting) {
+              return;
+          }
+          isCounting = true;
+          num = 10;
+
+          numberDiv.innerHTML = num;
+          numberDiv.style.color = getRandomColor();   
+          numberDiv.style.fontSize = &quot;300px&quot;;
+
+          //先解绑，再使用setTimeout使浏览器重新渲染页面，重新绑定
+          //setTimeout只是一种方式，只要能使浏览器重新渲染即可      
+          numberDiv.className = null;
+          setTimeout(function() {
+              numberDiv.className = &quot;number-anim&quot;;
+
+              timer = setInterval(count, 1000);
+          }, 30); 
+      }, false);
+  }
+</code></pre><p>  倒计数函数声明如下，</p>
+<pre><code>  function count() {
+
+      numberDiv.innerHTML = --num;
+      numberDiv.style.color = getRandomColor();
+
+      if (num == 0) {
+          clearInterval(timer);
+
+          audio.src=&quot;./audio/readygo.mp3&quot;;
+          audio.play();
+
+          numberDiv.innerHTML = &quot;Ready Go!&quot;;
+          numberDiv.style.color = getRandomColor();
+          numberDiv.style.fontSize = &quot;100px&quot;;
+
+          numberDiv.style.opacity = 0.8;
+          numberDiv.style.filter = &quot;alpha(opacity=80)&quot;;
+          CompatibleFunc(numberDiv, &quot;Transition&quot;, &quot;opacity 1s&quot;);
+
+          isCounting = false;
+      }
+  }
+</code></pre></li>
+</ul>
+<p>这里有一个地方需要特别注意，避免以后踩坑。  </p>
+<h4 id="关于动画样式的解绑与绑定。"><a href="#关于动画样式的解绑与绑定。" class="headerlink" title="关于动画样式的解绑与绑定。"></a>关于动画样式的解绑与绑定。</h4><p>动画样式animation一执行结束，就不再起作用了，要使其重新生效，需要重新绑定。我试了4种方式。</p>
+<ul>
+<li><p>第一种是直接解绑，然后再绑定。  </p>
+<pre><code>  numberDiv.className = null;
+  numberDiv.className = &quot;number-anim&quot;;
+</code></pre><p>  结果是不能使动画重新生效。</p>
+</li>
+<li><p>第二种是使用classlist属性进行解绑定。  </p>
+<pre><code>  numberDiv.classList.toggle(&quot;number-anim&quot;);
+  numberDiv.classList.toggle(&quot;number-anim&quot;);
+</code></pre><p>  classList返回类名列表对象，调用toggle方法，若类名存在则删除，返回false，若类名不存在则添加，返回true，所以要调用两次，第一次删除类名，第二次添加类名。但是结果依然是不能使动画重新生效。</p>
+</li>
+<li><p>第三种是开启定时器。  </p>
+<p>  先解绑，再利用定时器使浏览器重新渲染页面，重新绑定。setTimeout只是一种方式，只要能使浏览器重新渲染即可，最终动画重新生效。</p>
+<pre><code>  numberDiv.className = null;
+  setTimeout(function() {
+      numberDiv.className = &quot;number-anim&quot;;
+  }, 30); 
+</code></pre><p>  在mozilla官方文档介绍了另一种重新渲染方式，</p>
+<pre><code>https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Animations/Tips
+</code></pre><p>  应用在这里的话，写法是，</p>
+<pre><code>  numberDiv.className = null;
+  window.requestAnimationFrame(function(){
+      window.requestAnimationFrame(function(){
+          numberDiv.className = &quot;number-anim&quot;;
+      });
+  });
+</code></pre></li>
+<li><p>第四种是借助其他重新渲染途径，如颜色、内容、大小的变化。</p>
+<pre><code>  numberDiv.className = null;
+
+  numberDiv.innerHTML = num;
+  numberDiv.style.color = getRandomColor();   
+  numberDiv.style.fontSize = &quot;300px&quot;;
+
+  numberDiv.className = &quot;number-anim&quot;;
+</code></pre><p>  结果IE和Microsoft Edge 浏览器是支持的，但是FireFox和Chrome不支持，<br>但这是不是也说明了Chrome和FireFox已经对浏览器渲染做了优化？</p>
+</li>
+</ul>
+<p>简而言之，要使动画重新生效，需要触发浏览器重新渲染。<br>好了，附上源码链接。</p>
+<pre><code>https://github.com/muzhidong/frontend-demo/tree/master/countdown
+</code></pre>  	
+					
+	  </div>     
+	  
+
+	
+<div class="post-meta">
+      	
+
+      
+        <i class="iconfont icon-tag"></i>     
+          <a class="tag-link" href="/tags/CSS3/">CSS3</a> <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>    
+      	
+</div>
+
+
+
+
+
+<div class="post-footer">
+  <div class="pf-left">
+      <img class="pf-avatar" src="/images/avatar.png">
+      <p class="pf-des">大猿猴</p>
+  </div>
+
+  <div class="pf-right">           
+      <div class="pf-links">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">觉得不错就赞赏一下吧</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+        
+	
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		   			             
+            <a class="iconfont  icon-share-qq -mob-share-qq"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weixin -mob-share-weixin"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weibo -mob-share-weibo"></a>		
+     	   
+	</div>	
+
+      </div>  
+    <nav class="pf-paginator">
+      
+         
+          <a href="/2018/8/5/video实现简易版弹幕视频/" data-hover="Video实现简易版弹幕视频">上一篇</a>      
+            
+        
+            
+  </nav>   
+  </div>
+</div> 
+	
+	
+</article>
+
+	<div class="sidebar">
+		<h4 class="toc-title">目录</h4>
+		<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#关于动画样式的解绑与绑定。"><span class="toc-text">关于动画样式的解绑与绑定。</span></a></li></ol>
+	</div>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">  
+            <span class="search-cancel iconfont icon-cancel"></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018.07-
+		
+		2019.11		
+	
+		greatApe
+		<!-- <br/> -->
+
+		<!-- Theme By -->
+		<!-- <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	 -->
+		</div>			
+	 
+</footer>   
+    <div class="after-footer">
+    
+    <script type="text/javascript">
+    	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    	if(window.location.hostname === "muzhidong.github.io"){	
+	    	document.write(unescape("%3Cspan id='cnzz_stat_icon_1274542692'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274542692%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+    	}else if(window.location.hostname === "blog.mudong.xyz"){
+			document.write(unescape("%3Cspan id='cnzz_stat_icon_1274614490'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274614490%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+    	}
+	</script>
+
+
+
+
+     
+    </div> 
+
+    <script src="/mudong.bundle.js"></script> 
+  </body>        
+</html>

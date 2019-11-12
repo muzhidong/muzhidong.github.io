@@ -1,0 +1,545 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Canvas应用 |   大猿猴的前端世界 </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/mudong.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+   
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-menu">          
+              
+            
+
+              <a class="header-menu-link" id="header-menu-home" href="/">首页</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-archives" href="/archives">归档</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-tags" href="/tags">标签</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-about" href="/about">关于</a>     
+
+            
+            
+            
+
+              <a class="iconfont icon-menu-search header-menu-link" id="header-menu-search"></a>
+
+            
+                
+    </div>  
+    
+  </nav>
+</header>   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		Canvas应用
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		11月 12, 2019
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			3997
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="post-content slideDownMin">
+
+		
+
+			
+					<h2 id="Canvas-API"><a href="#Canvas-API" class="headerlink" title="Canvas API"></a>Canvas API</h2><h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
+<li>width</li>
+<li><p>height </p>
+<p><strong>注意：在canvas标签中声明属性width=1000，与应用样式width:1000px或width:1000是不同的，在使用canvas API上会有偏差，必须使用前者进行声明，height亦是如此</strong>   </p>
+<a id="more"></a>
+</li>
+</ul>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
+<li><p>getContext(contextId)</p>
+<p>获取CanvasRenderingContext2D对象并返回</p>
+</li>
+<li><p>toDataURL([type][,level])</p>
+<p>将画布转化为指定类型的图片，并返回图片的url。若类型为image/jpeg，还可指定质量等级，值在0到1之间</p>
+</li>
+</ul>
+<h2 id="CanvasRenderingContext2D-API"><a href="#CanvasRenderingContext2D-API" class="headerlink" title="CanvasRenderingContext2D API"></a>CanvasRenderingContext2D API</h2><h3 id="属性-1"><a href="#属性-1" class="headerlink" title="属性"></a>属性</h3><ul>
+<li><p>fillStyle</p>
+<p>表示填充风格</p>
+</li>
+<li><p>strokeStyle</p>
+<p>表示轮廓风格</p>
+</li>
+<li><p>globalAlpha</p>
+<p>设置图像透明度</p>
+</li>
+<li><p>globalCompositeOperation</p>
+<p>设置重叠图像的覆盖方式，可取值如下，</p>
+<ul>
+<li>source-over：默认值，显示源和汇的差集、源的交集</li>
+<li>destination-over：显示源和汇的差集、汇的交集</li>
+<li>source-in：只显示源的交集</li>
+<li>destination-in：只显示汇的交集</li>
+<li>source-out：只显示源的差集</li>
+<li>destination-out：只显示汇的差集</li>
+<li>lighter：显示源和汇的差集、交集混合颜色变淡</li>
+<li>darker：显示源和汇的差集、交集混合颜色变深</li>
+<li>xor：显示源和汇的差集</li>
+<li>source-atop：只显示源的差集</li>
+<li>destination-atop：显示汇的交集和源的差集</li>
+<li>copy：显示源</li>
+</ul>
+</li>
+<li><p>lineCap</p>
+<p>表示线段的箭头样式，可取值为butt、round、square，默认值为butt，表示头尾为长方形，round表示头尾为半圆形，square表示头尾增加一个长方形，其长为线宽的一半，高为线宽</p>
+</li>
+<li><p>lineJoin</p>
+<p>表示线段的连接方式，可取值为miter、round、bevel，默认值为miter，线段在连接处外侧延伸直至交于一点，若外延交点距离大于限制值是表现为bevel风格，其连接处为斜角，round连接处为一个圆角，半径为线宽</p>
+</li>
+<li><p>lineWidth</p>
+<p>表示线段的线宽</p>
+</li>
+<li><p>miterLimit</p>
+<p>表示线段连接处的斜率</p>
+</li>
+<li><p>shadowBlur</p>
+<p>阴影模糊等级，值范围为不小于0</p>
+</li>
+<li><p>shadowColor</p>
+<p>阴影颜色</p>
+</li>
+<li><p>shadowOffsetX</p>
+<p>阴影X偏移量</p>
+</li>
+<li><p>shadowOffsetY</p>
+<p>阴影Y偏移量</p>
+</li>
+<li><p>font</p>
+</li>
+<li>textAlign</li>
+<li>textBaseline</li>
+</ul>
+<h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><ul>
+<li><p>restore()</p>
+<p>恢复至上次保存的绘图状态，包括所有属性和transform、clip两个方法</p>
+</li>
+<li><p>save()</p>
+<p>保存当前绘图状态</p>
+</li>
+<li><p>scale(x,y)</p>
+<p>分别在x和y轴方向上按指定比例缩放</p>
+</li>
+<li><p>translate(x,y)</p>
+<p>分别在x和y轴方向上按指定值偏移，实质上是可以看做是画布参考坐标系上的原点的移动</p>
+</li>
+<li><p>rotate(angle)</p>
+<p>顺时针旋转angle度</p>
+</li>
+<li><p>transform(m11,m12,m21,m22,dx,dy)</p>
+<p>乘上如下矩阵进行变换，</p>
+<pre><code>    m11 m21 dx
+    m21 m22 dy
+    0   0   1
+</code></pre></li>
+<li><p>setTransform(m11,m12,m21,m22,dx,dy)</p>
+<p>重设变换矩阵</p>
+</li>
+<li><p>createLinearGradient(x0,y0,x1,y1)</p>
+<p>线性渐变</p>
+</li>
+<li><p>createRadialGradient(x0,y0,r0,x1,y1,r1)</p>
+<p>径向渐变，返回一个渐变对象，有如下方法，</p>
+<pre><code>   addColorStop(point,color)
+</code></pre><p> 用于添加渐变颜色点，point值在0至1之间</p>
+</li>
+<li><p>createPattern(image,repetition)</p>
+<p>指定图像和重复方向创建画布图案对象，repetition可取值为repeat、repeat-x、repeat-y和no-repeat</p>
+</li>
+<li><p>arc(x,y,r,a0,a1)</p>
+<p> 画弧</p>
+</li>
+<li><p>arcTo(x1,y1,x2,y2,radiu)</p>
+<p>绘制路径中最后一个点(x0,y0)分别和点(x1,y1)、(x2,y2)构成的两条直线间半径为radiu的最短弧长</p>
+</li>
+<li><p>rect(x,y,w,h)</p>
+<p>画矩形</p>
+</li>
+<li><p>bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y)</p>
+<p>三次贝塞尔曲线</p>
+</li>
+<li><p>quadraticCurveTo(cpx,cpy,x,y)</p>
+<p>二次贝塞尔曲线</p>
+</li>
+<li><p>clearRect(x,y,w,h)</p>
+<p>清除矩形内的像素</p>
+</li>
+<li><p>fillRect(x,y,w,h)</p>
+<p>绘制填充矩形</p>
+</li>
+<li><p>strokeRect(x,y,w,h)</p>
+<p>绘制轮廓矩形</p>
+</li>
+<li><p>moveTo(x,y)</p>
+<p>移动到指定位置</p>
+</li>
+<li><p>lineTo(x,y)</p>
+<p>画线到指定位置</p>
+</li>
+<li><p>beginPath()</p>
+<p>开始新的子路径</p>
+</li>
+<li><p>closePath()</p>
+<p>关闭子路径</p>
+</li>
+<li><p>isPointInPath(x,y)</p>
+<p>判断点(x,y)是否在当前路径</p>
+</li>
+<li><p>fill()</p>
+<p>填充方式绘制</p>
+</li>
+<li><p>stroke()</p>
+<p>轮廓方式绘制</p>
+</li>
+<li><p>clip()</p>
+<p>裁切路径，只显示裁切区域的内容</p>
+</li>
+<li><p>fillText(text,x,y[,maxWidth])</p>
+</li>
+<li><p>strokeText(text,x,y[,maxWidth])</p>
+</li>
+<li><p>drawImage(image,dx,dy)</p>
+</li>
+<li>drawImage(image,dx,dy,dw,dh)</li>
+<li><p>drawImage(image,sx,sy,sw,sh,dx,dy,dw,dh)</p>
+</li>
+<li><p>createImageData(sw,sh)/createImageData(imagedata)</p>
+<p>指定宽高或明确宽高的图像，创建ImageData对象</p>
+</li>
+<li><p>getImageData(sx,sy,sw,sh)</p>
+<p>获取指定图形区域的ImageData对象</p>
+</li>
+<li><p>putImageData(imagedata,dx,dy[,dirtyX,dirtyY,dirtyWidth,dirtyHeight])</p>
+<p>在绘图画布上绘制给定的ImageData对象</p>
+</li>
+</ul>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="碰撞球"><a href="#碰撞球" class="headerlink" title="碰撞球"></a>碰撞球</h3><p>效果如下，<br><img src="https://user-gold-cdn.xitu.io/2018/12/16/167b7185cf9ab3f8?w=582&amp;h=405&amp;f=gif&amp;s=914354" alt=""><br>贴上与canvas相关的代码，</p>
+<pre><code>//画线
+function drawLine(context, x0, y0, x1, y1, color) {
+   context.save();
+
+   context.beginPath();
+
+   if (color == null) {
+       context.strokeStyle = &quot;#A7AEB0&quot;;
+   } else {
+       context.strokeStyle = color;
+   }
+   context.moveTo(x0, y0);
+   context.lineTo(x1, y1);
+   context.stroke();
+
+   context.closePath();
+
+   context.restore();
+}
+
+//画球
+function draw3DBall(context, x0, y0, c0, c1) {
+   context.save();
+
+   context.beginPath();
+
+   context.translate(x0, y0);
+
+   var gradient = context.createRadialGradient(3, 3, 0, 0, 0, 10);
+   if (c0 == null) {
+       gradient.addColorStop(0, &quot;#eee&quot;);
+   } else {
+       gradient.addColorStop(0, c0);
+   }
+   if (c1 == null) {
+       gradient.addColorStop(1, &quot;#57BADA&quot;);
+   } else {
+       gradient.addColorStop(0, c1);
+   }
+   context.fillStyle = gradient;
+   context.arc(0, 0, 10, 0, 2 * Math.PI);
+   context.fill();
+
+   context.closePath();
+
+   context.restore();
+}
+</code></pre><p>源码地址，</p>
+<pre><code>https://github.com/muzhidong/frontend-demo/tree/master/collidedball
+</code></pre><h3 id="旗帜"><a href="#旗帜" class="headerlink" title="旗帜"></a>旗帜</h3><p>效果如下，<br><img src="https://user-gold-cdn.xitu.io/2018/12/16/167b714916ba8201?w=755&amp;h=459&amp;f=gif&amp;s=688286" alt=""><br>贴上与canvas相关的代码，</p>
+<pre><code>//画旗帜
+function drawFlag(x0, y0, x1, y1, offsetX) {
+
+    con.beginPath();
+
+    con.moveTo(x0, y0 + 50 * Math.sin(offsetX * Math.PI * 2 / (x1 - x0)));
+    for (var i = 1; i &lt;= x1 - x0; i++) {
+        con.lineTo(x0 + i, y0 + 50 * Math.sin((offsetX + i) * Math.PI * 2 / (x1 - x0)));
+    }
+    con.lineTo(x1, y1 + 50 * Math.sin(offsetX * Math.PI * 2 / (x1 - x0)));
+    for (var j = 1; j &lt;= x1 - x0; j++) {
+        con.lineTo(x1 - j, y1 + 50 * Math.sin((offsetX + x1 - x0 - j) * Math.PI * 2 / (x1 - x0)));
+    }
+    con.lineTo(x0, y0 + 50 * Math.sin(offsetX * Math.PI * 2 / (x1 - x0)));
+
+    con.closePath();
+
+    con.fillStyle = &quot;#1890ff&quot;;
+    con.fill();
+}
+</code></pre><p>源码地址，</p>
+<pre><code>https://github.com/muzhidong/frontend-demo/tree/master/flutteredflag
+</code></pre><h3 id="放大镜"><a href="#放大镜" class="headerlink" title="放大镜"></a>放大镜</h3><p>放大镜效果已封装成一个插件使用，具体可访问下面链接，</p>
+<pre><code>https://github.com/muzhidong/magnify
+</code></pre>  	
+					
+	  </div>     
+	  
+
+	
+<div class="post-meta">
+      	
+
+      
+        <i class="iconfont icon-tag"></i>     
+          <a class="tag-link" href="/tags/HTML5/">HTML5</a> <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>    
+      	
+</div>
+
+
+
+
+
+<div class="post-footer">
+  <div class="pf-left">
+      <img class="pf-avatar" src="/images/avatar.png">
+      <p class="pf-des">大猿猴</p>
+  </div>
+
+  <div class="pf-right">           
+      <div class="pf-links">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">觉得不错就赞赏一下吧</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+        
+	
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		   			             
+            <a class="iconfont  icon-share-qq -mob-share-qq"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weixin -mob-share-weixin"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weibo -mob-share-weibo"></a>		
+     	   
+	</div>	
+
+      </div>  
+    <nav class="pf-paginator">
+      
+         
+          <a href="/2019/11/12/markdown初入门/" data-hover="Markdown初入门">上一篇</a>      
+            
+        
+      
+        
+        <a href="/2019/11/12/BOM知识小结/" data-hover="BOM知识小结"> 下一篇</a>
+            
+  </nav>   
+  </div>
+</div> 
+	
+	
+</article>
+
+	<div class="sidebar">
+		<h4 class="toc-title">目录</h4>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Canvas-API"><span class="toc-text">Canvas API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#属性"><span class="toc-text">属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法"><span class="toc-text">方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CanvasRenderingContext2D-API"><span class="toc-text">CanvasRenderingContext2D API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#属性-1"><span class="toc-text">属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法-1"><span class="toc-text">方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用"><span class="toc-text">应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#碰撞球"><span class="toc-text">碰撞球</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#旗帜"><span class="toc-text">旗帜</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#放大镜"><span class="toc-text">放大镜</span></a></li></ol></li></ol>
+	</div>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">  
+            <span class="search-cancel iconfont icon-cancel"></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018.07-
+		
+		2019.11		
+	
+		greatApe
+		<!-- <br/> -->
+
+		<!-- Theme By -->
+		<!-- <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	 -->
+		</div>			
+	 
+</footer>   
+    <div class="after-footer">
+    
+    <script type="text/javascript">
+    	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    	if(window.location.hostname === "muzhidong.github.io"){	
+	    	document.write(unescape("%3Cspan id='cnzz_stat_icon_1274542692'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274542692%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+    	}else if(window.location.hostname === "blog.mudong.xyz"){
+			document.write(unescape("%3Cspan id='cnzz_stat_icon_1274614490'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274614490%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+    	}
+	</script>
+
+
+
+
+     
+    </div> 
+
+    <script src="/mudong.bundle.js"></script> 
+  </body>        
+</html>

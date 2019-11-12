@@ -66,269 +66,38 @@
             <section class="main">  
           
 
-          
+          <article class="post">
+  
+	<div class="post-header">
 
+	<p class="post-title">	
+		无标题
+	</p>
+			
 
+	<div class="meta-info">	
+	<span>
+		11月 12, 2019
+	</span>
 
-
-<div class="profile sildeUpMin">
 	
-		<a href="/">
-			<img class="avatar" src="/images/avatar.png">
-		</a>
-		<p class="author">大猿猴</p>
-
-		<div class="social">
-   		      		
-			<a target="_blank" class="social-links" href="https://github.com/muzhidong">		
-				
-					<i class="iconfont icon-Github"></i>
-				
-			</a>
-
-	          		
-			<a target="_blank" class="social-links" href="https://juejin.im/user/57dbd39967f35600569b20c8">		
-				
- 					<svg class="icon" aria-hidden="true">
-  						<use xlink:href="#icon-juejin"/>
-					</svg>
-				
-			</a>
-
-	    
-    	</div>		
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			2480
+		</span>
+	
 </div>
 
+</div> 
+	 
 
-    	  	
-  		
-    			
+	  <div class="post-content slideDownMin">
 
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2019/11/12/单向数据流框架DvaJS介绍/">无标题</a>  
-	       
-		 
-
-		<div class="article-meta">
-			11月 12, 2019
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="article-excerpt">	
-		 
-			<h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>react-router + redux + redux-saga + fetch</p>
-<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
-<li>易学易用，6个API</li>
-<li>elm概念</li>
-<li>插件机制</li>
-<li>支持HMR</li>
-</ul>
-<h3 id="安装、运行或构建"><a href="#安装、运行或构建" class="headerlink" title="安装、运行或构建"></a>安装、运行或构建</h3><pre><code>npm install dva-cli -g
-dva -v
-dva new your-project
-cd your-project
-npm start [npm run build]
-</code></pre><p>扩展：<br>安装antdesign和babel-plugin-import[用于按需加载antd脚本和样式]</p>
-<pre><code>npm install antd babel-plugin-import --save
-</code></pre><p>编辑.webpackrc，使babel-plugin-import生效</p>
-<pre><code>{
-  &quot;extraBabelPlugins&quot;: [
-    [&quot;import&quot;, { &quot;libraryName&quot;: &quot;antd&quot;, &quot;libraryDirectory&quot;: &quot;es&quot;, &quot;style&quot;: &quot;css&quot; }]
-  ]
-}
-</code></pre><h3 id="数据流向"><a href="#数据流向" class="headerlink" title="数据流向"></a>数据流向</h3><p><img src="https://user-gold-cdn.xitu.io/2018/12/24/167dbe03ca75497f?w=1614&amp;h=508&amp;f=png&amp;s=115320" alt=""></p>
-<h3 id="开发思路"><a href="#开发思路" class="headerlink" title="开发思路"></a>开发思路</h3><ul>
-<li><p>定义视图</p>
-<p>新建 routes/HelloWorld.js，定义视图</p>
-<pre><code>import React from &#39;react&#39;;
-const Hello = (props) =&gt; (
-  &lt;h2&gt;HelloWorld!&lt;/h2&gt;
-);
-export default Hello;
-</code></pre></li>
-<li><p>设置路由  </p>
-<p> 编辑 router.js，添加路由信息到路由表</p>
-<pre><code>import HelloWorld from &#39;./routes/HelloWorld&#39;;
-...
-&lt;Route path=&quot;/helloworld&quot; exact component={HelloWorld} /&gt;
-</code></pre></li>
-<li><p>抽取公共组件[可选]</p>
-<p>新建 components/HelloWorld.js 文件</p>
-<pre><code>import React from &#39;react&#39;; 
-const HelloWorld = ({title}) =&gt; {
-  return (
-      &lt;h2&gt;{title}&lt;/h2&gt;
-  );
-};
-export default HelloWorld;
-</code></pre></li>
-<li><p>定义model</p>
-<p>包括同步更新 state 的 reducers，处理异步逻辑的 effects，订阅数据源的 subscriptions。</p>
-<p> 新建 models/hello.js</p>
-<pre><code>export default {
-  namespace: &#39;hello&#39;,
-  state: {
-      title:&quot;HelloWorld!&quot;,
-  },
-  reducers: {
-  },
-  effects:{
-  },
-};
-</code></pre><p> 解释说明：<br>namespace 表示在全局 state 上的 key<br>state 是初始值，在这里是空数组<br>reducers 等同于 redux 里的 reducer，接收 action，同步更新 state</p>
-<p>编辑index.js，载入modal</p>
-<pre><code>     app.model(require(&#39;./models/hello&#39;).default);
-</code></pre></li>
-<li><p>视图与模型的连接</p>
-<p>编辑 routes/HelloWorld.js</p>
-<pre><code>import React from &#39;react&#39;;
-import { connect } from &#39;dva&#39;;
-import HelloWorld  from &#39;../components/HelloWorld&#39;;
-const Hello = ({ dispatch, title}) =&gt; {   
-  return (
-      &lt;Helloworld  title={title} /&gt;
-  );
-};
-export default connect(({ hello }) =&gt; ({
-  hello,
-}))(Hello);
-</code></pre><p>   编辑index.js，启动dva</p>
-<pre><code>const app = dva();
-</code></pre><p> 于是乎，一个dva项目就建立起来了！！！</p>
-</li>
-</ul>
-
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2019/11/12/单向数据流框架DvaJS介绍/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2019/11/12/异步操作系列之Generator函数与Async函数/">异步操作系列之Generator函数与Async函数</a>  
-	       
-		 
-
-		<div class="article-meta">
-			11月 12, 2019
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/ES6/">ES6</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="article-excerpt">	
 		
-			<h2 id="Generator函数"><a href="#Generator函数" class="headerlink" title="Generator函数"></a>Generator函数</h2><h3 id="形式"><a href="#形式" class="headerlink" title="形式"></a>形式</h3><pre><code>function* myGenerator(){
-   yield &#39;Hello&#39;;
-   yield &#39;World&#39;;
-   return &#39;ECMAScript&#39;;
-}
-</code></pre><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>相当于一个状态机。<br>
-		  	  
-	</p></div>
 
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2019/11/12/异步操作系列之Generator函数与Async函数/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2019/11/12/异步操作系列之Promise对象/">异步操作系列之Promise对象</a>  
-	       
-		 
-
-		<div class="article-meta">
-			11月 12, 2019
 			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/ES6/">ES6</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="article-excerpt">	
-		
-			<h2 id="Promise定义"><a href="#Promise定义" class="headerlink" title="Promise定义"></a>Promise定义</h2><p>一个对象，用于传递异步操作的消息。通过new关键字创建实例。</p>
-<h2 id="Promise特点"><a href="#Promise特点" class="headerlink" title="Promise特点"></a>Promise特点</h2><ul>
-<li><p>状态封闭性。状态不受外界改变，只有异步操作结果可以决定当前的状态。共3种状态，分别是Pending、Resolved和Rejected。 只有两种状态改变，即从Pending变为Resolved以及从Pending变为Rejected。</p>
-</li>
-<li><p>状态不变性。一旦状态改变就不会再变，一直保持这个结果。比如一个Promise对象的状态已经为Resolved，根据状态不变性，再在主线程中抛错是无效的。</p>
-</li>
-<li><p>状态连锁性。如果一个Promise实例传递了另一个Promise实例，那么该实例会随着要传递的Promise实例的状态变化而变化。</p>
-		  	  
-	</li></ul></div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2019/11/12/异步操作系列之Promise对象/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2019/11/12/前端模块化与ES6模块介绍/">无标题</a>  
-	       
-		 
-
-		<div class="article-meta">
-			11月 12, 2019
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="article-excerpt">	
-		 
-			<p>介绍ES6模块之前先认识几种模块规范。</p>
+					<p>介绍ES6模块之前先认识几种模块规范。</p>
 <h2 id="AMD、CMD与CommonJS规范"><a href="#AMD、CMD与CommonJS规范" class="headerlink" title="AMD、CMD与CommonJS规范"></a>AMD、CMD与CommonJS规范</h2><h3 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h3><ul>
 <li><p>概念</p>
 <p>中文译为异步模块定义，典型代表是requirejs。在浏览器环境中，要从服务端加载模块，必须采用异步模式，因此浏览器一般采用AMD规范。</p>
@@ -470,71 +239,100 @@ export default connect(({ hello }) =&gt; ({
 <li><p>ES6在浏览器和服务端上均适用，而CommonJS只适于服务端</p>
 </li>
 </ul>
-
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2019/11/12/前端模块化与ES6模块介绍/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2019/11/12/markdown初入门/">Markdown初入门</a>  
-	       
-		 
-
-		<div class="article-meta">
-			11月 12, 2019
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/工具/">工具</a>           
-				
-			
-		</div>
-	</div>
-
+  	
+					
+	  </div>     
+	  
 
 	
+<div class="post-meta">
+      	
 
-    
-	<div class="article-excerpt">	
-		
-			<p>MarkDown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。<br>
-		  	  
-	</p></div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2019/11/12/markdown初入门/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
+      	
+</div>
 
 
+
+
+
+<div class="post-footer">
+  <div class="pf-left">
+      <img class="pf-avatar" src="/images/avatar.png">
+      <p class="pf-des">大猿猴</p>
+  </div>
+
+  <div class="pf-right">           
+      <div class="pf-links">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/wechat.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/alipay.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">觉得不错就赞赏一下吧</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
 
  
-   <nav class="paginator scrollIn">
-    
+        
+	
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
 
-   <span class="page-number"> Page <strong>1</strong>. </span>
 
-    
-        <a class="next" href="/page/2/"> 
-        下一页
-        <i class="iconfont icon-right"></i>
-        </a>
-    
-  </nav> 
+	<div class="-mob-share sildeUpMin">
+		   			             
+            <a class="iconfont  icon-share-qq -mob-share-qq"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weixin -mob-share-weixin"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weibo -mob-share-weibo"></a>		
+     	   
+	</div>	
+
+      </div>  
+    <nav class="pf-paginator">
+      
+         
+          <a href="/2019/11/12/异步操作系列之Promise对象/" data-hover="异步操作系列之Promise对象">上一篇</a>      
+            
+        
+      
+        
+        <a href="/2019/11/12/markdown初入门/" data-hover="Markdown初入门"> 下一篇</a>
+            
+  </nav>   
+  </div>
+</div> 
+	
+	
+</article>
+
+	<div class="sidebar">
+		<h4 class="toc-title">目录</h4>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AMD、CMD与CommonJS规范"><span class="toc-text">AMD、CMD与CommonJS规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AMD"><span class="toc-text">AMD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CMD"><span class="toc-text">CMD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CommonJS"><span class="toc-text">CommonJS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6-模块"><span class="toc-text">ES6 模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计思想"><span class="toc-text">设计思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优点"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#export"><span class="toc-text">export</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#import"><span class="toc-text">import</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块继承"><span class="toc-text">模块继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块加载实质要点"><span class="toc-text">模块加载实质要点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES6模块与CommonJS的区别"><span class="toc-text">ES6模块与CommonJS的区别</span></a></li></ol></li></ol>
+	</div>
 
           </section> 
       </div>            
