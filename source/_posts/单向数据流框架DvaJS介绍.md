@@ -12,7 +12,7 @@ react-router + redux + redux-saga + fetch
 - elm概念
 - 插件机制
 - 支持HMR
-
+<!--more-->
 ### 安装、运行或构建
 
     npm install dva-cli -g

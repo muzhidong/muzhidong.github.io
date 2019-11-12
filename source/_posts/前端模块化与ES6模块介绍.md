@@ -14,6 +14,7 @@ tags:
 - 特点
   
   模块是异步加载的，对依赖提前异步加载
+<!--more-->
 - 加载模块
 
 		requirejs(['jquery', 'canvas', 'app/sub'],function($,canvas,sub) {
