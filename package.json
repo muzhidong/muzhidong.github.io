@@ -1,12 +1,12 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
+  "name": "frontend_world_of_great_ape",
+  "version": "0.1.0",
   "private": true,
   "hexo": {
-    "version": "3.7.1"
+    "version": "3.9.0"
   },
   "dependencies": {
-    "hexo": "^3.2.0",
+    "hexo": "^3.9.0",
     "hexo-deployer-git": "^0.3.1",
     "hexo-generator-archive": "^0.1.4",
     "hexo-generator-category": "^0.1.3",
@@ -16,10 +16,23 @@
     "hexo-renderer-marked": "^0.3.0",
     "hexo-renderer-stylus": "^0.3.1",
     "hexo-server": "^0.2.0",
-    "hexo-generator-search": "^2.2.5"
+    "hexo-generator-search": "^2.4.0"
   },
   "devDependencies": {
-    "extract-text-webpack-plugin": "^3.0.2",
-    "hexo-generator-search": "^2.2.5"
+    "autoprefixer": "^8.0.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "",
+    "browserslist": "^4.9.1",
+    "clean-webpack-plugin": "^0.1.18",
+    "css-loader": "^0.28.9",
+    "expose-loader": "^0.7.4",
+    "file-loader": "^1.1.6",
+    "mini-css-extract-plugin": "",
+    "postcss-loader": "^2.1.0",
+    "style-loader": "^0.20.1",
+    "webpack": "^4.0.0",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
   }
 }

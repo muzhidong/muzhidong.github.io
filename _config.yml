@@ -17,7 +17,7 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://muzhidong.github.io
 root: /
-permalink: :year/:i_month/:i_day/:title/
+permalink: :year/:i_month/:i_day/:title
 permalink_defaults:
 
 # Directory
