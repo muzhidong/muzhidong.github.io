@@ -1,14 +1,23 @@
 pids
 logs
-node_modules
 npm-debug.log
 coverage/
 run
-.DS_Store
 .nyc_output
 .basement
 config.local.js
 basement_dist
-.vscode
-# ???不生效是因为在忽略dist文件夹前已被加入tracked file，解决办法是执行git rm -r --cache dist，即清除track file缓存。
+
+# 项目依赖及打包结果
+node_modules
+# 若发现dist文件夹没被git忽略
+# 是因为在忽略dist文件夹前已被加入tracked file，解决办法是执行git rm -r --cache dist，即清除track file缓存。
 ./dist
+
+# macos配置 
+.DS_Store
+
+# vscod配置
+.vscode
+
+
