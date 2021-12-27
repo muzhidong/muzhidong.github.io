@@ -12,7 +12,8 @@ basement_dist
 node_modules
 # 若发现dist文件夹没被git忽略
 # 是因为在忽略dist文件夹前已被加入tracked file，解决办法是执行git rm -r --cache dist，即清除track file缓存。
-./dist
+./dist/
+./deploy/
 
 # macos配置 
 .DS_Store
