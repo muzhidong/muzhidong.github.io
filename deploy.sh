@@ -7,7 +7,7 @@ urls=(https://github.com/muzhidong/muzhidong.github.io.git)
 branch=master
 target=deploy
 time=`date +%Y-%m-%d/%H:%M:%S`
-# echo "$userName $userEmail $target $time"
+# echo "$userName $userEmail $urls $branch $target $time"
 
 # 打包
 yarn build
