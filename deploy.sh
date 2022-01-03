@@ -30,6 +30,7 @@ function func(){
  	git add -A .
 	git commit -m "blog update on $time"
 	git remote add origin $1
+	git pull
 	git push -u origin $branch --force
 }
 
