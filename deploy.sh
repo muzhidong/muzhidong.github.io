@@ -25,6 +25,7 @@ git config user.name $userName
 git config user.email $userEmail
 
 cp -ri ../dist/ .
+cp .gitignore .
 
 function func(){
  	git add -A .
