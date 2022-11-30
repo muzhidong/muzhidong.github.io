@@ -3,6 +3,7 @@ title: HTML5系列——Canvas应用
 tags: 
 - HTML5
 ---
+# Canvas应用
 
 ## Canvas API
 ### 属性
