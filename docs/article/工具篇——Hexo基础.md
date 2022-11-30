@@ -3,6 +3,7 @@ title: 工具篇——Hexo基础
 tags: 
 - hexo
 ---
+# Hexo基础
 
 了解hexo，有利于让我们更好地使用好它。
 

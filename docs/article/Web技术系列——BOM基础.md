@@ -3,6 +3,7 @@ title: Web技术系列——BOM基础
 tags: 
 - Web技术
 ---
+# BOM基础
 
 ## BOM简介
 BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于操作浏览器而产生。W3C并没有对BOM统一标准，使用时有兼容性问题。

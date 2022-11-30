@@ -3,6 +3,7 @@ title: ES系列——Promise基础
 tags: 
 - ECMAScript
 ---
+# Promise基础
 
 ## Promise定义
 一个对象，用于传递异步操作的消息。通过new关键字创建实例。

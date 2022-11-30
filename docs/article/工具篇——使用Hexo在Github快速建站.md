@@ -3,6 +3,7 @@ title: 工具篇——使用Hexo在Github快速建站
 tags: 
 - hexo
 ---
+# 使用Hexo在Github快速建站
 
 本篇带你学习如何使用hexo快速在github上部署个人网站。
 

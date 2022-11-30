@@ -3,6 +3,7 @@ title: 工具篇——Postman如何作并发请求
 tags: 
 - Postman
 ---
+# Postman如何作并发请求
 
 有时开发过程中，我们希望对接口同时请求多次，进行测试。本博简单介绍下如何使用POSTMAN进行操作。
 

@@ -18,7 +18,7 @@ node_modules
 # macos配置 
 .DS_Store
 
-# vscod配置
+# vscode配置
 .vscode
 
 

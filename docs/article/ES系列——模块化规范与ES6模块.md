@@ -3,6 +3,8 @@ title: ES系列——模块化规范与ES6模块
 tags: 
 - ECMAScript
 ---
+# 模块化规范与ES6模块
+
 介绍ES6模块之前先认识几种模块规范。
 
 ## AMD、CMD与CommonJS规范

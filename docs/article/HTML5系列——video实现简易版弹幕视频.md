@@ -3,6 +3,8 @@ title: HTML5系列——video实现简易版弹幕视频
 tags: 
 - HTML5
 ---
+# video实现简易版弹幕视频
+
 认识两个HTML5标签，分别是video和source。
 
 ## video标签属性
