@@ -4,7 +4,7 @@
 userName=mudong
 userEmail=
 urls=(https://github.com/muzhidong/muzhidong.github.io.git)
-branch=master
+branch=main
 target=deploy
 time=`date +%Y-%m-%d/%H:%M:%S`
 # echo "$userName $userEmail $urls $branch $target $time"

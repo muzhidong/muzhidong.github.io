@@ -1,13 +1,11 @@
 {
-  "name": "docs",
+  "name": "MyBlog",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "My Blog -- The FrontEnd World of the Great Ape",
   "authors": {
-    "name": "mudong",
-    "email": ""
+    "name": "mudong"
   },
-  "repository": "",
+  "repository": "https://github.com/muzhidong/muzhidong.github.io",
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs"
