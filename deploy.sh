@@ -51,7 +51,7 @@ for i in $len
 
 # 后续处理
 cd ..
-git checkout .
+rm -rf ./dist
 
 
 
