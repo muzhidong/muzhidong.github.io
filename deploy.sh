@@ -1,47 +1,58 @@
 #!bin/bash
 
 # 预设置变量
-userName=mudong
-userEmail=
-urls=(https://github.com/muzhidong/muzhidong.github.io.git)
-branch=main
+urls=(git@github.com:muzhidong/muzhidong.github.io.git)
+names=(muzhidong.github.io)
+branchs=(master)
 target=deploy
 time=`date +%Y-%m-%d/%H:%M:%S`
-# echo "$userName $userEmail $urls $branch $target $time"
+len=${#urls[@]}
+((len--))
 
 # 打包
 yarn build
 
-# 初始化仓库并提交上传
-if [ -d ./$target ];then
-	rm -rf $target
+# 检查发布文件夹是否存在，不存在则创建，并进入该文件夹
+if [ ! -d ./$target ];then
+	mkdir ./$target
 fi
-
-mkdir $target
 cd ./$target
 
-git init
-git config user.name $userName
-git config user.email $userEmail
-
-cp -ri ../dist/ .
-cp .gitignore .
-
 function func(){
- 	git add -A .
+	# 目标文件夹若不存在，则克隆远程仓库
+	if [ ! -d ./$2 ];then
+		git clone $1
+	fi
+
+	# 获取最新远程仓库代码
+	cd ./$2
+	git pull
+
+	# 清空目标文件夹下除.git外的所有文件
+	rm -rf `ls -a | egrep -v ^.git$`
+
+	# 复制dist文件夹内容、.gitginore到目标文件夹下
+	cp -ri ../../dist/ .
+	cp ../../.gitignore .
+
+	# push到远程仓库
+	git add -A .
 	git commit -m "blog update on $time"
-	git remote add origin $1
-	git push -u origin $branch --force
+	git push -u origin $3 --force
+
+	# 回到上层deploy文件夹
+	cd ..
 }
 
-for url in $urls
+for i in $len
 	do
-		func $url
+		func ${urls[$i]} ${names[$i]} ${branchs[$i]}
 	done
 
+# 后续处理
 cd ..
-rm -rf ./$target
-rm -rf ./dist
+git checkout .
+
 
 
 
