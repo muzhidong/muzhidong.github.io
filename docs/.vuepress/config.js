@@ -71,6 +71,7 @@ module.exports = {
           'ES系列——Generator函数与Async函数',
           'ES系列——模块化规范与ES6模块',
           'Web技术系列——BOM基础',
+          '代码设计——手把手带你实现LRU、双队列缓存',
           '工具篇——markdown入门',
           '工具篇——Hexo基础',
           '工具篇——使用Hexo在Github快速建站',
