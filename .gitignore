@@ -10,8 +10,7 @@ basement_dist
 
 # 项目依赖及打包结果
 node_modules
-# 若发现dist文件夹没被git忽略
-# 是因为在忽略dist文件夹前已被加入tracked file，通过git checkout .放弃所有更改。
+# 若发现dist文件夹没被git忽略，是因为在忽略dist文件夹前已被加入tracked file，直接rm -rf ./dist强制删除。
 ./dist/
 ./deploy/
 
