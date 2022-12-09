@@ -1,5 +1,5 @@
 ---
-title: 工具篇——markdown入门
+title: markdown入门
 tags: 
 - Markdown
 ---

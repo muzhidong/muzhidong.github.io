@@ -1,5 +1,5 @@
 ---
-title: CSS系列——CSS3动画实现3D倒计时
+title: CSS3动画实现3D倒计时
 tags: 
 - CSS3
 ---

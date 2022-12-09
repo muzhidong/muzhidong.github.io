@@ -1,5 +1,5 @@
 ---
-title: Web技术系列——BOM基础
+title: BOM基础
 tags: 
 - Web技术
 ---

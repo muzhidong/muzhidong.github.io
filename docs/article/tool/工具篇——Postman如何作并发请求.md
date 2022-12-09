@@ -1,5 +1,5 @@
 ---
-title: 工具篇——Postman如何作并发请求
+title: Postman如何作并发请求
 tags: 
 - Postman
 ---

@@ -1,5 +1,5 @@
 ---
-title: 工具篇——Hexo基础
+title: Hexo基础
 tags: 
 - hexo
 ---

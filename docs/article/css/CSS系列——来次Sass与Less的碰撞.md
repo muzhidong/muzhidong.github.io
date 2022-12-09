@@ -1,5 +1,5 @@
 ---
-title: CSS系列——来次Sass与Less的语法碰撞
+title: 来次Sass与Less的语法碰撞
 tags: 
 - Less
 - Sass

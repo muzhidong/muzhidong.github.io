@@ -1,5 +1,5 @@
 ---
-title: ES系列——Generator函数与Async函数
+title: Generator函数与Async函数
 tags: 
 - ECMAScript
 ---

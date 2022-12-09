@@ -1,5 +1,5 @@
 ---
-title: HTML5系列——Canvas应用
+title: Canvas应用
 tags: 
 - HTML5
 ---

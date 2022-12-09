@@ -1,5 +1,5 @@
 ---
-title: HTML5系列——video实现简易版弹幕视频
+title: video实现简易版弹幕视频
 tags: 
 - HTML5
 ---

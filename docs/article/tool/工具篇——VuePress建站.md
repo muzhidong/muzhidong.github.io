@@ -1,5 +1,5 @@
 ---
-title: 工具篇——VuePress建站
+title: VuePress建站
 tags: 
 - VuePress
 ---

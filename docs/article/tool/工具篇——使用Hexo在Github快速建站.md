@@ -1,5 +1,5 @@
 ---
-title: 工具篇——使用Hexo在Github快速建站
+title: 使用Hexo在Github快速建站
 tags: 
 - hexo
 ---

@@ -1,5 +1,5 @@
 ---
-title: 工具篇——VSCode如何一键生成模板
+title: VSCode如何一键生成模板
 tags: 
 - VSCode
 ---

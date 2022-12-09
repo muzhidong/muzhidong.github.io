@@ -1,5 +1,5 @@
 ---
-title: ES系列——模块化规范与ES6模块
+title: 模块化规范与ES6模块
 tags: 
 - ECMAScript
 ---

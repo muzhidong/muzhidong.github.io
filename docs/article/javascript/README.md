@@ -1,5 +1,5 @@
 ---
-title: ES系列——Promise基础
+title: Promise基础
 tags: 
 - ECMAScript
 ---
