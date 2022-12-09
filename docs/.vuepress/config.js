@@ -47,8 +47,15 @@ module.exports = {
     lastUpdated: false,
     logo: '/logo.png',
     nav: [{
-        text: '文章',
-        link: '/article/',
+        text: '系列文章',
+        items: [
+          { text: 'HTML5', link: '/article/html5/' },
+          { text: 'CSS', link: '/article/css/' },
+          { text: 'JavaScript', link: '/article/javascript/' },
+          { text: 'Web技术', link: '/article/web/' },
+          { text: '代码设计', link: '/article/codeDesign/' },
+          { text: '工具', link: '/article/tool/' },
+        ]
       },
       {
         text: 'Github',
@@ -56,32 +63,39 @@ module.exports = {
       },
     ],
     sidebar: {
-      '/article/': [{
-        title: '',
-        collapsable: false,
-        children: [
-          '',
-          'HTML5系列——存储上',
-          'HTML5系列——存储下',
-          'HTML5系列——video实现简易版弹幕视频',
-          'HTML5系列——Canvas应用',
-          'CSS系列——来次Sass与Less的碰撞',
-          'CSS系列——CSS3动画实现3D倒计时',
-          'ES系列——Promise基础',
-          'ES系列——Generator函数与Async函数',
-          'ES系列——模块化规范与ES6模块',
-          'Web技术系列——BOM基础',
-          '代码设计——手把手带你实现LRU、双队列缓存',
-          '工具篇——markdown入门',
-          '工具篇——Hexo基础',
-          '工具篇——使用Hexo在Github快速建站',
-          '工具篇——VuePress建站',
-          '工具篇——VSCode如何一键生成模板',
-          '工具篇——Postman如何作并发请求',
-        ]
-      }],
+      '/article/html5/': [        
+        '',
+        'HTML5系列——语义',
+        'HTML5系列——存储上',
+        'HTML5系列——存储下',
+        'HTML5系列——Canvas应用',
+      ],
+      '/article/css/': [
+        '',
+        'CSS系列——来次Sass与Less的碰撞',
+      ],
+      '/article/javascript/': [
+        '',
+        'ES系列——Generator函数与Async函数',
+        'ES系列——模块化规范与ES6模块',
+      ],
+      '/article/web/': [
+        '',
+      ],
+      '/article/codeDesign/': [
+        ''
+      ],
+      '/article/tool/': [
+        '',
+        '/article/tool/工具篇——Hexo基础',
+        '/article/tool/工具篇——使用Hexo在Github快速建站',
+        '/article/tool/工具篇——VuePress建站',
+        '/article/tool/工具篇——VSCode如何一键生成模板',
+        '/article/tool/工具篇——Postman如何作并发请求',
+      ],
     },
-    sidebarDepth: 0,
+    collapsable: false,
+    sidebarDepth: 2,
     smoothScroll: true,
   },
 
