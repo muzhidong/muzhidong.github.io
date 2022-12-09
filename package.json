@@ -7,8 +7,9 @@
   },
   "repository": "https://github.com/muzhidong/muzhidong.github.io",
   "scripts": {
-    "dev": "vuepress dev docs",
-    "build": "vuepress build docs"
+    "dev": "vuepress dev docs --debug",
+    "build": "vuepress build docs",
+    "publish": "sh deploy.sh"
   },
   "license": "MIT",
   "devDependencies": {
