@@ -111,7 +111,8 @@ module.exports = {
     // 显示目录
     toc: {
       includeLevel: [1, 2, ]
-    }
+    },
+    lineNumbers: true
   },
 
   // 继承主题进行扩展

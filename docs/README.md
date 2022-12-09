@@ -1,10 +1,10 @@
 ---
 home: true
-heroImage:
-heroText:
-tagline:
-actionText:
-actionLink:
+heroImage: null
+heroText: null
+tagline: null 
+actionText: null
+actionLink: null
 features:
 - title: 前端基础
   details: HTML5、CSS3、ECMAScript、TypeScript、Web技术
@@ -17,6 +17,6 @@ features:
 - title: 前端领域
   details: 图形动画、游戏、音视频流、可视化
 - title: 拓展
-  details: 编程语言、移动客户端原生技术、云技术、AI、区块链
+  details: 编程语言、Android、IOS、云+、AI、区块链
 footer: Made by muDong
 ---
