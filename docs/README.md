@@ -1,10 +1,10 @@
 ---
 home: true
-heroImage: /logo.png
+heroImage:
 heroText:
-tagline: 
-actionText: 快速开始
-actionLink: /article/
+tagline:
+actionText:
+actionLink:
 features:
 - title: 前端基础
   details: HTML5、CSS3、ECMAScript、TypeScript、Web技术
@@ -18,5 +18,5 @@ features:
   details: 图形动画、游戏、音视频流、可视化
 - title: 拓展
   details: 编程语言、移动客户端原生技术、云技术、AI、区块链
-footer: Made by  mudong
+footer: Made by muDong
 ---

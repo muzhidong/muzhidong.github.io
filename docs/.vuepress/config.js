@@ -7,7 +7,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
-  description: '欢迎来到我的前端世界',
+  description: '一名前端程序猿，目前正在一点点地进步，希望有一天能够在IT行业找到自我的价值。',
 
   /**
    * Extra tags to be injected to the page HTML `<head>`
@@ -51,8 +51,8 @@ module.exports = {
         link: '/article/',
       },
       {
-        text: '关于我',
-        link: '/more/'
+        text: 'Github',
+        link: 'https://github.com/muzhidong'
       },
     ],
     sidebar: {
@@ -81,7 +81,7 @@ module.exports = {
         ]
       }],
     },
-    sidebarDepth: 2,
+    sidebarDepth: 0,
     smoothScroll: true,
   },
 
