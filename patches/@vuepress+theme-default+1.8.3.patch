@@ -1,0 +1,20 @@
+diff --git a/node_modules/@vuepress/theme-default/components/SidebarLink.vue b/node_modules/@vuepress/theme-default/components/SidebarLink.vue
+index 4cd7665..10318b7 100644
+--- a/node_modules/@vuepress/theme-default/components/SidebarLink.vue
++++ b/node_modules/@vuepress/theme-default/components/SidebarLink.vue
+@@ -73,7 +73,14 @@ function renderLink (h, to, text, active, level) {
+     }
+   }
+ 
+-  return h('RouterLink', component, text)
++  let subNodeType = 'text';
++  let realText = '';
++  if(/^~~.*~~$/.test(text)){
++    subNodeType = 'del';
++    realText = text.replace(/~~/g, '');
++  }
++
++  return h('RouterLink', component, subNodeType === 'text'? text: [h(subNodeType, null, realText)])
+ }
+ 
+ function renderChildren (h, children, path, route, maxDepth, depth = 1) {
