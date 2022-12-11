@@ -12,7 +12,7 @@
     "patch-theme": "patch-package @vuepress/theme-default",
     "dev": "vuepress dev docs --debug",
     "build": "vuepress build docs",
-    "publish": "sh deploy.sh"
+    "deploy": "sh deploy.sh"
   },
   "license": "MIT",
   "devDependencies": {
