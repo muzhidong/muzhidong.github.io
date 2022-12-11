@@ -49,8 +49,9 @@ module.exports = {
     nav: [{
         text: '系列文章',
         items: [
+          // text值必须与首页的关键字一致，这里也作为链接和关键字的映射
           { text: 'HTML5', link: '/article/html5/' },
-          { text: 'CSS', link: '/article/css/' },
+          { text: 'CSS3', link: '/article/css/' },
           { text: 'JavaScript', link: '/article/javascript/' },
           { text: 'Web技术', link: '/article/web/' },
           { text: '代码设计', link: '/article/codeDesign/' },

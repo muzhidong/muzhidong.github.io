@@ -4,9 +4,6 @@
  * ref：https://v1.vuepress.vuejs.org/config/#index-styl
  */
 
-.home .features
-  border-top 0 none !important
-
 .sidebar > .sidebar-links > li > a.sidebar-link {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -15,4 +12,45 @@
 
 .sidebar > .sidebar-links > li:not(:first-child){
   margin-top: 0 !important;
+}
+
+html,
+body,
+#app,
+.theme-container{
+  height: 100%;
+}
+
+main.home{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.theme-default-content.custom{
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 100%;
+}
+
+@keyframes douyidou{
+  0%{
+    transform: rotate(-15deg);
+  }
+  25%{
+    transform: rotate(0);
+  }
+  50%{
+    transform: rotate(15deg);
+  }
+  75%{
+    transform: rotate(0);
+  }
+  100%{
+    transform: rotate(-15deg);
+  }
+}
+/** TODO: */
+.navbar .logo{
+  animation: douyidou 1s linear infinite;
 }
