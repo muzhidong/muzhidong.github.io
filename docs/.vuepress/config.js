@@ -84,15 +84,16 @@ module.exports = {
         '',
       ],
       '/article/codeDesign/': [
-        ''
+        '',
+        '快速搭建脚手架',
       ],
       '/article/tool/': [
         '',
-        '/article/tool/工具篇——Hexo基础',
-        '/article/tool/工具篇——使用Hexo在Github快速建站',
-        '/article/tool/工具篇——VuePress建站',
-        '/article/tool/工具篇——VSCode如何一键生成模板',
-        '/article/tool/工具篇——Postman如何作并发请求',
+        '工具篇——Hexo基础',
+        '工具篇——使用Hexo在Github快速建站',
+        '工具篇——VuePress建站',
+        '工具篇——VSCode如何一键生成模板',
+        '工具篇——Postman如何作并发请求',
       ],
     },
     collapsable: false,
