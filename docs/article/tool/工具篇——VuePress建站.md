@@ -5,7 +5,7 @@ tags:
 ---
 # VuePress建站
 
-### VuePress 目录结构
+## VuePress 目录结构
 
 ```
 .
@@ -35,7 +35,7 @@ tags:
 └── package.json
 ```
 
-### VuePress命令
+## VuePress命令
 ```bash
 # 本地启动网站，支持热更新
 vuepress dev docs

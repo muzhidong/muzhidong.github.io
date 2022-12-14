@@ -7,7 +7,7 @@ tags:
 
 本篇带你学习如何使用hexo快速在github上部署个人网站。
 
-### 一、在github上创建自己的博客网站
+## 一、在github上创建自己的博客网站
 1.创建新仓库
 
 2.配置网站地址：[你的github账号名称].github.io
@@ -16,8 +16,8 @@ tags:
 
 4.访问https://[你的github账号名称].github.io，是否建站成功
 
-### 二、在本地上安装node、git、hexo，运行hexo博客网站
-#### 安装
+## 二、在本地上安装node、git、hexo，运行hexo博客网站
+### 安装
 1.安装node、git
 
 2.查看node、git是否安装成功
@@ -39,7 +39,7 @@ npm install -g hexo-cli
 hexo -v
 ```
 
-#### 建站
+### 建站
 5.初始化hexo博客网站项目
 
 ```
@@ -64,7 +64,7 @@ hexo g
 hexo s
 ```
 
-### 三、上传hexo博客网站源码到github
+## 三、上传hexo博客网站源码到github
 1.在博客项目文件夹下初始化仓库
 
 ```
@@ -116,7 +116,7 @@ git push origin dev
 hexo d
 ```
 
-### 四、写博客
+## 四、写博客
 1.新增一篇文章
 
 ```
