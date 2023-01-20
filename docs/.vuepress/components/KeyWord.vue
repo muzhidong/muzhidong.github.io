@@ -1,7 +1,8 @@
 <template>
   <div class='container' ref="container">
     <span v-for="item,index in keywords" 
-      :key="item.id" 
+      :key="item.id"
+      :id="item.id" 
       class="item" 
       :style="item.style"
       :ref="`keyword${index}`">{{item.value}}</span>
@@ -55,21 +56,37 @@ export default {
         el.anim = anim;
       })
 
-      // 通过事件委托，监听每个关键字元素的鼠标移入、移出、点击事件
+      // 通过事件委托，监听每个关键字元素的鼠标移入(触摸开始)、移出(触摸结束)、点击事件
       const containerEl = this.$refs.container;
       const self = this;
-      containerEl.addEventListener('mouseover',function(e){
-        const {tagName, className, anim } = e.target??{};
+      let timer = {};
+      const handleOverEvent = function(e){
+        if(e.type === "touchstart" && timer[e.target?.id]) return;
+        const { tagName, className, anim } = e.target??{};
         if(tagName === "SPAN" && className === "item"){
           anim.pause();
         }
-      });
-      containerEl.addEventListener('mouseout', function(e){
-        const {tagName, className, anim } = e.fromElement??{};
+      } 
+      const handleOutEvent = function(e){
+        const { tagName, className, anim, id } = e.type ==="touchend"? e.target: e.fromElement??{};
         if(tagName === "SPAN" && className === "item"){
           anim.play();
         }
-      });
+        // 移动端兼容，延时定时器，处理触摸结束事件后立即触发触摸开始事件
+        if(e.type === "touchend"){
+          timer[id] = setTimeout(()=>{
+            clearTimeout(timer[id]);
+            timer[id] = null;
+          }, 200);
+        }
+      };
+      
+      containerEl.addEventListener('mouseover', handleOverEvent);
+      containerEl.addEventListener('mouseout', handleOutEvent);
+
+      containerEl.addEventListener('touchstart', handleOverEvent);
+      containerEl.addEventListener('touchend', handleOutEvent);
+
       containerEl.addEventListener('click', function(e){
         const { tagName, className, innerText } = e.target??{};
         if(tagName === "SPAN" && className === "item"){
