@@ -63,21 +63,21 @@ export default {
       const handleOverEvent = function(e){
         if(e.type === "touchstart" && timer[e.target?.id]) return;
         const { tagName, className, anim } = e.target??{};
-        if(tagName === "SPAN" && className === "item"){
+        if(tagName === "SPAN" && className === "item" && anim.playState !== 'paused'){
           anim.pause();
         }
       } 
       const handleOutEvent = function(e){
         const { tagName, className, anim, id } = e.type ==="touchend"? e.target: e.fromElement??{};
-        if(tagName === "SPAN" && className === "item"){
+        if(tagName === "SPAN" && className === "item" && anim.playState !== 'running'){
           anim.play();
-        }
-        // 移动端兼容，延时定时器，处理触摸结束事件后立即触发触摸开始事件
-        if(e.type === "touchend"){
-          timer[id] = setTimeout(()=>{
-            clearTimeout(timer[id]);
-            timer[id] = null;
-          }, 200);
+          // 移动端兼容，延时定时器，处理触摸结束事件后立即触发触摸开始事件
+          if(e.type === "touchend"){
+            timer[id] = setTimeout(()=>{
+              clearTimeout(timer[id]);
+              timer[id] = null;
+            }, 16);
+          }
         }
       };
       
