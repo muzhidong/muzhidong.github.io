@@ -59,6 +59,7 @@ module.exports = {
           { text: 'JavaScript', link: '/article/javascript/' },
           { text: 'Web技术', link: '/article/web/' },
           { text: '代码设计', link: '/article/codeDesign/' },
+          { text: '代码性能', link: '/article/codePerformance/' },
           { text: '工具', link: '/article/tool/' },
         ]
       },
@@ -90,6 +91,10 @@ module.exports = {
       '/article/codeDesign/': [
         '',
         '快速搭建脚手架',
+        '富文本编辑器支持小程序跳转',
+      ],
+      '/article/codePerformance/': [
+        '',
       ],
       '/article/tool/': [
         '',
