@@ -57,6 +57,7 @@ module.exports = {
           { text: 'HTML5', link: '/article/html5/' },
           { text: 'CSS3', link: '/article/css/' },
           { text: 'JavaScript', link: '/article/javascript/' },
+          { text: 'TypeScript', link: '/article/typescript/' },
           { text: 'Web技术', link: '/article/web/' },
           { text: '代码设计', link: '/article/codeDesign/' },
           { text: '代码性能', link: '/article/codePerformance/' },
@@ -87,6 +88,7 @@ module.exports = {
       ],
       '/article/typescript/': [
         '',
+        'TypeScript基础二',
       ],
       '/article/web/': [
         '',
