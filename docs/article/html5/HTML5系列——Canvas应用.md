@@ -205,7 +205,7 @@ tags:
 ### 碰撞球
 效果如下，
 
-![](https://user-gold-cdn.xitu.io/2018/12/16/167b7185cf9ab3f8?w=582&h=405&f=gif&s=914354)
+![碰撞球](/canvas/collidedball.gif)
 
 贴上与canvas相关的代码，
 ```javascript
@@ -258,13 +258,12 @@ function draw3DBall(context, x0, y0, c0, c1) {
 }
 ```
 
-源码链接：
-[https://github.com/muzhidong/frontend-demo/tree/master/collidedball](https://github.com/muzhidong/frontend-demo/tree/master/collidedball)
+[源码链接](https://github.com/muzhidong/frontend-demo/tree/master/collidedball)
 
 ### 旗帜
 效果如下，
 
-![](https://user-gold-cdn.xitu.io/2018/12/16/167b714916ba8201?w=755&h=459&f=gif&s=688286)
+![旗帜](/canvas/flutteredflag.gif)
 
 贴上与canvas相关的代码，
 ```javascript
@@ -290,10 +289,9 @@ function drawFlag(x0, y0, x1, y1, offsetX) {
 }
 ```
 
-源码链接：
-[https://github.com/muzhidong/frontend-demo/tree/master/flutteredflag](https://github.com/muzhidong/frontend-demo/tree/master/flutteredflag)
+[源码链接](https://github.com/muzhidong/frontend-demo/tree/master/flutteredflag)
 
 ### 放大镜
-放大镜效果已封装成一个插件使用，具体可访问下面链接，
+放大镜已封装成一个模块，具体使用可访问下面链接，
 
-[https://github.com/muzhidong/magnify](https://github.com/muzhidong/magnify)
+[https://github.com/muzhidong/frontend-demo/tree/master/magnify](https://github.com/muzhidong/frontend-demo/tree/master/magnify)
