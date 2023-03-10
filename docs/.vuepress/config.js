@@ -73,6 +73,7 @@ module.exports = {
       '/article/html5/': [        
         '',
         'HTML5系列——语义',
+        'HTML5系列——HTML元素大杂烩',
         'HTML5系列——存储上',
         'HTML5系列——存储下',
         'HTML5系列——Canvas应用',
