@@ -14,9 +14,9 @@ tags:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
 </head>
 <body>
 
@@ -110,6 +110,8 @@ HTML5 出现后，我们常用到的全局属性有如下，
 
   表示是否可以使用拖拽 API 去拖动元素。
 
+[传送门——全局属性完整介绍](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes)
+
 ## 主流元素分类
 
 - 根元素
@@ -164,13 +166,23 @@ HTML5 出现后，我们常用到的全局属性有如下，
 
   template、slot
 
+> 上面当中有一些是语义化元素，推荐使用。首先，搜索引擎爬虫时依赖于HTML元素，确定上下文和各关键字权重，利于SEO；其次，便于更多设备如屏幕阅读器、盲人阅读器等解析；最后，网页结构清晰，开发者更容易将网站分块，利于开发维护。
+
+## 转义字符
+
+|空格	  |版权号 |<   |>	  |"	 | &	 |  注册商标|
+|------|------|----|----|----|-----|---------|
+|&nbsp |&copy	|&lt |&gt	| &quot | &amp |	&reg|
+
 ## 语义化
 
 HTML是面向文档的，非面向文档中的数据，所以文档中的数据是无法被搜索引擎直接访问。而网页标注，恰好能让搜索引擎抓取到数据，利于SEO，让用户更容易准确搜索到想要的信息。以上便是语义化的由来和作用。
 
-语义化技术较知名的有RDFa(资源描述框架属性)、微格式(Microformats)和微数据(Microdata)。
+语义化技术较知名的有RDFa、Microformats和Microdata，下面简单认识下这三种技术。
 
-简单认识下三个技术。
+### RDFa
+
+译为资源描述框架属性。
 
 阮一峰老师博文上提到，根据RDF的定义，资源本身是主语，属性名称是谓语，属性值是宾语。对网络资源的描述就采用主-谓-宾的形式。比如，
 
@@ -180,14 +192,17 @@ HTML是面向文档的，非面向文档中的数据，所以文档中的数据�
 
 > rdf:Description是主语，表示资源，属性dc:title是谓语，属性值表示宾语
 
- 微格式是通过类名进行语义化的，若某个元素带有以h-为前缀的类名，说明创建了一个微格式对象，其子元素有以p-、u-、dt-或e-为前缀的类名，则该对象有哪些属性。这里摘抄MDN的一个示例，
+### Microformats
+译为微格式，通过类名进行语义化。若某个元素带有以h-为前缀的类名，说明创建了一个微格式对象，其子元素有以p-、u-、dt-或e-为前缀的类名，则该对象有哪些属性。这里摘抄MDN的一个示例，
 
 ```HTML
 <div class="h-card">
-  <a class="p-name u-url"
-  href="http://blog.lizardwrangler.com/" 
+  <a 
+    class="p-name u-url"
+    href="http://blog.lizardwrangler.com/" 
   >Mitchell Baker</a> 
-  (<a class="p-org h-card" 
+  (<a 
+    class="p-org h-card" 
     href="http://mozilla.org/"
   >Mozilla Foundation</a>)
 </div>
@@ -198,42 +213,43 @@ HTML是面向文档的，非面向文档中的数据，所以文档中的数据�
 ```JSON
 {
   "items": [{ 
-  "type": ["h-card"],
-  "properties": {
-    "name": ["Mitchell Baker"],
-    "url": ["http://blog.lizardwrangler.com/"],
-    "org": [{
-    "value": "Mozilla Foundation",
     "type": ["h-card"],
     "properties": {
-      "name": ["Mozilla Foundation"],
-      "url": ["http://mozilla.org/"]
+      "name": ["Mitchell Baker"],
+      "url": ["http://blog.lizardwrangler.com/"],
+      "org": [{
+        "value": "Mozilla Foundation",
+        "type": ["h-card"],
+        "properties": {
+          "name": ["Mozilla Foundation"],
+          "url": ["http://mozilla.org/"]
+        }
+      }]
     }
-    }]
-  }
   }]
 }
 ```
 
 > 可以发现，使用微格式，所有浏览器都是支持的，但是容易与我们定义的CSS类名起冲突。
 
-微数据使用支持的词汇表描述项目和键值对，以便为其属性赋值。与使用RDFa和微格式相比，微数据试图提供一种机器可读标签去注释HTML元素的简单方法。微数据借助了HTML5.2新定义的几个全局属性，分别如下，
+### Microdata
+译为微数据。使用支持的词汇表描述项目和键值对，以便为其属性赋值。与使用RDFa和微格式相比，微数据试图提供一种机器可读标签去注释HTML元素的简单方法。微数据借助了HTML5.2新定义的几个全局属性，分别如下，
 
 - itemid
   
-  项的唯一全局标识符
+  数据项的全局唯一标识符
 
 - itemscope 
 
-  指定块中包含的关于特定项目的HTML
+  数据项的词汇表范围，也是数据项的开始位置
 
 - itemtype
 
-  指定将用于在数据结构中定义itemprop的词汇表的URL
+  定义itemprop使用的词汇表URL
 
 - itemprop
   
-  项的属性
+  数据项的属性。一般属性值是元素标签里的文本，但拥有src或href属性的元素，其值为url，这些元素有img、audio、video、source、embed、iframe、a、area、link、object。另外，time元素取自datetime属性，meta元素取自content属性
 
 示例如下，
 ```HTML
@@ -263,20 +279,23 @@ HTML是面向文档的，非面向文档中的数据，所以文档中的数据�
     RATING: 4.6 ( 8864 ratings )
     Price: $1.00
 
-最后，介绍了这几个语义化技术，意在说明HTML5在语义方面上是下了功夫的，即提供了许多语义化标签，这些标签是对搜索引擎检索出来的结果进行统计而定制出来的的常用词。
+[传送门——Schema.org 中文站](https://www.schema.org.cn/docs/getstarted.html)
+
+<br/>
+最后，介绍上面这几种语义化技术，意在说明HTML5在语义方面上是下了功夫的，即提供了许多语义化标签，这些标签是对搜索引擎检索出来的结果进行统计而定制出来的的常用词。
 
 语义话标签作用不止于语义化，在用户可访问性、代码可读性和可维护性方面也提供了一定的帮助。
 
 ## 参考
 
-- https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes
+- [https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes)
 
-- https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element
+- [https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element)
 
-- https://www.douban.com/group/topic/23046807/
+- [https://www.douban.com/group/topic/23046807/](https://www.douban.com/group/topic/23046807/)
 
-- https://developer.mozilla.org/en-US/docs/Web/HTML/microformats
+- [https://developer.mozilla.org/en-US/docs/Web/HTML/microformats](https://developer.mozilla.org/en-US/docs/Web/HTML/microformats)
 
-- https://developer.mozilla.org/zh-CN/docs/Web/HTML/Microdata
+- [https://developer.mozilla.org/zh-CN/docs/Web/HTML/Microdata](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Microdata)
 
-- http://www.ruanyifeng.com/blog/2008/02/rdf.html
+- [http://www.ruanyifeng.com/blog/2008/02/rdf.html](http://www.ruanyifeng.com/blog/2008/02/rdf.html)
