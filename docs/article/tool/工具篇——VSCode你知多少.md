@@ -1,16 +1,15 @@
 ---
-title: VSCode如何一键生成模板
+title: VSCode你知多少
 tags: 
 - VSCode
 ---
-# VSCode如何一键生成模板
 
-VSCode目前已经是前端人员必备的开发工具。本文介绍如何使用用户片段自定义模板，一键应用。
-<!-- 本文将介绍VSCode的一些能提高人员的开发效率的实用技巧。 -->
+# VSCode你知多少
+VSCode目前已经是前端人员必备的开发工具。本文介绍如何使用用户片段自定义模板、等技巧。
 
-## 用户片段（User Snippets）
+## 用户片段
 
-用户片段让开发者可以自定义一些常用模板，帮助我们一键生成，提升效率。
+用户片段，让开发者可以自定义一些常用模板，帮助我们一键生成，提升效率。
 
 首先，点击设置，再点击User Snippets
 
@@ -20,7 +19,7 @@ VSCode目前已经是前端人员必备的开发工具。本文介绍如何使�
 
 ![user snippets 2](/vscode/user_snippets_2.png)
 
-之后，可以开始自定义常用的模板了。我们知道，移动端页面通常会比PC端多一些元数据配置，下面就自定义一个移动Web页面初始模板作为示例，
+之后，可以开始自定义常用的模板了。我们知道，移动端页面通常会比PC端多一些元数据配置，下面就以H5模板为例，
 ```json
 {
 	// Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
@@ -77,4 +76,4 @@ VSCode目前已经是前端人员必备的开发工具。本文介绍如何使�
 }
 ```
 
-最后，我们可以在空白文件上输入mhtml，会出现提示菜单，选择回车。
+最后，我们可以在创建的空白文件上输入`mhtml`，会出现提示菜单，选择回车。
