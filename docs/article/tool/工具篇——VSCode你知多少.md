@@ -84,6 +84,7 @@ VSCode目前已经是前端人员必备的开发工具。本文介绍如何在VS
 	// Placeholders with the same ids are connected.
 	"Print to console": {
 		"prefix": "mhtml",
+		"scope": "html",
 		"body": [
 			"<!DOCTYPE html>",
 			"<html lang='zh'>",
@@ -129,8 +130,11 @@ VSCode目前已经是前端人员必备的开发工具。本文介绍如何在VS
 	}
 }
 ```
+其中，`prefix`字段是我们快捷生成片段的前缀提示，`scope`字段是片段前缀有效的文件类型范围，多种文件类型用逗号隔开即可，`body`字段则是片段的具体内容，是一个数组，每个元素代表片段的每一行内容，`description`字段表示对该片段的说明。
 
-最后，我们可以在创建的空白文件上输入`mhtml`，会出现提示菜单，选择回车。
+最后，在创建的HTML文件上输入`mhtml`，会出现提示菜单，选择它并回车，即立即生成片段。
+
+当然，如果想要删除该片段，在打开的用户片段文件的Tab上右击，选择`Reveal in Finder`(这里是MacOS)，会跳转到该文件在文件系统上的位置，然后删除该文件即可。
 
 ## 结束语
 VSCode提供的便利功能不止于此，还有设置同步、Emmet等实用功能，后续会再更新篇幅。
