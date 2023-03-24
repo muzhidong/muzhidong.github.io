@@ -1,101 +1,153 @@
 ---
-title: 模块化规范与ES6模块
+title: 模块化
 tags: 
 - ECMAScript
 ---
-# 模块化规范与ES6模块
+# 模块化
 
-介绍ES6模块之前先认识几种模块规范。
+本章介绍常见的几种模块化规范以及ES6中的模块化。
+
+在没有模块化概念之前，在浏览器是采用脚本化代码，通过挂载到全局的方式解决代码依赖。后来有了模块化，通过包声明方式（源自Node模块加载机制）解决，这样的好处是无需手动处理代码依赖这一块的实现。
 
 ## AMD、CMD与CommonJS规范
 ### AMD
-- 概念
+- 1、概念
   
-  中文译为异步模块定义，典型代表是requirejs。在浏览器环境中，要从服务端加载模块，必须采用异步模式，因此浏览器一般采用AMD规范。
-- 特点
+  中文译为异步模块定义，典型代表是requirejs。由于浏览器JS引擎是单线程的，这种异步模式刚好适用浏览器。
+
+- 2、特点
   
-  模块是异步加载的，对依赖提前异步加载
+  异步加载模块，支持多个并行，依赖会被提前加载
 <!--more-->
-- 加载模块
 
-	```JavaScript
-	requirejs(['jquery', 'canvas', 'app/sub'],function($,canvas,sub) {
-		//$、canvas、sub代表被加载的模块jquery、canvas、app/sub
-		//可以直接进行调用
-	});
-	```
+- 3、原理
 
-- 定义模块 		
+	通过head元素对象调用appendChild方法，将每一个依赖加载为一个script标签，待所有依赖加载完毕后，计算出模块定义函数正确的调用顺序，然后依次调用它们。
 
-  定义一个模块有键值对定义、函数式定义、存在依赖的函数式定义三种方式。你觉得下面是用哪种方式？
+- 4、示例
+```html
+<!-- index.html -->
+<script data-main="scripts/main.js" src="scripts/require.js"></script>
+<script src="scripts/other.js"></script>
+```
 
-	```JavaScript
-	define(['jquery','moment'],function($,m){
-		var obj = {
-			ele:$('div'),
-			time:m().unix(),
-		}
-		return obj;
-	});
-	```
+```javascript
+// main.js:
+require.config({
+  paths: {
+    foo: 'libs/foo-1.1.3'
+  }
+});
+
+// other.js:
+// This code might be called before the require.config() in main.js
+// has executed. When that happens, require.js will attempt to
+// load 'scripts/foo.js' instead of 'scripts/libs/foo-1.1.3.js'
+require(['foo'], function(foo) {});
+```
+
+其中，config方法option参数选项说明如下，
+
+	- baseUrl ：所有模块的查找根路径
+	- paths ：path映射那些不直接放置于baseUrl下的模块名
+	- shim: 为那些没有使用define()来声明依赖关系、设置模块的"浏览器全局变量注入"型脚本做依赖和导出配置
+	- map: 对于给定的模块前缀，使用一个不同的模块ID来加载该模块。
+	- config:常常需要将配置信息传给一个模块。
+	- packages: 从CommonJS包(package)中加载模块。
+	- nodeIdCompat: 在放弃加载一个脚本之前等待的秒数。
+	- waitSeconds: 命名一个加载上下文。
+	- context: 指定要加载的一个依赖数组。
+	- deps: 指定要加载的一个依赖数组。
+	- callback: 在deps加载完毕后执行的函数。
+	- enforceDefine: 如果设置为true，则当一个脚本不是通过define()定义且不具备可供检查的shim导出字串值时，就会抛出错误。
+	- xhtml: 如果设置为true，则使用document.createElementNS()去创建script元素。
+	- urlArgs: RequireJS获取资源时附加在URL后面的额外的query参数。
+	- scriptType: 指定RequireJS将script标签插入document时所用的type=""值。默认为“text/javascript”。
+
+
+- 5、模块定义 		
+
+  如何定义一个模块呢？有对象定义、函数式定义、存在依赖的函数式定义3种。
+
+```javascript
+define({});
+
+define(function(){});
+
+define(['aaa','bbb'],function(a,b){return {}});
+
+define(['aaa','bbb'],function(a,b){return function(){}});
+```
+
+- 6、应用
+```javascript
+// JSONP实现跨域
+require(["http://example.com/api/data.json?callback=define"],
+  function (data) {
+    //The data object will be the API response for the JSONP data call.
+    console.log(data);
+  }
+);
+// 但是，上述实现只能获取该JSONP URL一次，后继使用require()或define()发起的的对同一URL的依赖(请求)只会得到一个缓存过的值
+```
 	
 ### CMD
-- 概念
+- 1、概念
   
-  中文译为通用模块定义，典型代表是seajs。
-- 特点
+  中文译为通用模块定义，典型代表是淘宝的seajs。
+
+- 2、特点
   
-  模块是同步加载的，对依赖延迟加载，直到被应用才同步加载
-- 加载模块
-两种加载方式，
+  同步加载模块，延迟加载依赖，即直到被应用才加载
 
-	- 同步加载
+- 3、加载模块
+```javascript
+// 同步加载
+require('./util.js')	
+// 提供async方法实现异步加载
+require.async('./util.js',function(){
 
-		```JavaScript
-	  require('./util.js')	
-		```
+})
+```    
 
-	- 异步加载
-	
-		```JavaScript
-	  require.async('./util.js',callback)
-		```    
+- 4、模块定义
+```javascript
+// 几种定义模块的方式
+define("");
 
-- 定义模块
-  
-	```JavaScript
-	define(factory)
-	```
+define({});
 
-    其中参数factory可以是一个函数，也可以是一个对象或字符串。当参数是一个函数时，形式如function(require, exports, module) {}，当中的参数exports 是一个对象，用来向外提供模块接口，module也是一个对象，存储了与当前模块相关联的一些属性和方法。
-
+define(function(require, exports, module){
+	// require用于获取依赖模块
+	// exports是一个对外提供模块接口的对象
+	// module是一个存储当前模块相关联的一些属性和方法的对象
+})
+```
 
 ### CommonJS
-- 特点
+- 1、特点
 
-  模块是同步加载的，由于Node.js主要用于服务器编程，模块文件一般都已存在于本地，加载较快，所以CommonJS比较适用服务端。
-- 加载模块
+  同步加载模块，由于Node一般用于服务端编程，模块文件一般都已存在于本地，加载较快，CommonJS比较适合服务端。
 
-	```JavaScript
-	var foo = require('foo');
-	```
+- 2、加载模块
+```javascript
+var foo = require('foo');
+```
 
-- 定义模块
+- 3、定义模块
+```javascript
+exports = module.exports = foo;
+```
 
-	```JavaScript
-	exports = module.exports = foo;
-	```
+- 4、模块加载的实质
 
-- 加载实质
+采用深拷贝方式，在第一次require时加载并执行该脚本，在内存中生成一个对象。以后使用该模块时直接从该内存对象取值，即使再次执行require，也不会执行，仍是从缓存中取值。
 
-  采用深拷贝的方式，在第一次require时加载并执行该脚本，在内存中生成一个对象，以后用到该模块时直接从该内存对象进行取值，即使再次执行require，也不会执行，仍是从缓存中取值。
-
-下面正式开始介绍ES6中的模块体系。
-
-## ES6 模块
+## ES6 模块化
 ### 设计思想
 尽量静态化，在编译时确定模块的依赖关系，以及输入和输出的变量。
-### 优点
+
+### 特点
 - 浏览器和服务器两端可以通过ES6 模块格式
 - 编译时加载，效率高
 - 不再需要用对象作命名空间和定义全局变量或navigator对象属性
@@ -114,74 +166,101 @@ tags:
 	- 禁止this指向全局对象
 	- 不能使用fn.caller和fn.arguments获取函数调用的堆栈
 	- 增加保留字，如protected、static和interface
+
 ### export
 - 概念
 
-  规定模块的对外接口
+规定模块的对外接口
+
 - 特点
+
 1. 可以出现在模块的任何位置，只要处于模块顶层即可，若处于块级层则报错
+
 2. 值是动态绑定的
-- 默认输出与正常输出
 
-  正常输出
+- 默认导出
+```javascript
+// 正常导入导出方式
+export function func(){}
+import { func } from 'util';
 
-	```JavaScript
-	export function func(){
-		...
-	}
-	import {func} from 'util';
-	```
-	
-  默认输出
+// 默认导入导出方式
+export default function func(){}
+import func from 'util';
+```
 
-	```
-	export default  function func(){
-		...
-	}
-	import func from 'util';
-	```
+可以发现，
 
-   可以发现，第一，使用默认输出，对应的import语句不必使用大括号，也就是说可以任意命名；第二，使用export default本质上是输出一个叫做default的变量或方法，所以一个模块应该也只能有一个export default。
+第一，使用export default本质上是输出一个叫做default的变量或方法，所以一个模块应该也只能有一个export default。
+
+第二，使用默认输出，对应的import语句不必使用大括号，也就是说可以任意命名；
 
 ### import
 - 概念
 
-  加载模块
+加载模块
+
 - 特点
 
-  import命令具有提升效果，会提升到整个模块头部首先执行
-- 整体加载
+import命令具有提升效果，会提升到整个模块头部首先执行
 
-  要加载整个引入模块，有以下两种实现方式，
-  1. 使用星号*
+- 整体导入
+```javascript
+// 整体引入模块，有以下两种实现方式，
+// 使用星号*
+import * as util from './util';
 
-		```JavaScript
-		import * as util from './util';
-		```
-
-  2. 使用module命令取代import
-
-		```JavaScript
-	  module util from './util';
-		```
+// 使用module命令取代import
+module util from './util';
+```
 
 ### 模块继承
 模块继承通过export * 实现，如
-
-```JavaScript
+```javascript
 export * from 'math';
 ```
+注意该方式会忽略被继承模块的default变量或方法
 
-但是，export * 命令会忽略被继承模块的default变量或方法
-
-### 模块加载实质要点
+### 模块加载实质
 - ES6模块输出的值是值的引用，而非值的拷贝，具体理解为当模块执行import命令时，并不执行模块，而是生成一个动态的只读引用，等真正用到这个值时再到模块中取值，并且这个值是不被缓存的。
 - 由于ES6输入的模块变量仅是一个符号链接，是只读的，对其进行值的改变会报错，但可以对其添加属性。
 - 循环加载，即当a脚本的执行依赖b脚本，而b脚本的执行又依赖a脚本。与CommonJS循环加载有所差异，CommonJS加载并执行，进行深拷贝缓存，一旦出现循环加载，只输出已经执行的部分，未执行的部分不输出，容易报错，而ES6加载仅引用，进行浅拷贝，当需要时再进行动态引用，不会报错。
 
-### ES6模块与CommonJS的区别
+### ES6模块与三大模块规范的比较
 
-- ES6是编译时加载，CommonJS是运行时加载，于是ES6模块的效率要更高
+|   	           |AMD |CMD  |CommonJS	  |ES6 模块化	 |
+|----------------|------|----|----|----|
+|模块加载时机(也是依赖关系确定时) |运行时	|运行时|**运行时**|**编译时**|
+|模块加载方式 |异步	|支持同步和异步|**同步**	| **异步** |
+|模块引用方式 |深拷贝	|深拷贝|**深拷贝**| **浅拷贝** |
+|导入导出语法 |require([dep], function(dep) {}); <br><br> define(function(){});	|require()<br><br> define(function<br>(require,exports,<br>module){}) |**require()** <br><br>**exports**<br>**module.exports**	| **import** <br><br>**export default** |
+|优点 |并行加载多个依赖模块	|依赖模块延迟加载，即被应用时才加载 |**语法简单，易用**	|**静态分析** |
+|缺点 |依赖模块提前被加载；存在循环依赖问题	|语法较复杂 |**依赖模块提前被加载；不能并行加载多个依赖模块；存在循环依赖问题**	|  |
+|适合环境 |浏览器/Node环境	|浏览器/Node环境 |**Node环境**	| **浏览器/Node环境** |
 
-- ES6在浏览器和服务端上均适用，而CommonJS只适于服务端
+从上表分析，可以从加载时机、加载方式两个角度说明ES6模块与CJS的区别。
 
+- ES6是编译时加载，值是浅拷贝，不缓存，可以做静态分析；CJS是运行时加载，值是深拷贝，有缓存。
+- ES6是异步加载，适于Node和浏览器；CJS是同步加载，只适于Node。
+
+## 彩蛋
+- 兼容不同模块化的导出方式
+
+问题：在Node环境(CommonJs)使用`export default fn`导出方式，此时调用fn，报错`TypeError: fn is not a function`。发现fn是一个拥有default属性的对象，于是调整导出方式为`module.exports = fn`，在浏览器却报错`xxx.default is not defined`。那么如何同时支持`esm（export default）`，又支持`cjs（module.exports）`?
+
+解决：参考react框架处理方式，加了一层中间处理。
+```javascript
+// react/src/React.js
+export default React;
+
+// react/index.js
+const React = require(‘./src/React’); 
+module.exports = React.default || React; // 前者兼容cjs，后者兼容esm
+```
+
+- 指定以esm方式导出
+```javascript
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+```
