@@ -1,13 +1,14 @@
 const path = require('path')
 
 module.exports = (options, ctx) => {
+  const config = {
+    name: "vconsole-plugin",
+  };
   if(ctx.isProd){
-    return {
-      name: "vconsole-plugin",
-    }
+    return config;
   }
   return {
-    name: "vconsole-plugin",
+    ...config,
     clientRootMixin: path.resolve(__dirname, '../mixins/vconsole.js')
   }
 }
