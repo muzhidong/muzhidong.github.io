@@ -393,6 +393,7 @@ tags:
 
   <!-- 
     属性maxlength和minlength表示输入字符数的最值范围
+    注：maxlength只能控制用户输入，但不能阻止JS写入
   -->
   <input type="password" name="password" maxlength="20" minlength="8" />
 

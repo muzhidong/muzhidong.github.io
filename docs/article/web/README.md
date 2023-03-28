@@ -6,10 +6,10 @@ tags:
 # BOM基础
 
 ## BOM简介
-BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于操作浏览器而产生。W3C并没有对BOM统一标准，使用时有兼容性问题。
+BOM全称是`Browser Object Model`，浏览器对象模型。为了便于操作浏览器而产生。W3C并没有对BOM统一标准，使用时有兼容性问题。
 <!--more-->
 
-## window
+## window对象
 ### 定义
 表示浏览器的窗口，是最顶层的对象
 ### 属性
@@ -24,7 +24,7 @@ BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于
   获取窗口名称
 - parent
 
-   获取当前窗口的父窗口
+  获取当前窗口的父窗口
 - top
 
   获取顶级父窗口
@@ -57,19 +57,16 @@ BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于
   获取浏览器窗口的可见区域高度，受resize事件影响
 - opener
 
-  获取对创建此窗口的窗口的引用。比如在a.html打开b.html，需要从b.html传递一个数据给a.html上某节点，代码如下，
+  获取对创建此窗口的窗口的引用。
 
-  ```javascript
-  window.opener.document.getElementById(id).value =data;
-  ```
+比如在页面a打开页面b，b页面传参给a页面，作为某节点的内容，代码如下，
+```javascript
+window.opener.document.getElementById("content").innerText = Date.now();
+```
 
-> 扩展：全局变量与window对象属性的联系与区别
->- 联系
->
->  全局变量可以作为window对象的属性进行访问
->- 区别
->
->  全局变量不能直接delete，window对象属性能直接delete；访问未声明的全局变量会抛错，访问window对象未定义的属性不抛错
+> 彩蛋：全局变量与window对象属性的联系与区别
+>- 联系：全局变量可以作为window对象的属性进行访问
+>- 区别：window对象属性可以通过delete关键字删除，而全局变量不可以；访问未声明的全局变量会抛错，访问window对象未定义的属性不抛错
 
 ### 方法
 - setTimeout(cb,ms,...args)
@@ -105,8 +102,7 @@ BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于
 - open(url[,target][,option])
   
   打开新的窗口，需指定要打开的url，也可指定执行打开的窗口或框架目标，如_self、_parent、_top、_blank，和设置被打开窗口的选项字符串，如宽高、大小是否拖动边框可变、是否显示地址栏、菜单栏、工具栏、滚动条、状态栏等等。结果返回新打开的窗口对象。
-  
-  扩展：
+
   - 弹窗安全限制
   1. 不允许在屏幕外创建弹出窗口
   2. 不允许将弹出窗口移动到屏幕以外
@@ -114,6 +110,7 @@ BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于
   4. 不允许关闭地址栏
   5. 默认下不允许移动弹出窗口或调整大小
   6. 只能根据用户创建弹出窗口，因此页面加载时调用open方法是无效的
+  
   - 弹出窗口屏蔽检测
   ```javascript
   function checkWindowBlocked(url){
@@ -152,12 +149,26 @@ BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于
   弹出查找对话框
 - getComputedStyle(ele[,pseudoElt])
 
-  获取指定元素的样式，需要的话可以传入伪类元素。与ele.style的区别：ele.style只读取内联样式，而getComputedStyle读取内联样式、嵌入样式、外部样式等；ele.style支持读写，而getComputedStyle只支持读。
-- showModalDialog(sURL[,vArguments][,sFeatures])
+  获取指定元素的样式，需要的话可以传入伪类元素。
+  
+  与`ele.style`的区别：
+  
+  1、`ele.style`只读取内联样式，而`getComputedStyle`读取内联样式、嵌入样式、外部样式等；
+  
+  2、`ele.style`支持读写，而`getComputedStyle`只支持读。
 
-  打开模式对话框。其中sURL指定对话框要显示的文档URL，vArguments指定向对话框传递的参数，参数类型不限，而对话框通过window.dialogArguments取得传递进来的参数，sFeatures指定描述对话框的外观等信息，是一个可变参数
+- reload()
+  
+  页面重载。调用该方法时建议放在代码最后，因为该方法调用后，接下来的代码可能执行也可能不执行，取决于网络延迟或系统资源等因素。
 
-## location
+```javascript
+//从缓存中重新加载
+window.reload();
+//从服务器重新获取数据进行加载
+window.reload(true);
+```
+
+## location对象
 ### 作用
 - 提供当前页面url信息
 - 实现页面跳转
@@ -194,26 +205,8 @@ BOM英文全称是Browser Object Model，即浏览器对象模型，为了便于
 
   哈希值，即"#1111"
 
-### 应用： 封装获取查询字符串的函数
-```javascript
-function getQueryString(qs){
-
-  if(typeof qs === "string"){
-    var obj = {},arr;
-    qs = qs.slice(1).split("&");
-    for(item in qs){
-        arr = qs[item].split("=");
-        obj[arr[0]] = arr[1];
-    }
-    return obj;   
-  }
-  
-  return qs;
-  
-}
-```
-
-### 修改当前url，会在浏览器历史中生成一条记录
+### 示例
+- 修改当前url，会在浏览器历史中生成一条记录
 ```javascript
 location.hash = "#home";
 location.hostname = "www.baidu.com";
@@ -221,7 +214,7 @@ location.pathname = "/home/index";
 location.search = "?key=liu&password=123456";
 ```
 
-### 页面跳转
+- 页面跳转
 ```javascript
 // 方式一
 window.location = url;
@@ -233,16 +226,7 @@ window.location.assign(url);
 window.location.replace(url);
 ```
 
-### 页面重载
-```javascript
-//从缓存中重新加载
-window.reload();
-//从服务器重新获取数据进行加载
-window.reload(true);
-```
-调用reload时，建议放在代码最后，因为该方法调用后的接下来的代码可能执行也可能不执行，取决于网络延迟或系统资源等因素。
-
-## navigator
+## navigator对象
 ### 作用
 识别浏览器
 ### 属性
@@ -281,7 +265,7 @@ window.reload(true);
 
   使站点注册一个处理程序处理指定协议。其中protocol表示要处理的协议名称，url表示要处理的url如http://xxx?cmd=%s，%s表示源请求，appname表示要处理的应用程序名称
 ### 应用
-#### 判断桌面浏览器类型
+- 判断浏览器类型
 ```javascript
 function getBrowserType(){
   var userAgent = window.navigator.userAgent;
@@ -306,7 +290,7 @@ function getBrowserType(){
 }
 ```
 
-#### 插件检测
+- 插件检测
 ```javascript
 function hasPlugin(pluginName){
   var userAgent = window.navigator.userAgent;
@@ -330,7 +314,7 @@ function hasPlugin(pluginName){
 }
 ```
 
-## history
+## history对象
 ### 作用
 保存用户访问网页的历史记录
 ### 属性
@@ -347,7 +331,7 @@ function hasPlugin(pluginName){
 
   向前跳转，相当于go(1)
 
-## screen
+## screen对象
 ### 作用
 测定客户端能力
 ### 属性
