@@ -98,6 +98,7 @@ module.exports = {
         '',
         '快速搭建脚手架',
         '富文本编辑器支持小程序跳转',
+        '浅记需求开发中一次代码优化过程',
       ],
       '/article/codePerformance/': [
         '',
