@@ -19,7 +19,7 @@ index 4cd7665..10318b7 100644
  
  function renderChildren (h, children, path, route, maxDepth, depth = 1) {
 diff --git a/node_modules/@vuepress/theme-default/components/SidebarLinks.vue b/node_modules/@vuepress/theme-default/components/SidebarLinks.vue
-index 55e6288..4d57f15 100644
+index 55e6288..4ce12d2 100644
 --- a/node_modules/@vuepress/theme-default/components/SidebarLinks.vue
 +++ b/node_modules/@vuepress/theme-default/components/SidebarLinks.vue
 @@ -1,10 +1,10 @@
@@ -44,7 +44,7 @@ index 55e6288..4d57f15 100644
 +      return this.items.map(item => {
 +        return {
 +          ...item,
-+          headers: item.headers.filter(header => !(/^_/g.test(header.title)))
++          headers: item.headers && item.headers.filter(header => !(/^_/g.test(header.title)))
 +        }
 +      })
 +    },
