@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>自定义指令之水平循环滚动 | 大猿猴的前端世界</title>
+    <meta name="generator" content="VuePress 1.8.3">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <meta name="description" content="一名前端程序猿，目前正在一点点地进步，希望有一天能够在IT行业找到自我的价值。">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="theme-color" content="#1890ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <link rel="preload" href="/assets/css/0.styles.eb7c6d33.css" as="style"><link rel="preload" href="/assets/js/app.105c5cd2.js" as="script"><link rel="preload" href="/assets/js/2.2a9347ce.js" as="script"><link rel="preload" href="/assets/js/36.b9896680.js" as="script"><link rel="prefetch" href="/assets/js/10.0bed0f55.js"><link rel="prefetch" href="/assets/js/11.74c5fee0.js"><link rel="prefetch" href="/assets/js/12.42a7a887.js"><link rel="prefetch" href="/assets/js/13.d5bddaec.js"><link rel="prefetch" href="/assets/js/14.ab4f3bc6.js"><link rel="prefetch" href="/assets/js/15.f1831736.js"><link rel="prefetch" href="/assets/js/16.25b4b01f.js"><link rel="prefetch" href="/assets/js/17.412363b2.js"><link rel="prefetch" href="/assets/js/18.46e5b6ec.js"><link rel="prefetch" href="/assets/js/19.c40d56e2.js"><link rel="prefetch" href="/assets/js/20.4790e1a4.js"><link rel="prefetch" href="/assets/js/21.5b508042.js"><link rel="prefetch" href="/assets/js/22.93cf9ff8.js"><link rel="prefetch" href="/assets/js/23.bf1ce87c.js"><link rel="prefetch" href="/assets/js/24.e7b7f2e8.js"><link rel="prefetch" href="/assets/js/25.32f4cae9.js"><link rel="prefetch" href="/assets/js/26.b8d6a419.js"><link rel="prefetch" href="/assets/js/27.75af1c18.js"><link rel="prefetch" href="/assets/js/28.f1bceda3.js"><link rel="prefetch" href="/assets/js/29.3dbc1b0c.js"><link rel="prefetch" href="/assets/js/3.8dbff14e.js"><link rel="prefetch" href="/assets/js/30.ea7d0e8e.js"><link rel="prefetch" href="/assets/js/31.f3f6d1c9.js"><link rel="prefetch" href="/assets/js/32.1eccc530.js"><link rel="prefetch" href="/assets/js/33.13c1b68e.js"><link rel="prefetch" href="/assets/js/34.f9d68b98.js"><link rel="prefetch" href="/assets/js/35.b67e8642.js"><link rel="prefetch" href="/assets/js/37.ee0b3831.js"><link rel="prefetch" href="/assets/js/4.ed31a47b.js"><link rel="prefetch" href="/assets/js/5.06fb4b48.js"><link rel="prefetch" href="/assets/js/6.ef5cd09a.js"><link rel="prefetch" href="/assets/js/7.a83f4396.js"><link rel="prefetch" href="/assets/js/8.c31d7dad.js"><link rel="prefetch" href="/assets/js/9.d283ef6e.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.eb7c6d33.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="大猿猴的前端世界" class="logo"> <span class="site-name can-hide">大猿猴的前端世界</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="系列文章" class="dropdown-title"><span class="title">系列文章</span> <span class="arrow down"></span></button> <button type="button" aria-label="系列文章" class="mobile-dropdown-title"><span class="title">系列文章</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/article/html5/" class="nav-link">
+  HTML5
+</a></li><li class="dropdown-item"><!----> <a href="/article/css/" class="nav-link">
+  CSS3
+</a></li><li class="dropdown-item"><!----> <a href="/article/javascript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/article/typescript/" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/article/web/" class="nav-link">
+  Web技术
+</a></li><li class="dropdown-item"><!----> <a href="/article/vue/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/article/codeDesign/" class="nav-link">
+  代码设计
+</a></li><li class="dropdown-item"><!----> <a href="/article/codePerformance/" class="nav-link">
+  代码性能
+</a></li><li class="dropdown-item"><!----> <a href="/article/tool/" class="nav-link">
+  工具
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/muzhidong" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="系列文章" class="dropdown-title"><span class="title">系列文章</span> <span class="arrow down"></span></button> <button type="button" aria-label="系列文章" class="mobile-dropdown-title"><span class="title">系列文章</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/article/html5/" class="nav-link">
+  HTML5
+</a></li><li class="dropdown-item"><!----> <a href="/article/css/" class="nav-link">
+  CSS3
+</a></li><li class="dropdown-item"><!----> <a href="/article/javascript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/article/typescript/" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/article/web/" class="nav-link">
+  Web技术
+</a></li><li class="dropdown-item"><!----> <a href="/article/vue/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/article/codeDesign/" class="nav-link">
+  代码设计
+</a></li><li class="dropdown-item"><!----> <a href="/article/codePerformance/" class="nav-link">
+  代码性能
+</a></li><li class="dropdown-item"><!----> <a href="/article/tool/" class="nav-link">
+  工具
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/muzhidong" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/article/vue/" aria-current="page" class="active sidebar-link">自定义指令之水平循环滚动</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="自定义指令之水平循环滚动"><a href="#自定义指令之水平循环滚动" class="header-anchor">#</a> 自定义指令之水平循环滚动</h1> <p>本篇是作为vue自定义指令的一个初实践，效果类似以前的<code>marquee</code>标签（已废弃）。直接上源代码，相信阅读的同学都能轻松看懂。</p> <div class="language-javascript line-numbers-mode"><pre class="language-javascript"><code><span class="token comment">/**
+ * 自定义指令：水平循环滚动。鼠标进入时停止滚动，离开时继续滚动；支持滚动间隔和偏移量配置，提供触底回调，如用于通知更新数据
+ * 配置项说明：
+ * interval：表示滚动间隔，可选
+ * step：表示每次滚动偏移量，可选
+ * cb：表示剩余偏移量为父元素宽度2倍时触发的回调，可选
+ * dep：表示影响元素偏移量的依赖数组，可用于动态数据展示，可选
+ * 示例：
+ * &lt;div v-scroll&gt;&lt;/div&gt;
+ * &lt;div v-scroll=&quot;{interval: &lt;滚动间隔&gt;, step: &lt;每次滚动偏移量&gt;}&quot;&gt;&lt;/div&gt;
+ * &lt;div v-scroll=&quot;{cb: &lt;方法名&gt;}&quot;&gt;&lt;/div&gt;
+ * &lt;div v-scroll=&quot;{dep：&lt;滚动依赖的动态数据列表&gt;, cb: &lt;方法名&gt;}&quot;&gt;&lt;/div&gt;
+ * &lt;div v-scroll=&quot;{dep：&lt;滚动依赖的动态数据列表&gt;, cb: &lt;方法名&gt;, interval: &lt;滚动间隔&gt;, step: &lt;每次滚动偏移量&gt;}&quot;&gt;&lt;/div&gt;
+ */</span>
+
+<span class="token comment">// 定时器</span>
+<span class="token keyword">let</span> timer <span class="token operator">=</span> <span class="token keyword">null</span>
+<span class="token comment">// 计算最大偏移量定时器</span>
+<span class="token keyword">let</span> calcTimer <span class="token operator">=</span> <span class="token keyword">null</span>
+<span class="token comment">// 最大偏移量</span>
+<span class="token keyword">let</span> maxOffset <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token comment">// 最近一次偏移量</span>
+<span class="token keyword">let</span> lastOffset <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token comment">// 触发标识</span>
+<span class="token keyword">let</span> trigger <span class="token operator">=</span> <span class="token boolean">true</span>
+<span class="token comment">// 配置项</span>
+<span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
+  step<span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+  interval<span class="token operator">:</span> <span class="token number">300</span><span class="token punctuation">,</span>
+  dep<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  cb<span class="token operator">:</span> <span class="token keyword">null</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">startScroll</span> <span class="token punctuation">(</span><span class="token parameter">el</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>maxOffset <span class="token operator">===</span> <span class="token number">0</span> <span class="token operator">||</span> timer<span class="token punctuation">)</span> <span class="token keyword">return</span>
+  timer <span class="token operator">=</span> <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> offset <span class="token operator">=</span> <span class="token function">parseFloat</span><span class="token punctuation">(</span>el<span class="token punctuation">.</span>style<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>offset <span class="token operator">+</span> config<span class="token punctuation">.</span>step <span class="token operator">&gt;</span> maxOffset<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      el<span class="token punctuation">.</span>style<span class="token punctuation">.</span>right <span class="token operator">=</span> <span class="token string">'0'</span>
+      lastOffset <span class="token operator">=</span> <span class="token number">0</span>
+      trigger <span class="token operator">=</span> <span class="token boolean">true</span>
+      <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    el<span class="token punctuation">.</span>style<span class="token punctuation">.</span>right <span class="token operator">=</span> offset <span class="token operator">+</span> config<span class="token punctuation">.</span>step <span class="token operator">+</span> <span class="token string">'px'</span>
+    lastOffset <span class="token operator">=</span> offset <span class="token operator">+</span> config<span class="token punctuation">.</span>step
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>lastOffset <span class="token operator">&gt;=</span> maxOffset <span class="token operator">-</span> el<span class="token punctuation">.</span>parentElement<span class="token punctuation">.</span>offsetWidth <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">&amp;&amp;</span> trigger<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      trigger <span class="token operator">=</span> <span class="token boolean">false</span>
+      <span class="token keyword">const</span> <span class="token punctuation">{</span> cb <span class="token punctuation">}</span> <span class="token operator">=</span> config
+      cb <span class="token operator">&amp;&amp;</span> <span class="token function">cb</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> config<span class="token punctuation">.</span>interval<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">stopScroll</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>timer <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span>
+  <span class="token function">clearInterval</span><span class="token punctuation">(</span>timer<span class="token punctuation">)</span>
+  timer <span class="token operator">=</span> <span class="token keyword">null</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">mouseOverEventHandler</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">stopScroll</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">mouseleaveEventHandler</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">startScroll</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">calcMaxOffset</span> <span class="token punctuation">(</span><span class="token parameter">el</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> len <span class="token operator">=</span> el<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length
+  maxOffset <span class="token operator">=</span> <span class="token number">0</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    maxOffset <span class="token operator">+=</span> el<span class="token punctuation">.</span>children<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>offsetWidth
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>maxOffset <span class="token operator">===</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>calcTimer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    calcTimer <span class="token operator">=</span> <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token function">calcMaxOffset</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>maxOffset <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>calcTimer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">clearInterval</span><span class="token punctuation">(</span>calcTimer<span class="token punctuation">)</span>
+      calcTimer <span class="token operator">=</span> <span class="token keyword">null</span>
+    <span class="token punctuation">}</span>
+    el<span class="token punctuation">.</span>innerHTML <span class="token operator">+=</span> el<span class="token punctuation">.</span>innerHTML
+    <span class="token function">startScroll</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token function">bind</span> <span class="token punctuation">(</span><span class="token parameter">el<span class="token punctuation">,</span> <span class="token punctuation">{</span> value <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span>style<span class="token punctuation">.</span>position <span class="token operator">=</span> <span class="token string">'relative'</span>
+    el<span class="token punctuation">.</span>style<span class="token punctuation">.</span>right <span class="token operator">=</span> <span class="token string">'0'</span>
+    el<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'mouseover'</span><span class="token punctuation">,</span> mouseOverEventHandler<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+    el<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'mouseleave'</span><span class="token punctuation">,</span> mouseleaveEventHandler<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> key <span class="token keyword">in</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>value<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token punctuation">[</span><span class="token string">'dep'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          config<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> value<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>value<span class="token punctuation">.</span>cb<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        config<span class="token punctuation">.</span>cb <span class="token operator">=</span> value<span class="token punctuation">.</span>cb
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">calcMaxOffset</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">update</span> <span class="token punctuation">(</span><span class="token parameter">el<span class="token punctuation">,</span> <span class="token punctuation">{</span> value <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> dep <span class="token operator">=</span> value <span class="token operator">&amp;&amp;</span> value<span class="token punctuation">.</span>dep
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>dep<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">calcMaxOffset</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span>
+      <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>config<span class="token punctuation">.</span>dep <span class="token operator">!==</span> dep<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      config<span class="token punctuation">.</span>dep <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span>dep<span class="token punctuation">]</span>
+      trigger <span class="token operator">=</span> <span class="token boolean">true</span>
+      <span class="token function">calcMaxOffset</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">unbind</span> <span class="token punctuation">(</span><span class="token parameter">el</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">stopScroll</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    el<span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span><span class="token string">'mouseover'</span><span class="token punctuation">,</span> mouseOverEventHandler<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+    el<span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span><span class="token string">'mouseleave'</span><span class="token punctuation">,</span> mouseleaveEventHandler<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br></div></div><p>上述实现存在的问题：</p> <ul><li>1、若最大偏移量不大于父元素宽度，要不要滚动，此时触发回调的时机是否得当？</li> <li>2、弱最大偏移量大于父元素宽度，但小于2倍父元素宽度，此时触发回调的时机是否得当？</li></ul> <p>这两个点，同学你知道如何去做调整吗？</p> <div class="language-javascript line-numbers-mode"><pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">startScroll</span> <span class="token punctuation">(</span><span class="token parameter">el</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> parentWidth <span class="token operator">=</span> el<span class="token punctuation">.</span>parentElement<span class="token punctuation">.</span>offsetWidth
+  <span class="token comment">// 第一处：最大偏移量不大于父元素宽度，不滚动</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>maxOffset <span class="token operator">===</span> <span class="token number">0</span> <span class="token operator">||</span> maxOffset <span class="token operator">&lt;=</span> parentWidth <span class="token operator">||</span> timer<span class="token punctuation">)</span> <span class="token keyword">return</span>
+  timer <span class="token operator">=</span> <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> offset <span class="token operator">=</span> <span class="token function">parseFloat</span><span class="token punctuation">(</span>el<span class="token punctuation">.</span>style<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>offset <span class="token operator">+</span> config<span class="token punctuation">.</span>step <span class="token operator">&gt;</span> maxOffset<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      el<span class="token punctuation">.</span>style<span class="token punctuation">.</span>right <span class="token operator">=</span> <span class="token string">'0'</span>
+      lastOffset <span class="token operator">=</span> <span class="token number">0</span>
+      trigger <span class="token operator">=</span> <span class="token boolean">true</span>
+      <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    el<span class="token punctuation">.</span>style<span class="token punctuation">.</span>right <span class="token operator">=</span> offset <span class="token operator">+</span> config<span class="token punctuation">.</span>step <span class="token operator">+</span> <span class="token string">'px'</span>
+    lastOffset <span class="token operator">=</span> offset <span class="token operator">+</span> config<span class="token punctuation">.</span>step
+
+    <span class="token keyword">const</span> diff <span class="token operator">=</span> maxOffset <span class="token operator">-</span> parentWidth <span class="token operator">*</span> <span class="token number">2</span>
+    <span class="token comment">// 第二处：最大偏移量不大于2倍父元素宽度，不会触发回调</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>diff <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> lastOffset <span class="token operator">&gt;=</span> diff <span class="token operator">&amp;&amp;</span> trigger<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      trigger <span class="token operator">=</span> <span class="token boolean">false</span>
+      <span class="token keyword">const</span> <span class="token punctuation">{</span> cb <span class="token punctuation">}</span> <span class="token operator">=</span> config
+      cb <span class="token operator">&amp;&amp;</span> <span class="token function">cb</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> config<span class="token punctuation">.</span>interval<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br></div></div></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.105c5cd2.js" defer></script><script src="/assets/js/2.2a9347ce.js" defer></script><script src="/assets/js/36.b9896680.js" defer></script>
+  </body>
+</html>
