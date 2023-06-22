@@ -59,6 +59,7 @@ module.exports = {
           { text: 'JavaScript', link: '/article/javascript/' },
           { text: 'TypeScript', link: '/article/typescript/' },
           { text: 'Web技术', link: '/article/web/' },
+          { text: 'Vue', link: '/article/vue/' },
           { text: '代码设计', link: '/article/codeDesign/' },
           { text: '代码性能', link: '/article/codePerformance/' },
           { text: '工具', link: '/article/tool/' },
@@ -94,11 +95,15 @@ module.exports = {
       '/article/web/': [
         '',
       ],
+      '/article/vue/': [
+        '',
+      ],
       '/article/codeDesign/': [
         '',
         '快速搭建脚手架',
         '富文本编辑器支持小程序跳转',
         '浅记需求开发中一次代码优化过程',
+        '代码片段欣赏',
       ],
       '/article/codePerformance/': [
         '',
