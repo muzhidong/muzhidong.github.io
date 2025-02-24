@@ -3,14 +3,17 @@
 # 预设置变量
 urls=(git@github.com:muzhidong/muzhidong.github.io.git)
 names=(muzhidong.github.io)
-branchs=(master)
+branches=(master)
+
 target=deploy
+
 time=`date +%Y-%m-%d/%H:%M:%S`
+
 len=${#urls[@]}
 ((len--))
 
 # 打包
-yarn build
+yarn build2
 
 # 检查发布文件夹是否存在，不存在则创建，并进入该文件夹
 if [ ! -d ./$target ];then
@@ -46,7 +49,7 @@ function func(){
 
 for i in $len
 	do
-		func ${urls[$i]} ${names[$i]} ${branchs[$i]}
+		func ${urls[$i]} ${names[$i]} ${branches[$i]}
 	done
 
 # 后续处理

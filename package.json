@@ -11,7 +11,9 @@
     "patch": "patch-package",
     "patch-theme": "patch-package @vuepress/theme-default",
     "dev": "vuepress dev docs --debug",
+    "dev2": "node --openssl-legacy-provider ./node_modules/vuepress/cli.js dev docs --debug",
     "build": "vuepress build docs",
+    "build2": "node --openssl-legacy-provider ./node_modules/vuepress/cli.js build docs",
     "deploy": "sh deploy.sh"
   },
   "license": "MIT",
