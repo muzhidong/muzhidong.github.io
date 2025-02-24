@@ -1,3 +1,86 @@
+diff --git a/node_modules/@vuepress/theme-default/components/NavLinks.vue b/node_modules/@vuepress/theme-default/components/NavLinks.vue
+index 2656ae2..d4d388b 100644
+--- a/node_modules/@vuepress/theme-default/components/NavLinks.vue
++++ b/node_modules/@vuepress/theme-default/components/NavLinks.vue
+@@ -14,9 +14,20 @@
+         :item="item"
+       />
+       <NavLink
+-        v-else
++        v-else-if="item.type === 'link'"
+         :item="item"
+       />
++      <div v-else 
++        class="image-item"
++        @mouseenter="item.showImage = true" 
++        @mouseleave="item.showImage = false"
++      >
++        {{ item.text }}
++        <img v-show="item.showImage" 
++          class="image"
++          :src="item.src" 
++          :alt="item.text" />
++      </div>
+     </div>
+ 
+     <!-- repo link -->
+@@ -46,6 +57,24 @@ export default {
+     DropdownLink
+   },
+ 
++  data() {
++    return {
++      userLinks: []
++    }
++  },
++  watch: {
++    nav: { 
++      handler(value) {
++        this.userLinks = (value || []).map(link => {
++          return Object.assign(resolveNavLinkItem(link), {
++            items: (link.items || []).map(resolveNavLinkItem)
++          })
++        })
++      },
++      immediate: true,
++    }
++  },
++
+   computed: {
+     userNav () {
+       return this.$themeLocaleConfig.nav || this.$site.themeConfig.nav || []
+@@ -83,14 +112,6 @@ export default {
+       return this.userNav
+     },
+ 
+-    userLinks () {
+-      return (this.nav || []).map(link => {
+-        return Object.assign(resolveNavLinkItem(link), {
+-          items: (link.items || []).map(resolveNavLinkItem)
+-        })
+-      })
+-    },
+-
+     repoLink () {
+       const { repo } = this.$site.themeConfig
+       if (repo) {
+@@ -139,6 +160,16 @@ export default {
+       margin-left 0
+   .repo-link
+     margin-left 1.5rem
++  .image-item
++    position relative
++    text-align center
++    .image
++      position absolute
++      width 100px
++      height 100px
++      top 100%
++      right 0
++      box-shadow: 1px 1px 10px #ccc
+ 
+ @media (max-width: $MQMobile)
+   .nav-links
 diff --git a/node_modules/@vuepress/theme-default/components/SidebarLink.vue b/node_modules/@vuepress/theme-default/components/SidebarLink.vue
 index 4cd7665..10318b7 100644
 --- a/node_modules/@vuepress/theme-default/components/SidebarLink.vue
@@ -62,3 +145,17 @@ index 55e6288..4ce12d2 100644
        )
        if (index > -1) {
          this.openGroupIndex = index
+diff --git a/node_modules/@vuepress/theme-default/util/index.js b/node_modules/@vuepress/theme-default/util/index.js
+index 92fcd3b..8cdcd78 100644
+--- a/node_modules/@vuepress/theme-default/util/index.js
++++ b/node_modules/@vuepress/theme-default/util/index.js
+@@ -184,7 +184,8 @@ export function groupHeaders (headers) {
+ 
+ export function resolveNavLinkItem (linkItem) {
+   return Object.assign(linkItem, {
+-    type: linkItem.items && linkItem.items.length ? 'links' : 'link'
++    type: linkItem.items && linkItem.items.length ? 'links' : linkItem.customType || 'link',
++    showImage: false
+   })
+ }
+ 
