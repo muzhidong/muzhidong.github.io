@@ -1,5 +1,5 @@
 diff --git a/node_modules/@vuepress/theme-default/components/NavLinks.vue b/node_modules/@vuepress/theme-default/components/NavLinks.vue
-index 2656ae2..d4d388b 100644
+index 2656ae2..65996ac 100644
 --- a/node_modules/@vuepress/theme-default/components/NavLinks.vue
 +++ b/node_modules/@vuepress/theme-default/components/NavLinks.vue
 @@ -14,9 +14,20 @@
@@ -64,7 +64,7 @@ index 2656ae2..d4d388b 100644
      repoLink () {
        const { repo } = this.$site.themeConfig
        if (repo) {
-@@ -139,6 +160,16 @@ export default {
+@@ -139,11 +160,23 @@ export default {
        margin-left 0
    .repo-link
      margin-left 1.5rem
@@ -73,14 +73,21 @@ index 2656ae2..d4d388b 100644
 +    text-align center
 +    .image
 +      position absolute
-+      width 100px
-+      height 100px
++      width 200px
++      height 200px
 +      top 100%
 +      right 0
 +      box-shadow: 1px 1px 10px #ccc
  
  @media (max-width: $MQMobile)
    .nav-links
+     .nav-item, .repo-link
+       margin-left 0
++    .image-item
++      text-align left
+ 
+ @media (min-width: $MQMobile)
+   .nav-links a
 diff --git a/node_modules/@vuepress/theme-default/components/SidebarLink.vue b/node_modules/@vuepress/theme-default/components/SidebarLink.vue
 index 4cd7665..10318b7 100644
 --- a/node_modules/@vuepress/theme-default/components/SidebarLink.vue
