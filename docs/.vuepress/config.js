@@ -74,6 +74,11 @@ module.exports = {
         customType: 'image',
         src: '/miniapp.jpg'
       },
+      {
+        text: '公众号',
+        customType: 'image',
+        src: '/officialAccount.jpg'
+      },
     ],
     sidebar: {
       '/article/html5/': [        
