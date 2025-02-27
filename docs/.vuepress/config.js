@@ -80,6 +80,10 @@ module.exports = {
         link: 'https://github.com/muzhidong'
       },
       {
+        text: 'NPM',
+        link: 'https://www.npmjs.com/~muzhidong'
+      },
+      {
         text: '小程序',
         customType: 'image',
         src: '/miniapp.jpg'
