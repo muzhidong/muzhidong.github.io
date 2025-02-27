@@ -36,6 +36,16 @@ module.exports = {
       name: 'apple-mobile-web-app-status-bar-style',
       content: 'black'
     }],
+    // 百度统计
+    ['script', {}, `
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b12064005b3a968695be09e7a30b8c26";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    `]
   ],
 
   /**
