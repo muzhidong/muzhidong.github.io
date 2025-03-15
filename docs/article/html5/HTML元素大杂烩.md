@@ -1,5 +1,5 @@
 ---
-title: HTML5系列——HTML元素大杂烩
+title: HTML元素大杂烩
 tags: 
 - HTML5
 ---

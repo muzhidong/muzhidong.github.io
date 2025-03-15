@@ -97,11 +97,12 @@ module.exports = {
     sidebar: {
       '/article/html5/': [        
         '',
-        'HTML5系列——语义',
-        'HTML5系列——HTML元素大杂烩',
-        'HTML5系列——存储上',
-        'HTML5系列——存储下',
-        'HTML5系列——Canvas应用',
+        'Canvas应用',
+        'HTML元素大杂烩',
+        'HTML5系列之语义',
+        'HTML5系列之存储上',
+        'HTML5系列之存储下',
+        'HTML5系列之连接上',
       ],
       '/article/css/': [
         '',
