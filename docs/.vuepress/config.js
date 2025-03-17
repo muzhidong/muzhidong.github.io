@@ -99,10 +99,10 @@ module.exports = {
         '',
         'Canvas应用',
         'HTML元素大杂烩',
-        'HTML5系列之语义',
-        'HTML5系列之存储上',
-        'HTML5系列之存储下',
-        'HTML5系列之连接上',
+        'HTML5系列之语义篇',
+        'HTML5系列之存储篇上',
+        'HTML5系列之存储篇下',
+        'HTML5系列之连接篇上',
       ],
       '/article/css/': [
         '',
@@ -119,6 +119,7 @@ module.exports = {
       ],
       '/article/web/': [
         '',
+        'SEO初识'
       ],
       '/article/vue/': [
         '',

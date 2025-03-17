@@ -4,6 +4,8 @@ tags:
 - HTML5
 ---
 
+这篇文章带你详细学习常用的HTML标签，更好地运用它们。
+
 ## meta
 用于配置文件信息。提供`name`、`content`、`http-equiv`、`charset`属性，其中`name`和`content`通常作为键值对搭配使用，`charset`用于指定文档的字符编码，`http-equiv`用于指定一个pragma指令，可以取值为内容安全策略`content-security-policy`、内容类型`content-type`、默认CSS样式`default-style`、用户代理兼容`x-ua-compatible`、页面刷新`refresh`，也可取值为`Cache-Control`或`Expires`等Http相关强缓存字段，此时`content`便是该缓存字段的值。
 

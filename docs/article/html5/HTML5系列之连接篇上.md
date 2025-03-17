@@ -1,8 +1,10 @@
 ---
-title: HTML5系列之连接上
+title: HTML5系列之连接篇上
 tags: 
 - HTML5
 ---
+
+关于"连接"部分的学习分为两篇文章介绍，这是上篇，介绍Ajax、Comet、postMessage、Worker和WebSockets。
 
 ## Ajax
 ### 什么是Ajax
