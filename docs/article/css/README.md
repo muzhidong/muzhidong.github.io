@@ -36,8 +36,46 @@ elemSelector{
 说明：
 * elemSelector表示元素选择器
 * 执行一个动画至少指定动画名称animationName和动画时长animationDuration
-* animation属性是以下属性的简写形式，每个属性的含义说明如下表，<!--more-->
-<table style="border:1px solid black;"><tr style="text-align:center;"><td style="border-right:1px solid black;">属性名称</td><td>含义</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-name</td><td>@keyframe动画的名称</td></tr><tr><td style="border-right:1px solid black;">animation-duration</td><td>动画的时长，需指定单位如s或ms，默认值为0</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-timing-function</td><td>动画的速度曲线，默认值为ease，其他取值有ease-in、ease-out、ease-in-out、linear、step-start、step-end、贝塞尔曲线函数cubic-bezier、步进函数steps</td></tr><tr><td style="border-right:1px solid black;">animation-delay</td><td>动画延时多久开始，需指定指定单位如s或ms，默认为0，，取正值表示延时，负值表示超前</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-iteration-count</td><td>动画播放次数，默认为1</td></tr><tr><td style="border-right:1px solid black;">animation-direction</td><td>动画是否在下一周期逆向播放，默认是normal，其他取值有reverse、alternate、alternate-reverse</td></tr><tr style="background:#F8F9FA;"><td style="border-right:1px solid black;">animation-play-state</td><td>动画的播放状态，是运行还是暂停，默认是running，其他取值有paused</td></tr><tr><td style="border-right:1px solid black;">animation-fill-mode</td><td>动画执行前、后是否应用目标状态，默认是none，其他取值有forwards、backwards、both</td></tr></table>
+* animation属性是以下属性的简写形式，每个属性的含义说明如下表，
+<!--more-->
+<table style="border:1px solid black;">
+    <tr style="text-align:center;">
+        <td style="border-right:1px solid black;">属性名称</td>
+        <td>含义</td>
+    </tr>
+    <tr style="background:#F8F9FA;">
+        <td style="border-right:1px solid black;">animation-name</td>
+        <td>@keyframe动画的名称</td>
+    </tr>
+    <tr>
+        <td style="border-right:1px solid black;">animation-duration</td>
+        <td>动画的时长，需指定单位如s或ms，默认值为0</td>
+    </tr>
+    <tr style="background:#F8F9FA;">
+        <td style="border-right:1px solid black;">animation-timing-function</td>
+        <td>动画的速度曲线，默认值为ease，其他取值有ease-in、ease-out、ease-in-out、linear、step-start、step-end、贝塞尔曲线函数cubic-bezier、步进函数steps</td>
+    </tr>
+    <tr>
+        <td style="border-right:1px solid black;">animation-delay</td>
+        <td>动画延时多久开始，需指定指定单位如s或ms，默认为0，，取正值表示延时，负值表示超前</td>
+    </tr>
+    <tr style="background:#F8F9FA;">
+        <td style="border-right:1px solid black;">animation-iteration-count</td>
+        <td>动画播放次数，默认为1</td>
+    </tr>
+    <tr>
+        <td style="border-right:1px solid black;">animation-direction</td>
+        <td>动画是否在下一周期逆向播放，默认是normal，其他取值有reverse、alternate、alternate-reverse</td>
+    </tr>
+    <tr style="background:#F8F9FA;">
+        <td style="border-right:1px solid black;">animation-play-state</td>
+        <td>动画的播放状态，是运行还是暂停，默认是running，其他取值有paused</td>
+    </tr>
+    <tr>
+        <td style="border-right:1px solid black;">animation-fill-mode</td>
+        <td>动画执行前、后是否应用目标状态，默认是none，其他取值有forwards、backwards、both</td>
+    </tr>
+</table>
 
 <p style="margin:10px 0;">重点来了，一个倒计时效果是如何实现的，先看效果。由于是压缩生成的gif，所以看起来会很快。</p>
 
