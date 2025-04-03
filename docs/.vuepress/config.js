@@ -108,6 +108,7 @@ module.exports = {
       '/article/css/': [
         '',
         'CSS系列——来次Sass与Less的碰撞',
+        'CSS快速入门篇上',
       ],
       '/article/javascript/': [
         '',
