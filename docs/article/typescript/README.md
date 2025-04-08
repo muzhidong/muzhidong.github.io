@@ -1,10 +1,10 @@
 ---
-title: TypeScript基础一
+title: TypeScript基础篇上
 tags: 
 - TypeScript
 ---
 
-# TypeScript基础一
+本章是TypeScript基础篇的上章。
 
 ## TypeScript特点
 相较于JavaScript，TypeScript最大特点是类型约束。

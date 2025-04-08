@@ -122,49 +122,53 @@ function request({
           callback(data);
         }
     }
-  
-    // 各类监听事件（部分是否不支持或废弃）
-    request.onloadstart = function() {
-      console.log('请求开始');
-    }
+  }
 
-    // 监听下载进度
-    request.onprogress = function(e) {
-      console.log('下载中');
-      if(e.lengthComputable) {
-        console.log(`已下载${e.loaded / e.total * 100}%`);
-      }
-    }
-    request.onload = function() {
-      console.log('下载完成');
-    }
+  // 各类监听事件（部分是否不支持或废弃）
+  request.onloadstart = function() {
+    console.log('请求开始');
+  }
 
-    // 监听上传进度
-    request.upload.onprogress = function(e) {
-      console.log('上传中');
-      if(e.lengthComputable) {
-        console.log(`已上传${e.loaded / e.total * 100}%`);
-      }
+  // 监听下载进度
+  request.onprogress = function(e) {
+    console.log('下载中');
+    if(e.lengthComputable) {
+      console.log(`已下载${e.loaded / e.total * 100}%`);
     }
-    request.upload.onload = function() {
-      console.log('上传完成');
-    }
+  }
 
-    // load\timeout\abort\error只有一个会被触发
-    request.ontimeout = function() {
-      console.log('请求超时');
-    }
-    request.onabort = function() {
-      // 调用abort方法触发
-      console.log('请求被取消');
-    }
-    request.onerror = function() {
-      console.log('请求失败');
-    }
+  request.onload = function() {
+    console.log('下载完成');
+  }
 
-    request.onloadend = function() {
-      console.log('请求结束');
+  // 监听上传进度
+  request.upload.onprogress = function(e) {
+    console.log('上传中');
+    if(e.lengthComputable) {
+      console.log(`已上传${e.loaded / e.total * 100}%`);
     }
+  }
+
+  request.upload.onload = function() {
+    console.log('上传完成');
+  }
+
+  // load\timeout\abort\error只有一个会被触发
+  request.ontimeout = function() {
+    console.log('请求超时');
+  }
+
+  request.onabort = function() {
+    // 调用abort方法触发
+    console.log('请求被取消');
+  }
+
+  request.onerror = function() {
+    console.log('请求失败');
+  }
+
+  request.onloadend = function() {
+    console.log('请求结束');
   }
   
   // 发送请求，如果是GET请求，不传参数或传null

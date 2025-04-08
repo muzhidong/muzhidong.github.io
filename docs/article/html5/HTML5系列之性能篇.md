@@ -6,7 +6,6 @@ tags:
 
 本篇并非系统完整地介绍性能相关的知识，只作为在性能方面给出整体的学习脉络参考。
 
-# 性能优化
 ## 性能指标
 - FCP：First Contentful Paint，内容首次绘制时间点
 - TBT：Total block time，总阻塞时长。长任务的阻塞时间是该任务持续时间超过50毫秒的部分，一个页面的总阻塞时间是指在FCP和TTI之间发生的每个长任务的阻塞时间总和
@@ -86,28 +85,59 @@ tags:
   
   1）当脚本不影响渲染逻辑，可以进行异步加载，浏览器提供了defer和async两种方式
 
-  <table style="border:1px solid black;">
-    <tr style="text-align:center;">
-      <td style="border-right:1px solid black;border-bottom:1px solid black;"></td>
-      <td style="border-right:1px solid black;border-bottom:1px solid black;">共性</td>
-      <td style="border-right:1px solid black;border-bottom:1px solid black;">特点</td>
-      <td style="width:50px;border-right:1px solid black;border-bottom:1px solid black;">优先级</td>
-      <td style="border-bottom:1px solid black;">选择</td>
-    </tr>
-    <tr>
-      <td style="border-right:1px solid black;border-bottom:1px solid black;">async</td>
-      <td rowspan=2 style="border-right:1px solid black;">允许下载脚本时进行DOM渲染，说明下载是异步操作的</td>
-      <td style="border-right:1px solid black;border-bottom:1px solid black;">无序性，只要js引擎可用立即执行，无需等待文档就绪。<br/>从该特性上看出，易引起海森堡蚁虫之灾，即脚本加载结束后出现各种问题，仅适于独立脚本</td>
-      <td rowspan=2 style="border-right:1px solid black;">async > defer</td>
-      <td rowspan=2>根据脚本是否是独立，若是则用async，否则用defer，注意作兼容处理</td>
-    </tr>
-    <tr>
-      <td style="border-right:1px solid black;">defer</td>
-      <td style="border-right:1px solid black;">延迟性，需等待文档就绪才可执行；<br/>
+  <style>
+  .g-container {
+    display:grid;
+    border-top:1px solid black;
+    border-left:1px solid black;
+  }
+  .g-container>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+  .g-container>div:nth-child(5n+1) {
+    grid-column:1/2;
+  }
+  .g-container>div:nth-child(5n+2) {
+    grid-column:2/3;
+  }
+  .g-container>div:nth-child(5n+3) {
+    grid-column:3/4;
+  }
+  .g-container>div:nth-child(5n+4) {
+    grid-column:4/5;
+  }
+  .g-container>div:nth-child(5n) {
+    grid-column:5/6;
+  }
+  .g-container .r24 {
+    grid-row: 2/4;
+  }
+  .g-container #c34 {
+    grid-column: 3/4;
+  }
+  </style>
+  <div class="g-container">
+    <div></div>
+    <div>共性</div>
+    <div>特点</div>
+    <div>优先级</div>
+    <div>选择</div>
+
+    <div>async</div>
+    <div class="r24">允许下载脚本时进行DOM渲染，说明下载是异步操作的</div>
+    <div>无序性，只要js引擎可用立即执行，无需等待文档就绪。<br/>从该特性上看出，易引起海森堡蚁虫之灾，即脚本加载结束后出现各种问题，仅适于独立脚本</div>
+    <div class="r24">async > defer</div>
+    <div class="r24">根据脚本是否是独立，若是则用async，否则用defer，注意作兼容处理</div>
+
+    <div>defer</div>
+    <div id="c34">延迟性，需等待文档就绪才可执行；<br/>
   顺序性，需所有前面具有defer属性的脚本结束运行才可执行。<br/>
-  从这两个特性上看出，defer既有将脚本置于body标签的全部好处，又使文档加载速度大幅提升。但是仅ie支持，于是还须再做一步，即手动在文档就绪后触发脚本</td>
-    </tr>
-  </table>
+  从这两个特性上看出，defer既有将脚本置于body标签的全部好处，又使文档加载速度大幅提升。但是仅ie支持，于是还须再做一步，即手动在文档就绪后触发脚本</div>
+  </div>
 
   2）脚本置于HTML文档尾部，提前触发首次绘制时间，减少白屏时间。现今，解决白屏问题，一般都会加顶部进度条、Loading或骨架屏
 
@@ -217,43 +247,58 @@ JS动画与CSS动画的比较：JS动画可控，但易掉帧，占内存；而C
 
   不同属性的赋值开销不同。
 
-  <table style="border:1px solid black;">
-    <tr style="text-align:center;">
-      <td style="border-right:1px solid black;border-bottom:1px solid black;">属性</td>
-      <td style="border-right:1px solid black;border-bottom:1px solid black;">开销</td>
-      <td style="border-bottom:1px solid black;">开销（非法赋值）</td>
-    </tr>
-    <tr>
-      <td style="border-right:1px solid black;border-bottom:1px solid black;">line[Width/Join/Cap]</td>
-      <td style="border-right:1px solid black;">40+</td>
-      <td>100+</td>
-    </tr>
-    <tr>
-      <td style="border-right:1px solid black;border-bottom:1px solid black;">[fill/stroke]Style</td>
-      <td style="border-right:1px solid black;">100+</td>
-      <td>200+</td>
-    </tr>
-    <tr>
-      <td style="border-right:1px solid black;border-bottom:1px solid black;">font</td>
-      <td style="border-right:1px solid black;">1000+</td>
-      <td>1000+</td>
-    </tr>
-    <tr>
-      <td style="border-right:1px solid black;border-bottom:1px solid black;">text[Align/Baseline]</td>
-      <td style="border-right:1px solid black;">60+</td>
-      <td>100+</td>
-    </tr>
-    <tr>
-      <td style="border-right:1px solid black;border-bottom:1px solid black;">shadow[Blur/OffsetX]</td>
-      <td style="border-right:1px solid black;">40+</td>
-      <td>100+</td>
-    </tr>
-     <tr>
-      <td style="border-right:1px solid black;border-bottom:1px solid black;">shadowColor</td>
-      <td style="border-right:1px solid black;">280+</td>
-      <td>400+</td>
-    </tr>
-  </table>
+  <style>
+  .c-container {
+    display:grid;
+    border-top:1px solid black;
+    border-left:1px solid black;
+  }
+  .c-container>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+  .c-container>div:nth-child(3n+1) {
+    grid-column:1/2;
+  }
+  .c-container>div:nth-child(3n+2) {
+    grid-column:2/3;
+  }
+  .c-container>div:nth-child(3n) {
+    grid-column:3/4;
+  }
+  </style>
+  <div class="c-container">
+    <div>属性</div>
+    <div>开销</div>
+    <div>开销（非法赋值）</div>
+
+    <div>line[Width/Join/Cap]</div>
+    <div>40+</div>
+    <div>100+</div>
+  
+    <div>[fill/stroke]Style</div>
+    <div>100+</div>
+    <div>200+</div>
+
+    <div>font</div>
+    <div>1000+</div>
+    <div>1000+</div>
+
+    <div>text[Align/Baseline]</div>
+    <div>60+</div>
+    <div>100+</div>
+
+    <div>shadow[Blur/OffsetX]</div>
+    <div>40+</div>
+    <div>100+</div>
+
+    <div>shadowColor</div>
+    <div style="border-right:1px solid black;">280+</div>
+    <div>400+</div>
+  </div>
 
   ②通过适当地安排调用绘图API的顺序，降低context状态改变的频率。 
 

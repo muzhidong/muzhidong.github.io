@@ -1,10 +1,10 @@
 ---
-title: TypeScript基础二
+title: TypeScript基础篇下
 tags: 
 - TypeScript
 ---
 
-# TypeScript基础二
+本章是TypeScript基础篇的下章。
 
 ## 类型操作
 ### 1、泛型
