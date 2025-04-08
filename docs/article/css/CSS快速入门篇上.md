@@ -6,7 +6,7 @@ tags:
 
 `CSS`全称是Cascading Style Sheet，中译为层叠样式表。本篇将讲解CSS引用和选择器。
 
-## 一、CSS引用
+## CSS引用
 提供了以下4种引用方式。
 
 ### 内联样式
@@ -36,23 +36,24 @@ selector {
 ```
 
 链接样式与导入样式的比较
+
 <style>
 .compare {
   display:grid;
-  border-top:1px solid white;
-  border-left:1px solid white;
+  border-top:1px solid black;
+  border-left:1px solid black;
 }
-.compare > div {
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
+.compare>div {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
 }
-.compare > div:nth-child(3n+1) {
+.compare>div:nth-child(3n+1) {
   grid-column:1/2;
 }
-.compare > div:nth-child(3n+2) {
+.compare>div:nth-child(3n+2) {
   grid-column:2/3;
 }
-.compare > div:nth-child(3n) {
+.compare>div:nth-child(3n) {
   grid-column:3/4;
 }
 </style>
@@ -60,15 +61,17 @@ selector {
   <div></div>
   <div>链接样式</div>
   <div>导入样式</div>
+
   <div>用途</div>
   <div>可用于加载CSS、定义RSS、定义rel连接属性</div>
   <div>仅用于加载CSS</div>
+
   <div>加载时间点</div>
   <div>页面加载开始时加载</div>
   <div>页面加载结束时加载</div>
 </div>
 
-## 二、CSS选择器
+## CSS选择器
 可以将指定的CSS样式作用于"对象"上。
 
 ### id选择器
@@ -283,12 +286,12 @@ span {
 }
 ```
 
-## 三、选择器特性：继承与层叠
+## 选择器特性：继承与层叠
 - 继承：子元素会继承父元素的某些样式
 - 层叠：子元素若定义了与父元素相同的样式，会覆盖父元素的样式
 > 注：有时有些标签并没有继承父元素的样式，例如`a`标签不受父元素`color`属性影响，是因为浏览器为标签`a`设置了默认样式。再者，标签`hx`不受父元素的`font-size`属性影响，是因为浏览器也为标签`hx`设置了默认样式。所以，继承没生效是因为浏览器为一些标签设置了默认样式
 
-## 四、选择器优先级与权重
+## 选择器优先级与权重
 - 1）若通过选择器指向不同标签，则此时继承的权重为0，根据层叠性进行选择
 
 - 2）若通过选择器指向同一标签，则根据选择器优先级进行选择，若最后的选择器都在同一优先级，则进行权重的叠加

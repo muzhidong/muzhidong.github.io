@@ -8,17 +8,19 @@ tags:
 认识两个HTML5标签，分别是video和source。
 
 ## video标签属性
-* autoplay：表示视频是否就绪后马上播放，值为autoplay
-* controls：表示是否向用户显示控件，值为controls
+* autoplay：表示视频就绪后是否自动播放
+* controls：表示是否显示视频播放控制
 * height：表示视频播放器高度
 * width：表示视频播放器宽度
-* loop：表示当媒介文件完成播放后是否再次开始播放，值为loop
-* preload：表示视频是否在页面加载时进行加载，并预备播放，若使用autoplay，则忽略该属性，值为preload
-* poster：指定视频加载时显示的图片url
-* src：指定要播放的视频url
+* loop：表示是否循环播放
+* preload：表示预加载视频哪些内容，可取值none、metadata、auto。不同浏览器，默认值不同
+* poster：表示视频加载时显示的图片url
+* src：表示视频url，当内嵌了source标签时是可选的
+
+> 关于属性完整介绍点[这里](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#attributes)
 
 ## source标签属性
-* src：指定要链接的媒介资源URL 
+* src：表示媒体资源的URL，其父元素是video或audio有效
 * type：表示资源的MIME类型。比如在video标签中支持类型有video/mp4、video/ogg和video/webm
 
 ## 如何制作一个简易版弹幕视频？
