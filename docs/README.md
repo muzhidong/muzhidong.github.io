@@ -7,7 +7,7 @@ actionText: null
 actionLink: null
 ---
 
-<KeyWord :value="[
+<!-- <KeyWord :value="[
   'HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'Web技术',
   'Vue', 'React', 'Angular', '小程序', 'Node',
   '代码设计', '工程化', '代码规范与质量', '代码性能', '浏览器', '客户端',
@@ -16,5 +16,7 @@ actionLink: null
   '编程语言', 'Android', 'IOS', '云+', 'AI', '区块链',
   '工具',
   ]"
-/>
+/> -->
+
+<Technology />
 
