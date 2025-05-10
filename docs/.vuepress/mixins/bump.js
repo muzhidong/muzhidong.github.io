@@ -8,16 +8,16 @@ module.exports = {
     }
   },
   mounted() {
-//     scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-//     scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
-// 
-//     const target = document.querySelector('.navbar .logo');
-//     this.target = target;
-//     this.target.classList.add('active');
+    // scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    // scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+    //
+    // const target = document.querySelector('.navbar .logo');
+    // this.target = target;
+    // this.target.classList.add('active');
     // FIXME:
-    // this.bump(()=>{
+    // this.bump(() => {
     //   this.target.classList.remove('active');
-    // },()=>{
+    // },() => {
     //   this.target.classList.add('active');
     //   this.target.style.position = 'static';
     //   this.target.style.top = this.target._initOffsetTop;
