@@ -8,7 +8,10 @@
     </template>
 
     <div class="programming-language flex-col" style="justify-content: space-around;">
-      <div title="建议先选择一门通用语言学习，再根据发展方向是否还需学习领域语言。不建议首选商业语言，除非该语言在某个领域已成为主流">编程语言</div>
+      <div class="tip" 
+        style="--top: 100%;--pt: 10px;--pb: 10px;--fs: 14px;"
+        tip="建议先选择一门通用语言学习，再根据发展方向是否还需学习领域语言。不建议首选商业语言，除非该语言在某个领域已成为主流"
+      >编程语言</div>
       <template v-if="!isMobile">
         <div class="item">通用语言：<br>C、C++、JavaScript、TypeScript、Java、Python、Go、Rust</div>
         <div class="item">领域语言：<br>HTML、EJS、CSS、Sass、Less、Dart、PHP</div>
@@ -50,25 +53,38 @@
     </div>
 
     <div class="runtime flex-col">
-      <div title="包含上层调用的API或命令以及连接下层的C函数">运行时层</div>
+      <div class="tip" tip="包含上层调用的API或命令以及连接下层的C函数">运行时层</div>
       <div class="flex" style="width:100%;">
         <div v-if="isMobile" class="title">Web端技术：</div>
-        <div class="item">浏览器</div>
+        <ul class="item">
+          <li>浏览器</li>
+        </ul>
         <div v-if="isMobile" class="title">客户端技术：</div>
-        <div class="item">ART<br>Object-C Runtime<br>Dart VM</div>
+        <ul class="item">
+          <li>ART</li>
+          <li>Object-C Runtime</li>
+          <li>Dart VM</li>
+        </ul>
         <div v-if="isMobile" class="title">服务端技术：</div>
-        <div class="item">NodeJS<br>JDK<br>服务器(Nginx、Tomcat、Apache)</div>
+        <ul class="item">
+          <li>NodeJS</li>
+          <li>JDK</li>
+          <li>服务器(Nginx、Tomcat、Apache)</li>
+        </ul>
         <div v-if="isMobile" class="title">领域技术：</div>
-        <div class="item">Cocos Runtime<br>OpenGL</div>
+        <ul class="item">
+          <li>Cocos Runtime</li>
+          <li>OpenGL</li>
+        </ul>
       </div>
     </div>
 
     <div class="system-software">
-      <div title="如Android、IOS、Windows、MacOS、Linux">系统层</div>
+      <div class="tip" tip="如Android、IOS、Windows、MacOS、Linux">系统层</div>
     </div>
 
     <div class="hardware flex">
-      <div title="包括CPU、存储器、IO设备" class="item">硬件</div>
+      <div class="item" tip="包括CPU、存储器、IO设备">硬件</div>
       <div class="item">计算机网络</div>
     </div>
   </div>
@@ -76,7 +92,6 @@
 
 <script>
 export default {
-  // TODO:提示很low、代码重构
   data() {
     return {
       isMobile: true,
@@ -205,6 +220,34 @@ main.home {
 
 ul.item {
   padding-left: 20px;
+}
+
+.tip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+[tip]:hover {
+  color: #1890ff;
+  position: relative;
+}
+
+[tip]:hover::after {
+  content: attr(tip);
+  position: absolute;
+  top: var(--top, 0);
+  left: 0;
+  width: 100%;
+  padding: 0 10px;
+  padding-top: var(--pt, 0);
+  padding-bottom: var(--pb, 0);
+  color: white;
+  background: #1890ff;
+  font-size: var(--fs, 16px);
+  border-radius: 10px;
+  box-sizing: border-box;
 }
 
 .mobile {
