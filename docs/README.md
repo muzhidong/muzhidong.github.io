@@ -18,5 +18,8 @@ actionLink: null
   ]"
 /> -->
 
-<Technology />
+<ClientOnly>
+  <Technology />
+</ClientOnly>
+
 
