@@ -29,6 +29,7 @@ function func(){
 
 	# 获取最新远程仓库代码
 	cd ./$2
+	git checkout $3
 	git pull
 
 	# 清空目标文件夹下除.git外的所有文件
