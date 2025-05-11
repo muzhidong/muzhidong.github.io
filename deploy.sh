@@ -13,7 +13,7 @@ len=${#urls[@]}
 ((len--))
 
 # 打包
-yarn build2
+yarn build:latest
 
 # 检查发布文件夹是否存在，不存在则创建，并进入该文件夹
 if [ ! -d ./$target ];then
