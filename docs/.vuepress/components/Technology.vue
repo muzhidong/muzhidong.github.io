@@ -9,25 +9,16 @@
       >{{tech}}</div>
     </template>
 
-    <div v-for="(level,index) in levels" 
+    <div v-for="(level,index) in levels"
       :key="level.key" 
       :class="['level', level.containerClass]"
       :style="{
-        '--row': isMobile ? (level.key === 'programming-language' ? '1/5' : `${index}/${index + 1}`) : (level.key === 'programming-language' ? '2/6' : `${index + 1}/${index + 2}`),
-        '--col': isMobile ? (level.key === 'programming-language'? '9/10': '1/9') : (level.key === 'programming-language'? '5/6': '1/5'),
+        '--row': isMobile ? level.mobileRow || `${index}/${index + 1}` : level.row || `${index + 1}/${index + 2}`,
+        '--col': isMobile ? level.mobileCol || '1/9' : level.col || '1/5',
       }">
-
-      <template v-if="level.key === 'hardware'">
-        <div v-for="item in level.items" 
-          :key="level.text" 
-          class="item" 
-          :tip="item.tip? item.tip.content: undefined">{{ item.text }}</div>
-      </template>
-
-      <template v-else>
         <div :class="level.tip && level.tip.class"
           :style="level.tip && level.tip.style"
-          :tip="level.tip && level.tip.content"
+          :tip="!isMobile && level.tip && level.tip.content"
         >{{level.text}}</div>
         
         <template v-if="level.items && !isMobile">
@@ -39,13 +30,21 @@
             <template v-for="item in level.multiItems">
               <div v-if="isMobile" class="title">{{item.title}}</div>
               <ul class="item">
-                <li v-for="(item,index) in item.items" :key="index" v-html="item.html" ></li>
+                <li v-for="(item,index) in item.items" 
+                  :key="index" 
+                  :tip="!isMobile && item.tip"
+                  v-html="item.html" >
+                </li>
               </ul>
             </template>
           </div>
         </template>
 
-      </template>
+        <template v-if="!isMobile && level.common">
+          <div class="item" 
+            :style="level.common.style" 
+            v-html="level.common.html"></div>
+        </template>
     </div>
 
   </div>
@@ -60,7 +59,11 @@ export default {
       levels: [{
         key: 'programming-language',
         containerClass: 'programming-language flex-col',
-        text: '编程语言',
+        text: '高级编程语言',
+        row: '2/6',
+        col: '5/6',
+        mobileRow: '1/5',
+        mobileCol: '9/10',
         tip: {
           class: 'tip',
           style: {
@@ -82,7 +85,7 @@ export default {
         key: 'application',
         text: '应用层'
       }, {
-        key: 'lib',
+        key: 'framework',
         containerClass: 'flex-col',
         text: '框架层',
         multiItems: [{
@@ -92,20 +95,17 @@ export default {
           }, {
             html: 'UI库：<br>AntDesign、Element'
           }, {
-            html: '包管理工具：<br>NPM、Yarn、PNPM'
-          }, {
             html: '打包工具：<br>Webpack、 Vite'
           }, {
-            html: '代码检查工具：<br>ESLint、Prettier'
-          }, {
-            html: '测试工具：<br>Jest'
+            html: '包管理工具：<br>NPM、Yarn、PNPM'
           }]
         }, {
           title: '客户端技术：',
           items: [{
-            html: '跨端框架(壳技术)：<br>小程序、RN、Electron'
+            tip: '小程序、RN、Electron是基于端框架兼容的壳技术，而Flutter、Qt是基于系统的真正跨端技术，实现层面有所不同',
+            html: '跨端框架：<br>小程序、RN、Electron、Flutter、Qt'
           }, {
-            html: '原生SDK：<br>Android SDK、Cocoa、Flutter'
+            html: '原生SDK：<br>Android SDK、Cocoa'
           }, {
             html: '依赖管理工具：<br>Gradle'
           }]
@@ -123,19 +123,23 @@ export default {
           }, {
             html: '游戏：<br>Cocos2d-x'
           }]
-        },]
+          },],
+        common: {
+          style: 'width: calc(100% - 20px);',
+          html: '代码规范工具：ESLint、Prettier<br>代码测试工具：Jest'
+        }
       }, {
         key: 'runtime',
         containerClass: 'flex-col',
         text: '运行时层',
         tip: {
           class: 'tip',
-          content: '包含上层调用的API或命令以及连接下层的C函数'
+          content: '提供底层能力调用的API或命令'
         },
         multiItems: [{
           title: 'Web端技术：',
           items: [{
-            html: '浏览器'
+            html: '浏览器(Chrome、Edge)'
           }]
         }, {
           title: '客户端技术：',
@@ -149,11 +153,7 @@ export default {
         }, {
           title: '服务端技术：',
           items: [{ 
-            html: 'NodeJS' 
-          }, { 
-            html: 'JDK' 
-          }, { 
-            html: '服务器(Nginx、Tomcat、Apache)' 
+            html: '服务器(Nginx、Tomcat)' 
           }]
         }, {
           title: '领域技术：',
@@ -162,25 +162,39 @@ export default {
           }, { 
             html: 'OpenGL' 
           }]
-        }]
+        }],
+        common: {
+          style: 'width: calc(50% - 20px);',
+          html: '语言运行时：NodeJS、JDK'
+        }
       }, {
-        key: 'system-software',
-        text: '系统层',
+        type: 'custom',
+        key: 'operating-system',
+        text: '操作系统层',
         tip: {
           class: 'tip',
           content: '如Android、IOS、Windows、MacOS、Linux'
-        }
+        },
+        col: '1/3',
+        mobileCol: '1/5',
       }, {
+        type: 'custom',
         key: 'hardware',
-        containerClass: 'hardware flex',
-        items: [{
-          text: '硬件',
-          tip: {
-            content: '包括CPU、存储器、IO设备'
-          }
-        }, {
-          text: '计算机网络'
-        }]
+        text: '微机',
+        tip: {
+          class: 'tip',
+          content: '含CPU、存储器、IO设备'
+        },
+        col: '1/3',
+        mobileCol: '1/5',
+      }, {
+        type: 'custom',
+        key: 'network',
+        text: '计算机网络',
+        row: '5/7',
+        col: '3/5',
+        mobileRow: '4/6',
+        mobileCol: '5/9',
       }]
     }
   },
@@ -217,7 +231,7 @@ main.home {
   padding: 10px 0;
 }
 
-.technology-container>div:not(.hardware) {
+.technology-container > div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -255,17 +269,6 @@ ul.item {
 
 .programming-language {
   justify-content: space-around !important;
-}
-
-.hardware>div {
-  flex-basis: calc(50% - 2px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-}
-.hardware>div:not(:last-child) {
-  margin-right: 4px;
 }
 
 .tip {
@@ -308,7 +311,7 @@ ul.item {
     font-size: 12px;
   }
 
-  .item:not(.hardware>div) {
+  .item {
     flex-basis: 100%;
   }
 }
