@@ -261,10 +261,45 @@ span {
   XXX::before：匹配XXX元素前插入内容
   
   XXX::after：匹配XXX元素后插入内容
+
+  XXX::first-letter：匹配XXX元素的首字符，此时字符可以视为XXX元素的假想子元素
+
+    - 生效前提：XXX元素的display值为block、inline-block、list-item、table-cell、table-caption；首字符不能是@、#、%、&、括号类、冒号类、引号类、分号类、逗号类、句号类、问号类、星号类、省略号、顿号、斜杆、反斜杆、空格、替换元素、display非block、inline、list-item的元素；
+
+    - 生效CSS属性：padding、border、margin、color、text-decoration、text-transform、letter-spacing、word-spacing、line-height、vertical-align、float、font、background
+
+    - before伪元素也可以参与::first-letter伪元素
+
+    - 应用：金额前的币种符号如¥、$样式的单独设置
   
   XXX::first-line：匹配XXX元素的首行
-  
-  XXX::first-letter：匹配XXX元素的首字母
+
+    - 生效前提：XXX元素的display值为block、inline-block、list-item、table-cell；首行中的元素只能是display值为inline、block、list-item的元素，否则达不到样式对整行生效的结果
+
+    - 生效CSS属性：color、text-decoration、text-transform、letter-spacing、word-spacing、line-height、vertical-align、font、background
+
+    - ::first-letter和::first-line同时作用了color，::first-letter优先级高
+
+    - 应用：实体按钮样式小技巧，提高复用性
+      ```html
+      <style>
+        .btn {
+          /* 其他样式... */
+          background: currentColor;
+        }
+        .btn::first-line {
+          color: white;
+        }
+        .black {
+          color: black;
+        }
+        .red {
+          color: red;
+        }
+      </style>
+      <div class="btn black">黑底白字实体按钮</div>
+      <div class="btn red">红底白字实体按钮</div>
+      ```
 
 - ::before与:before有何异同?
 
