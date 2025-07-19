@@ -78,14 +78,16 @@ tags:
 </div>
 
 ## 文本样式
-### 行高line-height
-- 含义：表示两行基线的间距，也等于行距 + 字体大小
+### line-height
+- 含义：行高，即两行基线的间距，也等于行距 + 字体大小
+
 - 取值：默认值为normal(与字体有关，一般重置行高样式为20px)、数值、百分比、长度
   
   1、值为数值、百分比、相对长度时，是相对于当前字体大小计算
   
   2、在继承性上，值为数值时直接继承该值，而百分比和长度继承的是最终计算值
-- 垂直居中
+
+- 实现垂直居中效果
   
   1、对于非替换元素的单行内联元素，可见高度完全由行高决定(幽灵空白节点撑开)，所以实现"近似(中文中线会偏低点)"垂直居中，设置行高即可(行距的上下等分机制)，如有设置高度则令行高等于高度，此时上、下行距相等
   
@@ -99,8 +101,10 @@ tags:
   }
   ```
 
-### 文本垂直对齐vertical-align
-- 起效前提：只能作用在display值为inline、inline-block、inline-table或table-cell的元素上，如span、img、button、input、td默认是支持的。但是注意若是内联元素，需要设置行高，让内联元素的幽灵空白节点撑起高度，vertical-align才起效
+### vertical-align
+- 含义：文本在垂直方向上的对齐方式
+
+- 生效前提：只能作用在display值为inline、inline-block、inline-table或table-cell的元素上，如span、img、button、input、td默认是支持的。但是注意若是内联元素，需要设置行高，让内联元素的幽灵空白节点撑起高度，vertical-align才起效
 
 - 取值
 
@@ -184,10 +188,11 @@ tags:
   </div>
   ```
 
-### 文本颜色color
-- 取值见<a href="#color-unit">颜色值</a>
+### color
+- 含义：文本颜色
+- 取值：见<a href="#color-unit">颜色值</a>
 
-### 其他文本样式比较
+### 更多文本样式
 <div class='compare'>
   <div>属性</div>
   <div>描述</div>
