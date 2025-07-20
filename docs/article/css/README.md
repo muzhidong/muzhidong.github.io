@@ -61,7 +61,7 @@ selector {
   </tr>
   <tr style="background:#F8F9FA;">
     <td style="border-right:1px solid black;">animation-iteration-count</td>
-    <td>动画播放次数，默认为1</td>
+    <td>动画播放次数，默认为1，可取具体数值，或无限循环infinite</td>
   </tr>
   <tr>
     <td style="border-right:1px solid black;">animation-direction</td>
