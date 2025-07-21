@@ -284,7 +284,9 @@ tags:
 
 - 更多示例
 
-  [利用替换元素与非替换元素差异优雅实现图片懒加载效果](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-image-lazyloading.html)
+  [利用替换元素与非替换元素差异优雅实现图片加载中效果](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-image-loading.html)
+
+  [利用替换元素与非替换元素差异优雅实现图片加载失败展示](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-image-load-failed.html)
 
   [content-box辅助实现纯css图标](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-icon.html)
 
