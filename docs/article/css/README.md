@@ -57,7 +57,7 @@ selector {
   </tr>
   <tr>
     <td style="border-right:1px solid black;">animation-delay</td>
-    <td>动画延时多久开始，需指定指定单位如s或ms，默认为0，，取正值表示延时，负值表示超前</td>
+    <td>动画延时多久开始，需指定指定单位如s或ms，默认为0。值为正时是延时，值为负时是超前，比如值为-1s表示动画立即从第1秒位置开始</td>
   </tr>
   <tr style="background:#F8F9FA;">
     <td style="border-right:1px solid black;">animation-iteration-count</td>
