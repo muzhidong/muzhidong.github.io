@@ -290,6 +290,8 @@ tags:
 
   [content-box辅助实现纯css图标](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-icon.html)
 
+  [counter统计子元素个数，且每个子元素展示不同内容](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-counter.html)
+
 ### padding
 - 含义：是padding-top，padding-left，padding-right，padding-bottom四个属性的简写。当传入4个值时，依序表示上、右、下、左内边距；当传入3个值时，依序表示上、左右、下内边距；当传入2个值时，依序表示上下、左右；当传入1个值时则表示上下左右。
 
