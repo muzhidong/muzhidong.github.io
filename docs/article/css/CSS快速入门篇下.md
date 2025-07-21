@@ -243,7 +243,8 @@ tags:
   <!-- white-space -->
   <div>元素内空白字符处理<br/>white-space</div>
   <div>值对比见如图<br/> 
-  <img src="/css/white-space值比较.png" /></div>
+  <img src="/css/white-space值比较.png" /><br/>
+  <a href="https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-white-space.html">点示例我，加深区别</a></div>
   <!-- writing-mode -->
   <div>文字排列方向<br/>writing-mode</div>
   <div>
