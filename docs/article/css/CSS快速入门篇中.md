@@ -572,28 +572,32 @@ tags:
 
 - **创建层叠上下文元素的其他方式（实用）**
   
-  除了z-index方式外，下面情形的元素也可以变成层叠上下文，若无z-index，默认相当于z-index:auto级别，否则看z-index
+  下面情形的元素也可以变成层叠上下文，若无z-index，默认相当于z-index:auto级别，否则看z-index
+
+  1、position非static
   
-  1、display值为flex
+  2、display值为flex
   
-  2、opacity非1
+  3、opacity非1
   
-  3、**transform非none**
+  4、**transform非none**
   
-  4、mix-blend-mode非normal
+  5、mix-blend-mode非normal
   
-  5、filter非none
+  6、filter非none
   
-  6、isolation值为isolate
+  7、isolation值为isolate
   
-  7、-webkit-overflow-scrolling值为touch
+  8、-webkit-overflow-scrolling值为touch
   
-  8、will-change值为opacity、transform、mix-blend-mode、filter、isolation
+  9、will-change值为opacity、transform、mix-blend-mode、filter、isolation
+
+  10、根元素
 
 -  [示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-zIndex.html)
 
 ### 改变层级z-index
-- 作用范围：position不为static的元素或flex布局的子元素
+- 作用范围：position非static的元素或flex或inline-flex布局的子元素
 
 - 特点：
   
