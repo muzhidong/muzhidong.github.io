@@ -556,7 +556,7 @@ tags:
 
   ![](/css/stacking-order.png)
 
-- 准则：谁大谁上，后来居上
+- 层叠准则：谁大谁上，后来居上
 
 - 层叠上下文特性
 
@@ -570,13 +570,13 @@ tags:
 
   5、每个层叠上下文是自成体系的，当元素发生层叠时，整个元素被认为是在父层叠上下文的层叠顺序中
 
-- **创建层叠上下文元素的其他方式（实用）**
+- **创建层叠上下文元素的方式（实用）**
   
-  下面情形的元素也可以变成层叠上下文，若无z-index，默认相当于z-index:auto级别，否则看z-index
+  下面情形可以变成层叠上下文元素，若无z-index，默认相当于z-index:auto级别，否则看z-index
 
-  1、position非static
+  1、position非static，其中值为relative/absolute时，需再满足z-index非auto
   
-  2、display值为flex
+  2、flex/inline-flex布局的子元素，且z-index值非auto
   
   3、opacity非1
   
@@ -597,7 +597,7 @@ tags:
 -  [示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-zIndex.html)
 
 ### 改变层级z-index
-- 作用范围：position非static的元素或flex或inline-flex布局的子元素
+- 作用范围：position非static的元素，或flex/inline-flex布局的子元素
 
 - 特点：
   
@@ -606,10 +606,6 @@ tags:
   当z-index值相同时，后面元素的层级高于前面元素的层级（后来居上）；
   
   若父元素设置了z-index，则以父元素的z-index值为准，值大的父元素层级较高（层叠上下文可嵌套）
-
-- z-index取值auto与0的异同
-
-  取值为auto不会建立层叠上下文；取值为0会建立层叠上下文，但都同属z-index:auto或z-index:0级别
 
 - z-index取负值应用：通过伪元素附加在元素上面，但又不遮挡元素内容
 
