@@ -537,8 +537,9 @@ tags:
 
     7.外层text-align会间接影响内部使用无依赖绝对定位的内联元素位置，实质影响的是内联元素的幽灵空白节点
 
-    8.如果overflow不是定位元素，同时绝对定位元素和overflow容器之间没有定位元素，则overflow值为hidden时，无法对absolute元素进行裁剪，而overflow值非hidden，而是auto或scroll时，则absolute元素宽高即使比overflow大，也不会出现滚动条。
-    > 需注意overflow定位元素上是否有transform，它会导致不对absolute元素裁剪
+    8.如果overflow不是定位元素，且absolute元素和overflow容器之间没有其他定位元素，则对absolute元素无影响，即absolute元素若超出容器高度，值为hidden时不裁剪，auto/scroll时也不会出现滚动条。但是有一种情况例外，**若在overflow非定位元素上或它和absolute元素之间的元素上有transform或perspective或filter属性值非none，则该对absolute元素裁剪则裁剪，该出现滚动条则出现滚动条**
+
+    9.**若绝对定位元素的父级中有transform或perspective或filter属性值非none，则绝对定位元素会相对于该父级元素定位**
   
   relative：相对定位，位置参照自身进行定位。常与绝对定位元素配合，**最好保持“作用范围最小化”（经验）**，避免层级问题。特性如下，
   
@@ -548,9 +549,7 @@ tags:
 
     3.一般不影响周边元素布局
   
-  fixed：固定定位，位置参照所在窗口的根元素进行定位。特性类似absolute，有包裹性、块状化并变成格式上下文、破坏文档流、优先级高于float属性、无依赖的固定定位，主要差异在于宽度计算是相对于根元素html。提供[position:fixed的absolute模拟示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-position.html)
-
-  > 当元素祖先transform/perspective/filter属性值非none时，position:fixed元素由相对于窗口变为该祖先
+  fixed：固定定位，位置参照所在窗口的根元素进行定位。特性同absolute，尤其是第8、9点依然适用。另附上[position:fixed的absolute模拟示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-position.html)
 
 ## 层叠规则
 - 含义：指当前网页中的元素间发生层叠时的表现规则，示意如下，
@@ -579,7 +578,7 @@ tags:
   
   2、opacity非1
   
-  3、transform非none
+  3、**transform非none**
   
   4、mix-blend-mode非normal
   
