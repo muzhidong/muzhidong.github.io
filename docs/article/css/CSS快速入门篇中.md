@@ -550,6 +550,8 @@ tags:
   
   fixed：固定定位，位置参照所在窗口的根元素进行定位。特性类似absolute，有包裹性、块状化并变成格式上下文、破坏文档流、优先级高于float属性、无依赖的固定定位，主要差异在于宽度计算是相对于根元素html。提供[position:fixed的absolute模拟示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-position.html)
 
+  > 当元素祖先transform/perspective/filter属性值非none时，position:fixed元素由相对于窗口变为该祖先
+
 ## 层叠规则
 - 含义：指当前网页中的元素间发生层叠时的表现规则，示意如下，
 
