@@ -34,7 +34,16 @@ tags:
   <div>ex</div>
   <div>1ex等于当前字体的x-height(小写字母x的高度)，接近当前字体大小的一半</div>
   <div>em</div>
-  <div>1em等于当前字体大小</div>
+  <div>1em等于当前字体大小。注意，当在一个元素内对font-size和其他属性使用em单位时浏览器先计算font-size，之后基于这个值再去计算其他值，请看如下代码：<br/>
+  <pre style="color:white;">body {
+  font-size: 16px;
+}
+div {
+  /* 19.2 px */
+  font-size: 1.2em;
+  /* 23.04 px，不是19.2px */
+  padding: 1.2em;
+}</pre></div>
   <div>rem</div>
   <div>1rem等于根字体大小</div>
   <div>vw/vh</div>
@@ -316,10 +325,10 @@ tags:
   <div>表示背景图尺寸，默认值为auto，值也可以为百分比(参照父元素)、具体长度、cover[保持宽高比，使背景图像完全填充背景区域]、contain[保持宽高比，保证图像在区域内完整展示]</div>
   <!-- background-origin -->
   <div>background-origin</div>
-  <div>表示背景相对起始位置，默认值为padding-box，值也可以为border-box、content-box，会影响background-position起始点</div>
+  <div>表示背景左上角的起始位置，默认值为padding-box，值也可以为border-box、content-box，会影响background-position参考点</div>
   <!-- background-clip -->
   <div>background-clip</div>
-  <div>表示背景作用范围，默认值border-box，值也可以为padding-box、content-box、text</div>
+  <div>表示背景作用范围，对超出范围的部分进行裁剪。默认值border-box，值也可以为padding-box、content-box、text</div>
 </div>
 
 ### object-fit
