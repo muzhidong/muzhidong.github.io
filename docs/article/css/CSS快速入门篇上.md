@@ -237,6 +237,33 @@ span {
   XXX:last-child：选择父元素下倒数第一个元素且匹配XXX的元素
   
   XXX:nth-last-child(n)：选择父元素下倒数第n个(或倒数是奇数odd或倒数是偶数even)元素且匹配XXX的元素
+  ```html
+  <!-- 根据不同子元素数量显示不同样式 -->
+  <style>
+    li { 
+      color: red;
+    }   
+    li:first-child:nth-last-child(2), li:first-child:nth-last-child(2) ~ li {
+      color: blue;
+    }   
+
+    li:first-child:nth-last-child(3), li:first-child:nth-last-child(3) ~ li { 
+      color: green;
+    }   
+  </style>
+  <ul>
+    <li>1</li>
+  </ul>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+  </ul>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+  </ul>
+  ```
   
   XXX:only-child：选择父元素下只有一个元素且匹配XXX的元素
   
@@ -363,6 +390,8 @@ span {
 }
 /* 兼容性：Edge、Chrome、Safari2023底均正式支持 */
 ```
+
+> [彩蛋：网上找到一个纯CSS实现游戏案例，示例中出现很多选择器，包括&嵌套选择器、伪类选择器、兄弟选择器，简直是游戏教学！](https://codepen.io/alphardex/pen/GRqWRyB?editors=1100)
 
 ## 选择器特性：继承与层叠
 - 继承：子元素会继承父元素的某些样式
