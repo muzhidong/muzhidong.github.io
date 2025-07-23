@@ -295,8 +295,7 @@ div {
 </div>
 
 ## 背景样式
-### background
-是背景色、背景图、背景图重复方式、背景图依附方式、背景图位置、背景图大小、背景相对起始位置、背景作用范围的简写，各属性说明如下，
+background是背景色、背景图、背景图重复方式、背景图依附方式、背景图位置、背景图大小、背景相对起始位置、背景作用范围的简写，各属性说明如下，
 <div class='compare'>
   <div>属性</div>
   <div>属性值</div>
@@ -331,13 +330,3 @@ div {
   <div>表示背景作用范围，对超出范围的部分进行裁剪。默认值border-box，值也可以为padding-box、content-box、text</div>
 </div>
 
-### object-fit
-替换元素内容适应元素区域的方式。可取值：
-- fill：不保持宽高比，填充元素区域
-- contain：保持宽高比，保证图片完整展示
-- cover：保持宽高比，覆盖元素区域
-- none：图片大小保持不变
-- scale-down：取值none或contain，看哪个使尺寸更小
-
-### object-position
-替换元素内容在元素中对齐的方式。可取值left、right、center、top、bottom、具体长度、百分比，也可以用数字，即1234分别表示左上右下方位
