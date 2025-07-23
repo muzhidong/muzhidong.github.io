@@ -29,10 +29,10 @@ tags:
 提供了以下4种引用方式。
 
 ### 内联样式
-给标签设置`style`属性，如`<标签 style="attr1:value1;attr2:value2"></标签>`
+给某一标签添加`style`属性，如`<xxx style="attr1:value1;attr2:value2"></xxx>`
 
 ### 嵌入样式
-在`head`标签嵌入`style`标签，如下，
+在`head`标签中添加`style`标签，如下，
 ```html
 <style>
 selector { 
@@ -43,40 +43,42 @@ selector {
 ```
 
 ### 链接样式
-在`head`标签中嵌入`link`标签，如下，
+在`head`标签中添加`link`标签，如下，
 ```html
 <link type="text/css" href="fileName.css" rel="stylesheet" />
 ```
 
 ### 导入样式
-将多个样式文件导入到一个样式文件中，如下，
+必需在所有at-rule(除@charset和@layer外)和样式声明前定义，否则将忽略。导入样式本地文件，如下，
 ```css
+/* 语法结构： */
+/* @import url [layer/layer(layer-name)] [supports(supports-condition)] [list-of-media-queries]; */
 @import url("fileName.css");
 ```
 
-链接样式与导入样式的比较
+> 链接样式与导入样式的比较
 
 <style>
-.compare {
+.compare3 {
   display:grid;
   border-top:1px solid black;
   border-left:1px solid black;
 }
-.compare>div {
+.compare3>div {
   border-right: 1px solid black;
   border-bottom: 1px solid black;
 }
-.compare>div:nth-child(3n+1) {
+.compare3>div:nth-child(3n+1) {
   grid-column:1/2;
 }
-.compare>div:nth-child(3n+2) {
+.compare3>div:nth-child(3n+2) {
   grid-column:2/3;
 }
-.compare>div:nth-child(3n) {
+.compare3>div:nth-child(3n) {
   grid-column:3/4;
 }
 </style>
-<div class="compare">
+<div class="compare3">
   <div></div>
   <div>链接样式</div>
   <div>导入样式</div>
@@ -224,6 +226,13 @@ span {
   XXX:first-child：选择父元素下的第一个元素且匹配XXX的元素
   
   XXX:nth-child(n)：选择父元素下第n个(或倒数是奇数odd或倒数是偶数even)元素且匹配XXX的元素
+  ```css
+  /* 对nth-child伪类选择器使用负数，实现选择第1个到第n个子元素的效果，
+     如下例表示对第1个到第3个子元素应用文本颜色为橙色 */
+  div:nth-child(-n+3) {
+    color: orange;
+  }
+  ```
   
   XXX:last-child：选择父元素下倒数第一个元素且匹配XXX的元素
   
