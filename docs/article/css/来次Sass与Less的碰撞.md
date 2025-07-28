@@ -186,6 +186,46 @@ Less实现：
 
 会发现，less实现简单，sass需要内置模块list配合实现。less的不定参数设计是考虑作为一个整体使用，而sass的不定参数则灵活些，但牺牲了使用的复杂度。
 
+> 插曲：为了让生成的CSS更简洁，提高代码复用性，一般可采用%placeholder选择器定义，@extend引用的方式。特点如下：
+- %placeholders只是一个占位符，只要不通过@extend调用，编译后不会产生任何代码量
+- 使用@extend引用相同的%placeholders，编译出来相同的CSS样式会进行合并，而如果使用@include引用@mixin，编译出来相同的CSS样式不会进行合并
+- 适于静态CSS样式，如涉及动态样式，还是使用支持传参生成不同样式的@mixin方式
+```scss
+// %placeholder + @extend
+%c-gray  {
+  color: gary;
+}
+.def {
+  @extend %c-gray;
+}
+.ghi {
+  @extend %c-gray;
+}
+// 结果：
+// .ghi, .def {
+//   color: gary;
+// }
+
+// @mixin + @include
+@mixin c-gray {
+  color: gray;
+}
+.abc {
+  @include c-gray;
+}
+.jkl {
+  @include c-gray;
+}
+// 结果：
+// .abc {
+//   color: gray;
+// }
+// 
+// .jkl {
+//   color: gray;
+// }
+```
+
 ## 第三关：嵌套
 
 搞一个基础的列表样式，
