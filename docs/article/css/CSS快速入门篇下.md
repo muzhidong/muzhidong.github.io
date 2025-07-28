@@ -4,7 +4,7 @@ tags:
 - CSS
 ---
 
-作为CSS快速入门最后一篇，将介绍CSS单位、文本样式、字体样式、背景样式。
+作为CSS快速入门最后一篇，将介绍CSS单位、文本样式、字体样式、背景样式和流向的改变。
 
 <style>
   .compare {
@@ -254,16 +254,6 @@ div {
   <div>值对比见如图<br/> 
   <img src="/css/white-space值比较.png" /><br/>
   <a href="https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-white-space.html">点示例我，加深区别</a></div>
-  <!-- writing-mode -->
-  <div>文字排列方向<br/>writing-mode</div>
-  <div>
-    <div>作用：实现文字竖向呈现。在水平方向适用的规则在垂直方向仍适用，如margin水平合并、margin:auto垂直居中等等。</div><br/>
-    <div>取值：<br/>
-    horizontal-tb：默认值，文本流是水平方向，元素从上到下堆叠<br/>
-    vertical-rl：文本流是垂直方向，元素从右到左堆叠<br/>
-    vertical-lr：文本流是垂直方向，元素从左到右堆叠</div><br/>
-    <div>示例：<a href="https://demo.cssworld.cn/12/2-5.php">writing-mode与text-indent实现点击文字下沉</a></div>
-  </div>
 </div>
 
 ## 字体样式
@@ -330,3 +320,44 @@ background是背景色、背景图、背景图重复方式、背景图依附方�
   <div>表示背景作用范围，对超出范围的部分进行裁剪。默认值border-box，值也可以为padding-box、content-box、text</div>
 </div>
 
+## 流向的改变
+### 块联轴与内联轴
+- 块联轴定义网站的文档块流方向，CSS的书写模式writing-mode影响块联轴的方向
+- 内联轴定义网站的文本流方向，即文本阅读方式，CSS的direction或HTML的dir影响内联轴的方向
+
+  下图摘自网络，说明清晰完整
+  
+  ![块轴和内联轴](/css/不同书写模式的块轴和内联轴.png)
+
+### writing-mode
+- 作用：改变块流方向。在水平方向适用的规则在垂直方向仍适用，如margin水平合并、margin:auto垂直居中等等
+- 取值：
+
+  horizontal-tb：默认值，文本流是水平方向，元素从上到下堆叠
+
+  vertical-rl：文本流是垂直方向，元素从右到左堆叠
+
+  vertical-lr：文本流是垂直方向，元素从左到右堆叠
+
+- 示例：[writing-mode与text-indent实现点击文字下沉](https://demo.cssworld.cn/12/2-5.php)
+
+### direction
+- 作用：同dir属性，改变文本流方向
+- 取值：
+  
+  lrt：默认值，从左到右
+  
+  rtl：从右到左
+
+- 局限性：只能改变图片、按钮顺序
+- 改变文字顺序unicode-bidi
+
+  含义：bidi是bidirectionality的简写，中文译为字符集双向性，即字符串方向混杂
+
+  取值：
+    
+    normal：默认值
+    
+    embed：通常与normal表现一致，只能作用在内联元素上
+    
+    bidi-override：强制所有字符按direction设置的方向排列
