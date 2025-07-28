@@ -279,10 +279,38 @@ div {
   <div>字体样式<br/>font-style</div>
   <div>可取值normal、italic(使用当前字体的斜体，否则单纯让文字倾斜)</div>
   <!-- font-size-adjust -->
-  <div>首选字体尺寸比(小写字母与字体大小之比)<br/>font-size-adjust</div>
-  <div>可取值none、具体数值、from-font(使用第一个可用字体中font-metric指定值)<br/>
-  当首选字体尺寸比低于指定值时，为了保证可读性，在字体大小不变下，自动选择适合小写字母展示的字体</div>
+  <div>首选字体尺寸比<br/>font-size-adjust</div>
+  <div>即小写字母与大写字母大小之比，可取值none、具体数值、from-font(使用第一个可用字体中font-metric指定值)<br/>
+  当应用字体的尺寸比低于指定值时，为了保证可读性，会调整字体大小，即当前font-size值乘以该系数</div>
 </div>
+
+> 项目常用字体设置
+>```css
+>/* 通用字体 */
+>@font-face {
+>  font-family: Emoji;
+>  src: local("Apple Color Emoji"), local("Segoe UI Emoji"), local("Segoe UI Symbol"), local("Noto Color Emoji");
+>  unicode-range: U+1F000-1F644, U+203C-3299;
+>}
+>body {
+>  font-family: system-ui, —apple-system, 'Segoe UI', Rototo, Emoji, Helvetica, Arial, sans-serif;
+>}
+>
+>/* 衬线字体 */
+>.font-serif {
+>  font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
+>}
+>
+>/* 无衬线字体 */
+>.font-sans-serif {
+>  font-family: Arial, Verdana, Tahoma, Helivetica, Calibri, 'Microsoft YaHei', 'PingFang SC', sans-serif;
+>}
+>
+>/* 等宽字体 */
+>.font-mono {
+>  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+>}
+>```
 
 ## 背景样式
 background是背景色、背景图、背景图重复方式、背景图依附方式、背景图位置、背景图大小、背景相对起始位置、背景作用范围的简写，各属性说明如下，
@@ -294,7 +322,7 @@ background是背景色、背景图、背景图重复方式、背景图依附方�
   <div>取值见<a href="#color-unit">颜色值</a></div>
   <!-- background-image -->
   <div>background-image</div>
-  <div>值可以使用url函数，设置多重背景图片则逗号分隔，或者使用渐变函数如linear-gradient/repeating-linear-gradient/radial-gradient/repeating-radial-gradient，具体介绍<a href="TODO:">点这</a><br/>
+  <div>值可以为url函数，或渐变函数，如linear-gradient、repeating-linear-gradient、radial-gradient、repeating-radial-gradient等等，具体介绍<a href="TODO:">点这</a>。多值则逗号分隔，越往后的背景会被前面的背景所遮挡<br/>
   若也设置了背景色，则会覆盖它</div>
   <!-- background-repeat  -->
   <div>background-repeat</div>
