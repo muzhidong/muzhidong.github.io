@@ -284,6 +284,24 @@ tags:
   srcset="logo@2x.png 2x,logo@3x.png 3x" />
 ```
 
+> 响应式图片3种处理方式
+>  - img标签设置srcset属性
+>
+>  - picture标签指定绑定多个source标签
+>  ```html
+>  <!-- 类似video/audio标签，允许嵌入多个source标签，指定多个源 -->
+>  <picture>
+>    <!-- source标签的width、height、sizes、srcset属性只用于picture标签，而src属性只用于video/audio标签 -->
+>    <source srcset='small.jpg' media='(max-width:375px)'></source>
+>    <source srcset='medium.jpg' media='(max-width:678px)'></source>
+>    <source srcset='big.jpg' media='(max-width:1024px)'></source>
+>    <!-- fallback -->
+>    <img src='big.jpg' />
+>  </picture>
+>  ```
+>
+>  - 使用svg标签
+
 - sizes
 
   根据媒体查询条件设置源的大小
