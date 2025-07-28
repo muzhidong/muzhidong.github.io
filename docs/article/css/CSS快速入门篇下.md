@@ -269,7 +269,7 @@ div {
   <div>字体<br/>font-family</div>
   <div>默认字体由操作系统和浏览器共同决定<br/>
   可以指定一种字体名或字体族，字体名有空格需加单引号，也可以指定多种，用逗号分隔，按从左到右的顺序查找字体，一般字体名在前，字体族在后，且建议英在前，中在后，若都没找到则使用默认字体<br/>
-  字体族常见的有衬线字体serif(如SimSun、Times New Roman)、无衬线字体sans-serif(如Microsoft YaHei、PingFang SC、Arial)、等字体monospace(一般针对英文字体，在代码、图形呈现)
+  字体族常见的有衬线字体serif(如SimSun、Times New Roman)、无衬线字体sans-serif(如Microsoft YaHei、PingFang SC、Arial)、等宽字体monospace(一般针对英文字体，在代码、图形呈现)、系统UI字体system-ui
   </div>
   <!-- font-weight -->
   <div>字体粗细<br/>font-weight</div>
