@@ -333,7 +333,7 @@ Web服务器发起通信并异步发送消息到客户端，某种意义上，Aj
 - 处理耗时操作；
 - 无法访问window和document，不能操作DOM；
 - 同源限制；
-- 线程同步问题，在ES8提出了SharedArrayBuffer和Atomics，解决线程同步和线程通信问题。
+- 线程同步问题，在ES8提出了SharedArrayBuffer和Atomics，实现线程间资源共享，解决线程间同步或通信问题。
 
 ### 类型
 - SharedWorker
