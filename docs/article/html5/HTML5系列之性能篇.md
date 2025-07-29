@@ -178,13 +178,11 @@ tags:
   
   布局耗时取决于布局的DOM元素数量及其复杂程度
   
-  ①尽可能避免触发布局
+  ①使用flex布局替代table布局
   
-  ②使用flex布局替代如table等老布局
-  
-  ③避免强制布局的发生
+  ②尽可能避免强制布局的发生：如clientTop、clientLeft、clientWidth、clientHeight、offsetTop、offsetLeft、offsetWidth、offsetHeight、scrollTop、scrollLeft、scrollWidth、scrollHeight、getBoundingClientRect()、computedStyle等API调用
 
-  示例代码如下，
+  示例如下，
   ```javascript
   // 先写后读，触发强制布局
   function triggerStyleCalcAndLayout() {
@@ -206,46 +204,112 @@ tags:
   强制同步布局示意图：
   ![强制同步布局](/performance/强制同步布局.png)
   
-  ④通过`classname`一次性修改样式，不要一个个修改
+  ③通过`classname`一次性改变样式，避免频繁操作样式
   
-  ⑤DOM离线修改样式，如使用`documentFragment`对象在内存中操作DOM、先应用`display:none`再修改属性，避免触发大量重布局、先`clone`节点再修改属性最后再替换
+  ④脱离文档流，在内存中操作DOM，避免频繁操作DOM：如创建文档片段`document.createDocumentFragment`进行操作再替换，或克隆节点`cloneNode`进行操作再替换，或`display:none`隐藏后进行操作再恢复显示
   
-  ⑥有动画样式的元素添加`position:absolute`，避免修改样式时回流
+  ⑤动画元素添加`position:absolute`，避免修改样式时回流
 
-- 3）简化绘制的复杂度、减少绘制区域
+- 3）简化绘制复杂度、减少绘制区域
   
   ①提升移动或渐变元素的绘制层
   
   ②减少绘制区域
   
-  ③简化绘制的复杂度
+  ③简化绘制复杂度
   
   ④通过计算和判断，避免无谓的绘制操作
 
 ### 动画优化
-JS动画与CSS动画的比较：JS动画可控，但易掉帧，占内存；而CSS动画效果好，但是难控制。
-
-- 1）优化JS执行效率
+- 不同动画实现的差异
   
-  使用`requestAnimateFrame`实现动画，替代`setTimeout`、`setInterval`，因为它们无法保证回调函数的执行时机，很可能在帧结束时执行，从而丢帧(浏览器对每一帧的渲染工作要在16ms内完成，超出该时间则称为丢帧。控制帧率不超过60fps)，而`requestAnimationFrame`可以保证回调函数在每帧动画开始时执行
+  性能（从表现上看是否丢帧）：开启GPU的CSS动画 > 未开启GPU的CSS动画 > JS动画
+  
+  可控性：JS动画可控；而CSS动画难控制
 
-- 2）优先使用渲染层的合并属性、控制层的数量
+> 浏览器对每一帧的渲染工作要在16ms内完成，超出该时间则称为丢帧，一般控制帧率不超过60fps。
+> 帧率，即每秒帧数。帧率对于人眼是在50-60，若帧率低于30，称为卡顿(连续出现3个低于20fps)，若高于60则太快，俗称“亮瞎”。
+```javascript
+// 实时计算帧率
+(function(){
+  const raf = (function(){
+    return window.requestAnimationFrame || 
+      window.webkitRequestAnimationFrame || 
+      function(callback) { 
+        window.setTimeout(callback, 1000 / 60) 
+      }
+  })()
+
+  let frame = 0
+  let allFrameCount = 0
+  let lastTime = Date.now()
+
+  const loop = function() {
+    raf(loop)
+
+    const now = Date.now()
+    frame++
+    allFrameCount++
+    if (now - lastTime > 1000) {
+      console.log('帧率:', Math.round(frame / ((now - lastTime) / 1000 )), '帧数:', allFrameCount)
+      lastTime = now
+      frame = 0
+    }
+  }
+
+  loop()
+})()
+```
+> 我们一般遇到的都是卡顿问题。
+> 频繁但较小的卡顿：主要原因是过高的渲染性能开销，在每一帧中做的事情太多，参考下面介绍的优化调整代码，甚至降低动画复杂(炫酷)程度。
+> 较大但偶发的卡顿：主要原因是运行复杂算法、大规模DOM操作等，考虑使用[`requestIdleCallback`](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)、[`worker`](https://developer.mozilla.org/en-US/docs/Web/API/Worker)、[`offScreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas)等。
+
+- CSS动画优化
 
   使用`transform`或`opacity`属性实现动画效果，避免回流重绘
 
-  使用`will-change`属性或`translateZ`函数开启GPU加速
+  使用`transform:translateZ(0)`，`will-change`或`filter`，开启GPU加速
 
-  各层都需要内存和管理开销，减少动画的图层，每多一个图层，会多一份内存占有和管理的开销
+  尽可能减少动画图层，每多一个图层就多一份内存和管理开销。满足以下任一情况，触发创建图层：
+  - 使用硬件加速的iframe元素（如iframe嵌入的页面中有合成层）
+  - 使用加速的视频解码的video元素
+  - 使用3D或者硬件加速的2D Canvas元素
+  - 使用3D变换或透视的元素
+  - 使用opacity的动画元素
+  - 使用filter的元素
+  - 元素有一个含有复合层的子节点
+  - 元素有一个z-index较低且包含一个复合层的兄弟元素
+  - 使用绝对定位的元素
 
-- 3）Canvas动画优化
+- JS动画优化
   
-  ①尽可能减少调用渲染相关API的次数，尽可能调用渲染开销较低的API。
+  有如下实现方式：
 
-  以`context.lineWidth`为例，它的赋值操作开销远大于对一个普通对象赋值的开销。Canvas上下文不是一个普通的对象，比如执行`context.lineWidth = 5`，浏览器需要立刻地做一些事情，下次调用诸如`stroke`或`strokeRect`等API时，画出来的线就正好是5个像素宽了
+  - [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout)
 
-  再者，`putImageData`是一项开销极为巨大的操作，不适合在每一帧里面去调用
+  - [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame)
 
-  不同属性的赋值开销不同。
+  - [Animation](https://developer.mozilla.org/en-US/docs/Web/API/Animation)
+
+  - [animate](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate)
+
+  - [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+
+  requestAnimationFrame动画实现相对于setTimeout有三大优势：
+
+  - 防丢帧：setTimeout的执行步调与屏幕的刷新步调不一致，会丢帧。而requestAnimationFrame最大优势是由系统决定回调函数的执行时机，它能保证回调函数在屏幕每次刷新间隔中只被执行一次，不会引起丢帧，但注意控制回调任务的执行时长。
+
+  - 节省CPU开销：默认情况下，使用setTimeout实现的动画，当页面被隐藏或最小化时，setTimeout仍在后台执行，浪费CPU资源。而requestAnimationFrame则不同，当页面未激活，页面的屏幕刷新任务会被系统暂停，因此跟着系统步伐走的requestAnimationFrame也会停止渲染。
+
+  - 回调节流：在高频率事件如resize、scroll中，使用requestAnimationFrame可保证每个刷新间隔内，函数只被执行一次。
+
+  上述实现方式中，前两种JS动画归为DOM动画实现，第五种JS动画属于canvas动画实现。后推出新的API，即第三、四种方式，在非复杂动画场景下，选择实现方式顺序如下：`animate` > `Animation` > `requestAnimationFrame` > `setTimeout`
+
+- canvas动画优化
+  
+  ①尽可能减少调用渲染相关API的次数，尽可能调用渲染开销较低的API
+
+  比如执行`context.lineWidth = 5`，浏览器需立刻做一些事情，以便调用如`stroke`或`strokeRect`时，绘制的线宽正好5个像素。，它的赋值操作开销远大于对一个普通对象赋值的开销。再者，`putImageData`也是一个开销极为巨大的操作，不适合在每一帧里面去调用。下表是不同属性的赋值开销。
 
   <style>
   .c-container {
@@ -275,11 +339,11 @@ JS动画与CSS动画的比较：JS动画可控，但易掉帧，占内存；而C
     <div>开销</div>
     <div>开销（非法赋值）</div>
 
-    <div>line[Width/Join/Cap]</div>
+    <div>lineWidth/lineJoin/lineCap</div>
     <div>40+</div>
     <div>100+</div>
   
-    <div>[fill/stroke]Style</div>
+    <div>fillStyle/strokeStyle</div>
     <div>100+</div>
     <div>200+</div>
 
@@ -287,11 +351,11 @@ JS动画与CSS动画的比较：JS动画可控，但易掉帧，占内存；而C
     <div>1000+</div>
     <div>1000+</div>
 
-    <div>text[Align/Baseline]</div>
+    <div>textAlign/textBaseline</div>
     <div>60+</div>
     <div>100+</div>
 
-    <div>shadow[Blur/OffsetX]</div>
+    <div>shadowBlur/shadowOffsetX</div>
     <div>40+</div>
     <div>100+</div>
 
@@ -300,37 +364,27 @@ JS动画与CSS动画的比较：JS动画可控，但易掉帧，占内存；而C
     <div>400+</div>
   </div>
 
-  ②通过适当地安排调用绘图API的顺序，降低context状态改变的频率。 
+  ②合理地调整调用绘图API顺序，降低context状态改变的频率 
 
-  ③分层Canvas
+  ③采取Canvas分层
   
-  生成多个Canvas实例，把它们重叠放置，每个Canvas使用不同的z-index来定义堆叠的次序。然后仅在需要绘制该层时（也许是「永不」）进行重绘。
+  生成多个Canvas实例，把它们重叠放置，每个Canvas使用不同z-index定义层级，然后在相应的canvas层进行重绘。
 
   ④将渲染阶段的开销转嫁到计算阶段之上
   
-  使用`drawImage`绘制同样大小的区域，数据源是一张和绘制区域尺寸相仿的图片的情形，比起数据源是一张较大图片的情形，前者开销要小一些。可以认为，两者相差的开销正是「裁剪」这一个操作的开销。优化思路是，将「裁剪」这一步骤事先做好，保存起来，每一帧中仅绘制不裁剪。
+  使用`drawImage`绘制同样大小的区域，数据源是一张和绘制区域尺寸相仿的图片的情形，比起数据源是一张较大图片的情形，前者开销要小一些。可以认为，两者相差的开销正是**裁剪**这一操作的开销。优化思路是将**裁剪**这一步事先做好，保存起来，每一帧中仅绘制不裁剪。
 
   ⑤离屏绘制
 
-  `drawImage`方法的第一个参数不仅可以接收Image对象，也可以接收另一个 Canvas对象。而且使用Canvas对象绘制的开销与使用Image对象的开销几乎完全一致。
+  `drawImage`方法的第一个参数不仅可以接收Image对象，也可以接收Canvas对象，使用Canvas对象绘制的开销与使用Image对象的开销几乎完全一致
 
   ```javascript
-  var canvasOffscreen = document.createElement('canvas');
-  canvasOffscreen.width = dw;
-  canvasOffscreen.height = dh;
-  canvasOffscreen.getContext('2d').drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
-  context.drawImage(canvasOffscreen, x, y);
+  var offScreenCanvas = document.createElement('canvas');
+  offScreenCanvas.width = dw;
+  offScreenCanvas.height = dh;
+  offScreenCanvas.getContext('2d').drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+  context.drawImage(offScreenCanvas, x, y);
   ```
-
-> 插曲：
-
-> 阻塞：可以理解为不间断运行时间超过16ms的JS代码，以及导致浏览器花费超过 16ms时间进行处理的JS代码。如果经常出现小型阻塞，就会出现丢帧的情况。
-
-> 解决两种阻塞：
-
-> - 频繁但较小的阻塞。其原因主要是过高的渲染性能开销，在每一帧中做的事情太多。应当仔细优化代码，有时不得不降低动画的复杂（炫酷）程度，前面提到的动画优化，解决的就是这个问题。
-
-> - 较大但偶发的阻塞。其原因主要是运行复杂算法、大规模DOM操作等。主要有以下两种优化的策略。使用Web Worker，开启新的线程进行计算，适于没有对DOM操作的计算；将任务拆分为多个较小的任务，插在多帧中进行，适于涉及对DOM操作的计算
 
 ### CSS优化
 - 首屏使用内联或嵌入样式，避免导入样式
