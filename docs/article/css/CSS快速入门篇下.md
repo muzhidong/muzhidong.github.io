@@ -224,7 +224,7 @@ div {
   <div>可取值为none、capitalize(首字母大写)、uppercase(全大写)、lowercase(全小写)</div>
   <!-- text-shadow -->
   <div>文本阴影<br/>text-shadow</div>
-  <div>是h-shadow、v-shadow、blur、color的简写，分别表示水平阴影位置(允许负值，单位px)、垂直阴影位置(允许负值，单位px)、模糊距离(可选)、阴影颜色(可选)。默认值为none</div>
+  <div>是h-shadow、v-shadow、blur、color的简写，分别表示水平阴影位置(允许负值，单位px)、垂直阴影位置(允许负值，单位px)、模糊距离(可选)、阴影颜色(可选)。默认值为none，示例：<a href="https://github.com/muzhidong/blog-demo/tree/main/docs/02css/csspreprocessor/text-shadow">文字长阴影效果</a></div>
   <!-- text-overflow -->
   <div>文本溢出<br/>text-overflow</div>
   <div>默认值为clip(裁剪)，也可取值为ellipsis(超出显示省略号)、自定义字符(超出显示给定字符)</div>
