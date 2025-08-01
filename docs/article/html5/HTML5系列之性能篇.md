@@ -331,7 +331,7 @@ tags:
 
 - JS动画优化
   
-  有如下实现方式：
+  实现方式：
 
   - [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout)
 
@@ -341,8 +341,6 @@ tags:
 
   - [animate](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate)
 
-  - [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
-
   requestAnimationFrame动画实现相对于setTimeout有三大优势：
 
   - 防丢帧：setTimeout的执行步调与屏幕的刷新步调不一致，会丢帧。而requestAnimationFrame最大优势是由系统决定回调函数的执行时机，它能保证回调函数在屏幕每次刷新间隔中只被执行一次，不会引起丢帧，但注意控制回调任务的执行时长。
@@ -351,9 +349,11 @@ tags:
 
   - 回调节流：在高频率事件如resize、scroll中，使用requestAnimationFrame可保证每个刷新间隔内，函数只被执行一次。
 
-  上述实现方式中，前两种JS动画归为DOM动画实现，第五种JS动画属于canvas动画实现。后推出新的API，即第三、四种方式，在非复杂动画场景下，选择实现方式顺序如下：`animate` > `Animation` > `requestAnimationFrame` > `setTimeout`
+  后推出新的API，即后两种方式，在非复杂动画场景下，选择实现方式顺序如下：`animate` > `Animation` > 基于DOM的`requestAnimationFrame` > 基于DOM的`setTimeout`
 
 - canvas动画优化
+
+  复杂动画考虑使用canvas代替DOM操作，canvas动画优化在此单独介绍。
   
   ①尽可能减少调用渲染相关API的次数，尽可能调用渲染开销较低的API
 

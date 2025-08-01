@@ -578,19 +578,19 @@ tags:
   
   2、flex/inline-flex布局的子元素，且z-index值非auto
   
-  3、opacity非1
+  3、**opacity非1**
   
   4、**transform非none**
   
-  5、mix-blend-mode非normal
+  5、filter非none
   
-  6、filter非none
+  6、-webkit-overflow-scrolling值为touch
   
   7、isolation值为isolate
   
-  8、-webkit-overflow-scrolling值为touch
+  8、mix-blend-mode非normal
   
-  9、will-change值为opacity、transform、mix-blend-mode、filter、isolation
+  9、will-change值为opacity、transform、filter、mix-blend-mode、isolation
 
   10、根元素
 
