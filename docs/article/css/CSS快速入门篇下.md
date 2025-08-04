@@ -277,7 +277,7 @@ div {
   一般建议避免使用权重值和相对粗细值，直接使用关键字如normal、bold。因为我们常用的字体缺乏对应的字重字体，此时会走权重值不可用下的回退机制，参考自<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-weight">MDN</a></div>
   <!-- font-style -->
   <div>字体样式<br/>font-style</div>
-  <div>可取值normal、italic(使用当前字体的斜体，否则单纯让文字倾斜)</div>
+  <div>可取值normal、italic(使用当前字体的斜体，否则让文字倾斜)、oblique(文字倾斜)、oblique [angle](文字倾斜并指定角度)</div>
   <!-- font-size-adjust -->
   <div>首选字体尺寸比<br/>font-size-adjust</div>
   <div>即小写字母与大写字母大小之比，可取值none、具体数值、from-font(使用第一个可用字体中font-metric指定值)<br/>

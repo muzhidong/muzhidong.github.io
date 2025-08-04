@@ -316,7 +316,7 @@ tags:
 
   使用`transform`或`opacity`属性实现动画效果，避免回流重绘
 
-  使用`transform:translateZ(0)`，`will-change`或`filter`，开启GPU加速
+  使用3d转换、`position:fixed`、`will-change`或`filter`触发合成（将元素提升为图层），开启GPU加速
 
   尽可能减少动画图层，每多一个图层就多一份内存和管理开销。满足以下任一情况，触发创建图层：
   - 使用硬件加速的iframe元素（如iframe嵌入的页面中有合成层）
@@ -435,7 +435,7 @@ tags:
   ```
 
 ### CSS优化
-- 首屏使用内联或嵌入样式，避免导入样式
+- 首屏避免使用导入样式@import，该方式是串行加载执行，无法并行调用，使用内联、嵌入或链接样式替代
 - 通过CSS继承提高代码复用性
 
 ### 请求优化
