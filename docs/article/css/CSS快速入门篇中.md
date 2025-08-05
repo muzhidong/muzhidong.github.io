@@ -477,9 +477,9 @@ tags:
   
   - 作用：设置当对象的内容超过其指定高度及宽度时如何管理内容。由overflow-x和overflow-y两个属性组成，取值均为如下，
   
-    visible：默认值，不剪切内容也不添加滚动条，会呈现在元素框之外 
+    visible：默认值，不裁剪内容，也不加滚动条，会呈现在元素框之外 
   
-    auto：必须时可能裁切对象内容或显示滚动条
+    auto：必须时可能裁剪对象内容或显示滚动条。注意overlay是auto的旧值别名。使用overlay时，滚动条会绘制在内容上方，不占用空间
 
     scroll：内容超过时显示滚动条
   
@@ -510,9 +510,9 @@ tags:
 
 - 取值
 
-  static：默认值，静态定位
+  - static：默认值，静态定位
 
-  absolute：绝对定位，位置参照最近的position非static的祖先元素进行定位。特性如下，
+  - absolute：绝对定位，位置参照最近的position非static的祖先元素进行定位。特性如下，
     
     1.包裹性：同float
 
@@ -541,7 +541,7 @@ tags:
 
     9.**若绝对定位元素的父级中有transform或perspective或filter属性值非none，则绝对定位元素会相对于该父级元素定位**
   
-  relative：相对定位，位置参照自身进行定位。常与绝对定位元素配合，**最好保持“作用范围最小化”（经验）**，避免层级问题。特性如下，
+  - relative：相对定位，位置参照自身进行定位。常与绝对定位元素配合，**最好保持“作用范围最小化”（经验）**，避免层级问题。特性如下，
   
     1.元素保持在正常文档流中，若无声明方位属性，对自身也无影响
 
@@ -549,7 +549,9 @@ tags:
 
     3.一般不影响周边元素布局
   
-  fixed：固定定位，位置参照所在窗口的根元素进行定位。特性同absolute，尤其是第8、9点依然适用。另附上[position:fixed的absolute模拟示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-position.html)
+  - fixed：固定定位，位置参照所在窗口的根元素进行定位。特性同absolute，尤其是第8、9点依然适用。另附上[position:fixed的absolute模拟示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-position.html)
+
+  - sticky：粘性定位，元素先根据文档正常流进行定位，达到top/bottom/left/right(至少有一个属性值为非auto，粘性定位才起作用，否则该定位在该方向上表现如同relative定位)设定的阈值后，相对于其最近的滚动祖先元素(overflow值为hidden/scroll/auto/overlay)或块级祖先元素进行偏移。提供一个很好的应用示例：[双粘性定位实现头部高度自动伸缩](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-position-sticky.html)
 
 ## 层叠规则
 - 含义：指当前网页中的元素间发生层叠时的表现规则，示意如下，

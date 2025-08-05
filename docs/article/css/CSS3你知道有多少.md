@@ -103,6 +103,7 @@ tags:
   
   项目顺序。默认值为0，值越小，排列越靠前，支持负数。
 
+- 示例：[等高的左右布局](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-EqualHeightTwoSidesLayout.html)
 
 ### grid布局
 - 相较于flex布局的特点
