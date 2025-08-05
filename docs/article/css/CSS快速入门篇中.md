@@ -74,7 +74,11 @@ tags:
   }
   ```
 
-- [display小技巧示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-display.html)
+- 示例
+  
+  [display小技巧示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-display.html)
+
+  [行内块子元素超出省略效果](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-display-inline-block.html) 
 
 ### width
 取值：

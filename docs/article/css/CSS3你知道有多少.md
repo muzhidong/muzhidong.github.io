@@ -406,6 +406,8 @@ tags:
 
 - 动画的介绍[点这](/article/css/#css3动画的使用)
 
+- 示例：[loading动画](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-animation.html)
+
 ## 自定义字体
 ### 用法
 - 1、准备woff2、woff(Web Open Font Format)、ttf(TureType)、otf(OpenType)字体文件

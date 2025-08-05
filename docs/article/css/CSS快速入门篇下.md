@@ -313,7 +313,7 @@ div {
 >```
 
 ## 背景样式
-background是背景色、背景图、背景图重复方式、背景图依附方式、背景图位置、背景图大小、背景相对起始位置、背景作用范围的简写，各属性说明如下，
+- background是背景色、背景图、背景图重复方式、背景图依附方式、背景图位置、背景图大小、背景相对起始位置、背景作用范围的简写，各属性说明如下，
 <div class='compare'>
   <div>属性</div>
   <div>属性值</div>
@@ -347,6 +347,8 @@ background是背景色、背景图、背景图重复方式、背景图依附方�
   <div>background-clip</div>
   <div>表示背景作用范围，对超出范围的部分进行裁剪。默认值border-box，值也可以为padding-box、content-box、text</div>
 </div>
+
+- 示例：[css实现阅读进度](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-background.html)
 
 ## 流向的改变
 ### 块联轴与内联轴
