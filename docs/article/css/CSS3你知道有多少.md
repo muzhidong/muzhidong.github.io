@@ -274,7 +274,7 @@ tags:
   <div>scaleY(y)</div>
   <div>沿Y轴缩放</div>
   <div>rotate(angle)</div>
-  <div>沿Z轴旋转一定角度，效果同rotateZ。单位可为deg/turn/rad</div>
+  <div>围绕原点旋转一定角度，视觉上同rotateZ，区别在于前者是二维，后者是三维。单位可为deg/turn/rad</div>
   <div>rotateX(angle)</div>
   <div>沿X轴旋转一定角度</div>
   <div>rotateY(angle)</div>
@@ -329,7 +329,7 @@ tags:
   <div>值</div>
   <div>描述</div>
   <div>translateZ(z)</div>
-  <div>沿Z轴(眼睛看到的前后方向，由远及近)移动</div>
+  <div>沿Z轴移动</div>
   <div>translate3d(x,y,z)</div>
   <div>沿X轴、Y轴、Z轴移动</div>
   <div>scaleZ(z)</div>
