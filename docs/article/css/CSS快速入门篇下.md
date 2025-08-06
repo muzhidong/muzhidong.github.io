@@ -29,10 +29,10 @@ tags:
 <div class='compare'>
   <div>相对长度单位</div>
   <div>描述</div>
-  <div>%</div>
-  <div>百分比</div>
   <div>ex</div>
   <div>1ex等于当前字体的x-height(小写字母x的高度)，接近当前字体大小的一半</div>
+  <div>ch</div>
+  <div>1ch等于一个0字符的宽度，在等宽字体场景下有用</div>
   <div>em</div>
   <div>1em等于当前字体大小。注意，当在一个元素内对font-size和其他属性使用em单位时浏览器先计算font-size，之后基于这个值再去计算其他值，请看如下代码：<br/>
   <pre style="color:white;">body {
@@ -59,12 +59,10 @@ div {
   <div>磅</div>
   <div>px</div>
   <div>像素</div>
-  <div>cm</div>
+  <div id='color-unit'>cm</div>
   <div>厘米</div>
-  <div id='color-unit'>mm</div>
+  <div>mm</div>
   <div>毫米</div>
-  <div>ch</div>
-  <div>1ch等于一个0字符的宽度，在等宽字体场景下有用</div>
 </div>
 <br/>
 <div class='compare'>

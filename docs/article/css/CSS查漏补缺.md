@@ -222,7 +222,7 @@ tags:
   - stroke-box：使用stroke边界框作为参考框，引用源是svg有效
   - view-box：使用最近的SVG视口作为参考框，引用源是svg有效
 
-  形状函数，[每个函数的具体介绍点这](TODO:)
+  形状函数
   - inset()：类似rect
   - circle()：定义圆
   - ellipse()：定义椭圆
@@ -453,7 +453,7 @@ tags:
   - padding-box
   - content-box
 
-  形状函数，[每个函数的具体介绍点这](TODO:)
+  形状函数
   - inset()：类似rect
   - circle()：定义圆
   - ellipse()：定义椭圆
