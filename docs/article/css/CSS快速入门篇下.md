@@ -61,14 +61,14 @@ div {
   <div>像素</div>
   <div>cm</div>
   <div>厘米</div>
-  <div>mm</div>
+  <div id='color-unit'>mm</div>
   <div>毫米</div>
   <div>ch</div>
   <div>1ch等于一个0字符的宽度，在等宽字体场景下有用</div>
 </div>
 <br/>
 <div class='compare'>
-  <div id='color-unit'>颜色值</div>
+  <div>颜色值</div>
   <div>描述</div>
   <div>颜色关键字</div>
   <div>如red、blue</div>
