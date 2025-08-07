@@ -161,6 +161,7 @@ tags:
   ```css
   /* 自定义光标：建议大小不超过1KB，且背景是透明的 */
   .cur-custom {
+    /* fallback则auto */
     cursor: url('custom-cursor.png'), auto;
   }
   ```
@@ -211,7 +212,7 @@ tags:
   - none：默认值，不创建裁剪区域
 
   引用函数
-  - url()：引用SVG中的clipPath元素，如`picture.svg#c1`，`picture`是svg文件名，`c1`是clipPath元素的id
+  - url()：引用SVG中的clipPath元素，如`file.svg#clippath-element-id`
 
   盒子
   - margin-box
@@ -245,7 +246,7 @@ tags:
   - none：默认值，不使用滤镜
 
   引用函数
-  - url("file.svg#filter-element-id")：引用svg滤镜元素filter
+  - url()：图片URL或引用svg滤镜元素filter，如`file.svg#filter-element-id`
 
   滤镜函数
   - blur(length)：高斯模糊
@@ -295,9 +296,9 @@ tags:
     
     取值
     - none：默认值，使用透明的黑色图像层，不会有任何视觉效果
-    - url()：引用svg遮罩元素mask或图片地址
+    - url()：图片URL或引用svg遮罩元素mask
     - 渐变函数
-    - image()：二维图像，可以将url()或渐变函数转换为图片，且只接受来源是http(s)协议，不支持本地
+    - image()：二维图像，可以将url()、渐变函数、颜色值等合成转换为图片，且只接受来源是http(s)协议，不支持本地
     
     [可视化生成工具](https://coupon.codelabo.cn/)
   
@@ -461,7 +462,7 @@ tags:
 
   其他
   - none：默认值，内联内容围绕元素的margin-box进行包裹
-  - url()
+  - url()：图片URL或引用svg中形状元素，如circle、ellipse、polygon
   - 渐变函数
 
   组合值

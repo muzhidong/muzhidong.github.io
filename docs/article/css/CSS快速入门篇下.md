@@ -320,7 +320,7 @@ div {
   <div>取值见<a href="#color-unit">颜色值</a></div>
   <!-- background-image -->
   <div>background-image</div>
-  <div>值可以为url函数，或渐变函数，如linear-gradient、repeating-linear-gradient、radial-gradient、repeating-radial-gradient等等，具体介绍<a href="TODO:">点这</a>。多值则逗号分隔，越往后的背景会被前面的背景所遮挡<br/>
+  <div>值可以为url函数，或渐变函数，如linear-gradient、repeating-linear-gradient、radial-gradient、repeating-radial-gradient等等，具体介绍<a href="/article/css/CSS函数集锦.html#渐变类函数">点这</a>。多值则逗号分隔，越往后的背景会被前面的背景所遮挡<br/>
   若也设置了背景色，则会覆盖它</div>
   <!-- background-repeat  -->
   <div>background-repeat</div>
