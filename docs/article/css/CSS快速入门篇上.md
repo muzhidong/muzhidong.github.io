@@ -45,7 +45,7 @@ selector {
 ### 链接样式
 在`head`标签中添加`link`标签，如下，
 ```html
-<link type="text/css" href="fileName.css" rel="stylesheet" />
+<link type="text/css" href="file.css" rel="stylesheet" />
 ```
 
 ### 导入样式
@@ -53,7 +53,7 @@ selector {
 ```css
 /* 语法结构： */
 /* @import url [layer/layer(layer-name)] [supports(supports-condition)] [list-of-media-queries]; */
-@import url("fileName.css");
+@import url("file.css");
 ```
 
 > 链接样式与导入样式的比较
@@ -185,33 +185,29 @@ span {
 ```
 
 ### 伪类选择器
-- 语法
-  
-  选择器:伪类名称
+- 一般指前面有一个连续英文冒号的选择器
 
-- 动态伪类（随元素状态而变化）
+- 位置伪类
   
   :link：元素未访问
   
   :visited：元素访问过
   
+- 用户操作伪类
+
   :hover：鼠标悬停元素
   
   :active：鼠标按下元素
   
   :focus：元素聚焦
 
-  > 记忆技巧：a标签4种伪类状态顺序可记忆为LoVeHAte
-
-- 目标伪类（当前活动的锚）
-
-  :target：匹配当前活动的元素
+  > 小技巧：a标签4种伪类状态顺序可记为LoVeHAte(爱恨英文)
 
 - 语言伪类
   
   :lang(language)：匹配值为language的lang属性的元素
 
-- UI元素状态伪类（一般是表单元素，如输入、单选框、复选框）
+- 输入伪类
   
   :enabled：匹配被启用的元素
   
@@ -219,13 +215,15 @@ span {
   
   :checked：匹配被选中的元素
 
-- 结构性伪类
+- 树结构伪类
   
   :root：文档根元素
+
+  :empty：没有子元素的元素(含文本节点)
   
-  XXX:first-child：选择父元素下的第一个元素且匹配XXX的元素
+  :first-child：选择父元素下的第一个元素且匹配当前选择器的元素
   
-  XXX:nth-child(n)：选择父元素下第n个(或倒数是奇数odd或倒数是偶数even)元素且匹配XXX的元素
+  :nth-child(n)：选择父元素下第n个(或倒数是奇数odd或倒数是偶数even)元素且匹配当前选择器的元素
   ```css
   /* 对nth-child伪类选择器使用负数，实现选择第1个到第n个子元素的效果，
      如下例表示对第1个到第3个子元素应用文本颜色为橙色 */
@@ -234,9 +232,9 @@ span {
   }
   ```
   
-  XXX:last-child：选择父元素下倒数第一个元素且匹配XXX的元素
+  :last-child：选择父元素下倒数第一个元素且匹配当前选择器的元素
   
-  XXX:nth-last-child(n)：选择父元素下倒数第n个(或倒数是奇数odd或倒数是偶数even)元素且匹配XXX的元素
+  :nth-last-child(n)：选择父元素下倒数第n个(或倒数是奇数odd或倒数是偶数even)元素且匹配当前选择器的元素
   ```html
   <!-- 根据不同子元素数量显示不同样式 -->
   <style>
@@ -265,83 +263,26 @@ span {
   </ul>
   ```
   
-  XXX:only-child：选择父元素下只有一个元素且匹配XXX的元素
+  :only-child：选择父元素下只有一个元素且匹配当前选择器的元素
   
-  XXX:first-of-type：选择父元素下第一个匹配XXX的元素
+  :first-of-type：选择父元素下第一个匹配当前选择器的元素
   
-  XXX:nth-of-type(n)：选择父元素下第n个匹配XXX的元素
+  :nth-of-type(n)：选择父元素下第n个匹配当前选择器的元素
   
-  XXX:last-of-type：选择父元素下倒数第一个匹配XXX的元素
+  :last-of-type：选择父元素下倒数第一个匹配当前选择器的元素
   
-  XXX:nth-last-of-type(n)：选择父元素下倒数第n个匹配XXX的元素
+  :nth-last-of-type(n)：选择父元素下倒数第n个匹配当前选择器的元素
   
-  XXX:only-of-type：选择父元素下匹配XXX且唯一的元素
+  :only-of-type：选择父元素下匹配当前选择器且唯一的元素
 
-  提供[示例代码](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-selector.html)区分它们各自的效果
+  提供[示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-selector.html)区分各种树结构伪类
 
-- 否定伪类
-  
-  XXX:not(selector)：不匹配selector的其他XXX元素
-
-- 其它
-  
-  XXX:empty：没有子元素的XXX元素(含文本节点)
-  
-  :selection：选择被用户选取的元素的部分
+- 更多伪类[介绍](/article/css/CSS伪类集锦.html)
 
 ### 伪元素选择器
-- 定义：一般指前面有两个连续英文冒号的选择器
+- 一般指前面有两个连续英文冒号的选择器。常见的有表示匹配元素的第一个子元素`::before`和匹配元素的最后一个子元素`::after`，更多伪元素[见这](/article/css/CSS伪元素集锦.html)
 
-- 伪元素有哪些
-
-  XXX::before：匹配XXX元素前插入内容
-  
-  XXX::after：匹配XXX元素后插入内容
-
-  XXX::first-letter：匹配XXX元素的首字符，此时字符可以视为XXX元素的假想子元素
-
-    - 生效前提：XXX元素的display值为block、inline-block、list-item、table-cell、table-caption；首字符不能是@、#、%、&、括号类、冒号类、引号类、分号类、逗号类、句号类、问号类、星号类、省略号、顿号、斜杆、反斜杆、空格、替换元素、display非block、inline、list-item的元素；
-
-    - 生效CSS属性：padding、border、margin、color、text-decoration、text-transform、letter-spacing、word-spacing、line-height、vertical-align、float、font、background
-
-    - before伪元素也可以参与::first-letter伪元素
-
-    - 应用：金额前的币种符号如¥、$样式的单独设置
-  
-  XXX::first-line：匹配XXX元素的首行
-
-    - 生效前提：XXX元素的display值为block、inline-block、list-item、table-cell；首行中的元素只能是display值为inline、block、list-item的元素，否则达不到样式对整行生效的结果
-
-    - 生效CSS属性：color、text-decoration、text-transform、letter-spacing、word-spacing、line-height、vertical-align、font、background
-
-    - ::first-letter和::first-line同时作用了color，::first-letter优先级高
-
-    - 应用：实体按钮样式小技巧，提高复用性
-      ```html
-      <style>
-        .btn {
-          /* 其他样式... */
-          background: currentColor;
-        }
-        .btn::first-line {
-          color: white;
-        }
-        .black {
-          color: black;
-        }
-        .red {
-          color: red;
-        }
-      </style>
-      <div class="btn black">黑底白字实体按钮</div>
-      <div class="btn red">红底白字实体按钮</div>
-      ```
-
-- ::before与:before有何异同?
-
-  相同点：都是css伪元素，都可以在元素内容的前面添加内容
-  
-  不同点：:before是css3之前的写法，::before是css3的写法,目的是为了和伪类选择器区分。
+> :before是css3之前的写法，::before是css3的写法，目的是为了和伪类选择器区分。
 
 ### 属性选择器
 - [attribute]：带有attribute属性的元素
