@@ -94,11 +94,10 @@ tags:
 - 示例：[自定义title属性样式](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-attr.html)
 
 ### url()
-- 引用文件，可以是绝对URL、相对样式所在文件的URL、blob URL、data URL
-- 常用在background-image、border-image、mask-image、filter、content、cursor、font-face规则等
+用于引用文件，可以是绝对URL、相对样式所在文件的URL、blob URL、data URL。常用在background-image、border-image、mask-image、filter、content、cursor、font-face规则等
 
 ### env()
-- 将用户代理定义的环境变量的值插入到CSS中。与var()的区别是，env()引用全局范围的环境变量，var()引用声明的元素范围的自定义属性
+- 含义：将用户代理定义的环境变量的值插入到CSS中。与var()的区别是，env()引用全局范围的环境变量，var()引用声明的元素范围的自定义属性
 
 - 注意
 
@@ -126,7 +125,7 @@ tags:
 
 ## 渐变类函数
 ### linear-gradient()
-- 线性渐变，创建由两种或多种颜色沿直线逐渐过渡组成的图像
+- 含义：线性渐变，创建由两种或多种颜色沿直线逐渐过渡组成的图像
 - 用法
   
   格式：linear-gradient([direction [space], ](color position{0-2}, )+)
@@ -151,11 +150,11 @@ tags:
 - 示例：[linear-gradient实现虚线、斜条纹效果](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-gradient.html)
 
 ### repeating-linear-gradient()
-- 重复线性渐变，创建由重复的线性渐变组成的图像
-- 用法基本同linear-gradient()，需注意重复渐变的起始点、终点和长度（因为不一定是从0开始，也不一定是在100%结束）。第一个颜色指定位置是起点，未指定则默认起点为0，最后一个颜色指定位置是终点，未指定则默认终点为100%，长度则是起点和终点之间的距离
+- 含义：重复线性渐变，创建由重复的线性渐变组成的图像
+- 用法：基本同linear-gradient()，需注意重复渐变的起始点、终点和长度（因为不一定是从0开始，也不一定是在100%结束）。第一个颜色指定位置是起点，未指定则默认起点为0，最后一个颜色指定位置是终点，未指定则默认终点为100%，长度则是起点和终点之间的距离
 
 ### radial-gradient()
-- 辐射渐变，创建由从原点辐射的两种或多种颜色之间的渐进过渡组成的图像
+- 含义：辐射渐变，创建由从原点辐射的两种或多种颜色之间的渐进过渡组成的图像
 - 用法
 
   格式：radial-gradient([[shape ][size ][at origin ][space ]](color position{0-2}, )+)
@@ -178,11 +177,11 @@ tags:
 - 示例：[radial-gradient实现卡券效果](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-gradient.html)
 
 ### repeating-radial-gradient()
-- 重复辐射渐变，创建由从原点辐射的重复渐变组成的图像，它会在所有方向上无限重复，直至覆盖整个容器
-- 用法基本同radial-gradient
+- 含义：重复辐射渐变，创建由从原点辐射的重复渐变组成的图像，它会在所有方向上无限重复，直至覆盖整个容器
+- 用法：基本同radial-gradient
 
 ### conic-gradient()
-- 锥渐变，创建由围绕中心点旋转的颜色过渡渐变组成的图像
+- 含义：锥渐变，创建由围绕中心点旋转的颜色过渡渐变组成的图像
 - 用法
 
   格式：conic-gradient([[from angle ][at origin ] || [space ]](color position{0-2}, )+)
@@ -203,15 +202,15 @@ tags:
 - 示例：[conic-gradient轻松实现饼图](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-gradient.html)
 
 ### repeat-conic-gradient()
-- 重复锥渐变，创建由围绕中心点旋转的重复渐变组成的图像，它会围绕中心店重复旋转，直至填满360deg
-- 用法基本同conic-gradient
+- 含义：重复锥渐变，创建由围绕中心点旋转的重复渐变组成的图像，它会围绕中心店重复旋转，直至填满360deg
+- 用法：基本同conic-gradient
 
 ## 颜色类函数
 ### light-dark()
-- 允许为属性设置两种颜色，通过检测返回两种颜色其中之一。如果用户的偏好设置为light或未设置偏好，则返回第一个值；如果用户的偏好设置为dark，则返回第二个值。要使该函数起效，必须设置`color-scheme: light dark;`，一般声明在:root伪类上
+允许为属性设置两种颜色，通过检测返回两种颜色其中之一。如果用户的偏好设置为light或未设置偏好，则返回第一个值；如果用户的偏好设置为dark，则返回第二个值。要使该函数起效，必须设置`color-scheme: light dark;`，一般声明在`:root`伪类上
 
 ### hwb()
-- 使用sRGB颜色空间，通过色调、白度和黑度指定颜色，可选的alpha分量表示颜色的透明度。hsl()也是用于sRGB空间
+- 含义：使用sRGB颜色空间，通过色调、白度、黑度以及可选的颜色透明度指定颜色。hsl()函数也用于sRGB空间
 - 用法：
   
   格式：hwb([from color] hue whiteness blackness [/ alpha])
@@ -230,7 +229,7 @@ tags:
   - from color：表示相对的颜色，from是关键字，color是具体颜色，当色调、白度值、黑度值、透明度不必改动或进行calc时，可以用h、w、b、alpha进行表示
 
 ### lch()
-- 使用CIELAB颜色空间，通过亮度、色度和色调指定颜色，可选的alpha分量表示颜色的透明度。lab()也是用于CIELAB空间
+- 含义：使用CIELAB颜色空间，通过亮度、色度、色调以及可选的颜色透明度指定颜色。lab()函数也用于CIELAB空间
 - 用法：
 
   格式：lch([from color] lightness chroma hue [/ alpha])
@@ -247,7 +246,7 @@ tags:
   - from color：表示相对的颜色，from是关键字，color是具体颜色，当亮度、色度、色调、透明度不必改动或进行calc时，可以用l、c、h、alpha进行表示
 
 ### color-mix()
-- 入参两个颜色值，返回在给定颜色空间中按给定量的混合结果
+- 含义：通过给定颜色空间和两个可选给定量的颜色值，返回混合的颜色结果
 - 不同场景下适合的颜色空间
   
   光物理混合：CIE XYZ或srgb-linear，因为它们的光强度是线性的
@@ -266,7 +265,7 @@ tags:
 
   - color：要混合的颜色
 
-  - percentage：可选，指定混合颜色的量。可取值百分比，范围0%-100%。下图定义混合色占比计算规则：
+  - percentage：可选，指定混合的颜色量。可取值百分比，范围0%-100%。下图定义混合色占比计算规则：
 
     ![混合色占比计算规则](/css/color-mix混合色占比计算规则.png)
 
