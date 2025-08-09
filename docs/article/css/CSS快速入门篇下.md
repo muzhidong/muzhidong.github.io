@@ -353,9 +353,29 @@ div {
 - 块联轴定义网站的文档块流方向，CSS的书写模式writing-mode影响块联轴的方向
 - 内联轴定义网站的文本流方向，即文本阅读方式，CSS的direction或HTML的dir影响内联轴的方向
 
-  下图摘自网络，说明清晰完整
-  
-  ![块轴和内联轴](/css/不同书写模式的块轴和内联轴.png)
+<style>
+.axis {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.axis .item {
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
+<div class="axis">
+  <div class="item" >
+    <img src="/css/mdn-horizontal.png" alt="水平方向的块轴和内联轴" />
+    <span>水平方向的块轴和内联轴</span>  
+  </div>
+  <div class="item">
+    <img src="/css/mdn-vertical.png" alt="垂直方向的块轴和内联轴" />
+    <span>垂直方向的块轴和内联轴</span>
+  </div>
+</div>
 
 ### writing-mode
 - 作用：改变块流方向。在水平方向适用的规则在垂直方向仍适用，如margin水平合并、margin:auto垂直居中等等
