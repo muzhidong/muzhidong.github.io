@@ -3,17 +3,19 @@
   .VPNav .VPNavBar .wrapper {
     padding: 0 24px;
   }
-  .VPContent .VPHome {
-    margin-bottom: 0;
-  }
 }
 
-@media (min-width: 640px)  {
+@media (min-width: 640px) {
   .container[class] {
     padding: 0 2rem;
   }
 }
 
+.VPContent .VPHome {
+  margin-bottom: 0;
+}
+
+// logo动画
 @keyframes shake {
   0% {
     transform: rotate(-30deg);
@@ -31,6 +33,7 @@
     transform: rotate(-30deg);
   }
 }
+
 .logo {
   animation: shake 1s linear infinite;
 }

@@ -145,15 +145,13 @@ export const nav = [
   },
   {
     text: '小程序',
-    link: 'javascript:void()'
-    // customType: 'image',
-    // src: '/miniapp.jpg'
+    customType: 'image',
+    src: '/miniapp.jpg'
   },
   {
     text: '公众号',
-    link: 'javascript:void()'
-    // customType: 'image',
-    // src: '/officialAccount.jpg'
+    customType: 'image',
+    src: '/officialAccount.jpg'
   }
 ]
 

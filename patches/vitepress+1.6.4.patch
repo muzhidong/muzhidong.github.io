@@ -1,0 +1,150 @@
+diff --git a/node_modules/vitepress/dist/client/theme-default/components/HoverImage.vue b/node_modules/vitepress/dist/client/theme-default/components/HoverImage.vue
+new file mode 100644
+index 0000000..9a9b7f8
+--- /dev/null
++++ b/node_modules/vitepress/dist/client/theme-default/components/HoverImage.vue
+@@ -0,0 +1,87 @@
++<script lang="ts" setup>
++import { ref } from 'vue'
++import type { DefaultTheme } from 'vitepress/theme'
++
++const props = defineProps<{
++  item: DefaultTheme.HoverImage
++}>()
++
++const item = props.item
++
++const shown = ref(false)
++
++const mobileDeviceReg = /android|iphone|ipad|ipod/
++const ua = window.navigator.userAgent.toLowerCase()
++const isMobile = mobileDeviceReg.test(ua)
++
++const onMouseEnter = () => {
++  if (isMobile) return
++  shown.value = true;
++} 
++
++const onMouseLeave = () => {
++  if (isMobile) return
++  shown.value = false
++}
++
++const onClick = () => {
++  if (!isMobile) return
++  window.location.href = item.src
++}
++
++</script>
++
++<template>
++  <div class="hover-image"
++    @mouseenter="onMouseEnter"
++    @mouseleave="onMouseLeave"
++    @click="onClick">
++    <span class="text">{{ item.text }}</span>
++    <img v-show="shown" 
++      class="image"
++      :src="item.src"
++      :alt="item.text"
++    />
++  </div>
++</template>
++
++<style scoped>
++.hover-image {
++  position: relative;
++  padding: 0 12px;
++  .text {
++    display: flex;
++    align-items: center;
++    text-align: center;
++    line-height: var(--vp-nav-height);
++    color: var(--vp-c-text-1);
++    font-size: 14px;
++    font-weight: 500;
++    transition: color 0.25s;
++    cursor: pointer;
++    user-select: none;
++  }
++  .text:hover {
++    color: var(--vp-c-brand-1);
++  }
++  .image {
++    position: absolute;
++    max-width: 200px;
++    width: 200px;
++    height: 200px;
++    top: 100%;
++    right: 0;
++    border-radius: 10px;
++    box-shadow: 1px 1px 10px #ccc;  
++  }
++}
++@media (max-width: 768px) {
++  .hover-image {
++    height: 48px;
++    padding: 0 4px 0 0;
++    border-bottom: 1px solid var(--vp-c-divider);
++    overflow: hidden;
++    transition: border-color 0.5s;
++  }
++}
++</style>
+diff --git a/node_modules/vitepress/dist/client/theme-default/components/VPNavBarMenu.vue b/node_modules/vitepress/dist/client/theme-default/components/VPNavBarMenu.vue
+index 3f8fd8a..af11b9b 100644
+--- a/node_modules/vitepress/dist/client/theme-default/components/VPNavBarMenu.vue
++++ b/node_modules/vitepress/dist/client/theme-default/components/VPNavBarMenu.vue
+@@ -2,6 +2,7 @@
+ import { useData } from '../composables/data'
+ import VPNavBarMenuLink from './VPNavBarMenuLink.vue'
+ import VPNavBarMenuGroup from './VPNavBarMenuGroup.vue'
++import HoverImage from './HoverImage.vue'
+ 
+ const { theme } = useData()
+ </script>
+@@ -17,6 +18,7 @@ const { theme } = useData()
+     </span>
+     <template v-for="item in theme.nav" :key="JSON.stringify(item)">
+       <VPNavBarMenuLink v-if="'link' in item" :item="item" />
++      <HoverImage v-else-if="'image' === item.customType" :item="item" />
+       <component
+         v-else-if="'component' in item"
+         :is="item.component"
+diff --git a/node_modules/vitepress/dist/client/theme-default/components/VPNavScreenMenu.vue b/node_modules/vitepress/dist/client/theme-default/components/VPNavScreenMenu.vue
+index d88bb6f..67b524a 100644
+--- a/node_modules/vitepress/dist/client/theme-default/components/VPNavScreenMenu.vue
++++ b/node_modules/vitepress/dist/client/theme-default/components/VPNavScreenMenu.vue
+@@ -2,6 +2,7 @@
+ import { useData } from '../composables/data'
+ import VPNavScreenMenuLink from './VPNavScreenMenuLink.vue'
+ import VPNavScreenMenuGroup from './VPNavScreenMenuGroup.vue'
++import HoverImage from './HoverImage.vue';
+ 
+ const { theme } = useData()
+ </script>
+@@ -10,6 +11,7 @@ const { theme } = useData()
+   <nav v-if="theme.nav" class="VPNavScreenMenu">
+     <template v-for="item in theme.nav" :key="JSON.stringify(item)">
+       <VPNavScreenMenuLink v-if="'link' in item" :item="item" />
++      <HoverImage v-else-if="'image' === item.customType"  :item="item" />
+       <component
+         v-else-if="'component' in item"
+         :is="item.component"
+diff --git a/node_modules/vitepress/types/default-theme.d.ts b/node_modules/vitepress/types/default-theme.d.ts
+index 10681a8..4c82c76 100644
+--- a/node_modules/vitepress/types/default-theme.d.ts
++++ b/node_modules/vitepress/types/default-theme.d.ts
+@@ -174,6 +174,12 @@ export namespace DefaultTheme {
+     props?: Record<string, any>
+   }
+ 
++  export interface HoverImage {
++    text: string;
++    customType: string;
++    src: string;
++  }
++
+   export interface NavItemWithLink {
+     text: string
+     link: string
