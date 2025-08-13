@@ -91,6 +91,51 @@ index 0000000..9a9b7f8
 +  }
 +}
 +</style>
+diff --git a/node_modules/vitepress/dist/client/theme-default/components/VPDocOutlineItem.vue b/node_modules/vitepress/dist/client/theme-default/components/VPDocOutlineItem.vue
+index 89ea971..6f53dda 100644
+--- a/node_modules/vitepress/dist/client/theme-default/components/VPDocOutlineItem.vue
++++ b/node_modules/vitepress/dist/client/theme-default/components/VPDocOutlineItem.vue
+@@ -1,13 +1,19 @@
+ <script setup lang="ts">
++import { computed } from 'vue'
+ import type { MenuItem } from '../composables/outline'
+ 
+-defineProps<{
++const props = defineProps<{
+   headers: MenuItem[]
+   root?: boolean
+ }>()
+ 
+-function onClick({ target: el }: Event) {
+-  const id = (el as HTMLAnchorElement).href!.split('#')[1]
++const validHeaders = computed(() => {
++  const headers = props.headers || []
++  return headers.filter(header => !(/^_/g.test(header.title)))
++})
++
++function onClick(link: string) {
++  const id = link.split('#')[1]
+   const heading = document.getElementById(decodeURIComponent(id))
+   heading?.focus({ preventScroll: true })
+ }
+@@ -15,8 +21,15 @@ function onClick({ target: el }: Event) {
+ 
+ <template>
+   <ul class="VPDocOutlineItem" :class="root ? 'root' : 'nested'">
+-    <li v-for="{ children, link, title } in headers">
+-      <a class="outline-link" :href="link" @click="onClick" :title="title">{{ title }}</a>
++    <li v-for="{ children, link, title, isSLabel } in validHeaders">
++      <a class="outline-link" :href="link" @click="() => { onClick(link) }" :title="title">
++        <template v-if="isSLabel">
++          <s>{{ title }}</s>
++        </template>
++        <template v-else>
++          {{ title }}
++        </template>
++      </a>
+       <template v-if="children?.length">
+         <VPDocOutlineItem :headers="children" />
+       </template>
 diff --git a/node_modules/vitepress/dist/client/theme-default/components/VPNavBarMenu.vue b/node_modules/vitepress/dist/client/theme-default/components/VPNavBarMenu.vue
 index 3f8fd8a..af11b9b 100644
 --- a/node_modules/vitepress/dist/client/theme-default/components/VPNavBarMenu.vue
@@ -131,6 +176,46 @@ index d88bb6f..67b524a 100644
        <component
          v-else-if="'component' in item"
          :is="item.component"
+diff --git a/node_modules/vitepress/dist/client/theme-default/composables/outline.js b/node_modules/vitepress/dist/client/theme-default/composables/outline.js
+index 6746cc1..26954c0 100644
+--- a/node_modules/vitepress/dist/client/theme-default/composables/outline.js
++++ b/node_modules/vitepress/dist/client/theme-default/composables/outline.js
+@@ -21,26 +21,32 @@ export function getHeaders(range) {
+         const level = Number(el.tagName[1]);
+         return {
+             element: el,
+-            title: serializeHeader(el),
+             link: '#' + el.id,
+-            level
++            level,
++            ...serializeHeader(el),
+         };
+     });
+     return resolveHeaders(headers, range);
+ }
+ function serializeHeader(h) {
+     let ret = '';
++    let isSLabel = false;
+     for (const node of h.childNodes) {
+         if (node.nodeType === 1) {
+             if (ignoreRE.test(node.className))
+                 continue;
++            if (node.nodeName.toLowerCase() === 's') 
++                isSLabel = true
+             ret += node.textContent;
+         }
+         else if (node.nodeType === 3) {
+             ret += node.textContent;
+         }
+     }
+-    return ret.trim();
++    return {
++        title: ret.trim(),
++        isSLabel
++    };
+ }
+ export function resolveHeaders(headers, range) {
+     if (range === false) {
 diff --git a/node_modules/vitepress/types/default-theme.d.ts b/node_modules/vitepress/types/default-theme.d.ts
 index 10681a8..4c82c76 100644
 --- a/node_modules/vitepress/types/default-theme.d.ts
