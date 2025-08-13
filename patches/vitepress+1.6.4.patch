@@ -176,6 +176,19 @@ index d88bb6f..67b524a 100644
        <component
          v-else-if="'component' in item"
          :is="item.component"
+diff --git a/node_modules/vitepress/dist/client/theme-default/components/VPSocialLink.vue b/node_modules/vitepress/dist/client/theme-default/components/VPSocialLink.vue
+index 905ec89..c1454a1 100644
+--- a/node_modules/vitepress/dist/client/theme-default/components/VPSocialLink.vue
++++ b/node_modules/vitepress/dist/client/theme-default/components/VPSocialLink.vue
+@@ -22,7 +22,7 @@ onMounted(async () => {
+   ) {
+     span.style.setProperty(
+       '--icon',
+-      `url('https://api.iconify.design/simple-icons/${props.icon}.svg')`
++      ['github', 'npm'].includes(props.icon) ? `url('/icons/${props.icon}.svg')`: `url('https://api.iconify.design/simple-icons/${props.icon}.svg')`
+     )
+   }
+ })
 diff --git a/node_modules/vitepress/dist/client/theme-default/composables/outline.js b/node_modules/vitepress/dist/client/theme-default/composables/outline.js
 index 6746cc1..26954c0 100644
 --- a/node_modules/vitepress/dist/client/theme-default/composables/outline.js
