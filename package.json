@@ -1,0 +1,23 @@
+{
+  "name": "vitepress-blog",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "init": "pnpm vitepress init",
+    "dev": "vitepress dev --host",
+    "build": "vitepress build",
+    "postinstall": "patch-package",
+    "generate-theme-patch": "patch-package vitepress"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "patch-package": "^8.0.0",
+    "sass": "^1.90.0",
+    "vconsole": "^3.15.1",
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.18"
+  }
+}

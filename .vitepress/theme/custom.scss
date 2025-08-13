@@ -1,0 +1,36 @@
+// 主页
+@media (min-width: 768px) {
+  .VPNav .VPNavBar .wrapper {
+    padding: 0 24px;
+  }
+  .VPContent .VPHome {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 640px)  {
+  .container[class] {
+    padding: 0 2rem;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(-30deg);
+  }
+  25% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+  75% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-30deg);
+  }
+}
+.logo {
+  animation: shake 1s linear infinite;
+}
