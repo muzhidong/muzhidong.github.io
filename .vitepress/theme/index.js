@@ -23,9 +23,17 @@ export default {
       new VConsole()
     }
 
-    const darkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-    if (darkTheme) {
-      document.documentElement.classList.add('dark')
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    const toggleTheme = (isDark) => {
+      if (isDark) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
     }
+    toggleTheme(media.matches)
+    media.addEventListener('change', (e) => {
+      toggleTheme(e.matches)
+    })    
   }
 }
