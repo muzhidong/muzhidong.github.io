@@ -15,11 +15,17 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
-    const isDev = process.env.NODE_ENV === 'development'
+    // const isDev = process.env.NODE_ENV === 'development'
+    const isDev = import.meta.env.DEV
     const mobileDeviceReg = /android|iphone|ipad|ipod/
     const ua = window.navigator.userAgent.toLowerCase()
     if (isDev && mobileDeviceReg.test(ua)) {
       new VConsole()
+    }
+
+    const darkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+    if (darkTheme) {
+      document.documentElement.classList.add('dark')
     }
   }
 }

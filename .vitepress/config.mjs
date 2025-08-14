@@ -14,6 +14,7 @@ export default defineConfig({
   srcDir: './src',
   outDir: './dist',
   cleanUrls: true,
+  appearance: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/logo.png',
