@@ -1,13 +1,13 @@
 {
   "name": "blog",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "index.js",
   "scripts": {
     "postinstall": "patch-package",
     "init": "pnpm vitepress init",
     "dev": "vitepress dev --host",
-    "preview": "vitepress preview",
     "build": "vitepress build",
+    "preview": "vitepress preview",
     "generate-theme-patch": "patch-package vitepress",
     "generate-changelog": "changeset init && changeset add && changeset version"
   },
