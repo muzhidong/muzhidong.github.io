@@ -229,25 +229,6 @@ index 6746cc1..26954c0 100644
  }
  export function resolveHeaders(headers, range) {
      if (range === false) {
-diff --git a/node_modules/vitepress/dist/client/theme-default/styles/base.css b/node_modules/vitepress/dist/client/theme-default/styles/base.css
-index 8041b6b..44f8bcb 100644
---- a/node_modules/vitepress/dist/client/theme-default/styles/base.css
-+++ b/node_modules/vitepress/dist/client/theme-default/styles/base.css
-@@ -22,11 +22,12 @@ html {
-   line-height: 1.4;
-   font-size: 16px;
-   -webkit-text-size-adjust: 100%;
-+  color-scheme: light dark;
- }
- 
--html.dark {
-+/* html.dark {
-   color-scheme: dark;
--}
-+} */
- 
- body {
-   margin: 0;
 diff --git a/node_modules/vitepress/dist/client/theme-default/styles/vars.css b/node_modules/vitepress/dist/client/theme-default/styles/vars.css
 index d561c89..4ec2610 100644
 --- a/node_modules/vitepress/dist/client/theme-default/styles/vars.css
