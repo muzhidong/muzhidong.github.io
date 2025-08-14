@@ -39,9 +39,4 @@ export default defineConfig({
     externalLinkIcon: true,
     lastUpdated: true
   },
-  vite: {
-    define: {
-      'window': '{}'
-    }
-  }
 })
