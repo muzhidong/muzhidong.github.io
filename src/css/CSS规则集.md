@@ -20,7 +20,7 @@ tags:
   - 文档默认编码是UTF-8
 
 ## @media
-- 含义：根据一个或多个媒体查询的结果应用部分样式，可用于@import规则、link、style、source等标签。另外也提供了相应的JS API，如获取样式表信息`document.styleSheets`；检查是否有匹配媒体`window.matchMedia()`，返回值可以获取媒体当前是否与指定值匹配`matches`，并提供`change`事件监听变化，具体查看[示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-media-query/index.html)
+- 含义：根据一个或多个媒体查询的结果应用部分样式，可用于@import规则、link、style、source等标签
 
 - 用法
   - 格式：@media [media-type] (media-feature)+ {}
@@ -120,7 +120,9 @@ tags:
   }
   ```
 
-  提供[网站主题自动跟随系统、用户代理主题](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-theme.html)的基础应用示例，可供参考
+  JS也提供了相应的媒体匹配API：是否匹配媒体`window.matchMedia()`，返回值可以获取媒体当前是否与指定值匹配`matches`，并提供`change`事件监听其变化，也应用了获取样式表信息API`document.styleSheets`。具体看[示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-media-query/index.html)
+
+  [使用CSS或JS实现网站自动跟随系统或用户代理主题的两种方式](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-theme.html)可供参考
 
 ## @container
 - 含义：将样式应用于包含上下文的条件组规则，具体来说是样式规则按条件进行过滤，如果条件成立，则元素变为容器元素，样式应用于其子元素
