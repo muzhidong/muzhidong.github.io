@@ -477,7 +477,7 @@ tags:
   - light dark：元素根据操作系统的配色方案自动选择亮色和暗色当中的一种进行渲染，可随操作系统配色方案改变而改变
   - only light：元素仅使用操作系统的亮色方案进行渲染，不随操作系统配色方案改变而改变
   - only dark：元素仅使用操作系统的暗色方案进行渲染，不随操作系统配色方案改变而改变
-> 该属性作用在html元素可实现随系统主题改变而改变，但若要细入定制主题，还需搭配`prefers-color-scheme`媒体条件查询
+> 该属性作用在html元素可实现随系统主题改变而改变，但若要细入定制主题，还需搭配[`prefers-color-scheme`媒体条件查询](/css/CSS规则集#media)
 
 ## accent-color
 - 设置与某些元素交互时的强调色，如type值为checkbox、radio、range的input元素和progress元素

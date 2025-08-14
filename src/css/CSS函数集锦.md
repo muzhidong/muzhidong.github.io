@@ -71,11 +71,7 @@ tags:
   </script>
   ```
 
-- 示例
-
-  [定义CSS变量](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-var.html)
-
-  [主题切换](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-theme.html)
+- 示例：[定义CSS变量](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-var.html)
 
 ### attr()
 - 含义：检索指定的元素属性，将其值作用于应用的属性。可以用在所有属性上
