@@ -28,7 +28,8 @@ export default defineConfig({
       { icon: 'npm', link: 'https://www.npmjs.com/~muzhidong' },
     ],
     outline: {
-      label: '文章导航'
+      label: '文章导航',
+      level: 2
     },
     docFooter: {
       prev: '上一篇',
