@@ -32,7 +32,8 @@
               <ul class="item">
                 <li v-for="(item,index) in item.items" 
                   :key="index" 
-                  :tip="!isMobile && item.tip"
+                  :tip="!isMobile && item?.tip?.content"
+                  :style="item?.tip?.style"
                   v-html="item.html" >
                 </li>
               </ul>
@@ -70,7 +71,6 @@ export default {
             '--top': '100%',
             '--pt': '10px',
             '--pb': '10px',
-            '--fs': '14px'
           },
           content: '建议先选择一门通用语言学习，再根据发展方向是否还需学习领域语言。不建议首选商业语言，除非该语言在某个领域已成为主流',
         },
@@ -102,7 +102,13 @@ export default {
         }, {
           title: '客户端技术：',
           items: [{
-            tip: '小程序、RN、Electron是基于端框架兼容的壳技术，而Flutter、Qt是基于系统的真正跨端技术，实现层面有所不同',
+            tip: {
+              style: {
+                '--pt': '10px',
+                '--pb': '10px',
+              },
+              content: '小程序、RN、Electron是基于端框架兼容的壳技术，而Flutter、Qt是基于系统的真正跨端技术，实现层面有所不同',
+            },
             html: '跨端框架：<br>小程序、RN、Electron、Flutter、Qt'
           }, {
             html: '原生SDK：<br>Android SDK、Cocoa'
@@ -292,10 +298,10 @@ ul.item {
   padding: 0 10px;
   padding-top: var(--pt, 0);
   padding-bottom: var(--pb, 0);
-  color: white;
+  color: var(--vp-c-neutral);
   background: #1890ff;
-  font-size: var(--fs, 16px);
-  border-radius: 10px;
+  font-size: var(--fs, 14px);
+  border-radius: 8px;
   box-sizing: border-box;
 }
 
