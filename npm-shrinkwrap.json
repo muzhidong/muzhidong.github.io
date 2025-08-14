@@ -10,6 +10,7 @@
       "hasInstallScript": true,
       "license": "ISC",
       "devDependencies": {
+        "@changesets/cli": "^2.29.5",
         "patch-package": "^8.0.0",
         "sass": "^1.90.0",
         "vconsole": "^3.15.1",
