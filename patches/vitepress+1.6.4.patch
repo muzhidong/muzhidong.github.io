@@ -1,6 +1,6 @@
 diff --git a/node_modules/vitepress/dist/client/theme-default/components/HoverImage.vue b/node_modules/vitepress/dist/client/theme-default/components/HoverImage.vue
 new file mode 100644
-index 0000000..9a9b7f8
+index 0000000..7aa025b
 --- /dev/null
 +++ b/node_modules/vitepress/dist/client/theme-default/components/HoverImage.vue
 @@ -0,0 +1,87 @@
@@ -17,7 +17,7 @@ index 0000000..9a9b7f8
 +const shown = ref(false)
 +
 +const mobileDeviceReg = /android|iphone|ipad|ipod/
-+const ua = window.navigator.userAgent.toLowerCase()
++const ua = window?.navigator?.userAgent?.toLowerCase()
 +const isMobile = mobileDeviceReg.test(ua)
 +
 +const onMouseEnter = () => {
