@@ -284,12 +284,12 @@ ul.item {
   width: 100%;
 }
 
-[tip]:hover {
+[tip]:not([tip='false']):hover {
   color: #1890ff;
   position: relative;
 }
 
-[tip]:hover::after {
+[tip]:not([tip='false']):hover::after {
   content: attr(tip);
   position: absolute;
   top: var(--top, 0);
