@@ -1,9 +1,9 @@
 ---
-title: 使用Hexo在Github快速建站
+title: Hexo建站部署Github
 tags: 
 - hexo
 ---
-# 使用Hexo在Github快速建站
+# Hexo建站部署Github
 
 本篇带你学习如何使用hexo快速在github上部署个人网站。
 

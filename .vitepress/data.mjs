@@ -75,9 +75,9 @@ const articles = [
     name: 'JavaScript',
     pathPrefix: 'javascript',
     items: [
-      'Promise基础',
-      'ES系列——Generator函数与Async函数',
-      'ES系列——模块化规范与ES6模块',
+      'ES6系列之Promise基础',
+      'ES6系列之Generator函数与Async函数',
+      'ES6系列之模块化',
     ]
   },
   {
@@ -128,11 +128,11 @@ const articles = [
     pathPrefix: 'tool',
     items: [
       'Markdown入门',
-      '工具篇——Hexo基础',
-      '工具篇——使用Hexo在Github快速建站',
-      '工具篇——VuePress建站',
-      '工具篇——VSCode你知多少',
-      '工具篇——Postman如何作并发请求',
+      'Hexo基础',
+      'Hexo建站部署Github',
+      'VuePress建站',
+      'VSCode你知多少',
+      'Postman如何作并发请求',
     ]
   },
 ]

@@ -235,7 +235,7 @@ main.home {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid var(--vp-c-text-1);
+  border: 2px solid var(--vp-c-text-3);
   word-break: break-word;
   font-weight: bold;
   border-radius: 10px;
@@ -255,7 +255,7 @@ main.home {
 .item {
   flex-basis: calc(25% - 20px);
   padding: 0 10px;
-  border: 2px solid var(--vp-c-text-1);
+  border: 2px solid var(--vp-c-text-3);
   margin: 0 10px 4px;
   word-break: break-word;
   font-weight: bold;
