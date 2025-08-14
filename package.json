@@ -1,6 +1,6 @@
 {
   "name": "blog",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "index.js",
   "scripts": {
     "postinstall": "patch-package",
@@ -9,8 +9,7 @@
     "preview": "vitepress preview",
     "build": "vitepress build",
     "generate-theme-patch": "patch-package vitepress",
-    "generate-changelog": "changeset init && changeset add && changeset version",
-    "publish": "changeset publish"
+    "generate-changelog": "changeset init && changeset add && changeset version"
   },
   "keywords": [],
   "author": "",
