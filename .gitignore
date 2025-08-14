@@ -3,8 +3,7 @@ node_modules
 
 # 本地打包、部署文件夹
 # 若发现dist文件夹没被git忽略，是因为在忽略dist文件夹前已被加入tracked file，直接rm -rf ./dist强制删除。
-./dist/
-./deploy/
+/dist/
 
 # macos配置 
 .DS_Store
