@@ -38,49 +38,59 @@ selector {
 * animation属性是以下属性的简写形式，每个属性的含义说明如下，
 
 <!--more-->
-<table style="border:1px solid black;">
-  <tr style="text-align:center;">
-    <td style="border-right:1px solid black;">属性名称</td>
+<style>
+.animation-table {
+  tr:first-child {
+    text-align: center;
+  }
+  tr:nth-child(2n) {
+    background:var(--vp-c-bg-soft);
+  }
+}
+</style>
+<table class="animation-table">
+  <tr>
+    <td>属性名称</td>
     <td>含义</td>
   </tr>
-  <tr style="background:#F8F9FA;">
-    <td style="border-right:1px solid black;">animation-name</td>
+  <tr>
+    <td>animation-name</td>
     <td>keyframe规则名称，命名约束如下，由a-zA-Z0-9_-组成，禁止以两个短划线开头，且第一个非短划线字符必须是字母；<br/>
     可取值为none，用于取消动画；<br/>
     若指定多个名称，则用逗号分隔(下面属性同理)，动画同时执行，若属性冲突则覆盖，这点可见<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-composition">animation-composition</a>；<br/>
     若动画名称数量多于其他动画属性，则属性值分配会从可用列表中第一个值循环到最后一个值，然后再循环回第一个值，相反地，若动画名称数量少于其他动画属性，多出的动画属性值会被忽略</td>
   </tr>
   <tr>
-    <td style="border-right:1px solid black;">animation-duration</td>
+    <td>animation-duration</td>
     <td>动画时长，默认值为0，需指定单位s或ms</td>
   </tr>
-  <tr style="background:#F8F9FA;">
-    <td style="border-right:1px solid black;">animation-timing-function</td>
+  <tr>
+    <td>animation-timing-function</td>
     <td>动画速度曲线，默认值为ease，其他取值有关键字ease、ease-in、ease-out、ease-in-out、linear、step-start、step-end以及贝塞尔曲线函数cubic-bezier、步进函数steps、线性函数linear</td>
   </tr>
   <tr>
-    <td style="border-right:1px solid black;">animation-delay</td>
+    <td>animation-delay</td>
     <td>动画延时，默认值为0，需指定单位s或ms；<br/>
     值为正时是延时，值为负时是超前，比如值为-1s表示动画立即从第1秒位置开始</td>
   </tr>
-  <tr style="background:#F8F9FA;">
-    <td style="border-right:1px solid black;">animation-iteration-count</td>
+  <tr>
+    <td>animation-iteration-count</td>
     <td>动画播放次数，默认为1，可取具体数值，或无限循环infinite</td>
   </tr>
-  <tr style="background:#F8F9FA;">
-    <td style="border-right:1px solid black;">animation-play-state</td>
+  <tr>
+    <td>animation-play-state</td>
     <td>动画当前状态，是执行中还是暂停，默认是running，其他取值有paused</td>
   </tr>
   <tr>
-    <td style="border-right:1px solid black;">animation-fill-mode</td>
+    <td >animation-fill-mode</td>
     <td>动画结束后目标的状态，默认是none，其他取值有forwards(应用动画的最后一帧)、backwards(应用动画的第一帧)、both。注意首、尾帧受animation-direction、animation-iteration-count影响</td>
   </tr>
   <tr>
-    <td style="border-right:1px solid black;">animation-direction</td>
+    <td>animation-direction</td>
     <td>动画方向。可取值为正向播放normal(默认值)、倒向播放reverse、先正后倒alternate、先倒后正alternate-reverse</td>
   </tr>
   <tr>
-    <td style="border-right:1px solid black;">animation-timeline</td>
+    <td>animation-timeline</td>
     <td>控制动画进度的时间线，可以呈现出随用户滚动页面而执行动画的效果；<br/>
     可取值为auto(默认值)、none、scroll()（滚动时动画，适合无依赖的匿名滚动）、view()（可见时动画，适合无依赖的匿名主体）、滚动器或视图主体名标识（即scroll-timeline-name或view-timeline-name，适合有依赖的）；<br/>
     兼容性上，Chrome和Edge已支持，Safari开发中，在预发布版本中是支持的；<br/>

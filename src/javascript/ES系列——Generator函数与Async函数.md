@@ -89,8 +89,8 @@ pro.then((result) => {console.log(result)},(error) => {console.log(error)});
 ```
 
 ### 细节
-1.yield语句后只能跟Thunk函数或Promise对象，await语句后可跟Promise对象或基本数据类型的值，但此时是同步操作。
-2.await语句后跟Promise对象时，使用try...catch语句，防止报错。
+1. yield语句后只能跟Thunk函数或Promise对象，await语句后可跟Promise对象或基本数据类型的值，但此时是同步操作。
+2. await语句后跟Promise对象时，使用try...catch语句，防止报错。
 
 
 

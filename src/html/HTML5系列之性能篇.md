@@ -108,15 +108,15 @@ tags:
   <style>
   .g-container {
     display:grid;
-    border-top:1px solid black;
-    border-left:1px solid black;
+    border-top:1px solid var(--vp-c-text-3);
+    border-left:1px solid var(--vp-c-text-3);
   }
   .g-container>div {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
+    border-right: 1px solid var(--vp-c-text-3);
+    border-bottom: 1px solid var(--vp-c-text-3);
   }
   .g-container>div:nth-child(5n+1) {
     grid-column:1/2;
@@ -362,15 +362,15 @@ tags:
   <style>
   .c-container {
     display:grid;
-    border-top:1px solid black;
-    border-left:1px solid black;
+    border-top:1px solid var(--vp-c-text-3);
+    border-left:1px solid var(--vp-c-text-3);
   }
   .c-container>div {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
+    border-right: 1px solid var(--vp-c-text-3);
+    border-bottom: 1px solid var(--vp-c-text-3);
   }
   .c-container>div:nth-child(3n+1) {
     grid-column:1/2;
@@ -408,7 +408,7 @@ tags:
     <div>100+</div>
 
     <div>shadowColor</div>
-    <div style="border-right:1px solid black;">280+</div>
+    <div>280+</div>
     <div>400+</div>
   </div>
 

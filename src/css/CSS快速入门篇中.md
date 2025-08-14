@@ -353,23 +353,23 @@ tags:
 
     阻止合并的方式：
       
-      父元素设置为块级格式化上下文元素；
-      
-      父元素设置border/padding-top/bottom；
-      
-      父元素与第一个或最后一个子元素之间添加一个内联元素进行分隔；
-      
-      除了以上方式，若是父元素与最后一个子元素产生的合并，也可以给元素设置height、min-height或max-height
+    - 父元素设置为块级格式化上下文元素；
+    
+    - 父元素设置border/padding-top/bottom；
+    
+    - 父元素与第一个或最后一个子元素之间添加一个内联元素进行分隔；
+    
+    - 除了以上方式，若是父元素与最后一个子元素产生的合并，也可以给元素设置height、min-height或max-height
 
   3、空块级元素的margin合并
 
     阻止合并的方式：
       
-      设置垂直方向的border/padding；
-      
-      里面添加内联元素；
-      
-      设置height/min-height
+    - 设置垂直方向的border/padding；
+    
+    - 里面添加内联元素；
+    
+    - 设置height/min-height
 
 - margin取auto
   

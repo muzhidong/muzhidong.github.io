@@ -61,12 +61,12 @@ selector {
 <style>
 .compare3 {
   display:grid;
-  border-top:1px solid black;
-  border-left:1px solid black;
+  border-top:1px solid var(--vp-c-text-3);
+  border-left:1px solid var(--vp-c-text-3);
 }
 .compare3>div {
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-right: 1px solid var(--vp-c-text-3);
+  border-bottom: 1px solid var(--vp-c-text-3);
 }
 .compare3>div:nth-child(3n+1) {
   grid-column:1/2;

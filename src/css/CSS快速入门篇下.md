@@ -9,13 +9,13 @@ tags:
 <style>
   .compare {
     display:grid;
-    border-top:1px solid black;
-    border-left:1px solid black;
+    border-top:1px solid var(--vp-c-text-3);
+    border-left:1px solid var(--vp-c-text-3);
   }
   .compare > div {
     padding: 5px;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
+    border-right: 1px solid var(--vp-c-text-3);
+    border-bottom: 1px solid var(--vp-c-text-3);
   }
   .compare > div:nth-child(2n+1) {
     grid-column: 1/2;
@@ -368,7 +368,7 @@ div {
 </style>
 <div class="axis">
   <div class="item" >
-    <img src="/css/mdn-horizontal.png" alt="水平方向的块轴和内联轴" />
+    <img src="/css/mdn-horizontal.png" alt="水平方向的块轴和内联轴" style="flex-grow:1;" />
     <span>水平方向的块轴和内联轴</span>  
   </div>
   <div class="item">

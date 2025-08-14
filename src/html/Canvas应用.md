@@ -106,15 +106,11 @@ tags:
 
 - transform(m11,m12,m21,m22,dx,dy)
 
-  乘上如下矩阵进行变换，
-
-    	  m11 m21 dx
-	      m21 m22 dy
-	      0   0   1
+  根据矩阵参数转换，参数含义同CSS声明[`transform: matrix()`](/css/CSS3你知道有多少#transform-matrix)
 	
 - setTransform(m11,m12,m21,m22,dx,dy)
 
-  重设变换矩阵
+  重置后再根据矩阵参数转换
 
 - createLinearGradient(x0,y0,x1,y1)
 

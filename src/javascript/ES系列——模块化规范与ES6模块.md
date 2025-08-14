@@ -25,29 +25,28 @@ tags:
 	通过head元素对象调用appendChild方法，将每一个依赖加载为一个script标签，待所有依赖加载完毕后，计算出模块定义函数正确的调用顺序，然后依次调用它们。
 
 - 4、示例
-```html
-<!-- index.html -->
-<script data-main="scripts/main.js" src="scripts/require.js"></script>
-<script src="scripts/other.js"></script>
-```
+	```html
+	<!-- index.html -->
+	<script data-main="scripts/main.js" src="scripts/require.js"></script>
+	<script src="scripts/other.js"></script>
+	```
 
-```javascript
-// main.js:
-require.config({
-  paths: {
-    foo: 'libs/foo-1.1.3'
-  }
-});
+	```javascript
+	// main.js:
+	require.config({
+		paths: {
+			foo: 'libs/foo-1.1.3'
+		}
+	});
 
-// other.js:
-// This code might be called before the require.config() in main.js
-// has executed. When that happens, require.js will attempt to
-// load 'scripts/foo.js' instead of 'scripts/libs/foo-1.1.3.js'
-require(['foo'], function(foo) {});
-```
+	// other.js:
+	// This code might be called before the require.config() in main.js
+	// has executed. When that happens, require.js will attempt to
+	// load 'scripts/foo.js' instead of 'scripts/libs/foo-1.1.3.js'
+	require(['foo'], function(foo) {});
+	```
 
-其中，config方法option参数选项说明如下，
-
+	其中，config方法option参数选项说明如下，
 	- baseUrl ：所有模块的查找根路径
 	- paths ：path映射那些不直接放置于baseUrl下的模块名
 	- shim: 为那些没有使用define()来声明依赖关系、设置模块的"浏览器全局变量注入"型脚本做依赖和导出配置
@@ -64,32 +63,31 @@ require(['foo'], function(foo) {});
 	- urlArgs: RequireJS获取资源时附加在URL后面的额外的query参数。
 	- scriptType: 指定RequireJS将script标签插入document时所用的type=""值。默认为“text/javascript”。
 
-
 - 5、模块定义 		
 
   如何定义一个模块呢？有对象定义、函数式定义、存在依赖的函数式定义3种。
 
-```javascript
-define({});
+	```javascript
+	define({});
 
-define(function(){});
+	define(function(){});
 
-define(['aaa','bbb'],function(a,b){return {}});
+	define(['aaa','bbb'],function(a,b){return {}});
 
-define(['aaa','bbb'],function(a,b){return function(){}});
-```
+	define(['aaa','bbb'],function(a,b){return function(){}});
+	```
 
 - 6、应用
-```javascript
-// JSONP实现跨域
-require(["http://example.com/api/data.json?callback=define"],
-  function (data) {
-    //The data object will be the API response for the JSONP data call.
-    console.log(data);
-  }
-);
-// 但是，上述实现只能获取该JSONP URL一次，后继使用require()或define()发起的的对同一URL的依赖(请求)只会得到一个缓存过的值
-```
+	```javascript
+	// JSONP实现跨域
+	require(["http://example.com/api/data.json?callback=define"],
+		function (data) {
+			//The data object will be the API response for the JSONP data call.
+			console.log(data);
+		}
+	);
+	// 但是，上述实现只能获取该JSONP URL一次，后继使用require()或define()发起的的对同一URL的依赖(请求)只会得到一个缓存过的值
+	```
 	
 ### CMD
 - 1、概念
@@ -101,28 +99,28 @@ require(["http://example.com/api/data.json?callback=define"],
   同步加载模块，延迟加载依赖，即直到被应用才加载
 
 - 3、加载模块
-```javascript
-// 同步加载
-require('./util.js')	
-// 提供async方法实现异步加载
-require.async('./util.js',function(){
+	```javascript
+	// 同步加载
+	require('./util.js')	
+	// 提供async方法实现异步加载
+	require.async('./util.js',function(){
 
-})
-```    
+	})
+	```    
 
 - 4、模块定义
-```javascript
-// 几种定义模块的方式
-define("");
+	```javascript
+	// 几种定义模块的方式
+	define("");
 
-define({});
+	define({});
 
-define(function(require, exports, module){
-	// require用于获取依赖模块
-	// exports是一个对外提供模块接口的对象
-	// module是一个存储当前模块相关联的一些属性和方法的对象
-})
-```
+	define(function(require, exports, module){
+		// require用于获取依赖模块
+		// exports是一个对外提供模块接口的对象
+		// module是一个存储当前模块相关联的一些属性和方法的对象
+	})
+	```
 
 ### CommonJS
 - 1、特点
@@ -130,14 +128,14 @@ define(function(require, exports, module){
   同步加载模块，由于Node一般用于服务端编程，模块文件一般都已存在于本地，加载较快，CommonJS比较适合服务端。
 
 - 2、加载模块
-```javascript
-var foo = require('foo');
-```
+	```javascript
+	var foo = require('foo');
+	```
 
 - 3、定义模块
-```javascript
-exports = module.exports = foo;
-```
+	```javascript
+	exports = module.exports = foo;
+	```
 
 - 4、模块加载的实质
 
@@ -174,26 +172,25 @@ exports = module.exports = foo;
 
 - 特点
 
-1. 可以出现在模块的任何位置，只要处于模块顶层即可，若处于块级层则报错
-
-2. 值是动态绑定的
+	1. 可以出现在模块的任何位置，只要处于模块顶层即可，若处于块级层则报错
+	2. 值是动态绑定的
 
 - 默认导出
-```javascript
-// 正常导入导出方式
-export function func(){}
-import { func } from 'util';
+	```javascript
+	// 正常导入导出方式
+	export function func(){}
+	import { func } from 'util';
 
-// 默认导入导出方式
-export default function func(){}
-import func from 'util';
-```
+	// 默认导入导出方式
+	export default function func(){}
+	import func from 'util';
+	```
 
-可以发现，
+	可以发现，
 
-第一，使用export default本质上是输出一个叫做default的变量或方法，所以一个模块应该也只能有一个export default。
+	第一，使用export default本质上是输出一个叫做default的变量或方法，所以一个模块应该也只能有一个export default。
 
-第二，使用默认输出，对应的import语句不必使用大括号，也就是说可以任意命名；
+	第二，使用默认输出，对应的import语句不必使用大括号，也就是说可以任意命名；
 
 ### import
 - 概念
@@ -246,21 +243,21 @@ export * from 'math';
 ## 彩蛋
 - 兼容不同模块化的导出方式
 
-问题：在Node环境(CommonJs)使用`export default fn`导出方式，此时调用fn，报错`TypeError: fn is not a function`。发现fn是一个拥有default属性的对象，于是调整导出方式为`module.exports = fn`，在浏览器却报错`xxx.default is not defined`。那么如何同时支持`esm（export default）`，又支持`cjs（module.exports）`?
+	问题：在Node环境(CommonJs)使用`export default fn`导出方式，此时调用fn，报错`TypeError: fn is not a function`。发现fn是一个拥有default属性的对象，于是调整导出方式为`module.exports = fn`，在浏览器却报错`xxx.default is not defined`。那么如何同时支持`esm（export default）`，又支持`cjs（module.exports）`?
 
-解决：参考react框架处理方式，加了一层中间处理。
-```javascript
-// react/src/React.js
-export default React;
+	解决：参考react框架处理方式，加了一层中间处理。
+	```javascript
+	// react/src/React.js
+	export default React;
 
-// react/index.js
-const React = require(‘./src/React’); 
-module.exports = React.default || React; // 前者兼容cjs，后者兼容esm
-```
+	// react/index.js
+	const React = require(‘./src/React’); 
+	module.exports = React.default || React; // 前者兼容cjs，后者兼容esm
+	```
 
 - 指定以esm方式导出
-```javascript
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-```
+	```javascript
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	```
