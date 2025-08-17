@@ -217,7 +217,7 @@ full_date(date[,format])         插入格式化的日期和时间
 moment                           Moment.js函数库
 ```
 
-## 列表
+### 列表
 
 ```
 list_categories([options])       插入分类列表。options={orderby:,order:,show_count:,style:,separator:,depth:,class:,transform:,}
