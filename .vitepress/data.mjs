@@ -146,6 +146,10 @@ export const nav = [
     items: transformArticleNav(articles)
   },
   {
+    text: '设计模式',
+    link: '/designMode'
+  },
+  {
     text: '小程序',
     customType: 'image',
     src: '/miniapp.jpg'
