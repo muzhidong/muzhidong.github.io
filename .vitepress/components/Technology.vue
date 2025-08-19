@@ -153,26 +153,22 @@ export default {
             html: 'ART'
           }, { 
             html: 'Object-C Runtime'
-          }, { 
-            html: 'Dart VM' 
           }]
         }, {
           title: '服务端技术：',
           items: [{ 
             html: '服务器(Nginx、Tomcat)' 
+          },{
+            html: '语言RT(NodeJS、JDK)'
           }]
         }, {
           title: '领域技术：',
           items: [{ 
-            html: 'Cocos Runtime' 
-          }, { 
             html: 'OpenGL' 
+          }, { 
+            html: 'Cocos Runtime' 
           }]
         }],
-        common: {
-          style: 'width: calc(50% - 20px);',
-          html: '语言运行时：NodeJS、JDK'
-        }
       }, {
         type: 'custom',
         key: 'operating-system',
