@@ -121,11 +121,7 @@ tags:
     function init(){
     
         // 实现REM布局需要根据窗口大小来控制根字体大小
-        // 浏览器默认字体大小是16px，最小字体是12px
         html.style.fontSize = parseInt(doc.clientWidth /45)+"px";
-        if(parseInt(html.style.fontSize)<12){
-            html.style.fontSize = "12px";
-        }
         
         //设置video的高度
         video.style.height =  parseInt(video.offsetWidth/16*9)+"px";

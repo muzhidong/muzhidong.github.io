@@ -262,7 +262,7 @@ div {
   <div>字体大小<br/>font-size</div>
   <div>默认字体大小是medium，即14px<br/>
   支持绝对长度单位如px，也支持相对长度单位如%，其中百分比是相对用户对浏览器设置的默认字体大小<br/>
-  桌面端Chrome渲染字体有不小于12px的限制，但有一个值特殊，即0，效果是文字隐藏</div>
+  现Chrome、Safari取消渲染字体时最小字体为12px的限制，值为0时相当于隐藏文字</div>
   <!-- font-family -->
   <div>字体<br/>font-family</div>
   <div>默认字体由操作系统和浏览器共同决定<br/>
