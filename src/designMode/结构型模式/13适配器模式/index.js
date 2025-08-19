@@ -1,12 +1,11 @@
-/** 适配器模式 */
-
-class API {
+/** 采用适配器模式，发起请求时供选择使用fetch还是XMLHttpRequest */
+class Request {
   constructor(adapter = new FetchAdapter()) {
     this.adapter = adapter
   }
 
-  get(endpoint) {
-    return this.adapter.get(endpoint).catch(error => {
+  get(url) {
+    return this.adapter.get(url).catch(error => {
       alert(`${this.adapter.constructor.name}: ${error}`)
     })
   }
@@ -17,8 +16,8 @@ class FetchAdapter {
     return res.ok ? res : Promise.reject(res.status)
   }
 
-  get(endpoint) {
-    return window.fetch(endpoint).then(this._handleError).then(res => res.json())
+  get(url) {
+    return window.fetch(url).then(this._handleError).then(res => res.json())
   }
 };
 
@@ -40,9 +39,9 @@ class AjaxAdapter {
     }
   }
 
-  get(endpoint) {
+  get(url) {
     return new Promise((resolve, reject) => {
-      this.request.open('get', endpoint)
+      this.request.open('get', url)
       this.request.onreadystatechange = (res) => {
         new Promise((resolve, reject) => {
           this._response(res, resolve, reject)
@@ -59,9 +58,9 @@ class AjaxAdapter {
 
 
 // 使用fetch
-const fetchApi = new API()
-fetchApi.get('user')
+const fetchRequest = new Request()
+fetchRequest.get('/test')
 
 // 使用ajax
-const ajaxAPI = new API(new AjaxAdapter())
-ajaxAPI.get('user')
+const ajaxRequest = new Request(new AjaxAdapter())
+ajaxRequest.get('/test')
