@@ -109,7 +109,7 @@ Disallow: manifest.json
   `document.lastModified`判断每次值是否相同，不同则是伪静态 
 
 - 实现页面伪静态
-  ```conf
+  ```shell
   # url重写结合缓存实现伪静态
 
   # 负载均衡

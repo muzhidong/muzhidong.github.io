@@ -37,6 +37,11 @@ export default defineConfig({
       next: '下一篇'
     },
     externalLinkIcon: true,
-    lastUpdated: true
+    lastUpdated: true,
+    markdown: {
+      toc: {
+        level: [2, 3]
+      } 
+    }
   },
 })

@@ -49,6 +49,7 @@ selector {
 }
 </style>
 <table class="animation-table">
+<tbody>
   <tr>
     <td>属性名称</td>
     <td>含义</td>
@@ -96,6 +97,7 @@ selector {
     兼容性上，Chrome和Edge已支持，Safari开发中，在预发布版本中是支持的；<br/>
     有关属性<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-range">animation-range</a></td>
   </tr>
+</tbody>
 </table>
 
 ## 3D倒计时效果
