@@ -80,3 +80,18 @@ pm.test("Status code is 200", function () {
 
 ![请求信息](/postman/5.png)
 
+<br style="padding: 20px 0;">
+
+> Postman工具提供的功能还有很多，比如
+- 支持定义全局变量、环境变量、集合变量，变量同名则按环境变量 > 集合变量 > 全局变量的顺序取值
+- 支持设置预请求脚本，要想获取全局等变量，可通过如下方式
+  ```javascript
+  // 获取全局变量
+  pm.globals.get('变量名')
+  // 获取环境变量
+  pm.environment.get('变量名')
+  // 获取集合变量
+  pm.collectionVariables.get('变量名')
+  // 获取变量，此时若在以上三个位置都定义了同名变量，结果取的是环境变量值
+  pm.variables.get('变量名')
+  ```
