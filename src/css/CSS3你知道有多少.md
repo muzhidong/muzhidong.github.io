@@ -406,6 +406,14 @@ tags:
 
 - 动画的介绍[点这](/css/CSS3动画实现3D倒计时#css3动画的使用)
 
+- 动画的分类
+  
+  切换动画：内容变化或页面切换时的动效
+  
+  交互动画：交互时的动效，比如点赞
+  
+  图形动画：等待时的动效，比如启动页的动效
+
 - 示例：[loading动画](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-animation.html)
 
 ## 自定义字体

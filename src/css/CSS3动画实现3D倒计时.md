@@ -21,9 +21,9 @@ tags:
 ```
 
 说明：   
-+ animationName表示动画名称；
-+ timeStamp表示时间点，可取值from，to或0-100%，其中from表示0%，to表示100%；
-+ 每个时间点可以指定多个声明。
++ animationName表示动画名称，若存在多个相同的动画帧规则名称，则使用最后一个动画帧规则；
++ timeStamp表示时间点，可取值from，to或0-100%，其中from表示0%，to表示100%，若存在多个相同时间点则合并；
++ 每个时间点可以指定多个声明，会忽略值中的!important，声明也可以是animation的子属性，覆盖初始值。
 
 ### 绑定动画  
 ```css
@@ -67,7 +67,7 @@ selector {
   </tr>
   <tr>
     <td>animation-timing-function</td>
-    <td>动画速度曲线，默认值为ease，其他取值有关键字ease、ease-in、ease-out、ease-in-out、linear、step-start、step-end以及贝塞尔曲线函数cubic-bezier、步进函数steps、线性函数linear</td>
+    <td>动画速度曲线，默认值为ease，其他取值有关键字ease、ease-in、ease-out、ease-in-out、linear、step-start、step-end以及贝塞尔曲线函数<a href="https://cubic-bezier.com/" target="_blank">cubic-bezier</a>、步进函数steps、线性函数linear</td>
   </tr>
   <tr>
     <td>animation-delay</td>
