@@ -238,6 +238,8 @@ tags:
 
 - 示例：[多风格背景图切换效果](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-clip-path.html)
 
+- 工具：[基于clip-path的CSS在线生成器](https://css-generators.com/)
+
 ## filter
 - 滤镜，应用模糊或颜色偏移等图形效果于元素，常用于调整图像、背景和边框
 - 取值：

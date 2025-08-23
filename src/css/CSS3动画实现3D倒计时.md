@@ -67,7 +67,7 @@ selector {
   </tr>
   <tr>
     <td>animation-timing-function</td>
-    <td>动画速度曲线，默认值为ease，其他取值有关键字ease、ease-in、ease-out、ease-in-out、linear、step-start、step-end以及贝塞尔曲线函数<a href="https://cubic-bezier.com/" target="_blank">cubic-bezier</a>、步进函数steps、线性函数linear</td>
+    <td>动画速度曲线，默认值为ease，其他取值有关键字ease、ease-in、ease-out、ease-in-out、linear、step-start、step-end以及贝塞尔曲线函数<a href="https://cubic-bezier.com/" target="_blank">cubic-bezier</a>、步进函数steps、线性函数linear<br>附上<a href="https://easings.net/">常见的缓动曲线函数</a></td>
   </tr>
   <tr>
     <td>animation-delay</td>
