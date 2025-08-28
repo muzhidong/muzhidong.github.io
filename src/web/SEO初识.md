@@ -4,8 +4,20 @@ tags:
 - SEO
 ---
 
-# SEO初识
-Search Engine Optimization，中译为搜索引擎优化，提高网站在搜索引擎中的排名和流量。下面介绍SEO常见手段。
+SEO是什么？Search Engine Optimization，中译为搜索引擎优化，为了提高网站在搜索引擎中的排名和流量。有哪些影响网站排名的因素？
+- 相关性：标题、内容
+- 网站结构：关联、层级、内链
+- 内容质量：原创度、文章质量、信息量
+- 外链：数量、质量
+- 互联网知名度
+- 用户行为：搜索词、停留时间、浏览页面数、转载数
+- 网站年龄：域名专注于同一领域的年限
+- 域名历史表现
+- 网站服务器
+- 百度贡献
+- 备案
+
+# SEO技术手段
 
 ## tdk
 tdk表示网页meta中的title、description、keyword，合理地设置内容
@@ -109,7 +121,7 @@ Disallow: manifest.json
   `document.lastModified`判断每次值是否相同，不同则是伪静态 
 
 - 实现页面伪静态
-  ```shell
+  ```s
   # url重写结合缓存实现伪静态
 
   # 负载均衡
@@ -150,28 +162,18 @@ Disallow: manifest.json
 ## 内容优化
 - 隐藏logo图片上的文字
   ```css
-  /** 提供以下几种处理方式，就不一一举例了 */
-  /* color */
-  .logo1 {
+  /** 提供以下几种处理方式 */
+  .opacity0 {
     color: transparent;
   }
 
-  /* text-indent */
-  .logo2 {
-    width: 180px;
-    height: 36px;
-    background: url(logo.png);
+  .ti-999 {
     text-indent: -999px;
   }
 
-  /* content */
-  .logo3 {
-  content: url(logo.svg);
+  .fs0 {
+    font-size: 0;
   }
-
-  /* overflow */
-
-  /* font-size */
   ```
 
 - `h1`标签保证唯一
