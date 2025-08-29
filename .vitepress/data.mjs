@@ -95,7 +95,6 @@ const articles = [
     pathPrefix: 'web',
     items: [
       'BOM基础',
-      '兼容性',
       'SEO初识'
     ]
   },
@@ -104,6 +103,13 @@ const articles = [
     pathPrefix: 'vue',
     items: [
       '自定义指令之水平循环滚动',
+    ]
+  },
+  {
+    name: '浏览器',
+    pathPrefix: 'browser',
+    items: [
+      '兼容性',
     ]
   },
   {
