@@ -95,6 +95,7 @@ const articles = [
     pathPrefix: 'web',
     items: [
       'BOM基础',
+      '兼容性',
       'SEO初识'
     ]
   },
@@ -135,6 +136,7 @@ const articles = [
       'VuePress建站',
       'VSCode你知多少',
       'Postman如何作并发请求',
+      '工具大集合'
     ]
   },
 ]
