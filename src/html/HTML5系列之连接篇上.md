@@ -15,7 +15,7 @@ Async JavaScript and XML，是一种在不刷新整个页面下，通过JavaScri
 
 - iframe标签：响应是HTML，但存在跨域问题
 
-- JSONP：script标签发起请求
+- <span id="jsonp">JSONP：script标签发起请求</span>
 
   说明：
 
