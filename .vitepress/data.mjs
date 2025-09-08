@@ -4,7 +4,7 @@ import {
 } from './utils/index.mjs'
 
 // head配置
-export const head = [
+const h = [
   ['link', {
     rel: 'icon',
     type: 'image/x-icon',
@@ -21,9 +21,11 @@ export const head = [
   ['meta', {
     name: 'apple-mobile-web-app-status-bar-style',
     content: 'black'
-  }],
+  }]
+]
+if (!process.env.NODE_ENV === 'development') {
   // 百度统计
-  ['script', {}, `
+  h.push(['script', {}, `
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -31,8 +33,9 @@ export const head = [
       var s = document.getElementsByTagName("script")[0]; 
       s.parentNode.insertBefore(hm, s);
     })();
-  `]
-]
+  `])
+}
+export const head = h
 
 // 用于系列文章导航、侧边栏
 const articles = [
