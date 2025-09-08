@@ -40,33 +40,28 @@ tags:
 > 除以上存储方式，还有另两种只简单提及下，不具体展开介绍。IE5 版本后，微软引入 IE 专有的客户端存储机制 userData，如果需兼容 IE8 及之前，可将其作为 Web 存储替代方案，这是第一种。另一种，起初各大厂商都有在浏览器内集成了客户端数据库，但 Web SQL API 标准化工作最终失败收尾，目前仅有索引数据库 API 还在标准化中。这两种技术在技术角逐中已被淘汰，了解即可。
 
 ## cookie
+- 原理：在浏览器和服务器间传送自动携带信息的会话机制。请求时cookie会被自动携带，两端可对其进行读写，以`key=value;`形式进行存储，其中值不允许包含分号、逗号和空白符，建议存储前编码
 
-- 机制：一个在浏览器和服务器之间传送文本的内置机制。每当用户访问某个域时，cookie 都会被自动来回传送，两端均可对其进行读写。
+- 用途：存储凭证，识别身份；缓存数据
 
-- 用途：存储会话标识，识别身份；数据缓存。
-
-- 缺点：有数目和大小限制，浏览器保存的 cookie 不超过 300 个，为每个服务器保存的 cookie 不超过 20 个，每个 cookie 的大小不超过 4KB。消耗网络带宽。API 操作繁琐。
+- 不足：有数目、大小限制，即浏览器保存cookie不超过300个，服务器保存cookie不超过20个，cookie大小不超过4KB。消耗网络带宽。API操作繁琐
 
 - 属性
 
-  ```Javascript
-  // 名称
-  name
-  // 值，不允许包含分号、逗号和空白符，存储前必须编码。
-  value
-  // 有效期：单位为秒。设置有效期的cookie会存储在一个文件中，过期自动删除
+  ```js
+  // 有效期，过期自动删除，单位秒
   max-age
-  // 过期时间，是在客户端的过期时间。如果想使用它删除cookie，过期时间设置成过去时间即可
+  // 过期时间，有效期是一个时长，而过期时间是一个时间点。如果想使用它删除cookie，过期时间设置成过去时间
   expires
-  // 路径：控制cookie作用域因素之一。cookie默认只对创建它的页面及与该页面同级目录或其子目录的其他页面可见。若取值为“/”，则表示整个站点都是可以访问的，作用域基本同localStorage。
+  // 路径，可使用cookie的路径范围。若取值/，则表示整个站点均可访问
   path
-  // 域：控制cookie作用域因素之一。默认值是当前服务器主机名。若希望子域间共享cookie，可以设置为“.一级域名.顶层域名”，比如blog.mudong.xyz和docs.mudong.xyz，设置domain值为".mudong.xyz"，上面两个域名就共享数据了。
+  // 域，可使用cookie的域名范围。默认值是当前服务器主机名。若希望子域间共享cookie，可以设置为".一级域名.顶层域名"，比如希望在blog.mudong.xyz和docs.mudong.xyz两个域名下共享，设置domain值为".mudong.xyz"即可
   domain
-  // 是否同站点：是否允许服务器要求某个cookie在跨站请求时不会被发送。可取值none、strict、lax，默认是none
-  SameSite
-  // 是否安全：表明cookie的值以何种形式通过网络传递。默认是以不安全的形式(http)传递，若使用了该属性则表明cookie只能通过https或其他安全协议传递。
+  // cookie是否只在同站点被携带，默认是none，同域和跨域下均携带，也可取值strict、lax
+  samesite
+  // 是否仅在安全协议上被传输，默认不安全传输(http)，若声明该字段，则cookie只能通过https或其他安全协议传输
   secure
-  // 是否仅用于服务器：若声明了该字段，则通过js脚本是无法读取cookie信息的
+  // 是否仅用于服务器，若声明该字段，则禁止js脚本获取cookie
   httpOnly
   ```
 
@@ -74,7 +69,7 @@ tags:
 
   ```Javascript
   // 添加或修改cookie
-  function setCookie(name,value,maxAge,path,domain,secure){
+  function setCookie(name, value, maxAge, path, domain, secure) {
     let cookie = `${name}=${encodeURIComponent(value)}`;
     if(maxAge){
       cookie += `; max-age=${maxAge}`;
@@ -92,16 +87,16 @@ tags:
   }
 
   // 删除cookie
-  function deleteCookie(name){
+  function deleteCookie(name) {
     document.cookie = `${name}=; max-age=0`;
   }
 
   // 查询cookie
-  function getCookie(name){
-    let cookie = document.cookie.split("; ");
-    for(let item of cookie){
+  function getCookie(name) {
+    const cookie = document.cookie.split("; ");
+    for(let item of cookie) {
       item = item.split('=');
-      if(item[0] === name){
+      if(item[0] === name) {
           return decodeURIComponent(item[1]);
       }
     }
