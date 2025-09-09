@@ -375,9 +375,9 @@ Web服务器发起通信并异步发送消息到客户端，某种意义上，Aj
 - 使用ws或者wss协议(ssl加密可以使用wss)，实现真正意义上的推送
 
 ### 请求头
-- Upgrade：取值为websocket，指定客户端期望升级当前协议为WebSocket
+- Upgrade：取值为websocket，表示期望升级当前协议为WebSocket。注意协议升级允许将一个已建立的连接升级成新的、不相容的协议，但该机制在HTTP/2已被禁止，此时可通过TLS的ALPN(应用层协议协商)扩展实现ws连接
 
-- Connection：取值为Upgrade，告知服务器客户端希望将当前的http(s)连接升级到另一个协议，后续会根据Upgrade字段判断是否支持客户端请求的协议升级，支持则升级
+- Connection：取值为Upgrade，告知服务器希望将当前的http(s)连接升级到另一个协议，后续会根据Upgrade字段判断是否支持客户端请求的协议升级，支持则升级
 
 - Sec-WebSocket-Version：指定客户端所使用的WebSocket协议版本
 
