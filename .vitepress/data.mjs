@@ -23,7 +23,7 @@ const h = [
     content: 'black'
   }]
 ]
-if (!process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
   // 百度统计
   h.push(['script', {}, `
     var _hmt = _hmt || [];
