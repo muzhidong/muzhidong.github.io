@@ -309,20 +309,9 @@ tags:
 
 - CSS动画优化
 
-  使用`transform`或`opacity`属性实现动画效果，避免回流重绘
+  使用`transform`代替`top`、`left`实现动画，避免回流、重绘
 
-  使用3d转换、`position:fixed`、`will-change`或`filter`触发合成（将元素提升为图层），开启GPU加速
-
-  尽可能减少动画图层，每多一个图层就多一份内存和管理开销。满足以下任一情况，触发创建图层：
-  - 使用硬件加速的iframe元素（如iframe嵌入的页面中有合成层）
-  - 使用加速的视频解码的video元素
-  - 使用3D或者硬件加速的2D Canvas元素
-  - 使用3D变换或透视的元素
-  - 使用opacity的动画元素
-  - 使用filter的元素
-  - 元素有一个含有复合层的子节点
-  - 元素有一个z-index较低且包含一个复合层的兄弟元素
-  - 使用绝对定位的元素
+  应用3D转换、`opacity`、`filter`或`will-change`，开启GPU加速
 
 - JS动画优化
   
