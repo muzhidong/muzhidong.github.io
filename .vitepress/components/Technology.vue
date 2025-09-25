@@ -102,16 +102,16 @@ export default {
         }, {
           title: '客户端技术：',
           items: [{
+            html: '原生SDK：<br>Android SDK、Cocoa'
+          }, {
             tip: {
               style: {
                 '--pt': '10px',
                 '--pb': '10px',
               },
-              content: '小程序、RN、Electron是基于端框架兼容的壳技术，而Flutter、Qt是基于系统的真正跨端技术，实现层面有所不同',
+              content: '小程序、RN是依赖原生组件渲染，而Flutter拥有自渲染引擎。Electron是一种"壳"技术',
             },
-            html: '跨端框架：<br>小程序、RN、Electron、Flutter、Qt'
-          }, {
-            html: '原生SDK：<br>Android SDK、Cocoa'
+            html: '跨端框架：<br>小程序、RN、Flutter、Electron、Qt'
           }, {
             html: '依赖管理工具：<br>Gradle'
           }]
@@ -142,24 +142,25 @@ export default {
           class: 'tip',
           content: '提供底层能力调用的API或命令'
         },
+        // 应用 > SDK(执行环境+API+工具) > RT(执行环境+API) > 引擎(执行环境)
         multiItems: [{
           title: 'Web端技术：',
           items: [{
-            html: '浏览器(Chrome、Edge)'
+            html: '浏览器(Chrome、Safari、Edge)'
           }]
         }, {
           title: '客户端技术：',
           items: [{
-            html: 'ART'
+            html: 'ART、Object-C RunTime'
           }, { 
-            html: 'Object-C Runtime'
+            html: '语言引擎(V8、JSCore、Dart、C++)'
           }]
         }, {
           title: '服务端技术：',
           items: [{ 
             html: '服务器(Nginx、Tomcat)' 
           },{
-            html: '语言RT(NodeJS、JDK)'
+            html: '语言SDK(NodeJS、JDK)'
           }]
         }, {
           title: '领域技术：',
