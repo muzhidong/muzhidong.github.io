@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "friday"
-      time: "01:25"
+      time: "01:40"
     groups:
       prod-dependencies:
         dependency-type: "production"
