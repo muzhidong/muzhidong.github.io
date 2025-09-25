@@ -2,11 +2,12 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
+    target-branch: "main"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "friday"
-      time: "01:40"
+      interval: "cron"
+      # 每天晚上9点检查更新
+      cronjob: "0 21 * * *"
     groups:
       prod-dependencies:
         dependency-type: "production"
