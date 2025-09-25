@@ -142,7 +142,7 @@ export default {
           class: 'tip',
           content: '提供底层能力调用的API或命令'
         },
-        // 应用 > SDK(执行环境+API+工具) > RT(执行环境+API) > 引擎(执行环境)
+        // 应用 > SDK(运行时 + API + 工具) > RT(即执行环境) > VM(负责模拟硬件、管理内存、隔离环境、跨平台执行代码，不依赖外部资源)/引擎(负责高效执行代码，依赖运行时)
         multiItems: [{
           title: 'Web端技术：',
           items: [{
@@ -151,9 +151,11 @@ export default {
         }, {
           title: '客户端技术：',
           items: [{
-            html: 'ART、Object-C RunTime'
-          }, { 
-            html: '语言引擎(V8、JSCore、Dart、C++)'
+            html: 'ART、Object-C RunTime、Swift RunTime'
+          }, {
+            html: 'DartVM',
+          },{ 
+            html: '语言引擎(V8、JSCore)'
           }]
         }, {
           title: '服务端技术：',
