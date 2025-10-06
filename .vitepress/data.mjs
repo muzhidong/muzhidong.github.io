@@ -145,7 +145,8 @@ const articles = [
       'VuePress建站',
       'VSCode你知多少',
       'Postman如何作并发请求',
-      '工具大集合'
+      '工具大集合',
+      '资源集锦'
     ]
   },
 ]
