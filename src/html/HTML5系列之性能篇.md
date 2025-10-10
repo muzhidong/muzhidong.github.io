@@ -10,7 +10,7 @@ tags:
 - FCP：First Contentful Paint，内容首次绘制时间点
 - TBT：Total block time，总阻塞时长。长任务的阻塞时间是该任务持续时间超过50毫秒的部分，一个页面的总阻塞时间是指在FCP和TTI之间发生的每个长任务的阻塞时间总和
 
-> 提供在线[性能测量工具](https://pagespeed.web.dev/?hl=zh-cn)测试个人或企业的网站
+> 可通过[pagespeed](https://pagespeed.web.dev/?hl=zh-cn)或[webpagetest](https://www.webpagetest.org/)测试网页性能
 
 > 性能指标不只以上两个指标，详细可访问[LightHouse文档](https://developer.chrome.com/docs/lighthouse/overview?hl=zh-cn)进行完整地学习。
 
