@@ -189,7 +189,7 @@ index d88bb6f..b29fc89 100644
          v-else-if="'component' in item"
          :is="item.component"
 diff --git a/node_modules/vitepress/dist/client/theme-default/components/VPSocialLink.vue b/node_modules/vitepress/dist/client/theme-default/components/VPSocialLink.vue
-index 905ec89..c1454a1 100644
+index 905ec89..ab3f2e6 100644
 --- a/node_modules/vitepress/dist/client/theme-default/components/VPSocialLink.vue
 +++ b/node_modules/vitepress/dist/client/theme-default/components/VPSocialLink.vue
 @@ -22,7 +22,7 @@ onMounted(async () => {
@@ -197,7 +197,7 @@ index 905ec89..c1454a1 100644
      span.style.setProperty(
        '--icon',
 -      `url('https://api.iconify.design/simple-icons/${props.icon}.svg')`
-+      ['github', 'npm'].includes(props.icon) ? `url('/icons/${props.icon}.svg')`: `url('https://api.iconify.design/simple-icons/${props.icon}.svg')`
++      ['github', 'npm', 'codepen'].includes(props.icon) ? `url('/icons/${props.icon}.svg')`: `url('https://api.iconify.design/simple-icons/${props.icon}.svg')`
      )
    }
  })

@@ -27,6 +27,7 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/muzhidong' },
       { icon: 'npm', link: 'https://www.npmjs.com/~muzhidong' },
+      { icon: 'codepen', link: 'https://codepen.io/muzhidong' },
     ],
     outline: {
       label: '文章导航',
