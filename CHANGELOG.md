@@ -1,5 +1,15 @@
 # blog
 
+## 2.1.0
+
+### Minor Changes
+
+- fix:侧边栏支持展示三级标题&修复警告
+- fix:本地访问不计入埋点
+- chore:依赖更新
+- chore:添加机器人脚本，自动更新依赖到最新
+- feat:添加codepen入口
+
 ## 2.0.1
 
 ### Patch Changes
