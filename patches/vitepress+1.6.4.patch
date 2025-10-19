@@ -241,6 +241,104 @@ index 6746cc1..26954c0 100644
  }
  export function resolveHeaders(headers, range) {
      if (range === false) {
+diff --git a/node_modules/vitepress/dist/client/theme-default/styles/components/vp-doc.css b/node_modules/vitepress/dist/client/theme-default/styles/components/vp-doc.css
+index 8999118..893b9c0 100644
+--- a/node_modules/vitepress/dist/client/theme-default/styles/components/vp-doc.css
++++ b/node_modules/vitepress/dist/client/theme-default/styles/components/vp-doc.css
+@@ -462,7 +462,31 @@
+     opacity 0.25s;
+ }
+ 
++.vp-doc [class*='language-'] > form.code-box-codepen {
++  position: absolute;
++  top: 12px;
++  right: 64px;
++  z-index: 3;
++  
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  
++  width: 40px;
++  height: 40px;
++  border: 1px solid var(--vp-code-copy-code-border-color);
++  
++  opacity: 0;
++  border-radius: 4px;
++  background-color: var(--vp-code-copy-code-bg);
++  
++  cursor: pointer;
++  
++  transition: all 0.24s;
++}
++
+ .vp-doc [class*='language-']:hover > button.copy,
++.vp-doc [class*='language-']:hover > form.code-box-codepen,
+ .vp-doc [class*='language-'] > button.copy:focus {
+   opacity: 1;
+ }
+diff --git a/node_modules/vitepress/dist/node/chunk-D3CUZ4fa.js b/node_modules/vitepress/dist/node/chunk-D3CUZ4fa.js
+index fcc35e8..a196fde 100644
+--- a/node_modules/vitepress/dist/node/chunk-D3CUZ4fa.js
++++ b/node_modules/vitepress/dist/node/chunk-D3CUZ4fa.js
+@@ -35089,6 +35089,48 @@ function nanoid$1(size = 21) {
+ }
+ 
+ function preWrapperPlugin(md, options) {
++  // FIXME: 部分内联执行脚本打开无法带出
++  const codepen = (code, lang) => {
++    const isHTML = lang === 'html'
++    const isCSS = ['css', 'scss', 'less'].includes(lang)
++    const isJS = ['js', 'ts', 'javascript', 'typescript'].includes(lang)
++    let value = JSON.stringify({
++      'title': 'muzhidong blog demo',
++      'editors': `${+(isHTML)}${+(isCSS)}${+(isJS)}`,
++      'html': isHTML ? code : '',
++      'css': isCSS ? code : '',
++      'css_pre_processor': ['scss', 'less'].includes(lang) ? lang : '',
++      'js': isJS ? code : '',
++      'js_pre_processor': ['ts', 'typescript'].includes(lang) ? 'typescript' : '',
++      'js_external': '',
++    })
++    // value = value.replaceAll(/\/\*\*.*(?=\*\/)/g, '').replaceAll(/\*\//g, '')
++    // .replaceAll(/\/\/.*(?=\n)/g, '')
++    // .replaceAll('"', '&quot;').replaceAll("'", '&quot;')
++    // .replaceAll('<', '&lt;').replaceAll('>', '&gt;')
++    // .replaceAll(/(\/|`)/g, '\\$1')
++    value = value.replaceAll('"', '&quot;').replaceAll("'", '&quot;').replaceAll('<', '&lt;')
++    return `<form class="code-box-codepen"
++      action="https://codepen.io/pen/define"
++      method="POST"
++      target="_blank"
++      rel="noreferrer">
++      <input type="hidden"
++        name="data"
++        value="${value}">
++      <button type="submit">
++        <svg viewBox="0 0 15 15"
++          width="16"
++          height="16"
++          fill="currentColor">
++          <title>codepen icon</title>
++          <path
++            d="M14.777304,4.75062256 L7.77734505,0.0839936563 C7.60939924,-0.0279665065 7.39060662,-0.0279665065 7.22266081,0.0839936563 L0.222701813,4.75062256 C0.0836082937,4.84334851 5.66973453e-05,4.99945222 4.6875e-05,5.16662013 L4.6875e-05,9.83324903 C4.6875e-05,10.0004355 0.0836088906,10.1565596 0.222701812,10.2492466 L7.22266081,14.9158755 C7.30662908,14.9718752 7.403316,14.999875 7.50000292,14.999875 C7.59668984,14.999875 7.69337678,14.9718752 7.77734505,14.9158755 L14.777304,10.2492466 C14.9163976,10.1565206 14.9999492,10.0004169 14.999959,9.83324903 L14.999959,5.16662013 C14.9999492,4.99945222 14.9163976,4.84334851 14.777304,4.75062256 Z M7.50000292,9.23237755 L4.90139316,7.4999502 L7.50000292,5.76755409 L10.0986127,7.4999502 L7.50000292,9.23237755 Z M8,4.89905919 L8,1.43423573 L13.598561,5.16665138 L10.9999824,6.89904747 L8,4.89905919 Z M7.00000586,4.89905919 L4.00002344,6.89904747 L1.40141366,5.16665138 L7.00000586,1.43423573 L7.00000586,4.89905919 Z M3.09865372,7.4999502 L1.00004102,8.89903575 L1.00004102,6.10089589 L3.09865372,7.4999502 Z M4.00002344,8.10085292 L7.00000586,10.1008412 L7.00000586,13.5656334 L1.40141366,9.83328028 L4.00002344,8.10085292 Z M8,10.1008412 L10.9999824,8.10085292 L13.5985922,9.83328028 L8,13.5656647 L8,10.1008412 L8,10.1008412 Z M11.9013521,7.4999502 L13.9999648,6.10089589 L13.9999648,8.899067 L11.9013521,7.4999502 Z">
++          </path>
++        </svg>
++      </button>
++    </form>`
++  }
+   const fence = md.renderer.rules.fence;
+   md.renderer.rules.fence = (...args) => {
+     const [tokens, idx] = args;
+@@ -35097,7 +35139,7 @@ function preWrapperPlugin(md, options) {
+     const active = / active( |$)/.test(token.info) ? " active" : "";
+     token.info = token.info.replace(/ active$/, "").replace(/ active /, " ");
+     const lang = extractLang(token.info);
+-    return `<div class="language-${lang}${getAdaptiveThemeMarker(options)}${active}"><button title="${options.codeCopyButtonTitle}" class="copy"></button><span class="lang">${lang}</span>` + fence(...args) + "</div>";
++    return `<div class="language-${lang}${getAdaptiveThemeMarker(options)}${active}">${codepen(token.content, lang.toLowerCase())}<button title="${options.codeCopyButtonTitle}" class="copy"></button><span class="lang">${lang}</span>` + fence(...args) + "</div>";
+   };
+ }
+ function getAdaptiveThemeMarker(options) {
 diff --git a/node_modules/vitepress/types/default-theme.d.ts b/node_modules/vitepress/types/default-theme.d.ts
 index 10681a8..4c82c76 100644
 --- a/node_modules/vitepress/types/default-theme.d.ts
