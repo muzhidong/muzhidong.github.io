@@ -230,7 +230,7 @@ export * from 'math';
 |模块加载时机(也是依赖关系确定时) |运行时	|运行时|**运行时**|**编译时**|
 |模块加载方式 |异步	|支持同步和异步|**同步**	| **异步** |
 |模块引用方式 |深拷贝	|深拷贝|**深拷贝**| **浅拷贝** |
-|导入导出语法 |require([dep], function(dep) {}); <br><br> define(function(){});	|require()<br><br> define(function<br>(require,exports,<br>module){}) |**require()** <br><br>**exports**<br>**module.exports**	| **import** <br><br>**export default** |
+|导入导出语法 |require([dep], function(dep) {}); <br><br> define(function(){}); |require()<br><br> define(function<br>(require,exports,<br>module){}) |**require()** <br><br>**exports**/<br>**module.exports**	| **import** <br><br>**export**/<br>**export default** |
 |优点 |并行加载多个依赖模块	|依赖模块延迟加载，即被应用时才加载 |**语法简单，易用**	|**静态分析** |
 |缺点 |依赖模块提前被加载；存在循环依赖问题	|语法较复杂 |**依赖模块提前被加载；不能并行加载多个依赖模块；存在循环依赖问题**	|  |
 |适合环境 |浏览器/Node环境	|浏览器/Node环境 |**Node环境**	| **浏览器/Node环境** |
