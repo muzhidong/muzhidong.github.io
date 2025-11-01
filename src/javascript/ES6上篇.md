@@ -418,6 +418,20 @@ console.log(toString=== Number.prototype.toString); // true
   }
   ```
 
+  ```js
+  // for...of的本质
+  function forOf(iteratorInstance, fn) {
+    let it = iteratorInstance[Symbol.iterator]()
+    let result = it.next()
+    while (!result.done) {
+      // 执行for...of中的代码
+      fn(result.value)
+      // 给result重新赋值
+      result = it.next()
+    }
+  }
+  ```
+
 - Array.prototype.forEach方法无法使用break中断，可通过try/catch + throw解决
   ```javascript
   try {
@@ -542,24 +556,6 @@ const syncIteratorObj = transformSyncIterator(obj)
 for(const value of syncIteratorObj) {
   console.log(value)
 }
-// for...of本质：
-// const it = syncIteratorObj[Symbol.iterator]()
-// let result = it.next()
-// while(!result.done) {
-//  console.log(result.value)
-//  result = it.next()
-// }
-
-// 应用：普通对象转化为迭代器对象，使能使用数组解构方式
-const person = {
-  name: 'Bob',
-  age: 12,
-  // 使用生成器函数实现迭代器更简单，具体见生成器函数部分
-  *[Symbol.iterator]() {
-    yield* Object.values(this)
-  }
-}
-console.log([...person]) // [ 'Bob', 12 ]
 ```
 
 - 普通对象转化为异步迭代器对象
@@ -594,3 +590,17 @@ const asyncIteratorObj = transformAsyncIterator(obj2)
   }
 })()
 ```
+
+- 应用
+  ```js
+  // 普通对象转化为迭代器对象，使能使用数组解构方式
+  const person = {
+    name: 'Bob',
+    age: 12,
+    // 使用生成器函数实现迭代器更简单，具体见生成器函数部分
+    *[Symbol.iterator]() {
+      yield* Object.values(this)
+    }
+  }
+  console.log([...person]) // [ 'Bob', 12 ]
+  ```
