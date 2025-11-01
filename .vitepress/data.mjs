@@ -80,7 +80,9 @@ const articles = [
     name: 'JavaScript',
     pathPrefix: 'javascript',
     items: [
-      'JavaScript基础篇',
+      'JavaScript基础上篇',
+      'JavaScript基础中篇',
+      'JavaScript基础下篇',
       '面向对象编程篇',
       '函数式编程篇',
       'ES6上篇',
