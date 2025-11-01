@@ -440,7 +440,7 @@ console.log(c.red + "  " + c[5]); // 5  red
 
 - 方法
   
-  获取
+  1、获取
 
   charAt(i)：获取指定索引的字符，兼容IE6，直接索引则不兼容
   
@@ -450,9 +450,9 @@ console.log(c.red + "  " + c[5]); // 5  red
 
   charCodeAt(i)：获取指定索引的字符Unicode值。
   
-  fromCharCode(n1,n2,…,nx)：根据(一系列)Unicode值获取相应的字符(串)
+  fromCharCode(n1, n2, …, nx)：根据(一系列)Unicode值获取相应的字符(串)
 
-  截取
+  2、截取
 
   **slice(start[, end])：截取索引从start到(end-1)的子串。索引为负则表示从后往前数，-1表示最后一个字符，若开始索引的位置在结束索引的相同或后面位置，则返回空串**
   
@@ -460,32 +460,34 @@ console.log(c.red + "  " + c[5]); // 5  red
   
   **substr(start,len)：截取子串，索引从start开始`(若索引为负则从后截取长度，其中当负索引绝对值大于字符串长度，则索引值置为0，从0截取长度)`，截取长度为`min(len, start > 0? 字符串长度 - start: -start)`，若长度返回负数则最后返回空串**
 
-  分割连接替换
-
-  replace(regexp,str/fn)：用str替换匹配regexp的子串，或提供一个回调函数，以其返回值进行替换，该函数的参数分别是匹配子串、匹配子串中的分组列表参数（参数数量不定，看有多少分组）、匹配子串在原串的偏移量、原串
+  3、分割、连接、替换
 
   split(regexp)：按regexp分割字符串
   
-  concat(str1,str2,…,strn)：返回连接多个字符串的新字符串
+  concat(str1, str2, …, strn)：返回连接多个字符串的新字符串
 
-  比较
+  replace(regexp,str/fn)：用str替换匹配regexp的子串，或提供一个回调函数，以其返回值进行替换，该函数的参数分别是匹配子串、匹配子串中的分组列表参数（参数数量不定，看有多少分组）、匹配子串在原串的偏移量、原串
+
+  4、比较
 
   localeCompare(str)：表示参考字符串在本地排序中是在给定字符串之前、之后还是与之相同。若之前返回-1，之后返回1，相同返回0
 
-  搜索
+  <!-- TODO:match、search函数实践与原理实现 -->
+  5、搜索
+
   search(regexp)：获取第一个与regexp匹配的子串的起始位置，否则返回-1
   
-  匹配
+  6、匹配
 
   match(regexp)：接受一个正则字符串或对象。当正则未使用g全局标志时，返回一个数组，告知第一个匹配的索引、值以及与正则表达式的子表达式(如使用分组)匹配的文本等，或返回null，找不到匹配的话。但当正则使用了g全局标志，会返回所有匹配值的数组。
 
-  大小写转换
+  7、大小写转换
 
   toLowerCase()：将字符串转化为小写
   
   toUpperCase()：将字符串转化为大写
 
-  去空
+  8、去空
 
   trim()：去除字符串两边的空格符，包括换行符。`Whitespace is defined as white space characters plus line terminators.`
 
@@ -533,8 +535,9 @@ console.log(c.red + "  " + c[5]); // 5  red
 
 - 方法
   
-  1.改变数组（排序、增删改）
+  1、改变数组（排序、增删改）
   
+  <!-- TODO:sort函数实践与原理实现 -->
   sort([sortFn])：对数组元素采用混合排序TimSort，即结合合并排序、插入排序。默认将元素转化为字符串，按字符ASCII值由小到大排序。也可自定义排序函数，比如给元素为数字类型的数组排序，`function(a,b){return a-b;}`表示升序，`function(a,b){return b-a;}`表示降序；再者可以实现正序倒序，`function(a,b){return 1;}`返回非负值正序遍历，`function(a,b){return -1;}`返回负值倒序遍历
 
   pop()：删除数组的最后一个元素,并返回删除的元素
@@ -547,7 +550,7 @@ console.log(c.red + "  " + c[5]); // 5  red
 
   splice(index[, num[, item1, item2, …, itemN]])：插入、删除或替换数组的元素。指定起始索引index，添加或删除的元素数目num，若不指定则默认删除从index到数组末尾的所有元素，item1、item2等表示要添加的元素
 
-  2.不改变数组（倒序、截取、连接、拼接）
+  2、不改变数组（倒序、截取、连接、拼接）
   
   reserve()：数组元素倒序
 
@@ -557,76 +560,9 @@ console.log(c.red + "  " + c[5]); // 5  red
 
   join(separator)：把数组中的所有元素转换为一个字符串，需指定元素之间的分隔符
 
-  3.数组静态方法（判断是否为数组）
+  3、静态方法（判断是否为数组）
   
   Array.isArray(obj)：判断对象是否是数组。若是则为true，否则为false
-
-  **以下为ECMAScript6新增方法**
-  
-  1.改变数组
-  
-  copyWithin(pos[, start][, end])：指定复制序列的起始位置，被复制的起始和结束索引。若为负数，则从后往前数，且其绝对值超出数组长度则置为0。若始末位置的长度超过了从目标位置到数组最大索引的长度，则会截断，数组长度不改变。
-  ```js
-  // 浅拷贝数组的一部分到同一个数组中的另一个位置，并返回它，数组长度不变
-  const arr = [{ a: 1 }, 23, 34, 45, 56, 67]
-  console.log(arr.copyWithin(3, 0, 3))
-  arr[0].a = 2
-  console.log(arr)
-  ```
-
-  fill(value[, start][, end])：使用一个固定值替换数组指定范围内元素的值
-
-  2.不改变数组（包含、获取、遍历、检测、查找、过滤、映射、累加）
-  
-  includes(item[, start])：判断数组是否包含指定值。也可指定从哪一起始位置开始，默认值为0，取值效果如下，值范围在`[-Infinity, -length] || 0`则整个数组都会被搜索，范围在`(-length, 0) U (0, length)`则为负从后往前数，为正数从前往后数，范围在`[length, Infinity]`则不搜索，直接返回false
-
-  indexOf(item[,start])：获取指定元素的索引，否则返回-1，也可指定从哪一起始位置开始
-  ```js
-  [NaN].includes(NaN); // true
-  [NaN].indexOf(NaN); // -1
-  ```
-
-  lastIndexOf(item[,start])：从后向前搜索指定元素的索引，否则返回-1，也可指定从哪一起始位置开始
-
-  entries()：获取数组的迭代对象，即以数组索引值作为key，以数组元素作为value
-
-  keys()：获取包含键的可迭代对象
-
-  values()
-
-  forEach(function(ele[,index][,arr][,thisValue]){})：调用数组的每个元素，并将其传递给回调函数
-
-  every(function(ele[,index][,arr][,thisValue]){})：检测数组所有元素是否都符合指定条件，若是则返回true，否则返回false。ele表示数组元素，index表示数组索引，arr表示数组对象，thisValue表示上下文对象
-
-  some(function(ele[,index][,arr][,thisValue]){})：检测数组中是否有元素满足指定条件，若有一元素满足则返回true，否则返回false
-
-  find(function(ele[,index][,arr][,thisValue]){})：获取符合指定条件的第一个元素。
-
-  findIndex(function(ele[,index][,arr][,thisValue]){}) ：获取符合指定条件的第一个元素的索引。
-
-  filter(function(ele[,index][,arr][,thisValue]){})：创建新的数组，存储满足过滤条件的元素
-
-  map(function(ele[,index][,arr][,thisValue]){})：创建新的数组，存储处理后的元素。返回值是原数组的一个浅拷贝，不是深拷贝。
-  ```js
-  let arr = []
-  arr[2] = 1
-  arr = arr.map(i => 2)
-  // 为什么不是[2, 2, 2]？受map函数内部约束，当元素为empty，无论做什么操作，总是empty
-  console.log(arr) // [empty × 2, 2]
-  ```
-
-  reduce(function(total,ele[,index][,arr][,thisValue]){})：接收一个函数作为累加器，数组中的每个元素从左到右开始缩减，最终计算为一个值，存储在total，其他参数定义同every。
-
-  reduceRight(function(total,ele[,index][,arr][,thisValue]){})：接收一个函数作为累加器，数组中的每个元素从右到左开始缩减，最终计算为一个值，存储在total，其他参数定义同every。
-
-  3.数组静态方法（转换）
-  
-  Array.from(obj[, mapfn][, thisValue])：将具有length属性的对象或可迭代的对象转换为一个数组。obj表示要转换为数组的对象，mapfn表示数组中每个元素要调用的函数，thisValue表示映射mapfn函数中的this对象。虽然利用数组的解构赋值也能实现转换，但是该方法的功能不仅于此。
-  ```js
-  Array.from({length: 3}, (v, k) => k)
-  ```
-
-  Array.of(ele1, ele2, …, eleN)：返回所有参数组成的数组
 
 - 其他
   ```js
