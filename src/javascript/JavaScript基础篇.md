@@ -270,7 +270,7 @@ console.log(c.red + "  " + c[5]); // 5  red
 - 宿主对象：宿主环境如果是浏览器，则宿主对象是指由浏览器定义的对象，包括window和document
 
 ## Global
-- 属性
+- 常量
   
   Infinity
 
@@ -434,11 +434,11 @@ console.log(c.red + "  " + c[5]); // 5  red
 > 对象存储始终使用哈希表存储，且需额外处理原型链查找，访问速度较慢
 
 ## String
-- 属性
+- 实例属性
   
   length：字符串长度
 
-- 方法
+- 实例方法
   
   1、获取
 
@@ -498,7 +498,7 @@ console.log(c.red + "  " + c[5]); // 5  red
   ```
 
 ## Array
-- 特点：
+- 特点
   
   长度可变(根据元素操作而变化或修改length属性)
   
@@ -506,16 +506,20 @@ console.log(c.red + "  " + c[5]); // 5  red
 
   元素密集且类型一致则使用连续缓冲区存储（V8还会根据元素类型再细分，如整数、浮点数、引用对象），适合查询；元素稀疏或类型不一致则使用哈希表存储，适合增删。使用哈希存储，查询元素时需要计算哈希值，处理冲突，效率比连续缓冲区慢。使用顺序存储，新增元素时会检查空间是否足够，不够则扩容，而使用哈希存储无需扩容，直接新增索引-值对
 
-- 创建
+- 创建方式
   ```js
-  var arr=[]; // 数组长度为0
-  var arr=[1, 2, 3, 3]; // 数组长度为4，元素为1,2,2,3
-  var arr=new Array(); // 相当于var arr=[];
-  var arr=new Array(5); // 数组长度为5
-  var arr=new Array(5,6,7); // 数组长度为3，元素为5,6,7
+  var arr = []; // 数组长度为0
+  var arr = [1, 2, 3, 3]; // 数组长度为4，元素为1,2,2,3
+  var arr = new Array(); // 相当于var arr=[];
+  var arr = new Array(5); // 数组长度为5
+  var arr = new Array(5,6,7); // 数组长度为3，元素为5,6,7
   ```
 
-- 属性
+- 静态方法
+  
+  Array.isArray(obj)：判断对象是否是数组。若是则为true，否则为false
+
+- 实例属性
   
   length：数组长度，支持修改。默认数组长度 = max(initialLength, validValueMaxIndex + 1)
   ```js
@@ -533,7 +537,7 @@ console.log(c.red + "  " + c[5]); // 5  red
   console.log(arr2, arr2.length) // [ <100 empty items>, 1 ] 101
   ```
 
-- 方法
+- 实例方法
   
   1、改变数组（排序、增删改）
   
@@ -560,10 +564,6 @@ console.log(c.red + "  " + c[5]); // 5  red
 
   join(separator)：把数组中的所有元素转换为一个字符串，需指定元素之间的分隔符
 
-  3、静态方法（判断是否为数组）
-  
-  Array.isArray(obj)：判断对象是否是数组。若是则为true，否则为false
-
 - 其他
   ```js
   // in判断数组元素在某个位置是否有值
@@ -574,27 +574,28 @@ console.log(c.red + "  " + c[5]); // 5  red
 
   // 类数组可通过call或apply调用数组原生方法
   console.log(Array.prototype.join.call({0: 'name', 1: 'age', 2: 'sex', length: 3}, '*'))
-
   ```
 
 ## Date
 - 函数调用
   
-  Date()：返回日期时间字符串，相当于调用了toString()
+  Date()：返回日期时间字符串，相当于调用`new Date().toString()`
 
-- 构造函数
+- 创建方式
   
   new Date()
   
   new Date(时间戳)
   
-  new Date(日期时间字符串)，该时间字符串能被Date.parse识别
+  new Date(日期时间字符串)，该时间字符串要能被Date.parse识别
   
   new Date(y, m[, d][, h][, m][, ms])
 
-- 方法
+- 静态方法
   
-  Date.parse(datestr)：解析日期时间字符串，返回毫秒数
+  Date.parse(dateStr)：解析日期时间字符串，返回毫秒数
+
+- 实例方法
   
   getDay()：获取一周的某一天[0-6]
   
@@ -603,8 +604,16 @@ console.log(c.red + "  " + c[5]); // 5  red
   g[s]etFullYear([year][,month][,day])：获取或设置当前年份
   
   g[s]etMonth(month[,day])：获取或设置当前月份
+
+  g[s]etDate(day)：获取或设置当前日期
   
-  g[s]etDate(day)：获取或设置一个月中的某一天
+  g[s]etHours(hour)：获取或设置当前小时
+
+  g[s]etMinutes(minute)：获取或设置当前分钟
+
+  g[s]etSeconds(second)：获取或设置当前秒
+
+  g[s]etMilliseconds(millisecond)：获取或设置当前毫秒
 
   toLocaleString()：将日期时间转化为本地格式化字符串
   
@@ -612,7 +621,7 @@ console.log(c.red + "  " + c[5]); // 5  red
   
   toLocaleTimeString()
 
-  g[s]etUTCXXX()：除了参照本地客户端时间，也提供了参照UTC时间。获取或设置格林威治时间，XXX表示fullYear/month/date/hours/minutes/seconds/millseconds任意一个
+  g[s]etUTCXXX()：除了参照本地客户端时间，也提供了参照UTC时间。获取或设置格林威治时间，XXX表示fullYear/month/date/day/hours/minutes/seconds/milliseconds任意一个
   
   toString()
   
@@ -676,7 +685,7 @@ console.log(c.red + "  " + c[5]); // 5  red
   
   MIN_VALUE：最小数值
 
-- 方法
+- 实例方法
   
   toExponential(digits)：指定小数点后的数字位数，返回指数形式表示数字字符串
   
@@ -729,7 +738,7 @@ console.log(regExp.lastIndex); //2
 // 解决办法：每次调用前重新分配一个正则对象
 ```
 
-- JS中正则表达式书写方式
+- 正则表达式书写方式
   
   JS风格：new RegExp(正则字符串, 修饰符);
   
@@ -894,7 +903,10 @@ const chineseRegex = /^[\u4e00-\u9fa5]*$/;
 - 函数调用作为表达式，如`var f = 函数名();`，赋值函数结果，而`var f = 函数名;`是将函数引用赋值给f
 
 ### 函数参数
-形参与实参个数可以不一致，但是顺序必须一致
+- 形参与实参个数可以不一致，但是顺序必须一致
+- arguments表示存储函数参数的类数组对象，是所有非箭头函数的局部变量
+  
+  所谓类数组对象，即只有length和callee(指向当前执行的函数)属性，以及键是从0开始的整数索引，并不具有数组其他属性和方法。无论是否在严格模式下，只要函数使用了剩余参数、默认参数或解构赋值当中的一种时，函数就不会改变arguments对象的行为，但若在非严格模式下函数没有使用剩余参数、默认参数或解构赋值时，修改arguments对象某个属性值，则会改变arguments对象的行为
 
 ### 函数返回值
 默认是undefined
@@ -905,13 +917,12 @@ const chineseRegex = /^[\u4e00-\u9fa5]*$/;
 - 3.函数调用时没有指明this，一般默认是当前的宿主对象
 
 ### 属性
-- prototype：原型对象
+- name：函数名
 - length：函数声明的参数个数
-- arguments：存储函数参数的类数组对象。是所有非箭头函数的局部变量。所谓类数组对象，即只有length和callee(指向当前执行的函数)属性，以及键是从0开始的整数索引，并不具有数组其他属性和方法。无论是否在严格模式下，只要函数使用了剩余参数、默认参数或解构赋值当中的一种时，函数就不会改变arguments对象的行为，但若在非严格模式下函数没有使用剩余参数、默认参数或解构赋值时，修改arguments对象某个属性值，则会改变arguments对象的行为
 
 ### 方法
-- apply(context,argsArr)：改变函数的this指向，传入上下文对象和参数数组，且立即执行
-- call(context,...args)：改变函数的this指向，传入上下文对象和不定参数，且立即执行
+- apply(context, argsArr)：改变函数的this指向，传入上下文对象和参数数组，且立即执行
+- call(context, ...args)：改变函数的this指向，传入上下文对象和不定参数，且立即执行
 - bind(context)：改变函数的this指向，传入上下文对象，不执行
 
   ```js
@@ -943,100 +954,6 @@ const chineseRegex = /^[\u4e00-\u9fa5]*$/;
   function add(x, y) { return x + y; }
   const addOne = add.bind(null, 1);
   addOne(2); // 3
-  ```
-
-## 模板字符串
-### 概念
-允许嵌入表达式的字符串字面量。在ES6之后又叫模板字面量。
-
-### 特点
-- 使用反引号``
-- 嵌入的表达式使用${}标识
-- 识别换行
-- 使用转义字符时前面加反斜杠\
-- 允许模板字符串中的表达式嵌入另一个模板字符串，如`This is a ${isPen ? 'pen': `pig,sorry,${friend},you should be harder!`}`
-
-### 标签模板
-- 概念：模板字符串前带有一个表达式，该表达式通常是一个函数
-- 特点
-  - 标签函数是在模板字符串处理后被调用
-  - 函数首个参数是包含所有普通字符串的数组对象，并额外有一个属性raw，值是一个数组，用于获取原始字符串，即不对模板字符串使用转义，跟String.raw函数是一样的效果
-  - 函数剩余参数表示模板字符串中的出现的每一个表达式结果
-  - 函数返回值可以是一个字符串，一个函数，一个对象
-  - ES2016起，标签模板需遵守该转义规则：Unicode字符以"\u"开头，Unicode码位用"\u{}"表示，16进制以"\x"开头，8进制以"\"和数字开头
-    ```js
-    // unicode字符在模板字符串的表示
-    // `\u{55}`.length        // 1
-    // (/./).test(`\u{55}`)   // true
-    // `\u{2028}`.length      // 1
-    // (/./).test(`\u{2028}`) // false，从2028开始占位为2 
-    // `\u${55}`.length       // Uncaught SyntaxError: Invalid Unicode escape sequence
-    ```
-- 唯一一个内置的模板字符串标签函数`String.raw`
-  
-  用于获取字符串的原始字面量值。可以保证如\u开头(表示unicode字符)，\u{}(表示Unicode码位)，\x开头(表示16进制)，\数字开头(表示8进制)等不被转义
-  ```javascript
-  console.log(`aaaa\unicode`) // Uncaught SyntaxError: Invalid Unicode escape sequence
-  console.log(String.raw`aaaa\unicode`); // 'aaaa\\unicode'
-  ```
-
-- 示例
-  ```js
-  // 1 标签函数返回对象
-  function template1(strings) {
-    // 0: undefined
-    // length: 1
-    // raw: ['\\unicode']
-    return {
-      "template": strings[0],
-      "normal": strings.row[0]
-    };
-  } 
-  console.log(template1`\unicode`);// { template: undefined, normal: "\\unicode" }
-
-  // 2 标签函数返回字符串
-  function bar(arr1, arr2) {
-    console.log('params:', arr1, arr2)
-    return arr1.join('')
-  }
-  console.log(bar`just${'123'}javac`)
-
-  // 3 标签函数返回字符串
-  function foo(str) {
-    return str[0].toUpperCase()
-  }
-  console.log(foo`justjavac`)
-
-  // 4 标签函数返回字符串
-  var name = "benben";
-  var age = 18;
-  function template2(strings,nameExp, ageExp) {
-    var ageStr;
-    if(ageExp > 100) {
-      ageStr = "centenarian";
-    } else {
-      ageStr = "youngster";
-    }
-    return strings[0] + nameExp + strings[1] + ageStr; 
-  }
-  console.log(template2`That ${name} is a ${age}`); 
-
-  // 5 标签函数返回函数
-  function template3(strings,...keys){
-    return function(...values) {
-      var dict = values[values.length - 1] || {};
-      var result = [strings[0]];
-      keys.foreach((key, i) => {
-        var val = Number.isInteger(key)? values[key] : dict[key];
-        result.push(val, strings[i + 1]); 
-      })
-      return result.join("");
-    }
-  }
-  var t1 = template3`${0}${1}${0}!`;
-  console.log(t1("Yes" ,"No")); // "YesNoYes!"
-  var t2 = template3`${0} ${'foo'}!`;
-  console.log(t2("Hello", { "foo": "World" })); // "Hello World!"
   ```
 
 ## 代码运行过程

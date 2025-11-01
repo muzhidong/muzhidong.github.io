@@ -52,6 +52,100 @@ tags:
   // padEnd(minLen, fillStr) 对字符串设置最小长度，超出则后补位
   ```
 
+## 模板字符串
+### 概念
+允许嵌入表达式的字符串字面量。在ES6之后又叫模板字面量。
+
+### 特点
+- 使用反引号``
+- 嵌入的表达式使用${}标识
+- 识别换行
+- 使用转义字符时前面加反斜杠\
+- 允许模板字符串中的表达式嵌入另一个模板字符串，如`This is a ${isPen ? 'pen': `pig,sorry,${friend},you should be harder!`}`
+
+### 标签模板
+- 概念：模板字符串前带有一个表达式，该表达式通常是一个函数
+- 特点
+  - 标签函数是在模板字符串处理后被调用
+  - 函数首个参数是包含所有普通字符串的数组对象，并额外有一个属性raw，值是一个数组，用于获取原始字符串，即不对模板字符串使用转义，跟String.raw函数是一样的效果
+  - 函数剩余参数表示模板字符串中的出现的每一个表达式结果
+  - 函数返回值可以是一个字符串，一个函数，一个对象
+  - ES2016起，标签模板需遵守该转义规则：Unicode字符以"\u"开头，Unicode码位用"\u{}"表示，16进制以"\x"开头，8进制以"\"和数字开头
+    ```js
+    // unicode字符在模板字符串的表示
+    // `\u{55}`.length        // 1
+    // (/./).test(`\u{55}`)   // true
+    // `\u{2028}`.length      // 1
+    // (/./).test(`\u{2028}`) // false，从2028开始占位为2 
+    // `\u${55}`.length       // Uncaught SyntaxError: Invalid Unicode escape sequence
+    ```
+- 唯一一个内置的模板字符串标签函数`String.raw`
+  
+  用于获取字符串的原始字面量值。可以保证如\u开头(表示unicode字符)，\u{}(表示Unicode码位)，\x开头(表示16进制)，\数字开头(表示8进制)等不被转义
+  ```javascript
+  console.log(`aaaa\unicode`) // Uncaught SyntaxError: Invalid Unicode escape sequence
+  console.log(String.raw`aaaa\unicode`); // 'aaaa\\unicode'
+  ```
+
+- 示例
+  ```js
+  // 例1 标签函数返回对象
+  function template1(strings) {
+    // 0: undefined
+    // length: 1
+    // raw: ['\\unicode']
+    return {
+      "template": strings[0],
+      "normal": strings.row[0]
+    };
+  } 
+  console.log(template1`\unicode`);// { template: undefined, normal: "\\unicode" }
+
+  // 例2 标签函数返回字符串
+  function bar(arr1, arr2) {
+    console.log('params:', arr1, arr2)
+    return arr1.join('')
+  }
+  console.log(bar`just${'123'}javac`)
+
+  // 例3 标签函数返回字符串
+  function foo(str) {
+    return str[0].toUpperCase()
+  }
+  console.log(foo`justjavac`)
+
+  // 例4 标签函数返回字符串
+  var name = "benben";
+  var age = 18;
+  function template2(strings,nameExp, ageExp) {
+    var ageStr;
+    if(ageExp > 100) {
+      ageStr = "centenarian";
+    } else {
+      ageStr = "youngster";
+    }
+    return strings[0] + nameExp + strings[1] + ageStr; 
+  }
+  console.log(template2`That ${name} is a ${age}`); 
+
+  // 例5 标签函数返回函数
+  function template3(strings,...keys){
+    return function(...values) {
+      var dict = values[values.length - 1] || {};
+      var result = [strings[0]];
+      keys.foreach((key, i) => {
+        var val = Number.isInteger(key)? values[key] : dict[key];
+        result.push(val, strings[i + 1]); 
+      })
+      return result.join("");
+    }
+  }
+  var t1 = template3`${0}${1}${0}!`;
+  console.log(t1("Yes" ,"No")); // "YesNoYes!"
+  var t2 = template3`${0} ${'foo'}!`;
+  console.log(t2("Hello", { "foo": "World" })); // "Hello World!"
+  ```
+
 ## 数组扩展
 - 改变数组的方法
   
