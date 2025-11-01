@@ -80,9 +80,16 @@ const articles = [
     name: 'JavaScript',
     pathPrefix: 'javascript',
     items: [
+      'JavaScript基础篇',
+      '面向对象编程篇',
+      '函数式编程篇',
+      'ES6上篇',
+      'ES6中篇',
+      'ES6下篇',
       'ES6系列之Promise基础',
       'ES6系列之Generator函数与Async函数',
       'ES6系列之模块化',
+      'ES6+新特性你知道多少',
     ]
   },
   {
