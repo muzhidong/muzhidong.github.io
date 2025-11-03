@@ -94,7 +94,8 @@ console.log(e);
 // console.log(f);
 ```
 
-## 数据类型Symbol
+## 数据类型Symbol与BigInt
+### Symbol数据类型
 - 作用：由JS内部创建，可用于作属性键，避免命名冲突
   ```js
   // Symbol是一种数据类型
@@ -162,6 +163,75 @@ console.log(e);
   // symbol转字符串
   console.log(Symbol('I am a symbol.').toString()); // Symbol(I am a symbol.)
   console.log(String(Symbol('I am another symbol.'))); // Symbol(I am another symbol.)
+  ```
+
+### BigInt数据类型
+- BigInt与Number的区别
+  
+  BigInt表示任意精度整数，可以超过Number安全数值范围，安全存储和操作大整数
+  
+  Number表示双精度64位浮点数，即-(2^53-1) ~ 2^53-1
+  
+- 创建BigInt类型方式
+  ```js  
+  // 1、使用全局方法BigInt(value)，入参value为数字或数字字符串
+  let num = BigInt(Number.MAX_VALUE + 1);
+  console.log(num);//179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368n
+
+  // 2、在数字后面加上n 
+  num = 1n;
+  ```
+
+- BigInt与Number不能混合使用，即BigInt不能直接与Number进行比较、运算、隐式转换类型
+  ```js
+  console.log(1n > 20); // false
+  
+  // console.log(1n + 1); // Uncaught TypeError: Cannot mix BigInt and other types, use explicit conversions
+  const x = 2n ** 53n; // 9007199254740992n
+  const y = x + 1n; // 9007199254740993n 
+ 
+  // 不会隐式转换为Number类型
+  // isNaN(1n) // Uncaught TypeError: Cannot convert a BigInt value to a number
+  
+  // 可强制转换为Number类型
+  console.log(Number(BigInt(Number.MAX_VALUE + 1))); // 1.7976931348623157e+308
+  ```
+
+- 其他
+  ```javascript
+  // BigInt的8、10、16进制写法
+  // 10进制
+  console.log(2n)   // 2n 
+  // 8进制
+  console.log(0o6n) // 6n
+  console.log(0O66n)// 54n
+  // 16进制
+  console.log(0xfn) // 15n
+  console.log(0Xffn)// 255n
+
+
+  // BigInt不存在0n和-0n之分
+  console.log(Object.is(-0, 0)) // false
+  console.log(Object.is(-0n, 0n)) // true
+
+
+  // 0n与0、+0、-0并不相等
+  console.log(0 === 0n)  // false
+  console.log(+0 === 0n) // false
+  console.log(-0 === 0n) // false
+
+
+  // BigInt只能表示整数，不能对浮点数进行操作
+  console.log(BigInt(4.04)) // Uncaught RangeError: The number 4.04 cannot be converted to a BigInt because it is not an integer
+
+
+  // BigInt转字符串
+  console.log(String(12n) === '12') // true
+  const obj = {}
+  obj[9999999999999999999999999999n] = 1
+  console.log(obj[9999999999999999999999999999n] === 1) // true
+  console.log(obj['9999999999999999999999999999'] === 1) // true
+  console.log(obj[9999999999999999999999999999] === 1) // false，obj[9999999999999999999999999999]为undefined
   ```
 
 ## 变量的解构赋值
@@ -491,105 +561,105 @@ t.next();
 
 ## 迭代器对象
 - 定义迭代器对象
-```js
-const myIterator = {
-  count: 0,
-  // 发现：任意一个对象的Symbol.iterator方法可生成该对象的遍历器对象，而遍历器对象本身也有Symbol.iterator方法，说明返回值是它本身
-  // eg:
-  // function* test() {
-  //     console.log("I am a generator");
-  // }
-  // var g = test();
-  // console.log(g[Symbol.iterator]() === g);
-  [Symbol.iterator]: function () {
-    return this;
-  },
-  next: function () {
-    return {
-      done: this.count >= Object.keys(this).length - 1,
-      value: Object.values(this)[this.count++] || '',
+  ```js
+  const myIterator = {
+    count: 0,
+    // 发现：任意一个对象的Symbol.iterator方法可生成该对象的遍历器对象，而遍历器对象本身也有Symbol.iterator方法，说明返回值是它本身
+    // eg:
+    // function* test() {
+    //     console.log("I am a generator");
+    // }
+    // var g = test();
+    // console.log(g[Symbol.iterator]() === g);
+    [Symbol.iterator]: function () {
+      return this;
+    },
+    next: function () {
+      return {
+        done: this.count >= Object.keys(this).length - 1,
+        value: Object.values(this)[this.count++] || '',
+      }
+    },
+    return: function () {
+      // 过早退出时触发，如异常、break、return
+      // 大多数情况下无须实现
+    },
+    throw: function (exe) {
+      // for...of不会调用到它
     }
-  },
-  return: function () {
-    // 过早退出时触发，如异常、break、return
-    // 大多数情况下无须实现
-  },
-  throw: function (exe) {
-    // for...of不会调用到它
   }
-}
 
-const myIteratorInstance = Object.create(myIterator);
-myIteratorInstance.a = 1;
-myIteratorInstance.b = 2;
-myIteratorInstance.c = 3;
-for (let value of myIteratorInstance) {
-  console.log(value);
-}
-```
+  const myIteratorInstance = Object.create(myIterator);
+  myIteratorInstance.a = 1;
+  myIteratorInstance.b = 2;
+  myIteratorInstance.c = 3;
+  for (let value of myIteratorInstance) {
+    console.log(value);
+  }
+  ```
 
 - 普通对象转化为同步迭代器对象
-```javascript
-function transformSyncIterator(target) {
-  const keyArr = Object.keys(target)
-  const len = keyArr.length
-  return {
-    ...target,
-    [Symbol.iterator]: function() {
-      let count = 0
-      return {
-        next: () => ({
-          done: count === len,
-          value: keyArr[count]? target[keyArr[count++]]: void 0  
-        })
+  ```javascript
+  function transformSyncIterator(target) {
+    const keyArr = Object.keys(target)
+    const len = keyArr.length
+    return {
+      ...target,
+      [Symbol.iterator]: function() {
+        let count = 0
+        return {
+          next: () => ({
+            done: count === len,
+            value: keyArr[count]? target[keyArr[count++]]: void 0  
+          })
+        }
       }
     }
   }
-}
 
-const obj = {
-  a: 1,
-  test: 2,
-  c: 3
-}
-const syncIteratorObj = transformSyncIterator(obj)
-for(const value of syncIteratorObj) {
-  console.log(value)
-}
-```
+  const obj = {
+    a: 1,
+    test: 2,
+    c: 3
+  }
+  const syncIteratorObj = transformSyncIterator(obj)
+  for(const value of syncIteratorObj) {
+    console.log(value)
+  }
+  ```
 
 - 普通对象转化为异步迭代器对象
-```js
-function transformAsyncIterator(target) {
-  const keyArr = Object.keys(target)
-  const len = keyArr.length
-  return {
-    ...target,
-    // 跟同步迭代器对象差异：属性标识不同，next函数返回值不同
-    [Symbol.asyncIterator]: function() {
-      let count = 0
-      return {
-        next: () => Promise.resolve({
-          done: count === len,
-          value: keyArr[count]? target[keyArr[count++]]: void 0  
-        })
+  ```js
+  function transformAsyncIterator(target) {
+    const keyArr = Object.keys(target)
+    const len = keyArr.length
+    return {
+      ...target,
+      // 跟同步迭代器对象差异：属性标识不同，next函数返回值不同
+      [Symbol.asyncIterator]: function() {
+        let count = 0
+        return {
+          next: () => Promise.resolve({
+            done: count === len,
+            value: keyArr[count]? target[keyArr[count++]]: void 0  
+          })
+        }
       }
     }
   }
-}
-const obj2 = {
-  name: "justjavac",
-  age: 5,
-  job: 'programmer'
-}
-const asyncIteratorObj = transformAsyncIterator(obj2)
-;(async function(){
-  // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for-await...of
-  for await(const item of asyncIteratorObj){
-    console.log(item)
+  const obj2 = {
+    name: "justjavac",
+    age: 5,
+    job: 'programmer'
   }
-})()
-```
+  const asyncIteratorObj = transformAsyncIterator(obj2)
+  ;(async function(){
+    // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for-await...of
+    for await(const item of asyncIteratorObj){
+      console.log(item)
+    }
+  })()
+  ```
 
 - 应用
   ```js

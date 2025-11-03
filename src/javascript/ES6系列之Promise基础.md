@@ -56,6 +56,33 @@ const promise = new Promise(function(resolve,reject) {
 - 作用：不管Promise对象最后状态如何都会执行的动作
 - 参数：必须执行的回调函数
 - 返回值：新Promise对象
+- 简易版实现
+  ```js
+  Promise.prototype.finally = function(onFinally) {
+    return this.then(
+      (value) => Promise.resolve(onFinally()).then(() => value),
+      (err) => Promise.resolve(onFinally()).then(() => { throw err })
+    )
+  }
+  ```
+- 细节：可以放在调用then或catch方法前后
+  ```js
+  // 调用finally方法后，一般不会改变后面then或catch方法回调结果，除非finally抛错，或返回新的Promise，且状态是reject
+  Promise.resolve(1).finally(() => 2).then(r => console.log(r)) // 1
+
+  const startTime = Date.now()
+  Promise.resolve('foo').finally(() => new Promise((resolve) => { 
+    setTimeout(resolve('bar'), 1000) 
+  })).then(res => console.log(res, Date.now() - startTime))  // foo
+
+  Promise.reject(new Error('foo')).finally(() => { 
+    throw new Error('bar') 
+  }).catch(err => console.log(err.message)) // bar
+
+  Promise.reject(new Error('foo')).finally(() => 
+    Promise.reject(new Error('bar'))
+  ).catch(err => console.log(err.message)) // bar
+  ```
 
 ## Promise静态方法
 ### all(iterator)

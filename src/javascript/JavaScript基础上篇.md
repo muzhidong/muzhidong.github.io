@@ -38,45 +38,8 @@ tags:
   > - 当e = 2047, f = 0时, abs = 无穷 
 
 - Object：对象类型
-- Symbol：符号类型
-- BigInt：大整数类型
-  ```javascript
-  // BigInt可以表示比Number最大安全数还大的整数
-
-  // BigInt支持8、10、16进制
-  // 10进制
-  console.log(2n)   // 2n 
-  // 8进制
-  console.log(0o6n) // 6n
-  console.log(0O66n)// 54n
-  // 16进制
-  console.log(0xfn) // 15n
-  console.log(0Xffn)// 255n
-
-  // BigInt不存在0n和-0n之分
-  console.log(Object.is(-0, 0)) // false
-  console.log(Object.is(-0n, 0n)) // true
-
-  // 0n与0、+0、-0并不相等
-  console.log(0 === 0n)  // false
-  console.log(+0 === 0n) // false
-  console.log(-0 === 0n) // false
-
-  // BigInt只能表示整数，不能对浮点数进行操作
-  console.log(BigInt(4.04)) // Uncaught RangeError: The number 4.04 cannot be converted to a BigInt because it is not an integer
-
-  // BigInt不会隐式转换为Number类型
-  isNaN(1n) // Uncaught TypeError: Cannot convert a BigInt value to a number
-  const a = 1n + 1 // Uncaught TypeError: Cannot mix BigInt and other types, use explicit conversions
-
-  // BigInt转字符串
-  console.log(String(12n) === '12')
-  const obj = {}
-  obj[9999999999999999999999999999n] = 1
-  console.log(obj[9999999999999999999999999999n] === 1) // true
-  console.log(obj['9999999999999999999999999999'] === 1) // true
-  console.log(obj[9999999999999999999999999999] === 1) // false，obj[9999999999999999999999999999]为undefined
-  ```
+- [Symbol](./ES6上篇#symbol数据类型)：符号类型
+- [BigInt](./ES6上篇#bigint数据类型)：大整数类型
 
 ## 类型判断
 - typeof
