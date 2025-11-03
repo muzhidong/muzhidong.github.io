@@ -47,7 +47,7 @@ tags:
 ## base
 用于指定文档中所有相对url的基础url。提供href属性，表示文档中相对url的基础url，以及target属性，表示目标打开方式，可取值`_self`、`_blank`、`_parent`、`_top`。
 
->当一个文档有多个base标签时，属性href和target的取值以第一次为准。
+> 当一个文档有多个base标签时，属性href和target的取值以第一次为准。
 
 ```html
 <!-- href值为相对路径时，可以视为url路径的前缀，值为绝对路径时，此时可以当作url前半部分 -->
@@ -59,78 +59,77 @@ tags:
 表示当前元素与扩展资源的关系。提供如下属性，
 - rel
 
-表示链接资源与当前文档之间关系命名，多个关系用空格分隔。常见取值有`dns-prefetch`(表示浏览器会对该资源的域名先做解析)，
-`icon`，`stylesheet`，`preload`(表示该资源在页面加载完成后是即刻需要的，会在渲染前预加载，不阻塞渲染)，`prefetch`(表示该资源将来可能被需要，但由代理决定是否加载以及什么时候加载。一般是空闲时加载)，`modulepreload`，`pingback`，`preconnect`，`prerender`，具体介绍查阅[这里](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)。
+  表示链接资源与当前文档之间关系命名，多个关系用空格分隔。常见取值有`dns-prefetch`(表示浏览器会对该资源的域名先做解析)，`icon`，`stylesheet`，`preload`(表示该资源在页面加载完成后是即刻需要的，会在渲染前预加载，不阻塞渲染)，`prefetch`(表示该资源将来可能被需要，但由代理决定是否加载以及什么时候加载。一般是空闲时加载)，`modulepreload`，`pingback`，`preconnect`，`prerender`，具体介绍查阅[这里](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)。
 
->prefetch与preload区别：用户从A页面进入B页面，preload会失效，而prefetch可以在B页面继续使用。
+  > prefetch与preload区别：用户从A页面进入B页面，preload会失效，而prefetch可以在B页面继续使用。
 
 - href
 
-表示链接资源url
+  表示链接资源url
 
 - type
 
-表示链接资源MIME类型
+  表示链接资源MIME类型
 
 - as
 
-仅当`rel=preload`或`rel=prefetch`时设置有效，表示加载内容的类型。声明该属性起到匹配请求、为资源应用正确的CSP、为资源设置正确的accept请求头的作用，并有利于更精确资源加载优先级。取值如下，`script`、`style`、`document`、`image`、`font`、`audio`、`video`、`embed`、`fetch`、`object`、`track`、`worker`，每个类型被分别应用到哪些元素详见[这里](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attributes)。
+  仅当`rel=preload`或`rel=prefetch`时设置有效，表示加载内容的类型。声明该属性起到匹配请求、为资源应用正确的CSP、为资源设置正确的accept请求头的作用，并有利于更精确资源加载优先级。取值如下，`script`、`style`、`document`、`image`、`font`、`audio`、`video`、`embed`、`fetch`、`object`、`track`、`worker`，每个类型被分别应用到哪些元素详见[这里](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attributes)。
     
 - crossorigin
 
-设置请求资源时CORS方式。可取值`anonymous`和`use-credentials`，前者表示跨域请求时忽略凭证，后者则相反。
+  设置请求资源时CORS方式。可取值`anonymous`和`use-credentials`，前者表示跨域请求时忽略凭证，后者则相反。
 
 - media
 
-设置链接资源应用的媒体类型或媒体查询。
+  设置链接资源应用的媒体类型或媒体查询。
 
 - title
 
-为链接指定语义。
+  为链接指定语义。
 
 - hreflang
 
-设置链接资源语言
+  设置链接资源语言
 
 - imagesizes
 
-仅当应用`rel="preload" as="image"`了有效，设置图片大小
+  仅当应用`rel="preload" as="image"`了有效，设置图片大小
 
 - imagesrcset
 
-仅当应用`rel="preload" as="image"`了有效，设置图片来源
+  仅当应用`rel="preload" as="image"`了有效，设置图片来源
 
 - integrity
 
-包含内联的元数据，浏览器会使用它验证加载的资源已正常被交付。该数据是该资源的一个base64编码的加密哈希值。
+  包含内联的元数据，浏览器会使用它验证加载的资源已正常被交付。该数据是该资源的一个base64编码的加密哈希值。
 
 - referrerpolicy
 
-可参考a标签属性referrerpolicy介绍
+  可参考a标签属性referrerpolicy介绍
 
 - blocking
 
-表示获取该资源时哪些资源该被阻塞，目前可取值只有`render`，表示屏幕正渲染的内容会被阻塞。
+  表示获取该资源时哪些资源该被阻塞，目前可取值只有`render`，表示屏幕正渲染的内容会被阻塞。
 
-示例如下，
-```html
-<!-- 关联网站图标 -->
-<link rel="icon" href="favicon.ico" />
+  示例如下，
+  ```html
+  <!-- 关联网站图标 -->
+  <link rel="icon" href="favicon.ico" />
 
-<!-- 当媒体设备是宽度不大于600像素的屏幕时关联样式表 -->
-<link
-  href="mobile.css"
-  rel="stylesheet"
-  media="screen and (max-width: 600px)" />
+  <!-- 当媒体设备是宽度不大于600像素的屏幕时关联样式表 -->
+  <link
+    href="mobile.css"
+    rel="stylesheet"
+    media="screen and (max-width: 600px)" />
 
-<!-- 预加载字体文件 -->
-<link
-  rel="preload"
-  href="myFont.woff2"
-  as="font"
-  type="font/woff2"
-  crossorigin="anonymous" />
-```
+  <!-- 预加载字体文件 -->
+  <link
+    rel="preload"
+    href="myFont.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous" />
+  ```
 
 ## ul
 无序列表。一般与CSS属性`list-style`搭配，该属性是`list-style-image`、`list-style-position`、`list-style-type`三个属性的简写，分别表示列表项符号、列表项符号位置、列表符号类型。
@@ -224,7 +223,8 @@ tags:
   <!-- 发短信 -->
   <a href="sms:10086,12580?body=hello"></a>
   <!-- 发邮件 -->
-  <a href="mailto:123456@qq.com"></a>
+  <a href="mailto:123456@qq.com?subject=标题&body=正文内容"></a>
+  <!-- 注意：a标签打电话、发短信、发邮件，只是唤起功能，真正操作依赖系统是否安装软件或支持，比如发邮件是否有响应取决于用户浏览器和电子邮件客户端是否支持mailto协议以及允许该协议的行为-->
   ```
 
   锚点定位除了基于URL地址锚链定位外，还有focus锚点定位，即可以被focus的按钮、输入框、单选框、复选框、文本区域等元素在被focus时发生的页面重定位现象，但二者差异如下：
@@ -259,8 +259,21 @@ tags:
 
 
 ## img
-图片标签，常见的属性有`alt`(图片无法显示时展示的文本)、`src`(图片路径)、`width`(图片显示宽度)、`height`(图片显示高度)、`crossorigin`(可取值`anonymous`和`use-credentials`，前者表示跨域请求时忽略凭证，后者则相反)。还有一些可能接触比较少的属性，列举如下，
+图片标签，常见的属性有`alt`(图片无法显示时展示的文本)、`src`(图片路径)、`width`(图片显示宽度)、`height`(图片显示高度)、`crossorigin`(可取值`anonymous`和`use-credentials`，前者表示跨域请求时忽略凭证，后者则相反)。
 
+> - img属性src不设为空
+>  
+>   原因：
+>   - 重复请求：当img标签src属性为空串时，浏览器会将其视为当前页面路径，并尝试重新加载该页面作为图像内容，导致服务器接收到额外的、不必要的请求，增加服务器负担
+>   - 用户体验下降：用户可能看到页面加载不完全或者闪烁，因为浏览器在处理这种空src属性的img标签时，会先显示一个占位符，然后在尝试加载失败后替换为其他内容
+>   - 性能影响：由于浏览器尝试加载一个实际不存在的图像资源，可能引起额外的网络延迟，从而影响页面的加载性能
+>   - 潜在的错误处理复杂性：服务器需要能够妥善处理这种意外的请求，否则可能会出现错误日志堆积、资源浪费甚至服务崩溃的情况
+>
+>   防范：
+>   - 前端始终为img标签提供一个有效的src属性值，或者在使用js动态设置图像源之前，确保不会将空的src属性渲染到页面上
+>   - 后端具备一定的健壮性，能够妥善处理各种异常情况
+
+还有一些可能接触比较少的属性，列举如下，
 - elementtiming
 
   表示该元素被标识，以便于[PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver)对象跟踪
@@ -277,30 +290,30 @@ tags:
 
   `源url1 100w, 源url2 200w, ...`(w表示宽度，使用该方式时必须同时指定属性sizes，否则会被忽略)
 
-```html
-<img
-  src="logo.png"
-  alt="Logo"
-  srcset="logo@2x.png 2x,logo@3x.png 3x" />
-```
+  ```html
+  <img
+    src="logo.png"
+    alt="Logo"
+    srcset="logo@2x.png 2x,logo@3x.png 3x" />
+  ```
 
-> 响应式图片3种处理方式
->  - img标签设置srcset属性
->
->  - picture标签指定绑定多个source标签
->  ```html
->  <!-- 类似video/audio标签，允许嵌入多个source标签，指定多个源 -->
->  <picture>
->    <!-- source标签的width、height、sizes、srcset属性只用于picture标签，而src属性只用于video/audio标签 -->
->    <source srcset='small.jpg' media='(max-width:375px)'></source>
->    <source srcset='medium.jpg' media='(max-width:678px)'></source>
->    <source srcset='big.jpg' media='(max-width:1024px)'></source>
->    <!-- fallback -->
->    <img src='big.jpg' />
->  </picture>
->  ```
->
->  - 使用svg标签
+  > 响应式图片3种处理方式
+  >  - img标签设置srcset属性
+  >
+  >  - picture标签指定绑定多个source标签
+  >  ```html
+  >  <!-- 类似video/audio标签，允许嵌入多个source标签，指定多个源 -->
+  >  <picture>
+  >    <!-- source标签的width、height、sizes、srcset属性只用于picture标签，而src属性只用于video/audio标签 -->
+  >    <source srcset='small.jpg' media='(max-width:375px)'></source>
+  >    <source srcset='medium.jpg' media='(max-width:678px)'></source>
+  >    <source srcset='big.jpg' media='(max-width:1024px)'></source>
+  >    <!-- fallback -->
+  >    <img src='big.jpg' />
+  >  </picture>
+  >  ```
+  >
+  >  - 使用svg标签
 
 - sizes
 
@@ -310,13 +323,13 @@ tags:
 
   须与srcset配合使用，且srcset使用宽度w描述时，否则不起效。
 
-```html
-<img
-  src="logo.png"
-  alt="Logo"
-  srcset="logo@2x.png 375w, logo@3x.png 768w"
-  sizes="(max-width: 768px) 375px, 768px" />
-```
+  ```html
+  <img
+    src="logo.png"
+    alt="Logo"
+    srcset="logo@2x.png 375w, logo@3x.png 768w"
+    sizes="(max-width: 768px) 375px, 768px" />
+  ```
 
 - referrerpolicy
 
@@ -507,6 +520,10 @@ tags:
     name="image" />
 
   <input type="color" name="color" />
+
+  <!-- 属性autocapitalize可取值off(none)、on(sentences)、words、characters，分别表示关闭自动大写、对句子首字母自动大写、对单词首字母自动大写、所有字符自动大写 -->
+  <!-- 兼容性：PC Safari不支持 -->
+  <input type="text" autocapitalize="off" />
 </form>
 ```
 
@@ -654,17 +671,17 @@ fieldset元素常用于在表单内进行控件分组，提供`name`、`form`、
 
   可参考a标签属性referrerpolicy介绍
 
-```html
-<iframe
-  allow="geolocation 'self' http://localhost:52330"
-  allowfullscreen
-  width="600"
-  name="subWindow"
-  height="300"
-  sandbox="allow-scripts allow-modals"
-  src="https://www.baidu.com"
-  srcdoc="<img src='./loading.gif' /><script>alert();</script>"></iframe>
-```
+  ```html
+  <iframe
+    allow="geolocation 'self' http://localhost:52330"
+    allowfullscreen
+    width="600"
+    name="subWindow"
+    height="300"
+    sandbox="allow-scripts allow-modals"
+    src="https://www.baidu.com"
+    srcdoc="<img src='./loading.gif' /><script>alert();</script>"></iframe>
+  ```
 
 ## table
 表格元素。直接上示例，认识两种常用的表格结构。
@@ -835,7 +852,3 @@ fieldset元素常用于在表单内进行控件分组，提供`name`、`form`、
   </li>
 </ul>
 ```
-
-
-
-

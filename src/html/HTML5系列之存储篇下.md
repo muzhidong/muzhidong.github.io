@@ -4,7 +4,7 @@ tags:
 - HTML5
 ---
 
-上篇我们介绍了cookie、Web Storage和Web数据库技术，接下来的这一篇将对文件存储和离线应用进行介绍。
+上篇我们介绍了cookie、Web Storage和Web数据库技术，接下来的这一篇将对文件存储、离线应用、CacheStorage进行介绍。
 
 
 ## 文件存储
@@ -580,7 +580,39 @@ tags:
 
 - ~~离线状态下，通过 localStorage 保存应用相关数据，在线状态下，将本地数据同步到服务器。~~
 
+## CacheStorage
+仅在https协议下可用。更多介绍查看[MDN](https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage)
 
+- 获取CacheStorage：window.caches
+
+- CacheStorage API有哪些？
+  - open(cacheName)
+  - has(cacheName)
+  - delete(cacheName)
+  - keys()
+  - match(request, options)
+
+- Cache API有哪些？
+  - match(request, options)
+  - matchAll(request,options)
+  - keys(request,options)
+  - add(request)
+  - addAll(requests)
+  - put(request, response)
+  - delete(request, options)
+  
+  其中，add、addAll、put只支持存储https协议下的get请求
+
+- 示例
+  ```js
+  if('caches' in window) {
+    // 打开指定缓存存储
+    window.caches.open('cache-name').then(function(cache) {
+      // 添加缓存
+      cache.add('https://www.baidu.com')
+    })
+  }
+  ```
 
 ## 参考
 

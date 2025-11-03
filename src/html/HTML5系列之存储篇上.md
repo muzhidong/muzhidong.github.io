@@ -270,18 +270,19 @@ tags:
    ```
 
 ### sessionStorage
+- sessionStorage同样支持上述localStorage的特性和API
+- 在单页应用中，sessionStorage与localStorage作用范围并无差异，建议使用sessionStorage，因为可以利用其有效期，在网页一关闭便会删除本地数据，避免数据不被使用时被泄露
+- session storage可以多窗口共享，前提是新窗口是在当前页打开，且同源。打开方式有`window.open`和`<a target="_blank" href="">`
 
-- sessionStorage 同样支持上述 localStorage 的特性和 API
-
-- 在单页应用中，sessionStorage 与 localStorage 作用范围并无差异，建议使用 sessionStorage，因为可以利用其有效期，在网页一关闭便会删除本地数据，避免数据不被使用时被泄露。
-
-### cookie、localStorage、sessionStorage 在存储大小、作用范围、作用有效期的比较
+### cookie、localStorage、sessionStorage的比较
 
 |            | localStorage | sessionStorage                   | cookie                                   |
 | ---------- | ------------ | -------------------------------- | ---------------------------------------- |
 | 存储大小   | 不超过 5MB   | 不超过 5MB                       | 不超过 4KB(即名字和值的总量不超过 4KB)   |
 | 作用范围   | 同源         | 同源且同顶级窗口                 | 同源                                     |
 | 作用有效期 | 永久有效     | 在顶级窗口或当前标签页关闭前有效 | 在到达过期时间前有效，即使期间浏览器关闭 |
+| 安全性    | 请求时不自动携带 | 请求时不自动携带 |  请求时自动携带 |
+| 场景      | 存储较大数据，如用户数据、通用业务数据；用户浏览记录，如用户的阅读进度、购物车；用户偏好设置，如语言、主题等；用户行为跟踪与分析 | --              | 存储用户认证与登录状态 |
 
 ## Web 数据库存储
 
