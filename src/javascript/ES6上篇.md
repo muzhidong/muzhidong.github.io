@@ -597,7 +597,7 @@ const asyncIteratorObj = transformAsyncIterator(obj2)
   const person = {
     name: 'Bob',
     age: 12,
-    // 使用生成器函数实现迭代器更简单，具体见生成器函数部分
+    // 使用生成器函数实现迭代器更简单
     *[Symbol.iterator]() {
       yield* Object.values(this)
     }
