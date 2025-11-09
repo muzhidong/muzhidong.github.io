@@ -52,6 +52,7 @@ const articles = [
       'HTML5系列之连接篇上',
       'HTML5系列之连接篇下',
       'HTML5系列之性能篇',
+      'HTML5系列之媒体篇',
       'SVG入门',
       'MathML入门'
     ]
