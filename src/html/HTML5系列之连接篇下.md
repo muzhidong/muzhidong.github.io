@@ -1,5 +1,5 @@
 ---
-title: HTML5系列之连接下
+title: HTML5系列之连接篇下
 tags: 
 - HTML5
 ---
@@ -345,7 +345,7 @@ tags:
   message：接收广播消息事件
   messageerror：接收的广播消息无法反序列化时触发
   ```
-- [图片透传效果示例](TODO:)
+- [图片透传效果示例](https://github.com/muzhidong/blog-demo/tree/main/docs/01html/%E8%BF%9E%E6%8E%A5/broadcastChannel)
 
 ### 消息通道
 - 定义：创建一个新的消息通道，通过其两个MessagePort属性发送数据。属于一对一通信
