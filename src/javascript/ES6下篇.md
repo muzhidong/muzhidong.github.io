@@ -384,29 +384,199 @@ console.log(JSON.stringify(target.hobby), JSON.stringify(pT.hobby), target.hobby
 <!-- TODO: -->
 
 ## 二进制数组
-<!-- TODO: -->
-在JavaScript中，数组在所有元素是同质下时是连续存储，否则是哈希存储，此时不适合遍历和计算。后来出现ArrayBuffer解决该问题，但由于偏底层，操作复杂，又提供了操作ArrayBuffer的DataView和TypedArray
+为解决浏览器与硬件(如显卡)间数据通信时格式转换耗时问题，专门提供一种直接操作二进制数据的接口，如ArrayBuffer，但由于其偏底层，操作复杂，又提供了操作ArrayBuffer的DataView和TypedArray
 
 ![数据类型转换](/js/ArrayBuffer与DataView的转换.jpg)
 
 ### ArrayBuffer
-- SharedArrayBuffer
+表示内存中的一个字节块
+
+- 构造函数
   
-  因Spectre漏洞被禁用，具体是由于Spectre需精确测量从内存中读取某个值所需的时间，而SharedArrayBuffer可以获得高分辨率计时器
+  ArrayBuffer(byteLength)：指定要分配的字节大小，注意如果分配很大可能不成功，使用byteLength属性检查
+  
+- 实例属性
+  
+  byteLength：获取其分配的字节长度
+
+- 实例方法
+
+  slice(startIdx[, endIdx = this.byteLength])：复制区间[startIdx, endIdx)部分的内容，生成新的ArrayBuffer对象
+
+  > 不提供任何直接读写方法，所以读写操作对其是无效的
+
+- 静态方法
+
+  isView(target)：检查target是否为ArrayBuffer的视图实例，即是否为TypedArray或DataView
+
+> 关于ArrayBuffer的完整API见[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
+ 
+> ⚠️ ArrayBuffer和SharedArrayBuffer是JavaScript中两种独立的二进制数据类型，它们不是父子关系，在内存共享机制和线程安全特性上也有所不同。ArrayBuffer‌分配的是私有内存，且不支持跨线程共享，而‌[SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer)分配的是共享内存，且允许多线程访问，但需通过[Atomics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics) API保证线程安全
+
+- 示例：ArrayBuffer与字符串互转
+  ```js
+  const ab2str = (ab) => {
+    const arr = new Uint16Array(ab)
+    return String.fromCharCode.apply(null, arr)
+  }
+  const str2ab = (str) => {
+    const len = str.length
+    const ab = new ArrayBuffer(len * 2)
+    const arr = new Uint16Array(ab)
+    for(let i = 0; i < len; i++) {
+      arr[i] = str.charCodeAt(i)
+    }
+    return ab
+  }
+  ```
 
 ### DataView
+用于读写复杂类型的二进制数据，且解决字节序(数值在内存中的表示方式)问题
+
+- 构造函数
+
+  DataView(arrayBuffer[, byteOffset = 0][, length])：指定ArrayBuffer对象，可选的字节开始偏移量和数组长度，创建数据视图
+
+- 实例属性
+
+  buffer：返回对应的ArrayBuffer对象，写操作无效
+
+  byteOffset：字节偏移量，一般为0，写操作无效
+
+  byteLength：字节长度，同ArrayBuffer.byteLength，写操作无效
+
+- 实例方法
+
+  getInt8(byteOffset)：获取指定字节偏移量上的数值。方法getUint8同getInt8
+
+  setInt8(byteOffset, number)：在指定字节偏移量上设置数值。方法setUint8同setInt8
+
+  以下方法支持显式指定字节顺序读写值：
+
+  getInt16(byteOffset, littleEndian = false)：获取指定字节顺序的指定字节偏移量上的数值，默认按高位优先顺序(大端序)。其他方法getUint16/getInt32/getUint32/getFloat32/getFloat64同getInt16
+
+  setInt16(byteOffset, number, littleEndian = false)：在指定字节偏移量上以指定的字节顺序设置数值，默认按高位优先顺序(大端序)。其他方法setUint16/setInt32/setUint32/setFloat32/setFloat64同setInt8
+
+  > 为了兼容不同硬件的端序，一般建议使用setUint8或setInt8操作
+
 - 示例
   ```javascript
-  var buffer = new ArrayBuffer(8); // 8个字节
+  var buffer = new ArrayBuffer(8);
   var data = new DataView(buffer);
-  data.setUint8(0, 'A'); // 偏移0个字节，占1个字节
-  data.setUint16(1, '23', true); // 偏移1个字节，占2个字节
-  data.setUint32(3, '1001', true); // 偏移3个字节，占4个字节
-  console.log(data)
+  data.setUint8(0, 1);
+
+  data.setUint16(1, 23);
+  data.setUint32(3, 456);
+  // 结果用Int8Array表示则为[1, 0, 23, 0, 0, 1, -56, 0]
+
+  // data.setUint16(1, 23, true);
+  // data.setUint32(3, 456, true);
+  // 结果用Int8Array表示则为[1, 23, 0, -56, -1, 0, 0, 0]
   ```
 
 ### TypedArray
-- 包括Int8Array、UInt8Array、Int16Array、UInt16Array、Int32Array、UInt32Array、Float32Array、Float64Array
+用于读写简单类型的二进制数据，存在字节序问题。包括Int8Array、Uint8Array、Uint8ClampedArray、Int16Array、Uint16Array、Int32Array、Uint32Array、Float32Array、Float64Array等9种类型的数组
+
+- 溢出
+
+  除Uint8ClampedArray外，一般溢出处理是取余(具体计算方式？)，Uint8ClampedArray的溢出处理则是取最值，即正向溢出取最大值255，负向溢出取最小值0，针对颜色处理而设计的
+
+- 与普通数组的区别
+
+  1、元素只能是数字类型，且是连续存储的
+
+  2、元素初始化时的默认值为0，非undefined
+
+  3、创建时，如果传入一个数组参数，类型化数组会将其解构，作为一个个元素，而普通数组则是直接将其作为第一个元素值；如果传入多个参数，类型化数组直接初始化长度为1，且首元素值设置为0，而普通数组是将其作为一个个元素
+
+  4、在执行时间和内存使用上，类型化数组更高效
+  ```js
+  // 获取不超过指定数的最大质数
+  // 采用埃拉托色尼筛选算法，若使用普通数组执行该算法，则在执行时间和内存使用上较差
+  function sieve(n) {
+    const a = new Int8Array(n + 1)
+    const max = Math.floor(Math.sqrt(n))
+    let p = 2
+    while (p <= max) {
+      for(const i = p * 2; i <= n; i += p) {
+        a[i] = 1
+      }
+      while(a[++p])
+    }
+    while(a[n--])
+    return n;
+  }
+  ```
+
+  5、类型化数组本身不存储数据，都存储在底层ArrayBuffer对象中
+
+- 构造函数
+
+  以Int8Array为例，
+
+  Int8Array(array)：指定一个数组，可以是普通数组或类型化数组。分配新的内存，创建新的类型化数组对象
+
+  Int8Array(length)：指定数组长度
+  
+  Int8Array(arrayBuffer[, byteOffset = 0][, length])：指定数组缓冲区对象、可选的字节开始偏移量和数组长度。注意byteOffset的可取值会依赖所用的类型化数组，比如Int16只能是2的倍数，Int32只能是4的倍数，Float64Array只能是8的倍数
+  
+  > 为了兼容不同硬件的端序，一般建议使用Int8Array或Uint8Array
+  > 
+  > 字节顺序取决于硬件，如低位优先的系统，字节按从低到高的顺序排列，高位优先的系统则相反。一般大多数计算机都是小端序。可通过如下验证字节顺序是否使用低位优先(小端序)
+    ```js
+    const isLittleEndian = () => new Int8Array(new Int32Array([1]).buffer)[0] === 1
+    ```
+  
+  > 类型化数组与普通数组间的转化
+  > ```js
+  > // 类型化数组转普通数组
+  > // 方式一：使用Array.prototype.slice
+  > const toNormalArray = (typedArray) => Array.prototype.slice(typedArray)
+  > // 方式二：对类型化数组直接使用解构，更简单
+  > 
+  > // 普通数组转类型化数组，也支持类型化数组之间的转化
+  > // 方式一：构造函数
+  > new TypedArray(array)
+  > // 方式二：使用of或from静态方法
+  > TypedArray.of(array)
+  > TypedArray.from(array[, cb])
+  > ```
+
+- 实例属性
+
+  buffer：返回对应的ArrayBuffer对象，写操作无效
+
+  byteOffset：开始的字节偏移量，计算公式为`单位字节 / 8 * startIdx`，写操作无效，只有当操作了subarray或set才会改变
+
+  byteLength：字节长度，计算公式为`单位字节 / 8 * length`，写操作无效
+
+  length：元素个数，写操作无效
+
+- 实例方法
+
+  set(array[, startIdx = 0])：从指定的可选开始索引，复制指定数组
+
+  subarray(startIdx[, endIdx = this.length])：截取指定范围区间[startIdx, endIdx)的数组。注意该操作不是复制，后续做的更改操作会影响原数组
+
+  除pop、push、unshift、shift、splice、concat等方法外，拥有同普通数组的其他方法，以及读写索引属性
+  ```js
+  // 实现连接两个相同类型的TypedArray
+  const concat = (typedArrayClass, ...typedArrays) => {
+    return new typedArrayClass([typedArrays.map(arr => (...arr))])
+    const len = typedArrays.reduce((total, arr) => total + arr.length, 0)
+    const result = new typedArrayClass(len)
+    let offset = 0
+    for(let arr of typedArrays) {
+      result.set(arr, offset)
+      offset += arr.length
+    }
+    return result
+  }
+  ```
+
+- 静态属性
+
+  BYTES_PER_ELEMENT：获取元素的字节大小
 
 ## Set与Map
 集合的来由或目的：为避免用户数据与内置方法冲突而设计，也就是说，不能将数据直接作为属性暴露出来，用`obj.key`或`obj[key]`不能访问数据，取而代之的是使用`get(key)`方法访问
