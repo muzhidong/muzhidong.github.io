@@ -114,6 +114,19 @@ tags:
 - multipart/parallel
 - multipart/digest
 
+> 媒体资源范围请求
+> - 请求头
+>  
+>  `Range`表示请求内容范围，如`Range:bytes=0-50`，表示请求从0到50字节位置的内容。若是多重范围，则逗号隔开，如`Range:bytes=0-50,100-150`
+>
+>  `If-Range`表示范围请求，服务器若返回206则表示支持范围请求，返回范围内容；若返回200则表示不支持范围请求，返回整个内容，若返回416则表示请求范围无法满足(Requested Range Not Satisfiable)，一般是请求范围越界
+>
+> - 响应头
+>
+>  `Accept-Range`表示界定范围的单位，如值为`bytes`则表示单位为byte
+>
+>  `Content-Range`表示内容的位置，如`bytes 0-50/1256`
+
 ## 图片
 ### 图片格式选型
 ![](/html/图片格式选型1.jpg)
@@ -136,8 +149,83 @@ tags:
 <!-- 
   TODO:
 	音频有哪些监听事件，做什么有意思的事情? 
-	[AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) 
+  下面示例待验证？
+	AudioWorklet：https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet
 -->
+
+```javascript
+// AudioContext实现录音和音频裁剪
+
+// 应用一：录音
+// 关键代码如下，
+// 初始化
+var context
+var audioInput
+var recorder
+var audioData = {
+  size: 0,   // 录音文件长度
+  buffer: [] // 录音缓存
+}
+
+navigator.getUserMedia({ 
+  audio: true 
+},function (stream) {
+  context = new AudioContext();
+  audioInput = context.createMediaStreamSource(stream);
+  
+  recorder = context.createScriptProcessor(4096, 1, 1);
+  recorder.onaudioprocess = function (e) {
+    const data = e.inputBuffer.getChannelData(0)
+    audioData.buffer.push(new Float32Array(data));
+    audioData.size += data.length;
+  }
+})
+
+// 开始录音
+audioInput.connect(recorder);
+recorder.connect(context.destination);
+
+// 停止录音
+recorder.disconnect();
+
+
+// 应用二：音频裁剪
+var audioCtx = new AudioContext();
+// 假设arrBuffer是包含音频数据的ArrayBuffer对象，已获取到
+audioCtx.decodeAudioData(arrBuffer, function(audioBuffer){
+  // 声道数量和采样率
+  var channels = audioBuffer.numberOfChannels;
+  var rate = audioBuffer.sampleRate;
+
+  // 截取前3秒
+  var startOffset = 0;
+  var endOffset = rate * 3;
+  // 3秒对应的帧数
+  var frameCount = endOffset - startOffset;
+
+  // 创建同样采用率、同样声道数量，长度是前3秒的空的AudioBuffer
+  var newAudioBuffer = new AudioContext().createBuffer(channels,frameCount, rate);
+  // 创建临时的Array存放复制的buffer数据
+  var anotherArray = new Float32Array(frameCount);
+
+  // 声道的数据的复制和写入
+  var offset = 0;
+  for(var channel = 0; channel < channels; channel++){
+    audioBuffer.copyFromChannel(anotherArray, channel, startOffset);
+    newAudioBuffer.copyToChannel(anotherArray, channel, offset);
+  }
+
+  // 创建AudioBufferSourceNode对象
+  var source = audioCtx.createBufferSource();
+  // 设置AudioBufferSourceNode对象的buffer为复制的3秒AudioBuffer对象
+  source.buffer = newAudioBuffer;
+  // 这一句是必须的，表示结束，没有这一句没法播放，没有声音
+  // 这里直接结束，实际上可以对结束做一些特效处理
+  source.connect(audioCtx.destination);
+  // 资源开始播放
+  source.start();
+});
+```
 
 ## 视频
 - 视频字幕
@@ -229,5 +317,58 @@ tags:
   }, false);
 	```
 
+- 常见问题
+
+  - 浏览器针对视频自动播放的策略
+  
+    IOS：早期需要有用户手势，video标签方可自动播放；版本10开始，苹果放宽inline和autoplay属性，即无音频源或禁音且可见的video元素允许自动播放
+
+    Android：早期需要有用户手势，video标签方可自动播放；chrome53后放宽自动播放策略，需要对video同时设置autoplay和muted，方可允许自动播放
+
+    Safari：早期支持自动播放；Safari10后，未禁音的视频和音频默认禁止自动播放
+
+    Chrome：早期支持自动播放；之后未禁音的视频根据媒体参与指数MEI决定能否自动播放。MEI是一个评估用户对于当前站点的媒体参与程度的指数，它取决于下面几个维度：
+    - 用户在媒体上停留时间超过7秒以上
+    - 音频必须展示出来，且没有静音
+    - 与video之间有过交互
+    - 媒体的尺寸不小于200×140
+
+    ```javascript
+    // 在限制自动播放的同时，提供检测视频是否能自动播放的机制，以便于开发者在发现无法自动播放时有备选方案
+    const videoEl = document.querySelector('video')
+    const promise = videoEl.play()
+    if (promise !== undefined) {
+      promise.catch(error => {
+        // Auto-play was prevented
+        // Show a UI element to let the user manually start playback
+      }).then(() => {
+        // Auto-play started
+      })
+    }
+    ```
+
+    ```javascript
+    // 微信中可通过WeixinJSBridgeReady事件进行自动播放
+    document.addEventListener('WeixinJSBridgeReady', function() {
+      video.play()
+    },false)
+    ```
+
+  - 取消默认全屏：在移动端浏览器中，video在用户点击播放或者通过`video.play()`触发播放时，会强制以全屏置顶的形式进行播放
+    ```html
+    <!-- playsinline 取消全屏 -->
+    <video src="" webkit-playsinline playsinline></video>
+    ```
+
+  - 播放控制
+    - 兼容性较好的事件：ended、timeupdate、play、playing
+    - 若在IOS中监听了`canplay`事件(表示是否已缓冲了足够的数据可以流畅播放)，需有播放才触发，其他浏览器加载时触发
+
+  - 隐藏播放控件
+    - 在PC端和IOS移动端兼容性良好，而在安卓移动端并不支持隐藏控件。如何处理？让视频元素比父容器还大，使底部控制条在父容器外，然后为父容器设置overflow:hidden，实现播放控件隐藏
+    - 腾讯x5内核团队放开视频播放限制，利用`x5-video-player-type='h5'`属性隐藏控件元素，同时视频不再置顶，允许其他元素浮动在顶层
+
 ## WebCodecs
 <!-- TODO: -->
+- https://w3c.github.io/webcodecs/
+- https://zhuanlan.zhihu.com/p/414563650
