@@ -105,28 +105,70 @@ tags:
 ## JSON
 - 方法
   
-  parse(jsonStr)：将json字符串转化为json对象
+  parse(jsonStr[, receiver])：将指定json字符串反序列化为json对象。第二参数可选，表示解析值返回前的转换处理回调
+  ```js
+  const jsonStr = '{"bigNum": 12345678901234567890}';
+  const jsonObj = JSON.parse(jsonStr, (key, value, context) => {
+    if (typeof value === 'number') {
+      // 返回的是数字字符串
+      return context.source
+      // 返回的是BigInt数字
+      // return BigInt(context.source)
+    }
+    return value;
+  });
+  console.log(jsonObj)
+  ```
+
+  stringify(jsonObj[,replacer][,space])：将指定json对象序列化为json字符串。第二参数可选，当为函数时表示修改序列化处理的行为，当为数组时表示要包含的属性名列表，但元素为非字符串或数字的会忽略。第三参数可选，当为数字时表示在换行符、缩进等插入空格的数量，有效范围为[0, 10]，当为字符串时则表示将该字符串(超过10个字符，则取前10个字符)插入到每个key前
+  ```js
+  const obj = {
+    a: 12345678901234567890, // 12345678901234567000
+    b: NaN, // null
+    c: Infinity, // null
+    d() {
+      console.log('Hello JSON')
+    },
+    e: void 0,
+    f: Symbol('f'),
+    g: 'g',
+    h: true,
+    i: 1n, // Uncaught TypeError: Do not know how to serialize a BigInt
+    j: (arr = [], arr.custom = 1, arr), // []，只包含[0, length-1]的元素
+    k: (map = new Map(), map.set('k', 1), map), // {}，返回空对象
+  }
+  const str = JSON.stringify(obj, (key, value) => {
+    if(typeof value === 'bigint') {
+      return value.toString()
+    }
+    return value
+  }, '_')
+  console.log(str) // '{\n_"a": 12345678901234567000,\n_"b": null,\n_"c": null,\n_"g": "g",\n_"h": true,\n_"i": "1",\n_"j": [],\n_"k": {}\n}'
+  ```
+
+- 浅拷贝与深拷贝
   
-  stringify(jsonObj)：将json对象转化为json字符串
+  浅拷贝：当拷贝的值是对象类型时，只要当中某一属性值变化，原对象对应属性值也会变化。常见方式如解构、`Array.prototype.slice`
 
-> 序列化与反序列化：对象与字符串间的转换。如JSON.stringify和JSON.parse
-
-### 拷贝那些事
-- 浅拷贝：当值是引用数据类型时，只要值变化，另一变量也会跟着改变。常用`Object.assign`(多用于对象合并和拷贝，但本人倾向于使用解构处理)、`Array.prototype.concat`、`Array.prototype.slice`
-
-- 深拷贝：无论值如何变化，另一变量不受影响。常用`JSON.parse(JSON.stringify())`，但注意值为NaN、Infinity会转化为null，值为undefined、函数的键值对会丢失，值为Date对象会转换为字符串，且性能差
+  深拷贝：无论拷贝的值如何变化，原对象都不受影响。常见方式有`JSON.parse(JSON.stringify())`，但特殊值会丢失或抛错，可参考`JSON.stringify`示例
   ```javascript
-  // 深拷贝实现（未考虑循环引用）
-  function deepCopy( source ) {
+  // 深拷贝实现
+  function deepCopy(source, s = new WeakSet()) {
     if (!['[object Object]','[object Array]'].includes(toString.call(source))) {
       return source
     }
-
+    
+    // 防止循环引用报错
+    if (s.has(source)) {
+      return source
+    }
+    s.add(source)
+    
     const target = Array.isArray(source) ? [] : {}
-    for (var k in source) {
+    for (const k in source) {
       if(!source.hasOwnProperty(k)) continue
       if (['[object Object]', '[object Array]'].includes(toString.call(source[k]))) {
-        target[k] = deepCopy(source[k])
+        target[k] = deepCopy(source[k], s)
       } else {
         target[k] = source[k]
       }
