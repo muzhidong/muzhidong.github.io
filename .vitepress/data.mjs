@@ -103,6 +103,8 @@ const articles = [
     items: [
       'TypeScript基础篇上',
       'TypeScript基础篇下',
+      'TypeScript查漏补缺',
+      'TypeScript进阶',
     ]
   },
   {

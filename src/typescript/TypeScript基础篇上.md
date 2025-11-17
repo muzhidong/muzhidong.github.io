@@ -4,10 +4,12 @@ tags:
 - TypeScript
 ---
 
-本章是TypeScript基础篇的上章。
+本章是[TypeScript](https://www.typescriptlang.org/)基础篇的上章，基于5.0版本学习。
 
 ## TypeScript特点
-相较于JavaScript，TypeScript最大特点是类型约束。
+相较于JavaScript，
+- TypeScript最大特点是类型约束。比较适于专业领域应用开发如Word、SQL客户端、数据集成分析工具，或Node服务端开发，或第三方库开发
+- TypeScript是强类型语言，需要先编译，进行类型检查，通过后才能在浏览器运行
 
 ## TypeScript环境准备
 ```bash
@@ -232,7 +234,13 @@ let dog:Dog = animal; // 报错：Property 'run' is missing in type 'Animal' but
 
 ### 13、类型推断
 当变量没有显式类声明类型时，可以从以下几处推断类型：变量初始化，函数参数默认值，函数返回值
-
+```typescript
+// let与const在类型推断上的区别
+// 使用let声明，编译器认为后续会发生重新赋值，于是类型只会是number
+let a = 1
+// 使用const声明，编译器认为其值不会再发生改变，于是推断出字面量类型2
+const b = 2
+```
 
 ## 交叉类型
 直接举例认识，

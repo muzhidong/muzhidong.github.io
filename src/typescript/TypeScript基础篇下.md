@@ -11,110 +11,137 @@ tags:
 泛型可以理解为类型的参数，参数名可以自定义。目的是为了提高可重用性，以便支持新的数据类型。
 
 - 泛型函数
-```typescript
-// 示例一：泛型函数声明、调用、引用
-function who<T>(arg: T): T {
-  return arg
-}
+  ```typescript
+  // 示例一：泛型函数声明、调用、引用
+  function who<T>(arg: T): T {
+    return arg
+  }
 
-// 传递所有参数，进行调用函数
-const a = who<number>(10)
-console.log(a)
-// 不传类型参数，自动推断，进行调用函数
-const b = who("string")
-console.log(b);
+  // 传递所有参数，进行调用函数
+  const a = who<number>(10)
+  console.log(a)
+  // 不传类型参数，自动推断，进行调用函数
+  const b = who("string")
+  console.log(b);
 
-// 直接函数声明引用函数
-const c: <A>(arg:A) => A = who
-// 函数调用签名引用函数
-const d: { <A>(arg: A): A } = who
+  // 直接函数声明引用函数
+  const c: <A>(arg:A) => A = who
+  // 函数调用签名引用函数
+  const d: { <A>(arg: A): A } = who
 
 
-// 示例二：泛型支持设置默认值
-type U<A, B> = A | B;
-function fn<C = string, D = number>(p: U<C, D>):void{
-  console.log(typeof p);
-}
-fn(1)
-```
+  // 示例二：泛型支持设置默认值
+  type U<A, B> = A | B;
+  function fn<C = string, D = number>(p: U<C, D>):void{
+    console.log(typeof p);
+  }
+  fn(1)
+  ```
 
 - 泛型接口
-```typescript
-// 示例一：上面的泛型函数介绍了两种引用函数的方式外，也可以通过接口实现函数的调用签名
-interface IWho<B> {
-  (arg: B): B
-}
-const q: IWho<number> = who
+  ```typescript
+  // 示例一：上面的泛型函数介绍了两种引用函数的方式外，也可以通过接口实现函数的调用签名
+  interface IWho<B> {
+    (arg: B): B
+  }
+  const q: IWho<number> = who
 
-// 示例二：泛型可以有多个
-interface IPerson<T,K>{
-  name: T;
-  age: K;
-}
-const r: IPerson<string,number> = {
-  name: "yy",
-  age: 20
-}
-```
+  // 示例二：泛型可以有多个
+  interface IPerson<T,K>{
+    name: T;
+    age: K;
+  }
+  const r: IPerson<string,number> = {
+    name: "yy",
+    age: 20
+  }
+  ```
 
 - 泛型类
 
-举例如下，
-```typescript
-class Drink<T>{
-  thing: T
-  constructor(what: T) {
-    this.thing = what
+  举例如下，
+  ```typescript
+  class Drink<T>{
+    thing: T
+    constructor(what: T) {
+      this.thing = what
+    }
+    get what(): T {
+      return this.thing
+    }
+    set what(what: T) {
+      this.thing = what
+    }
   }
-  get what(): T {
-    return this.thing
+  class Cola {
+    // 类的静态属性不能使用泛型
+    static num: number = 0
+    add(): void {
+      console.log("It is the", ++Cola.num, " of cola, a drink.")
+    }
   }
-  set what(what: T) {
-    this.thing = what
-  }
-}
-class Cola {
-  // 类的静态属性不能使用泛型
-  static num: number = 0
-  add(): void {
-    console.log("It is the", ++Cola.num, " of cola, a drink.")
-  }
-}
-class Juice extends Cola {}
+  class Juice extends Cola {}
 
-const colaDrink = new Drink(Cola)
-console.log(colaDrink.thing)
-colaDrink.what = Juice
-console.log(colaDrink.thing)
-```
+  const colaDrink = new Drink(Cola)
+  console.log(colaDrink.thing)
+  colaDrink.what = Juice
+  console.log(colaDrink.thing)
+  ```
 
 - 泛型约束
 
-举例如下，
-```typescript
-class BeeKeeper {
-  hasMask: boolean = false
-}
-class ZooKeeper {
-  nameTag: string = 'zoo'
-}
-class Biological {
-  numLegs: number = 2
-}
-class Bee extends Biological {
-  keeper: BeeKeeper = new BeeKeeper()
-}
-class Lion extends Biological {
-  keeper: ZooKeeper = new ZooKeeper()
-}
+  举例如下，
+  ```typescript
+  class BeeKeeper {
+    hasMask: boolean = false
+  }
+  class ZooKeeper {
+    nameTag: string = 'zoo'
+  }
+  class Biological {
+    numLegs: number = 2
+  }
+  class Bee extends Biological {
+    keeper: BeeKeeper = new BeeKeeper()
+  }
+  class Lion extends Biological {
+    keeper: ZooKeeper = new ZooKeeper()
+  }
 
-// 通过extends约束泛型
-function createInstance<T extends Biological>(animal: new () => T): T {
-  return new animal()
-}
-console.log("bee has mask:", createInstance(Bee).keeper.hasMask)
-console.log("lion's nameTag is ", createInstance(Lion).keeper.nameTag)
-```
+  // 通过extends约束泛型
+  function createInstance<T extends Biological>(animal: new () => T): T {
+    return new animal()
+  }
+  console.log("bee has mask:", createInstance(Bee).keeper.hasMask)
+  console.log("lion's nameTag is ", createInstance(Lion).keeper.nameTag)
+  ```
+
+> 除了使用unknown可以代替any，使用泛型也可以规避any类型
+  ```typescript
+  // Bad
+  LRUCache {
+    add(key: string, value: any) {}    
+    get(key: string): any {}
+  }
+  // Good
+  LRUCache<T> {    
+    add(key: string, value: T) {}    
+    get(key: string): T {}
+  }
+  ```
+
+> 使用泛型，能通过入参类型自动确定出参类型
+  ```typescript
+  declare function map<TIn, TOut, TCtx>(    
+    arr: readonly TIn[],    
+    cb: (this: TCtx, val: TIn, index?: number, arr?: readonly TIn[]) => TOut, 
+    context?: TCtx): TOut[]
+
+  // 自动确定res类型为string[]
+  const res = map([1, 2, 3], function (val) {       
+    return val.toFixed(2);
+  });
+  ```
 
 ### 2、keyof类型操作符
 用于获取对象的键字面量的联合类型
@@ -202,36 +229,145 @@ type Config = EventConfig<SquareEvent | CircleEvent>
 ```
 
 ### 7、模板字面类型
-可以认为是模板字符串在类型别名的应用
+模板字符串中的变量是类型，体现ts是操作"类型的类型"的语言。也可以认为是模板字符串在类型别名的应用
 ```typescript
 type LocaleId = `locale_id`;
 type Lang = "en" | "ja" | "pt";
 type LocaleMessageIDs = `${Lang}_${LocaleId}`;
+
+
+type Request = 'Http' | 'Https'
+interface Success {
+  type: `${Request}Success`;
+  body: Request;
+}
+function handler(r: Success) {
+  if(r.type === 'HttpSuccess') {
+    console.log(r.body)
+  }
+}
 ```
+
+> 一道综合性的类型操作示例
+  ```typescript
+  // 使用更精确的类型定义
+  type PropType<T, P extends string> = string extends P ? unknown 
+    : P extends keyof T ? T[P] 
+    : P extends `${infer K}.${infer R}` ? K extends keyof T ? PropType<T[K], R> : unknown : unknown;
+
+  interface Model<TDataDef> {
+    get<T extends string>(key: T): PropType<TDataDef, T>    
+    set<T extends string>(key: T, val: PropType<TDataDef, T>): void
+  }
+  interface ComponentData {  
+    foo: {      
+      bar: string  
+    }  
+    baz: number
+  }
+  declare const model: Model<ComponentData>;
+  const baz = model.get('baz')  // baz为number类型
+  const bar = model.get('foo.bar')  // bar为string类型
+  const bar2 = model.get('foo.baz')  // 返回unknown，后面再继续使用会报错
+  ```
 
 ## 类型别名
 在前面知识点多多少少接触了，这里对它进行重新梳理。其用于自定义类型。类型别名与接口的区别有如下，
 - 1、接口只能描述对象或函数，而类型别名能描述各种类型
+  ```typescript
+  // 定义函数
+  type G = (p: number) => string;
+  const h:G = (a: number):string => `${a}`;
+
+  // 定义对象
+  type I = {
+    func: (p:string) => void,
+  }
+  const j:I = {
+    func: (s:string) => {
+      console.log(s);
+    }
+  }
+  ```
 - 2、接口支持重复声明，编译时自动声明合并，而类型别名不支持
 - 3、在对象扩展上，接口使用extends实现，类型别名使用&实现
-
-```typescript
-// 定义函数
-type G = (p: number) => string;
-const h:G = (a: number):string => `${a}`;
-
-// 定义对象
-type I = {
-  func: (p:string) => void,
-}
-const j:I = {
-  func: (s:string) => {
-    console.log(s);
+  ```ts
+  interface S { 
+    a: string 
   }
-}
+  interface T extends R { 
+    c: boolean 
+  }
 
+  type R =  { a: string }
+  type U = S & { c: boolean }
+  ```
+- 4、当接口和类型别名均可用时，接口在类型检查上更严格。于是定义函数或接口时一般用接口，其它定义用类型别名
+  ```ts
+  // 示例1：向不同类型赋值时，类型别名不报错，interface报错
+  type X = {
+    title: string
+  }
+  const x: X = {
+    title: 'hello' 
+  }
+
+  interface Y {
+    title: string;
+  }
+  const y: Y =  {
+    title: 'world'
+  }
+
+  interface Z {
+    [key: string]: string
+  }
+  let z: Z;
+  z = x  // 类型别名不报错
+  z = y  // interface报错
+
+
+  // 示例2.1：扩展时，类型别名不报错，interface报错
+  interface C {
+    count: number;
+  }
+  interface D extends C {
+    count: string; // 报错，会检查形参、返回值类型是否兼容
+  }
+
+  type E = {
+    count: number;
+  }
+  type F = E & {
+    count: string;
+  } // 不报错，但此时count类型是never，因为number & string无交集
+
+
+  // 示例2.2：扩展时，都报错，但interface报错原因更准确
+  interface G { x: number }
+  interface H { y: number }
+  interface I { z: number }
+  interface J extends G,H {}
+  interface K extends J,I {}
+  const l: K = {
+    x: 1, 
+    y: 2
+  } // Property 'z' is missing in type '{ x:number, y:number }',but required in type 'K'
+
+  type M = {x: number}
+  type N = {y: number}
+  type O = {z: number}
+  type P = M & N & O
+  const q: P = {
+    x: 1, 
+    y: 2
+  } // Type '{ x:number, y:number }' is not assignable to type 'P'
+  ```
+
+更多应用
+```ts
 // 类型别名可以是接口上某个属性的类型，通过索引获取
-interface IType{
+interface IType {
   t: string;
 }
 type E = IType['t'];
@@ -243,6 +379,13 @@ type Tree<T> = {
   left: Tree<T>;
   right: Tree<T>;
 };
+
+// 使用类型别名使其类型具有语义性
+// Bad
+const fill: string = 'red'
+// Good
+type Color = string;
+const fill: Color = 'red';
 ```
 
 ## 工具类型
@@ -260,9 +403,9 @@ const q:Partial<IPerson> = {
 }
 // 相当于
 // const q:{
-//   name?: string|undefined;
-//   age?: number|undefined;
-//   male?: boolean|undefined;
+//   name: string | undefined;
+//   age: number | undefined;
+//   male: boolean | undefined;
 // } = {
 //   name: 'zhangsan'
 // }
