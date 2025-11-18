@@ -4,7 +4,7 @@ tags:
 - HTML5
 ---
 
-本篇介绍什么是媒体和MIME，以及Web中常见的媒体如图片、音频、视频的有关知识，最后会介绍关于媒体流的编解码技术——WebCodecs。
+本篇介绍什么是媒体和MIME，以及Web中常见的媒体如图片、音频、视频的有关知识。
 
 ## 媒体
 - 定义：承载或传递信息的载体
@@ -367,8 +367,3 @@ audioCtx.decodeAudioData(arrBuffer, function(audioBuffer){
   - 隐藏播放控件
     - 在PC端和IOS移动端兼容性良好，而在安卓移动端并不支持隐藏控件。如何处理？让视频元素比父容器还大，使底部控制条在父容器外，然后为父容器设置overflow:hidden，实现播放控件隐藏
     - 腾讯x5内核团队放开视频播放限制，利用`x5-video-player-type='h5'`属性隐藏控件元素，同时视频不再置顶，允许其他元素浮动在顶层
-
-## WebCodecs
-<!-- TODO: -->
-- https://w3c.github.io/webcodecs/
-- https://zhuanlan.zhihu.com/p/414563650
