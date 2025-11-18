@@ -19,7 +19,10 @@
         <div :class="level.tip && level.tip.class"
           :style="level.tip && level.tip.style"
           :tip="!isMobile && level.tip && level.tip.content"
-        >{{level.text}}</div>
+        >
+          <a v-if="level.link" :href="level.link" class="link">{{ level.text }}</a>
+          <span v-else>{{ level.text }}</span>
+        </div>
         
         <template v-if="level.items && !isMobile">
           <div v-for="item in level.items" class="item" v-html="item.html"></div>
@@ -196,6 +199,7 @@ export default {
         type: 'custom',
         key: 'network',
         text: '计算机网络',
+        link: '/network/网络基础',
         row: '5/7',
         col: '3/5',
         mobileRow: '4/6',
@@ -255,6 +259,10 @@ main.home {
 .level {
   grid-row: var(--row);
   grid-column: var(--col);
+}
+
+.link {
+  text-decoration: none;
 }
 
 .item {

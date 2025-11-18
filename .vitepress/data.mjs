@@ -164,6 +164,16 @@ const articles = [
       '前端技术文档归类'
     ]
   },
+  {
+    name: '计算机网络',
+    pathPrefix: 'network',
+    items: [
+      '网络基础',
+      'HTTP',
+      '网络安全',
+    ],
+    filter: true
+  },
 ]
 
 // nav配置

@@ -23,11 +23,13 @@ export const transformArticleNav = (articles) => {
     const {
       name,
       pathPrefix,
-      items
+      items,
+      filter
     } = article
     result.push({
       text: name,
-      link: `/${pathPrefix}/${items[0]}`
+      link: `/${pathPrefix}/${items[0]}`,
+      filter
     })
   })
   return result

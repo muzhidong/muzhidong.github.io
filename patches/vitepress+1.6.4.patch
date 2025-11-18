@@ -136,6 +136,35 @@ index 89ea971..6f53dda 100644
        <template v-if="children?.length">
          <VPDocOutlineItem :headers="children" />
        </template>
+diff --git a/node_modules/vitepress/dist/client/theme-default/components/VPMenu.vue b/node_modules/vitepress/dist/client/theme-default/components/VPMenu.vue
+index b6f9901..21d3f8e 100644
+--- a/node_modules/vitepress/dist/client/theme-default/components/VPMenu.vue
++++ b/node_modules/vitepress/dist/client/theme-default/components/VPMenu.vue
+@@ -1,16 +1,21 @@
+ <script lang="ts" setup>
+ import VPMenuLink from './VPMenuLink.vue'
+ import VPMenuGroup from './VPMenuGroup.vue'
++import { computed } from 'vue';
+ 
+-defineProps<{
++const props = defineProps<{
+   items?: any[]
+ }>()
++
++const list = computed(() => { 
++  return props?.items?.filter(item => !item.filter)
++})
+ </script>
+ 
+ <template>
+   <div class="VPMenu">
+-    <div v-if="items" class="items">
+-      <template v-for="item in items" :key="JSON.stringify(item)">
++    <div v-if="list" class="items">
++      <template v-for="item in list" :key="JSON.stringify(item)">
+         <VPMenuLink v-if="'link' in item" :item="item" />
+         <component
+           v-else-if="'component' in item"
 diff --git a/node_modules/vitepress/dist/client/theme-default/components/VPNavBarMenu.vue b/node_modules/vitepress/dist/client/theme-default/components/VPNavBarMenu.vue
 index 3f8fd8a..41921ae 100644
 --- a/node_modules/vitepress/dist/client/theme-default/components/VPNavBarMenu.vue
