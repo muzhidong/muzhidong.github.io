@@ -126,6 +126,7 @@ const frontEndArticles = [
     pathPrefix: 'browser',
     items: [
       '你知道浏览器多少',
+      '初识V8',
       "带你了解浏览器渲染过程",
       '浏览器兼容性处理',
     ],
