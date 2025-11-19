@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'production') {
 export const head = h
 
 // 用于系列文章导航、侧边栏
-const articles = [
+const frontEndArticles = [
   {
     name: 'HTML',
     pathPrefix: 'html',
@@ -152,7 +152,7 @@ const articles = [
     ]
   },
   {
-    name: '工具',
+    name: '工具资源',
     pathPrefix: 'tool',
     items: [
       'Markdown入门',
@@ -166,6 +166,9 @@ const articles = [
       '前端技术文档归类'
     ]
   },
+]
+
+const computerArticles = [
   {
     name: '设计模式',
     pathPrefix: 'designMode',
@@ -190,8 +193,12 @@ const articles = [
 // nav配置
 export const nav = [
   {
-    text: '系列文章',
-    items: transformArticleNav(articles)
+    text: '前端系列',
+    items: transformArticleNav(frontEndArticles)
+  },
+  {
+    text: '计算机系列',
+    items: transformArticleNav(computerArticles)
   },
   {
     text: '小程序',
@@ -206,4 +213,4 @@ export const nav = [
 ]
 
 // sidebar配置
-export const sidebar = transformSideBars(articles)
+export const sidebar = transformSideBars([...frontEndArticles, ...computerArticles])

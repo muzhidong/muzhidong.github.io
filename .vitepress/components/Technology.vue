@@ -149,7 +149,7 @@ export default {
         multiItems: [{
           title: 'Web端技术：',
           items: [{
-            html: '<a href="/browser/兼容性" style="text-decoration: none;">浏览器</a>(Chrome、Safari、Edge)'
+            html: '<a href="/browser/你知道浏览器多少" style="text-decoration: none;">浏览器</a>(Chrome、Safari、Edge)'
           }]
         }, {
           title: '客户端技术：',
