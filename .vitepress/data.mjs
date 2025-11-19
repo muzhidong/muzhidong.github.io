@@ -126,7 +126,8 @@ const articles = [
     pathPrefix: 'browser',
     items: [
       '你知道浏览器多少',
-      '兼容性',
+      "带你了解浏览器渲染过程",
+      '浏览器兼容性处理',
     ],
     filter: true
   },
