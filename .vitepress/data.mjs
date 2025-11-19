@@ -168,7 +168,8 @@ const articles = [
     name: '计算机网络',
     pathPrefix: 'network',
     items: [
-      '网络基础',
+      '网络基础上篇',
+      '网络基础下篇',
       'HTTP',
       '网络安全',
     ],

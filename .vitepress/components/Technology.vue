@@ -199,7 +199,7 @@ export default {
         type: 'custom',
         key: 'network',
         text: '计算机网络',
-        link: '/network/网络基础',
+        link: '/network/网络基础上篇',
         row: '5/7',
         col: '3/5',
         mobileRow: '4/6',
