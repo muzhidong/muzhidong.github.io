@@ -127,7 +127,8 @@ const articles = [
     pathPrefix: 'browser',
     items: [
       '兼容性',
-    ]
+    ],
+    filter: true
   },
   {
     name: '代码设计',
@@ -165,6 +166,14 @@ const articles = [
     ]
   },
   {
+    name: '设计模式',
+    pathPrefix: 'designMode',
+    items: [
+      "设计模式",
+      "UML"
+    ]
+  },
+  {
     name: '计算机网络',
     pathPrefix: 'network',
     items: [
@@ -182,10 +191,6 @@ export const nav = [
   {
     text: '系列文章',
     items: transformArticleNav(articles)
-  },
-  {
-    text: '设计模式',
-    link: '/designMode'
   },
   {
     text: '小程序',
