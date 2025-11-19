@@ -125,6 +125,7 @@ const articles = [
     name: '浏览器',
     pathPrefix: 'browser',
     items: [
+      '你知道浏览器多少',
       '兼容性',
     ],
     filter: true
