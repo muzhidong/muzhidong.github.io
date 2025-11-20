@@ -217,6 +217,30 @@ index d88bb6f..b29fc89 100644
        <component
          v-else-if="'component' in item"
          :is="item.component"
+diff --git a/node_modules/vitepress/dist/client/theme-default/components/VPNavScreenMenuGroup.vue b/node_modules/vitepress/dist/client/theme-default/components/VPNavScreenMenuGroup.vue
+index 9524b51..1eeb99a 100644
+--- a/node_modules/vitepress/dist/client/theme-default/components/VPNavScreenMenuGroup.vue
++++ b/node_modules/vitepress/dist/client/theme-default/components/VPNavScreenMenuGroup.vue
+@@ -14,6 +14,10 @@ const groupId = computed(
+   () => `NavScreenGroup-${props.text.replace(' ', '-').toLowerCase()}`
+ )
+ 
++const list = computed(() => {
++  return props.items.filter(item => !item.filter)
++})
++
+ function toggle() {
+   isOpen.value = !isOpen.value
+ }
+@@ -32,7 +36,7 @@ function toggle() {
+     </button>
+ 
+     <div :id="groupId" class="items">
+-      <template v-for="item in items" :key="JSON.stringify(item)">
++      <template v-for="item in list" :key="JSON.stringify(item)">
+         <div v-if="'link' in item" class="item">
+           <VPNavScreenMenuGroupLink :item="item" />
+         </div>
 diff --git a/node_modules/vitepress/dist/client/theme-default/components/VPSocialLink.vue b/node_modules/vitepress/dist/client/theme-default/components/VPSocialLink.vue
 index 905ec89..ab3f2e6 100644
 --- a/node_modules/vitepress/dist/client/theme-default/components/VPSocialLink.vue
