@@ -498,10 +498,9 @@ curl -X POST -H "Content-Type:application/x-www-form-urlencoded" -d "username=ad
 # 1.本地生成rsa密钥文件。生成文件默认在/用户名/.ssh文件夹下
 ssh-keygen -t rsa -C <your_email>
 
-# 2.在远端./.ssh/authorized_keys文件中写入公钥
-# 另一种更便捷方式，合并1、2步
-# 具体用法可通过ssh-copy-id -h查看
-# ssh-copy-id <remote_server_username>@<remote_server_ip>
+# 2.在远端./.ssh/authorized_keys文件中手动写入公钥
+# 另一种更便捷方式，具体用法通过ssh-copy-id -h查看
+ssh-copy-id <remote_server_username>@<remote_server_ip>
 
 # 3.本地验证ssh连接是否正常
 # 格式如下，
