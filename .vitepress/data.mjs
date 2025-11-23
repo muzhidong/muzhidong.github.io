@@ -179,6 +179,25 @@ const computerArticles = [
     ]
   },
   {
+    name: 'Git',
+    pathPrefix: 'git',
+    items: [
+      "认识Git",
+      "Git命令",
+      "快速认识GitFlow",
+      "Git相关规范",
+      "搭建git服务器"
+    ]
+  },
+  {
+    name: 'Linux',
+    pathPrefix: 'os',
+    items: [
+      "Linux学习",
+      "Linux零碎笔录",
+    ]
+  },
+  {
     name: '计算机网络',
     pathPrefix: 'network',
     items: [

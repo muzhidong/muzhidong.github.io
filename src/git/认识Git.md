@@ -9,7 +9,7 @@
 |-- description    指定仓库名称
 |-- config         指定仓库的配置信息，如核心选项配置、远程仓库地址等
 |-- info           存放exclude文件，指定项目要忽略的文件，仅对本地有效。使用.gitignore可共享要忽略提交的文件
-|-- objects        对象库。commit对象关联parentCommitId和treeId，tree对象关联文件id。使用git ls-files --stage可以显示暂存内容的对象名称，使用git cat-file -t <对象名称>可以查看对象类型
+|-- objects        对象库。commit对象关联parentCommitId和treeId，tree对象关联文件id。使用git ls-files --stage可以显示提交内容的对象名称，使用git cat-file -t <对象名称>可以查看对象类型
 |-- refs           存放本地分支、远程分支、tag当前各指向的提交id
 |-- hooks          存放各种hook示例
 ```
@@ -28,6 +28,11 @@
   设置多个远程仓库，此时config文件会多出一个remote配置
   ```bash
   git remote add <remote_repo_name> <remote_repo_url>
+  ```
+
+  修改远程仓库地址
+  ```bash
+  git remote set-url origin <remote_repo_url>
   ```
 
   为远程仓库设置多个命名空间，此时config文件在remote配置中会多出一个fetch
@@ -57,6 +62,17 @@
   # 动态配置某分支的远程仓库url和远程分支名称
   git config branch.<branchName>.remote <remote_repo_name>
   git config branch.<branchName>.merge refs/heads/<remote_branch_name>
+  ```
+
+- push配置
+  ```bash
+  # 值为nothing时，推送时需指定refspec，如`git push origin main`推送成功，而`git push origin`推送拒绝
+  # 值为current时，允许推送到远程不存在的同名分支(自动创建)，与配置的远程分支同在
+  # 值为upstream时，推送到配置的远程分支
+  # 值为matching时，只推送本地和远程都有的同名分支。v2前默认值
+  # 值为simple时，推送到主仓库的，同upstream，但配置的分支要求同名；推送到非主仓库的，同current。v2后默认值
+  [push]
+    default = nothing|current|upstream|matching|simple
   ```
 
 ## git钩子
