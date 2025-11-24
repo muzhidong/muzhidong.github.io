@@ -94,7 +94,7 @@ export default {
         multiItems: [{
           title: 'Web端技术：',
           items: [{
-            html: 'MVVM框架：<br>React、Vue、Angular'
+            html: 'MVVM框架：<br>React、<a href="/vue/自定义指令之水平循环滚动" style="text-decoration: none;">Vue</a>、Angular'
           }, {
             html: 'UI库：<br>AntDesign、Element'
           }, {

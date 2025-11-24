@@ -119,7 +119,8 @@ const frontEndArticles = [
     pathPrefix: 'vue',
     items: [
       '自定义指令之水平循环滚动',
-    ]
+    ],
+    filter: true
   },
   {
     name: '浏览器',
