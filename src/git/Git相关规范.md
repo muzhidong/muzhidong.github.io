@@ -1,20 +1,19 @@
 本篇介绍两个规范，一个是commit规范，另一个是tag规范。
 
 ## commit规范
-- 提交格式：type (scope): message
+- 提交格式：type(scope): message
 - 参数说明
 
   type：代码提交类型，不同类型表示不同的代码改动，比如：
   - feat：新功能开发
   - fix：bug修复
   - docs：文档改动
-  - style：格式改动
-  - refactor：重构，不是新增功能，也不是修改bug的变动
+  - style：格式改动，包括空格、缩进、分号等
+  - refactor：代码重构
   - perf：性能优化
-  - test：增加测试
-  - build：改变build工具
-  - revert：撤销上一次commit提交
-  - chore：构建过程或辅助工具的变动
+  - test：增加或修改测试用例
+  - revert：撤销上次commit
+  - chore：对构建过程或辅助工具和库的更改，如生成文档
 
   scope：影响范围
 
