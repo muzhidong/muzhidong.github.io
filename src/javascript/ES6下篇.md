@@ -9,7 +9,7 @@ tags:
 ### Proxy
 - 构造函数传入目标对象和处理器对象，分别表示被代理对象，重写被代理对象各种操作的处理器对象
 
-- 源对象可以是函数，也可以是对象
+- 目标对象类型可以是函数，也可以是对象
   ```javascript
   const f = function fn() {
     console.log('this is a function')
@@ -17,7 +17,9 @@ tags:
   const pf = new Proxy(f, {})
   console.log(typeof pf) // function，支持代理函数
 
-  // 细节：操作`target`参数会同步到源对象；设置代理对象的二级属性会触发getter，但不触发setter
+  // 细节：
+  // 1、操作target参数会同步到源对象
+  // 2、设置代理对象的二级属性会触发getter，但不触发setter，说明代理是浅层代理
   const obj = {
     a: {
       b: 1
