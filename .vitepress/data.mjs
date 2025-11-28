@@ -74,9 +74,7 @@ const frontEndArticles = [
       'CSS伪类集锦',
       'CSS伪元素集锦',
       'CSS函数集锦',
-      'CSS规范',
       'CSS安全漏洞',
-      'UI设计',
     ]
   },
   {
@@ -142,6 +140,7 @@ const frontEndArticles = [
       '富文本编辑器支持小程序跳转',
       '浅记需求开发中一次代码优化过程',
       '代码片段欣赏',
+      '踩坑总结',
     ]
   },
   {
@@ -151,6 +150,20 @@ const frontEndArticles = [
       '页面加载优化实践',
       '干货！页面响应13条性能优化规则',
       '高性能网站建设进阶指南上篇',
+    ]
+  },
+  {
+    name: '代码规范',
+    pathPrefix: 'codeSpec',
+    items: [
+      '代码规范',
+    ]
+  },
+  {
+    name: '用户体验',
+    pathPrefix: 'ue',
+    items: [
+      '前端初识用户体验',
     ]
   },
   {
