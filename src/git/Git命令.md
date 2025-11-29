@@ -286,7 +286,7 @@ git cherry-pick <commitId>
 ```bash
 # rebase支持合并、执行、中止、回退操作
 
-# 合并指定分支，并按提交时间进行先后合并
+# 合并指定分支，并按先后操作进行合并
 git rebase <branch>
 # 以上可能产生强推，如何避免
 # 1、为了不把rebase操作反映到远程分支上，需要在本地另起一个分支进行操作，再合并
@@ -301,11 +301,11 @@ git merge --ff-only temp
 
 > merge、cherry-pick、rebase区别
 > 
-> merge：产生新的合并提交；提交按提交时间排序，分支树呈非线性结构
+> merge：产生新的合并提交；提交按提交时间合并，分支树呈非线性结构
 >
 > cherry-pick：产生新的提交，id会变化
 > 
-> rebase：不产生新的提交；提交按先后操作排序，id会变化，分支树呈线性结构（Pull Request一般采用该方式）
+> rebase：不产生新的提交；提交按先后操作合并，id会变化，分支树呈线性结构（Pull Request一般采用该方式）
 
 ## 日志操作
 - 查看提交记录
