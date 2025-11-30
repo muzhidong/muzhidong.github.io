@@ -32,6 +32,7 @@
 
   修改远程仓库地址
   ```bash
+  # 若push时报HTTP/2 stream 1 was not closed cleanly before end of the underlying stream，尝试执行以下命令，修改远程仓库地址
   git remote set-url origin <remote_repo_url>
   ```
 
@@ -98,6 +99,8 @@ Git钩子存放在.git/hooks文件夹下，分Client端钩子和Server端钩子�
   - pre-receive：收到push动作之前执行
   - update：收到push动作之前被执行，但是有可能被执行多次，每个branch一次
   - post-receive：当push动作已完成时触发，可以用此hook来push notification等，如发邮件，通知持续构建服务器等
+
+> [点这查看完整git钩子](https://git-scm.com/docs/githooks#_hooks)
 
 ## 操作建议
 - 1、提交前，先执行pull操作，获取最新
