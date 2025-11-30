@@ -13,6 +13,3 @@ node_modules
 
 # vitepress缓存
 .vitepress/cache
-
-# CHANGELOG中间产物
-.changeset
