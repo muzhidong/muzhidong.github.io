@@ -1,15 +1,17 @@
 {
   "name": "blog",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "main": "index.js",
   "scripts": {
-    "postinstall": "patch-package",
-    "init": "pnpm vitepress init",
+    "init-vitepress": "pnpm vitepress init",
+    "init-changelog": "changeset init",
     "dev": "vitepress dev --host",
     "build": "vitepress build",
     "preview": "vitepress preview",
-    "generate-theme-patch": "patch-package vitepress",
-    "generate-changelog": "changeset init && changeset add && changeset version"
+    "postinstall": "patch-package",
+    "patch-theme": "patch-package vitepress",
+    "changelog": "changeset add",
+    "postchangelog": "dotenv release-it --"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +19,9 @@
   "description": "",
   "devDependencies": {
     "@changesets/cli": "^2.29.7",
+    "dotenv-cli": "^11.0.0",
     "patch-package": "^8.0.0",
+    "release-it": "^19.0.6",
     "sass": "^1.93.2",
     "vconsole": "^3.15.1",
     "vitepress": "^1.6.4",
