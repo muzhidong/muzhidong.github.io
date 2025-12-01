@@ -1,5 +1,14 @@
 # blog
 
+## 2.2.1
+
+### Patch Changes
+
+- - feat:代码预览支持跳转 codepen
+  - feat:调整菜单入口
+  - chore:依赖升级
+  - chore:引入 release-it，使提交、打 tag、push 完全自动化，并支持自动发布 GitHub Release
+
 ## 2.1.0
 
 ### Minor Changes
@@ -8,7 +17,7 @@
 - fix:本地访问不计入埋点
 - chore:依赖更新
 - chore:添加机器人脚本，自动更新依赖到最新
-- feat:添加codepen入口
+- feat:添加 codepen 入口
 
 ## 2.0.1
 
