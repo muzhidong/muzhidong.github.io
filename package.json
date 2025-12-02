@@ -3,22 +3,19 @@
   "version": "2.2.2",
   "main": "index.js",
   "scripts": {
-    "init-vitepress": "pnpm vitepress init",
-    "init-changelog": "changeset init",
     "dev": "vitepress dev --host",
     "build": "vitepress build",
     "preview": "vitepress preview",
     "postinstall": "patch-package",
     "patch-theme": "patch-package vitepress",
-    "changelog": "changeset add && changeset version",
-    "postchangelog": "dotenv release-it --"
+    "changelog": "dotenv release-it --"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@changesets/cli": "^2.29.7",
+    "@release-it/conventional-changelog": "^10.0.2",
     "dotenv-cli": "^11.0.0",
     "patch-package": "^8.0.0",
     "release-it": "^19.0.6",

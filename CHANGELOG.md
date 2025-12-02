@@ -1,13 +1,17 @@
+# Changelog
+
+## [2.2.2](///compare/2.2.0...2.2.2) (2025-12-02)
+
 # blog
 
 ## 2.2.1
 
 ### Patch Changes
 
-- - feat:代码预览支持跳转 codepen
-  - feat:调整菜单入口
-  - chore:依赖升级
-  - chore:引入 release-it，使提交、打 tag、push 完全自动化，并支持自动发布 GitHub Release
+- feat:代码预览支持跳转 codepen
+- feat:调整菜单入口
+- chore:依赖升级
+- chore:引入 release-it，使提交、打 tag、push 完全自动化，并支持自动发布 GitHub Release
 
 ## 2.1.0
 

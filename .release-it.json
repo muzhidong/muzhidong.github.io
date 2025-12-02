@@ -27,6 +27,25 @@
     "pushArgs": ["--follow-tags"],
     "pushRepo": "origin"
   },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "infile": "CHANGELOG.md",
+      "preset": {
+        "name": "conventionalcommits",
+        "header": "# Blog Changelog",
+        "types": [
+          { "type": "feat", "section": "Features" },
+          { "type": "fix", "section": "BugFixes" },
+          { "type": "chore", "section": "Chores" },
+          { "type": "refactor", "section": "Refactors" },
+          { "type": "perf", "section": "Performance" },
+          { "type": "docs", "hidden": true },
+          { "type": "style", "hidden": true },
+          { "type": "test", "hidden": true }
+        ]
+      }
+    }
+  },
   "npm": {
     "publish": false
   },
