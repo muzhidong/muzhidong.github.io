@@ -28,7 +28,7 @@ export default defineConfig({
         apiKey: '2812678e9c95caa8bf33ae4cb51f17c5',
         indexName: 'blog-crawler',
         askAi: {
-          assistantId: ''
+          assistantId: 'P9brJbxhqwyl'
         }
       }
     },
