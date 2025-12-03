@@ -23,6 +23,14 @@ export default defineConfig({
     aside: true,
     search: {
       provider: 'local',
+      options: {
+        appId: 'M5K0JFRD64',
+        apiKey: '2812678e9c95caa8bf33ae4cb51f17c5',
+        indexName: 'blog-crawler',
+        askAi: {
+          assistantId: ''
+        }
+      }
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/muzhidong' },

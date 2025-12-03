@@ -21,6 +21,10 @@ const h = [
   ['meta', {
     name: 'apple-mobile-web-app-status-bar-style',
     content: 'black'
+  }],
+  ['meta', {
+    name: "algolia-site-verification",
+    content: "F531022321C20AEE"
   }]
 ]
 if (process.env.NODE_ENV === 'production') {
