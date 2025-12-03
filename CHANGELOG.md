@@ -2,10 +2,6 @@
 
 ## [2.2.1](///compare/2.2.0...2.2.1) (2025-12-02)
 
-# blog
-
-## 2.2.1
-
 ### Patch Changes
 
 - feat:代码预览支持跳转 codepen

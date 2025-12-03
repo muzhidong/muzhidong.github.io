@@ -28,3 +28,4 @@ pnpm-lock.yaml         pnpm锁文件（自动生成）
 - []移动端主页布局重构
 - []示例代码支持在网站中展示和效果预览（示例不跳转仓库，代码放codepen，通过调用codepen库和api实现展示）
 - []代码跳转codepen问题修复
+- []changelog格式优化或支持自定义
