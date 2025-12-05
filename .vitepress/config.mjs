@@ -22,7 +22,7 @@ export default defineConfig({
     sidebar,
     aside: true,
     search: {
-      provider: 'local',
+      provider: 'algolia',
       options: {
         appId: 'M5K0JFRD64',
         apiKey: '2812678e9c95caa8bf33ae4cb51f17c5',
