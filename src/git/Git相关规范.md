@@ -19,6 +19,8 @@
 
   message：变更简短说明
 
+> 前期可考虑使用[commitizen](https://www.npmjs.com/package/commitizen)工具，便捷生成commit规范格式
+
 ## tag规范
 - 采用semver项目版本规范
 - 版本格式：主版本号.次版本号.修订号

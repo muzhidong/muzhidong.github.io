@@ -1,4 +1,4 @@
-本篇会对git常用命令作下分类分别介绍。
+本篇基于2.39.2版本，对git常用命令按功能分类进行介绍。
 
 ## 创建仓库
 - 克隆仓库
@@ -232,16 +232,15 @@ git branch -v
 
 - 切换分支
 ```bash
-# 切换分支，并携带工作区变更
+# 切换到指定分支，若不存在则默认基于当前分支创建
 git checkout [options] <branch>
-# (待验证)创建并切换分支，并基于start-point创建
-git checkout -b <branch> [start-point]
+# 显式创建分支并切换
+git checkout -b dev
 
-# 切换分支，并携带指定文件变更
-git checkout [options] [<branch>] -- <file> # (待验证)未指定分支，则默认当前分支的临时分支
-# 示例：
-git checkout -b dev -- a.txt
-# fatal: 'a.txt' 不是一个提交，不能基于它创建分支 'dev'
+# 切换到指定分支，并从指定的start-point创建，可以是提交id、tag名称
+git checkout [options] <branch> [--] <start-point>
+# 显式创建分支并切换，并从指定的start-point创建
+git checkout -b dev -- v1.0.0
 ```
 
 - 合并分支
@@ -416,13 +415,13 @@ git rev-list <branch>
 # 获取或更新所有分支
 git fetch --all
 
-# 本地获取分支，并清理已删除的远程跟踪分支
+# 从远程获取或更新指定分支
+git fetch origin <branch>
+
+# 本地分支同步远程，清理已删除的远程跟踪分支
 git fetch -p
 git fetch -p origin
 git fetch --prune origin
-
-# 从远程获取或更新指定分支
-git fetch origin <branch>
 
 # 根据url获取或更新分支
 git fetch <url>
