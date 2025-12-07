@@ -298,13 +298,13 @@ git checkout dev
 git merge --ff-only temp
 ```
 
-> merge、cherry-pick、rebase区别
+> merge、rebase、cherry-pick区别
 > 
-> merge：产生新的合并提交；提交按提交时间合并，分支树呈非线性结构
->
-> cherry-pick：产生新的提交，id会变化
+> merge：产生合并提交；合并结果会使分支树呈非线性结构
 > 
-> rebase：不产生新的提交；提交按先后操作合并，id会变化，分支树呈线性结构（Pull Request一般采用该方式）
+> rebase：不产生合并提交；合并结果会使分支树保持线性结构(Pull Request一般采用该方式)
+> 
+> cherry-pick：产生新提交，即新提交id与pick id不同
 
 ## 日志操作
 - 查看提交记录
