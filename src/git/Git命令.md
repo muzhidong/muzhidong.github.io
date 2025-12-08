@@ -133,10 +133,6 @@ git reset HEAD^^^
 # 撤回最近n次提交
 git reset HEAD~n 
 
-# 恢复到指定tag或commit
-git reset tag <tagName>
-git reset <commitId>
-
 # 撤回最近一次提交中指定文件的变更
 git reset HEAD <file>
 
@@ -154,7 +150,12 @@ git reset --hard HEAD^1
 git push origin -f
 # ！！！一般来说, 要避免强推。此时考虑使用revert方式
 
-# (待验证)实践：若不慎使用git reset --hard HEAD^1，如何恢复
+# 恢复到指定tag或commit
+git reset tag <tagName>
+git reset <commitId>
+
+# 实践：若不慎使用git reset --hard HEAD^1，如何恢复
+# 方式一：
 # 找到最近一次提交id
 git reflog 
 # 临时分支，恢复提交
@@ -169,6 +170,11 @@ git stash
 git stash pop
 # 提交
 git commit -m "恢复提交"
+# (推荐)方式二：
+# 找到最近一次提交id
+git reflog
+# 恢复到指定commit
+git reset <commitId>
 ```
 
 - 变更暂存
@@ -226,6 +232,8 @@ git branch
 git branch -r
 # 查看所有分支
 git branch -a
+# 可视化分支关系
+git show-branch
 
 查看所有分支最近一次提交的简短信息
 git branch -v
@@ -297,6 +305,10 @@ git rebase -i dev
 # 4、切换到原分支，合并临时分支
 git checkout dev
 git merge --ff-only temp
+
+# 将多个commit合并为一个，注意禁止对多人共用的远端分支执行rebase
+git rebase -i
+# git reset --soft HEAD~3 && git commit -m 'xxx'
 ```
 
 > merge、rebase、cherry-pick区别

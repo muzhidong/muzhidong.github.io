@@ -1,7 +1,7 @@
 官网：https://git-scm.com/
 
-## 特点
-分布式的键值数据库，支持离线操作，避免引入辅助目录
+## 认识git
+本质是一个存储键值对的数据库，采用默克尔树形成的有向无环图。是分布式的(历史提交不可篡改)，支持离线操作，可以避免引入辅助目录
 
 ## .git目录介绍
 ```
@@ -9,7 +9,7 @@
 |-- description    指定仓库名称
 |-- config         指定仓库的配置信息，如核心选项配置、远程仓库地址等
 |-- info           存放exclude文件，指定项目要忽略的文件，仅对本地有效。使用.gitignore可共享要忽略提交的文件
-|-- objects        对象库。commit对象关联parentCommitId和treeId，tree对象关联文件id，blob对象对应一个文件夹。使用git ls-files --stage可以显示提交内容的对象名称，使用git cat-file -t <对象名称>可以查看对象类型
+|-- objects        对象库。有4种对象类型，如commit对象关联parentCommitId和treeId，tree对象关联文件id，blob对象对应一个文件夹，以及tag对象。使用git ls-files --stage可以显示提交内容的对象名称，使用git cat-file -t <对象名称>可以查看对象类型
 |-- refs           存放本地分支、远程分支、tag当前各指向的提交id
 |-- hooks          存放各种hook示例
 ```
@@ -75,6 +75,11 @@
   [push]
     default = nothing|current|upstream|matching|simple
   ```
+
+## git分区
+- 工作区：工作目录，即用户可直接操作的目录
+- 索引或暂存区：git add命令将工作区文件添加到暂存区
+- Git仓库：git commit命令将暂存区文件提交到本地仓库
 
 ## git钩子
 Git钩子存放在.git/hooks文件夹下，分Client端钩子和Server端钩子。Client端钩子被操作触发，如commit、merge，Server端钩子被网络动作触发，如push、pull
