@@ -1,7 +1,7 @@
 官网：https://git-scm.com/
 
 ## 特点
-分布式，支持离线操作，避免引入辅助目录
+分布式的键值数据库，支持离线操作，避免引入辅助目录
 
 ## .git目录介绍
 ```
@@ -9,7 +9,7 @@
 |-- description    指定仓库名称
 |-- config         指定仓库的配置信息，如核心选项配置、远程仓库地址等
 |-- info           存放exclude文件，指定项目要忽略的文件，仅对本地有效。使用.gitignore可共享要忽略提交的文件
-|-- objects        对象库。commit对象关联parentCommitId和treeId，tree对象关联文件id。使用git ls-files --stage可以显示提交内容的对象名称，使用git cat-file -t <对象名称>可以查看对象类型
+|-- objects        对象库。commit对象关联parentCommitId和treeId，tree对象关联文件id，blob对象对应一个文件夹。使用git ls-files --stage可以显示提交内容的对象名称，使用git cat-file -t <对象名称>可以查看对象类型
 |-- refs           存放本地分支、远程分支、tag当前各指向的提交id
 |-- hooks          存放各种hook示例
 ```

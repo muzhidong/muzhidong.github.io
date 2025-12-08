@@ -123,6 +123,7 @@ git revert <commitId/tag>
 
 - 撤回提交
 ```bash
+# 关于revisions的介绍详见这里：https://git-scm.com/docs/gitrevisions
 # 撤回最近一次提交
 git reset HEAD^
 
@@ -252,11 +253,11 @@ git merge --squash branch1 ...
 # 将指定的一个或多个分支合并到当前分支，不产生新的提交。又称快进合并
 git merge --no-commit branch1 ...
 
-# 非快进合并，产生一次合并提交
+# 非快进合并，产生合并提交
 git merge --no-ff
-# 快进合并，不产生新提交
+# 快进合并，产生无变更的合并提交
 git merge --ff     
-# 仅快进合并 
+# 仅支持快进合并，非快进合并的会停止，相当于git rebase 
 git merge --ff-only
 
 # 合并后不显示合并前后的不同状态
@@ -315,11 +316,13 @@ git log
 # 查看当前分支的提交日志及其变更操作
 git log --raw
 
-# 压缩模式，一行显示每次提交的不完整id和信息
+# 一行显示每次提交的不完整id和信息
 git log --oneline
-# 压缩模式，一行显示每次提交的完整id和信息
-git log --pretty=oneline
 
+# 一行显示每次提交的完整id和信息
+git log --pretty=oneline
+# %C颜色表示终端显示颜色，%h表示提交id，%d表示分支或tag，%s表示提交信息，%cr表示相对于当前的提交时间，%reset表示重置颜色
+git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)' 
 
 # 查看所有分支提交日志
 git log --all
@@ -627,6 +630,18 @@ git config --list --local
 git config --get core.ignorecase
 # 修改配置
 git config core.ignorecase false
+```
+
+- 比较分支差异
+```bash
+# 查看diff-tool工具帮助
+# git diff-tool --tool-help
+
+# 设置diff工具
+# git diff-tool --tool=[vimdiff|opendiff]
+
+# 比较分支差异
+git diff-tool <branch1> <branch2>
 ```
 
 - 检查仓库中的对象及其目录
