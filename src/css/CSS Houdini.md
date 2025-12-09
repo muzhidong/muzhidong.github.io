@@ -12,7 +12,7 @@ Houdini是CSS未来的趋势，为什么这么说？Houdini是一组API，使开
 - 支持CSS模块化：通过Worklet，只需一行JavaScript即可导入可配置组件，无需预处理器、后处理器或JavaScript框架
 
 ## CSS Properties and Values API
-- 提供一个注册CSS自定义属性的API
+提供了一个注册CSS自定义属性的JS API和CSS 规则集
 
 - 两种注册方式
   - JS
@@ -36,12 +36,12 @@ Houdini是CSS未来的趋势，为什么这么说？Houdini是一组API，使开
 
 - 注意
   - 注册后的CSS属性不可修改
-  - 不同标准属性，解析时不会校验注册的属性，计算时才校验，无效值会回退取默认值
+  - 不同于标准属性，解析时不会校验注册的属性，计算时才校验，无效值会回退取默认值
 
 - [示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-houdini/demo-houdini.html)
 
 ## CSS Typed OM
-- 暴露CSS值为JS类型对象，允许对其进行操作
+暴露CSS值为JS类型对象，允许对其进行操作
 
 - Element.computedStyleMap()
 
@@ -155,7 +155,7 @@ Houdini是CSS未来的趋势，为什么这么说？Houdini是一组API，使开
 - [示例](https://github.com/muzhidong/blog-demo/blob/main/docs/02css/demo-houdini/demo-houdini.html)
 
 ## CSS Painting API
-- 允许开发者编写JS函数，直接绘制元素背景、边框或内容。本质是通过CSS图片函数paint()创建自定义值。目前属于实验性技术，Safari不支持
+允许开发者编写JS函数，直接绘制元素背景、边框或内容。本质是通过CSS图片函数paint()创建自定义值。目前属于实验性技术，Safari暂不支持
 
 - 示例
 
