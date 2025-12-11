@@ -144,7 +144,6 @@ const frontEndArticles = [
       '富文本编辑器支持小程序跳转',
       '浅记需求开发中一次代码优化过程',
       '代码片段欣赏',
-      '踩坑总结',
     ]
   },
   {
@@ -157,10 +156,11 @@ const frontEndArticles = [
     ]
   },
   {
-    name: '代码规范',
-    pathPrefix: 'codeSpec',
+    name: '代码规范与质量',
+    pathPrefix: 'codeSpecQuality',
     items: [
       '代码规范',
+      '踩坑总结'
     ]
   },
   {
