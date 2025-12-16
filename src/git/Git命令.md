@@ -207,6 +207,11 @@ git stash clear
 # 若知道变更不提交，可以先git stash save保存当前状态，做完需提交的操作后再git stash pop恢复
 ```
 
+- 子模块更新
+```bash
+git submodule update --init
+```
+
 ## 分支操作
 - 分支基础操作
 ```bash
