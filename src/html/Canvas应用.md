@@ -10,7 +10,13 @@ tags:
 ### 属性
 - width
 
-	在canvas标签中，声明属性width=1000(px)与应用样式width:1000px都是设置画布宽度，但是有一点区别需要注意，前者实质是应用了[aspect-ratio](https://developer.mozilla.org/zh-CN/docs/Web/CSS/@media/aspect-ratio)媒体属性，表示视口宽高比，在使用canvas api时传入的数值参数单位是px，而后者应用画布API时传入的数值单位是百分比，超过100%按100%显示。一般建议采用属性声明的方式。
+	在canvas标签中声明属性width=1000(px)与设置样式width:1000px都可用于设置画布宽度，前者称为HTML尺寸，后者称为CSS尺寸。二者区别如下，
+  - **CSS尺不受aspect-ratio影响，而HTML尺寸会受其影响，会改变画布大小**。HTML尺寸实质是应用了[`aspect-ratio: auto $width / $height`](/css/CSS查漏补缺#aspect-ratio)样式，表示宽高比，默认值是300px * 150px。关于它的值可以看作是物理像素，比如说CSS宽、高尺寸均设置为100px，在未设置HTML尺寸的默认情况下，100逻辑像素宽度对应300物理像素，100逻辑像素高度对应150物理像素
+  - **调用canvas api时，传入参数是数值，单位是物理像素，而非逻辑像素**
+  
+  当二者同时存在时，<a href="/css/CSS快速入门篇中#size">CSS尺寸会覆盖HTML尺寸</a>；通过`canvasEl.width`获取的是width属性值，`canvasEl.style.width`获取的是width样式值；**最重要的一点是，此时HTML尺寸用于设置物理像素，CSS尺寸用于设置逻辑像素(也就是我们在界面上看到的宽度大小)**
+
+  > 指导：一般先使用CSS尺寸定义画布大小，再结合dpr设置HTML尺寸(对canvas元素慎用aspect-ratio样式属性，避免覆盖HTML尺寸)，适应不同设备的分辨率。后面操作canvas时，数值类的也要对应乘上dpr，便于调试
 
 - height 
 
