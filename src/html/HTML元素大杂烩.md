@@ -7,7 +7,7 @@ tags:
 这篇文章带你详细学习常用的HTML标签，更好地运用它们。
 
 ## meta
-用于配置文件信息。提供`name`、`content`、`http-equiv`、`charset`属性，其中`name`和`content`通常作为键值对搭配使用，`charset`用于指定文档的字符编码，`http-equiv`用于指定一个pragma指令，可以取值为内容安全策略`content-security-policy`、内容类型`content-type`、默认CSS样式`default-style`、用户代理兼容`x-ua-compatible`、页面刷新`refresh`，也可取值为`Cache-Control`或`Expires`等Http相关强缓存字段，此时`content`便是该缓存字段的值。
+用于配置文件信息。提供`name`、`content`、`http-equiv`、`charset`属性，其中`name`和`content`通常作为键值对搭配使用，`charset`用于指定文档的字符编码，`http-equiv`用于指定一个pragma指令，可以取值为内容安全策略`content-security-policy`、内容类型`content-type`、默认CSS样式`default-style`、用户代理兼容`x-ua-compatible`、页面刷新`refresh`，也可取值为`Cache-Control`或`Expires`等Http相关强缓存字段，此时`content`表示pragma指令值。
 
 示例如下，
 ```html
@@ -227,7 +227,7 @@ tags:
   <!-- 注意：a标签打电话、发短信、发邮件，只是唤起功能，真正操作依赖系统是否安装软件或支持，比如发邮件是否有响应取决于用户浏览器和电子邮件客户端是否支持mailto协议以及允许该协议的行为-->
   ```
 
-  锚点定位除了基于URL地址锚链定位外，还有focus锚点定位，即可以被focus的按钮、输入框、单选框、复选框、文本区域等元素在被focus时发生的页面重定位现象，但二者差异如下：
+  锚点定位除了基于URL地址锚链定位外，还有focus锚点定位，即button、a、input、textarea、带tabindex属性的元素在被focus时发生的页面重定位现象，但二者差异如下：
   
   一是focus锚点定位是让元素在浏览器窗体范围内显示即可，不一定跟URL锚链定位一样都在上边缘
 
@@ -341,11 +341,11 @@ tags:
 
 - ismap
 
-  该属性仅在img元素作为带有有效href属性的a元素的孩子节点时允许被使用。表示图像是否是服务器端图像映射的一部分，若是，则点击图片的精准坐标时将会被发送到服务器
+  服务端图像映射。该属性仅在img元素作为带有有效href属性的a元素的孩子节点时生效。当点击图像时，将相对于图片左上角的点击位置坐标附在href指定的url后面发送给服务器，格式如`url?x,y`
 
 - usemap
 
-  与元素关联的图片映射部分url，以#开头
+  客户端图像映射。需与map标签配合使用，该属性值指定映射的map标签属性name，注意值开头需带上#
 
 ## form
 表单元素，具有如下属性，
