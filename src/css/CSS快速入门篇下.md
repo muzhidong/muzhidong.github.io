@@ -309,6 +309,9 @@ div {
 >  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 >}
 >```
+> 基于Twitter表情的等宽色彩字体：
+> 
+> https://github.com/13rac1/twemoji-color-font
 
 ## 背景样式
 - background是背景色、背景图、背景图重复方式、背景图依附方式、背景图位置、背景图大小、背景相对起始位置、背景作用范围的简写，各属性说明如下，
