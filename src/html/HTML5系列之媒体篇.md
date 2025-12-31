@@ -367,3 +367,11 @@ audioCtx.decodeAudioData(arrBuffer, function(audioBuffer){
   - 隐藏播放控件
     - 在PC端和IOS移动端兼容性良好，而在安卓移动端并不支持隐藏控件。如何处理？让视频元素比父容器还大，使底部控制条在父容器外，然后为父容器设置overflow:hidden，实现播放控件隐藏
     - 腾讯x5内核团队放开视频播放限制，利用`x5-video-player-type='h5'`属性隐藏控件元素，同时视频不再置顶，允许其他元素浮动在顶层
+
+  - 音频预加载
+    
+    只能预加载音频元信息，设置`preload="metadata"`，而加载音频数据需用户触发交互
+
+  - IOS无法通过JavaScript调整音量
+    
+    IOS的volume属性不可设置，始终返回1。通过AudioContext控制
