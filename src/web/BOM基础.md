@@ -251,19 +251,28 @@ window.location.replace(url);
 - userAgent
 
   浏览器用户代理字符串。可用于判断浏览器类型和版本
-### 方法
-- cookieEnabled() 
+- language
 
-  表示cookie是否启用
+  浏览器当前使用的语言
+- languages
+
+  浏览器支持的语言
+- cookieEnabled
+
+  浏览器是否启用cookie
+### 方法
 - javaEnabled()   
 
-  表示当前浏览器是否启用java
-- registerContentHandler(mime,url,appname)
+  浏览器是否启用java
+- sendBeacon(url, data?)
 
-  使站点注册一个处理程序处理指定MIME。其中mime表示要处理的mime类型，url表示要处理的url如`http://xxx?feed=%s`，%s表示源请求，appname表示要处理的应用程序名称
-- registerProtocolHandler(protocol,url,appname)
+  异步发送post请求，用于发送分析数据给服务器。url表示接收数据的地址，data可以是字符串、对象，甚至是Blob、FormData、ArrayBuffer、TypedArray、DataView等，当用户代理已成功将数据传输加入队列返回true，否则返回false
+- registerProtocolHandler(scheme, url)
 
-  使站点注册一个处理程序处理指定协议。其中protocol表示要处理的协议名称，url表示要处理的url如`http://xxx?cmd=%s`，%s表示源请求，appname表示要处理的应用程序名称
+  注册协议处理器，即针对指定的scheme如web+/mailto等约定协议，通过url如`https://xxx?param=%s`处理，其中%s表示触发的源地址。仅限在https使用，不同浏览器对scheme支持情况各有不同，另外Safari不支持该API
+- unregisterProtocolHandler(scheme, url)
+  
+  注销协议处理器，参数含义同registerProtocolHandler
 ### 应用
 - 判断浏览器类型
 ```javascript
