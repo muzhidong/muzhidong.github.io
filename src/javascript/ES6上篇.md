@@ -463,7 +463,7 @@ console.log(toString=== Number.prototype.toString); // true
     
   二、会遍历出数组的自定义属性
     
-  三、性能差，比下标遍历数组(正常for循环)慢50倍
+  三、性能比普通for循环(下标遍历)差，因为它也会遍历数组原型链上的属性
   
 - for...of只能遍历迭代器对象（一个对象实现Symbol.iterator时，视为迭代器对象），如数组、字符串、集合(map\set)。遍历属性只包括自身属性，当中包括不可枚举属性
   ```js

@@ -198,7 +198,7 @@ console.log(c.red + "  " + c[5]); // 5  red
 - continue语句
 
 ### 其他
-- for/in语句：遍历对象，格式如`for(key in target){ }`
+- for/in语句：遍历对象，格式如`for(key in target){ }`。建议遍历数组时使用普通for循环，不用for/in语句
 - try/catch/finally语句
   
   格式：
