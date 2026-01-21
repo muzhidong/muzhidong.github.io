@@ -26,19 +26,13 @@ tags:
 
 ## 媒体格式
 ### 图片格式
-- gif：无损图像格式(修改图片后图片质量几乎没有损失)；体积小；支持动画和透明；只能处理256种颜色
-- png：无损图像格式(修改图片后图片质量几乎没有损失)；体积比gif小；透明效果过渡好，注意PNG格式分8位、24位、32位三种形式，其中8位和32位支持透明，24位不支持透明；存在浏览器兼容性问题；
-- jpeg：有损图像格式(转换为jpg后质量受损)；体积大；不支持透明
-- apng
-	
-	背景：基于PNG格式扩展的一种动画格式，增加了对动画图像的支持，目的是为了替代老旧的GIF格式
-	
-	图片质量：支持24位真彩色图片、支持8位Alpha透明通道、向下兼容PNG
-	
-	图片体积：无论是纯色图片或彩色图片，大部分情况下APNG比GIF、WebP以及有损的WebP的体积小
-	
-	兼容性好：https://caniuse.com/?search=APNG
+- jpeg：有损压缩；大小较小；不支持动画和透明。多用于照片场景
+- png：无损压缩，分8位、24位、32位；位数越大，大小越大；不支持动画；8位和32位支持全透明，24位不支持透明。多用于图带文字场景
+- webp：支持有损压缩和无损压缩；有损下比jpg小、无损下比png小；支持动画和全透明
+- gif：无损压缩，但仅支持256种颜色；大小较大；支持动画；支持1位透明(全透或不透)
+- apng：基于png扩展的一种动画格式，增加对动画图像的支持。无损压缩，支持24位真彩色图片，支持8位Alpha通道，向下兼容PNG；比gif大，但高清全彩、支持全透。目前[兼容性较好](https://caniuse.com/?search=APNG)
 	```javascript
+  // 特征检测
 	(function() {
 		"use strict";
 		var apngTest = newImage(); 
@@ -52,14 +46,10 @@ tags:
 		apngTest.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACGFjVEwAAAABAAAAAcMq2TYAAAANSURBVAiZY2BgYPgPAAEEAQB9ssjfAAAAGmZjVEwAAAAAAAAAAQAAAAEAAAAAAAAAAAD6A+gBAbNU+2sAAAARZmRBVAAAAAEImWNgYGBgAAAABQAB6MzFdgAAAABJRU5ErkJggg==";
 	}());
 	```
+- svg：矢量无损，非高彩；大小极小；结合JS可实现动画；支持全透明
 
-> [SVG、PNG、JPG图像格式的优点和缺点](https://zhuanlan.zhihu.com/p/53441916)
+> EXIF：可交换图像文件格式，专门为数码相机的照片设定，可以获取照片的属性信息和拍摄数据。此处提供[EXIF在线工具](https://www.sojson.com/image/exif.html)
 
-> exif技术：可交换图像文件格式，专门为数码相机的照片设定，可以获取照片的属性信息和拍摄数据。参考链接：
-> 
->	[https://www.sojson.com/image/exif.html](https://www.sojson.com/image/exif.html)
->
->	[https://blog.csdn.net/taoszu/article/details/83051879](https://blog.csdn.net/taoszu/article/details/83051879)
 
 ### 音频格式
 - MIDI：只能存储曲调，不能存储歌曲，扩展名为mid或midi
