@@ -131,6 +131,18 @@ tags:
     crossorigin="anonymous" />
   ```
 
+  ```js
+  // 预加载JS，需要时执行 
+  const link = document.createElement('link');
+  link.rel = 'preload'; 
+  link.as = 'script'; 
+  link.href = 'preload-script.js';
+  // ...
+  const script = document.createElement('script');
+  script.src = 'preload-script.js'; 
+  document.body.appendChild(script);
+  ```
+
 ## ul
 无序列表。一般与CSS属性`list-style`搭配，该属性是`list-style-image`、`list-style-position`、`list-style-type`三个属性的简写，分别表示列表项符号、列表项符号位置、列表符号类型。
 

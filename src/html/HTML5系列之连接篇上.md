@@ -21,7 +21,7 @@ Async JavaScript and XML，是一种在不刷新整个页面下，通过JavaScri
 
   只支持GET请求，并追加参数`&jsonp=funcName`指定回调函数名
 
-  响应内容必须是一段正确的JavaScript代码，一般形如`funcName(params)`的结构
+  响应内容是一段JavaScript可执行代码，形如`funcName(respData)`，其中响应数据需先作序列化
 
   使用该方式注意服务器是可信的，否则存在安全隐患
 
