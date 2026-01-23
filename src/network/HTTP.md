@@ -336,10 +336,11 @@ app.all('*', function(req, res, next) {
 
 - [COEP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Embedder-Policy)：配置当前文档加载和嵌入跨域资源的策略
 
-- [`window.crossOriginIsolated`](https://developer.mozilla.org/en-US/docs/Web/API/Window/crossOriginIsolated)：只读，指示文档是否跨域隔离。该值受COOP和COEP影响，而它会影响SharedArrayBuffer等API的使用
+> [`window.crossOriginIsolated`](https://developer.mozilla.org/en-US/docs/Web/API/Window/crossOriginIsolated)：只读，指示文档是否跨域隔离。该值受COOP和COEP影响，而它会影响SharedArrayBuffer等API的使用
 
 - [CORP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Resource-Policy)：指示浏览器应该阻止对给定资源的no-cors跨源或跨站点请求
 
+- HSTS：全称HTTP Strict Transport Security，是一个Strict-Transport-Security响应头，负责发送策略指令给浏览器，用于强制浏览器使用HTTPS连接，防止降级攻击和中间人攻击
 
 ## HTTP/1.1(HTTPS)
 - 特点
@@ -364,11 +365,22 @@ app.all('*', function(req, res, next) {
 
   > 过程中涉及了摘要、非对称加密、对称加密等算法，既保证传输快，又防止密钥泄漏
 
+  > OCSP Stapling是一种优化TLS/SSL握手过程的技术。为了验证网站SSL证书是否有效，浏览器通常需要向证书颁发机构CA的OCSP服务器发起查询，这会增加延迟和隐私风险。OCSP Stapling允许网站在TLS握手时，主动将自己的有效证明(由CA签名)一并"装订"发送给浏览器。好处如下：
+  > - 加速TLS握手，浏览器无需再额外发起OCSP查询，减少等待时间，加快HTTPS连接的建立速度；
+  > - 保护用户隐私，浏览器不再需要向CA暴露自己正在访问的网站；
+  > - 提高可靠性，避免因CA的OCSP服务器宕机而导致浏览器验证失败。
+  > 
+  > 大多数主流服务器都支持 OCSP Stapling，但它在默认的配置文件中可能未被启用
+
 > 使用HTTPS协议，不代表敏感数据可以放在url的查询字符串上。仍会通过以下三种方式泄漏：服务器日志、浏览器历史记录、Referrer头部
 
 ## HTTP/2
 ### 头部压缩
 - 头部和数据分离，若两个请求头存在相同，则去除当中一个相同的部分，减少请求体积
+
+  HPACK是一种专门为压缩HTTP/2请求头和响应头部而设计的压缩算法。作用如下：
+  - 压缩HTTP头部，减少数据传输量，提升速度；
+  - 保证安全。早期的 HTTP/2草案曾使用通用的压缩算法如Gzip，但这存在一个名为CRIME​的安全漏洞，攻击者可能利用压缩特性窃取敏感信息如Cookie。HPACK是专门为头部压缩设计的安全算法，避免了此类漏洞
 
 ### 多路复用
 - HTTP/2基于字节流，发送的请求在传输层没有顺序之分；HTTP/1.1基于字符流，有顺序之分，在TCP窗口很小的情况下就会很明显。字节流使请求或响应能交错地并行传输，解决HTTP/1.1复用时产生队头阻塞问题
