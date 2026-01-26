@@ -28,11 +28,8 @@ tags:
 ### 使用Https代理
 - 链路优化：建立连接的延迟体现在每个SSL连接上，因此尽早完成SSL握手是重点。对于普通的图片资源和文档请求，在CDN上完成；对于涉及用户信息的受限资源和脚本，在内网防火墙上完成
 - SSL协议优化：服务端支持ALPN协议，使用适合Forward Secrecy的加密算法，开启False Start，客户端在第二次SSL握手时可以发送应用数据，减少一次RTT时间
-- 证书和加密套件优化：
-  
-  在证书链优化上，由于TCP初始拥塞窗口的存在，如果证书太长可能会产生额外的往返开销。移动端采用的证书链是"站点证书 - 中间证书 - 根证书"三级，同时服务端只发送站点证书和中间证书，根证书部署在客户端，将证书链控制在3KB以内。为了避免不必要的证书过期校验，在服务端开启OCSP Stapling
-
-  在加密套件的选择上，优先选择ECDHE-RSA-AES128-GCM-SHA256，综合安全、性能和开销，是最优的选择
+- 证书链优化：由于TCP初始拥塞窗口的存在，如果证书太长可能会产生额外的往返开销。移动端采用的证书链是"站点证书 - 中间证书 - 根证书"三级，同时服务端只发送站点证书和中间证书，根证书部署在客户端，将证书链控制在3KB以内。为了避免不必要的证书过期校验，在服务端开启[OCSP Stapling](/network/HTTP#ocsp)
+- 加密套件优化：优先选择ECDHE-RSA-AES128-GCM-SHA256，其综合安全、性能和开销，是最优选
 
 ### 控制传输大小和减少请求数
 - nginx开启gzip，压缩资源大小，网络资源占用率低
@@ -102,13 +99,14 @@ HttpDNS实现原理分为两步：
 > revving技术属于覆盖式发布。若静态资源和页面属于分开部署，可能先部署页面再部署静态资源，会出现用户访问到旧的资源，也可能先部署静态资源再部署页面，会出现没有缓存用户加载到新资源而报错，以上本质上都是覆盖式发布惹的祸。所以静态资源需要非覆盖式发布，即用静态资源的文件摘要信息给文件命名，这样每次更新资源不会覆盖原来的资源，先将资源发布上去，这时存在两种资源，用户用旧页面访问旧资源，然后再更新页面，用户变成新页面访问新资源，就能做到无缝切换。目前比较流行的是给文件名加`content-hash`
 
 ## 加载优化
+从浏览器渲染引擎特性角度优化：
 - 特性1：JS执行会阻塞DOM和CSS OM构建
 
   JS执行会造成阻塞是因为JS可能操作DOM
 
   优化措施
   
-  1）当脚本不影响渲染逻辑，可以进行异步加载，浏览器提供了defer和async两种方式
+  - 当脚本不影响渲染逻辑，可以进行异步加载，浏览器提供了defer和async两种方式
 
   <style>
   .g-container {
@@ -164,17 +162,27 @@ HttpDNS实现原理分为两步：
   从这两个特性上看出，defer既有将脚本置于body标签的全部好处，又使文档加载速度大幅提升。</div>
   </div>
 
-  2）脚本置于HTML文档尾部，提前触发首次绘制时间，体验上减少白屏等待时间。以下是常用手段，
+  - 脚本置于HTML文档尾部，提前触发首次绘制时间
+
+- 特性2：CSS执行不阻塞DOM构建，但会阻塞JS
   
-  添加顶部进度条
+  HTML解析和CSS计算是采用流水线处理，另外会阻止JS运行，其原因是JS可能对CSS有依赖
 
-  添加loading或转场动画
+  优化措施
   
-  使用骨架屏
+  - 样式置于HTML文档头部，提前首屏渲染时间
+  - CSS文件按媒体类型拆分，浏览器根据link标签media属性加载对应样式
+  - 首屏避免使用导入样式@import，该方式是串行加载执行，无法并行调用，使用内联、嵌入或链接样式替代
+  - 通过CSS继承提高代码复用性
 
-  3）最小化主线程工作：抓住关键渲染路径(即HTML、CSS、JavaScript之间的依赖关系谱)影响因素，优化路径，缩短加载时间
+从用户体验角度优化：
+- 减少白屏等待时间
+  - 添加loading或转场动画
+  - 使用骨架屏
 
-  - 关键CSS/JS内联
+从渲染路径角度优化：
+- 最小化主线程工作：抓住关键渲染路径(即HTML、CSS、JavaScript之间的依赖关系谱)影响因素，优化路径，缩短加载时间
+  - 内联关键CSS/JS
 
   - 预加载
   
@@ -194,29 +202,16 @@ HttpDNS实现原理分为两步：
 
     动态导入
 
-  4）架构升级
-
+从架构角度优化：
+- 架构升级
   - PWA
-  
   - 同构(首屏SSR + 非首屏CSR)
-
-- 特性2：CSS执行不阻塞DOM构建，但会阻塞JS
-  
-  HTML解析和CSS计算是采用流水线处理，另外会阻止JS运行，其原因是JS可能对CSS有依赖
-
-  优化措施
-  
-  - 样式置于HTML文档头部，提前首屏渲染时间
-  - CSS文件按媒体类型拆分，浏览器根据link标签media属性加载对应样式
-  - 首屏避免使用导入样式@import，该方式是串行加载执行，无法并行调用，使用内联、嵌入或链接样式替代
-  - 通过CSS继承提高代码复用性
-  - 使用雪碧图(被合并的资源越小，请求时长越短的效果越明显)
 
 ## 图片优化
 属于加载优化在图片上进行的处理。
 
 - 大图懒加载
-- 小图使用雪碧图(CSS Sprite，将多张小图拼成一张合成图，再通过`background-position`属性进行定位)，或base64内嵌，或纯CSS实现，减少请求
+- 小图使用雪碧图(CSS Sprite，将多张小图拼成一张合成图，再通过`background-position`属性进行定位。被合并的资源越小，请求时长越短的效果越明显)，或base64内嵌，或纯CSS实现，减少请求
 - 格式选择：SVG > WEBP > JPG > PNG
 - 设计上避免大型背景图，图片不宽于640
 - 根据设备像素比或网络或设备，提供相应分辨率的图片
@@ -247,19 +242,26 @@ HttpDNS实现原理分为两步：
   
   ①使用flex布局替代table布局
   
-  ②尽可能避免强制布局的发生：如clientTop、clientLeft、clientWidth、clientHeight、offsetTop、offsetLeft、offsetWidth、offsetHeight、scrollTop、scrollLeft、scrollWidth、scrollHeight、getBoundingClientRect()、computedStyle等API调用
+  ②避免强制同步布局
 
   示例如下，
   ```javascript
-  // 先写后读，触发强制布局
+  // 相关属性或方法：
+  // clientTop、clientLeft、clientWidth、clientHeight、
+  // offsetTop、offsetLeft、offsetWidth、offsetHeight、
+  // scrollTop、scrollLeft、scrollWidth、scrollHeight、
+  // computedStyle、currentStyle
+  // getBoundingClientRect()
+
+  // 先写后读，触发强制同步布局
   function triggerStyleCalcAndLayout() {
     // 更新box样式
     box.classList.add('super-big');
     // 为了返回box的offsetHeight，浏览器必须先应用属性修改，接着执行布局过程
-    // 触发重绘的属性或方法：scrollXXX、offsetXXX、getBoundingClientReact、getComputedStyle、currentStyle
     console.log(box.offsetHeight);
   }
-  // 先读后写，避免强制布局
+
+  // 先读后写，避免强制同步布局
   function notTriggerStyleCalcAndLayout() {
     // 获取box.offsetHeight
     console.log(box.offsetHeight);
@@ -290,9 +292,9 @@ HttpDNS实现原理分为两步：
 ## 动画优化
 - 不同动画实现的差异
   
-  性能（从表现上看是否丢帧）：开启GPU的CSS动画 > 未开启GPU的CSS动画 > JS动画
+  性能(从表现上看是否丢帧)：开启GPU的CSS动画 > 普通CSS动画 > JS动画
   
-  可控性：JS动画可控；而CSS动画难控制
+  可控性：JS动画可控，CSS动画难以控制
 
 > 浏览器对每一帧的渲染工作要在16ms内完成，超出该时间则称为丢帧，一般控制帧率不超过60fps。
 > 帧率，即每秒帧数。帧率对于人眼是在50-60，若帧率低于30，称为卡顿(连续出现3个低于20fps)，若高于60则太快，俗称“亮瞎”。
@@ -328,7 +330,9 @@ HttpDNS实现原理分为两步：
 })()
 ```
 > 我们一般遇到的都是卡顿问题。
+> 
 > 频繁但较小的卡顿：主要原因是过高的渲染性能开销，在每一帧中做的事情太多，参考下面介绍的优化调整代码，甚至降低动画复杂(炫酷)程度。
+> 
 > 较大但偶发的卡顿：主要原因是运行复杂算法、大规模DOM操作等，考虑使用[`requestIdleCallback`](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)、[`worker`](https://developer.mozilla.org/en-US/docs/Web/API/Worker)、[`offScreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas)等。
 
 - CSS动画优化
@@ -337,35 +341,33 @@ HttpDNS实现原理分为两步：
 
   应用3D转换、`opacity`、`filter`或`will-change`，开启GPU加速
 
-- JS动画优化
-  
-  实现方式：
+- JS动画实现方式
 
-  - [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout)
+  1、[setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout)
 
-  - [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame)
+  2、[requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame)
 
-  - [Animation](https://developer.mozilla.org/en-US/docs/Web/API/Animation)
+    requestAnimationFrame动画实现相对于setTimeout有三大优势：
 
-  - [animate](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate)
+    - 防丢帧：setTimeout的执行步调与屏幕的刷新步调不一致，会丢帧。而requestAnimationFrame最大优势是由系统决定回调函数的执行时机，它能保证回调函数在屏幕每次刷新间隔中只被执行一次，不会引起丢帧，但注意控制回调任务的执行时长。
 
-  requestAnimationFrame动画实现相对于setTimeout有三大优势：
+    - 节省CPU开销：默认情况下，使用setTimeout实现的动画，当页面被隐藏或最小化时，setTimeout仍在后台执行，浪费CPU资源。而requestAnimationFrame则不同，当页面未激活，页面的屏幕刷新任务会被系统暂停，因此跟着系统步伐走的requestAnimationFrame也会停止渲染。
 
-  - 防丢帧：setTimeout的执行步调与屏幕的刷新步调不一致，会丢帧。而requestAnimationFrame最大优势是由系统决定回调函数的执行时机，它能保证回调函数在屏幕每次刷新间隔中只被执行一次，不会引起丢帧，但注意控制回调任务的执行时长。
+    - 回调节流：在高频率事件如resize、scroll中，使用requestAnimationFrame可保证每个刷新间隔内，函数只被执行一次。
 
-  - 节省CPU开销：默认情况下，使用setTimeout实现的动画，当页面被隐藏或最小化时，setTimeout仍在后台执行，浪费CPU资源。而requestAnimationFrame则不同，当页面未激活，页面的屏幕刷新任务会被系统暂停，因此跟着系统步伐走的requestAnimationFrame也会停止渲染。
+  3、[Animation](https://developer.mozilla.org/en-US/docs/Web/API/Animation)
 
-  - 回调节流：在高频率事件如resize、scroll中，使用requestAnimationFrame可保证每个刷新间隔内，函数只被执行一次。
+  4、[animate](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate)
 
-  后推出新的API，即后两种方式，在非复杂动画场景下，选择实现方式顺序如下：`animate` > `Animation` > 基于DOM的`requestAnimationFrame` > 基于DOM的`setTimeout`
+    后推出新的API，即`Animation`和`Element.animate`，在非复杂动画场景下，选择实现方式顺序如下：`Element.animate` > `Animation` > `requestAnimationFrame` > `setTimeout`
 
-- canvas动画优化
+  5、Canvas
 
-  复杂动画考虑使用canvas代替DOM操作，canvas动画优化在此单独介绍。
-  
-  ①尽可能减少调用渲染相关API的次数，尽可能调用渲染开销较低的API
+    复杂动画可以考虑使用Canvas动画，代替DOM动画。以下是使用Canvas实现动画时的可供参考的优化手段：
+    
+    - 尽可能减少调用渲染相关API的次数，尽可能调用渲染开销较低的API
 
-  比如执行`context.lineWidth = 5`，浏览器需立刻做一些事情，以便调用如`stroke`或`strokeRect`时，绘制的线宽正好5个像素。，它的赋值操作开销远大于对一个普通对象赋值的开销。再者，`putImageData`也是一个开销极为巨大的操作，不适合在每一帧里面去调用。下表是不同属性的赋值开销。
+      比如执行`context.lineWidth = 5`，浏览器需立刻做一些事情，以便调用如`stroke`或`strokeRect`时，绘制的线宽正好5个像素。，它的赋值操作开销远大于对一个普通对象赋值的开销。再者，`putImageData`也是一个开销极为巨大的操作，不适合在每一帧里面去调用。下表是不同属性的赋值开销。
 
   <style>
   .c-container {
@@ -420,44 +422,46 @@ HttpDNS实现原理分为两步：
     <div>400+</div>
   </div>
 
-  ②合理地调整调用绘图API顺序，降低context状态改变的频率 
+    - 合理地调整调用绘图API顺序，降低context状态改变的频率 
 
-  ③采取Canvas分层
-  
-  生成多个Canvas实例，把它们重叠放置，每个Canvas使用不同z-index定义层级，然后在相应的canvas层进行重绘。
+    - 采取Canvas分层
+    
+      生成多个Canvas实例，把它们重叠放置，每个Canvas使用不同z-index定义层级，然后在相应的canvas层进行重绘。
 
-  ④将渲染阶段的开销转嫁到计算阶段之上
-  
-  使用`drawImage`绘制同样大小的区域，数据源是一张和绘制区域尺寸相仿的图片的情形，比起数据源是一张较大图片的情形，前者开销要小一些。可以认为，两者相差的开销正是**裁剪**这一操作的开销。优化思路是将**裁剪**这一步事先做好，保存起来，每一帧中仅绘制不裁剪。
+    - 将渲染阶段的开销转嫁到计算阶段之上
+    
+      使用`drawImage`绘制同样大小的区域，数据源是一张和绘制区域尺寸相仿的图片的情形，比起数据源是一张较大图片的情形，前者开销要小一些。可以认为，两者相差的开销正是**裁剪**这一操作的开销。优化思路是将**裁剪**这一步事先做好，保存起来，每一帧中仅绘制不裁剪。
 
-  ⑤离屏绘制
+    - 离屏绘制
 
-  `drawImage`方法的第一个参数不仅可以接收Image对象，也可以接收Canvas对象，使用Canvas对象绘制的开销与使用Image对象的开销几乎完全一致
+      `drawImage`方法的第一个参数不仅可以接收Image对象，也可以接收Canvas对象，使用Canvas对象绘制的开销与使用Image对象的开销几乎完全一致
 
-  ```javascript
-  var offScreenCanvas = document.createElement('canvas');
-  offScreenCanvas.width = dw;
-  offScreenCanvas.height = dh;
-  offScreenCanvas.getContext('2d').drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
-  context.drawImage(offScreenCanvas, x, y);
-  ```
+    ```javascript
+    var offScreenCanvas = document.createElement('canvas');
+    offScreenCanvas.width = dw;
+    offScreenCanvas.height = dh;
+    offScreenCanvas.getContext('2d').drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+    context.drawImage(offScreenCanvas, x, y);
+    ```
 
 ## 内存优化
 前面介绍的渲染优化一般是从时间复杂度方面入手，而内存优化从空间复杂度上实现渲染间接优化。
 
-- 当上次触发的事件处理函数未执行完毕，则不触发
-- 事件委托
+- 当事件处理程序尚未执行结束，则不触发
+- 针对大量相同事件类型，可考虑使用事件委托
 - 防止内存泄漏，可以从以下方面进行检查：
 
-  1.闭包
+  1.使用闭包，需及时赋值为null
 
-  2.全局变量
+  2.意外的全局变量，为变量选择合适的作用域
 
-  3.分离的DOM节点
+  3.脱离的DOM节点，如删除的节点、只在内存中使用的缓存节点，及时赋值为null
 
-  4.控制台打印
+  4.console.log打印的对象，生产环境避免使用它
 
-  5.定时器
+  5.定时器未及时清除
+
+  6.事件处理器未及时删除
 
  > 如何定位？无痕模式(屏蔽Chrome插件对测试内存占用的影响)打开Chrome，打开开发者工具，找到Memory，记录复现过程中内存占用情况
 

@@ -362,7 +362,8 @@ app.all('*', function(req, res, next) {
   - 双方使用对称密钥加密正文，进行通信  
 
   ![](/network/http/TLS连接.png)
-
+  
+  <div id='ocsp'></div>
   > 过程中涉及了摘要、非对称加密、对称加密等算法，既保证传输快，又防止密钥泄漏
 
   > OCSP Stapling是一种优化TLS/SSL握手过程的技术。为了验证网站SSL证书是否有效，浏览器通常需要向证书颁发机构CA的OCSP服务器发起查询，这会增加延迟和隐私风险。OCSP Stapling允许网站在TLS握手时，主动将自己的有效证明(由CA签名)一并"装订"发送给浏览器。好处如下：
