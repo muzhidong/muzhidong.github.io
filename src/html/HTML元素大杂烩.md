@@ -132,15 +132,18 @@ tags:
   ```
 
   ```js
-  // 预加载JS，需要时执行 
+  // 预加载JS，通过load事件可控制执行时机 
   const link = document.createElement('link');
   link.rel = 'preload'; 
   link.as = 'script'; 
   link.href = 'preload-script.js';
-  // ...
-  const script = document.createElement('script');
-  script.src = 'preload-script.js'; 
-  document.body.appendChild(script);
+  link.addEventListener('load', () => {
+    // ...
+    // 在需要时执行脚本
+    const script = document.createElement('script');
+    script.src = 'preload-script.js'; 
+    document.body.appendChild(script);
+  })
   ```
 
 ## ul
