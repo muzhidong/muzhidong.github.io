@@ -15,10 +15,11 @@ tags:
 > 性能指标不只以上两个指标，详细可访问[LightHouse文档](https://developer.chrome.com/docs/lighthouse/overview?hl=zh-cn)进行完整地学习。
 
 ## 构建优化
-- 代码压缩、混淆
-- 第三方依赖独立打包
-- 改动频率低的代码独立打包为动态链接库
-- 按需加载：开启tree-shaking优化、按路由拆包、组件动态导入
+- 代码分割：运行时主代码、公共模块、第三方依赖单独打包
+- 开启tree-shaking
+- 按需加载：按路由拆包、组件动态导入
+- 开启Scope Hoisting(将有依赖关系的多个模块合并到一个函数中)
+- 资源压缩，包括HTML、CSS、JS、图片、字体、音视频等
 
 ## 网络优化
 ### 使用http/2
@@ -234,68 +235,60 @@ HttpDNS实现原理分为两步：
 一帧中主线程做的事情：
 ![主线程在一帧做了什么](/performance/一帧中主线程做的事情.png)
 
-- 1）JS事件处理
-  - 避免在事件处理函数执行长任务，考虑异步或线程处理，防止页面阻塞和布局混乱
-  - 使用CSS动画和touch事件实现滑动效果，而滚动效果使用原生
+下面根据渲染过程的每一步分别针对性优化：
 
-- 2）降低样式计算的范围和复杂度
-  
-  ①避免使用复杂选择器，层级越少越好
+- 1）JS执行
+  - 避免在事件处理函数执行长任务，考虑异步(这里用宏任务处理，若当中涉及DOM操作，则该部分在微任务处理，避免渲染不连续出现闪烁，或布局抖动，或数据不一致)或线程处理，防止页面阻塞和布局混乱
 
-  ②减少需要执行样式计算的元素个数
+- 2）样式计算
+  
+  降低其范围和复杂度
+  - 避免使用复杂选择器，层级越少越好
+  - 减少需要执行样式计算的元素个数
+  - 避免使用标签选择器和通配选择器
 
-- 3）避免大规模、复杂的布局
+- 3）布局
   
-  布局耗时取决于布局的DOM元素数量及其复杂程度
-  
-  ①使用新式布局如flex、grid，代替table、float等旧布局
-  
-  ②避免强制自动重排
+  避免其大规模、复杂化，其耗时取决于布局的DOM元素数量及其复杂程度
+  - 使用新式布局如flex、grid，代替table、float等旧布局
+  - 避免强制自动重排，可以缓存相关属性值或方法结果，避开读操作
+    ```javascript
+    // 相关属性或方法：
+    // clientTop、clientLeft、clientWidth、clientHeight、
+    // offsetTop、offsetLeft、offsetWidth、offsetHeight、
+    // scrollTop、scrollLeft、scrollWidth、scrollHeight、
+    // computedStyle、currentStyle
+    // getBoundingClientRect()
 
-  示例如下，
-  ```javascript
-  // 相关属性或方法：
-  // clientTop、clientLeft、clientWidth、clientHeight、
-  // offsetTop、offsetLeft、offsetWidth、offsetHeight、
-  // scrollTop、scrollLeft、scrollWidth、scrollHeight、
-  // computedStyle、currentStyle
-  // getBoundingClientRect()
+    // 先写后读，触发强制自动重排
+    function triggerStyleCalcAndLayout() {
+      // 更新box样式
+      box.classList.add('super-big');
+      // 为了返回box的offsetHeight，浏览器必须先应用属性修改，接着执行布局过程
+      console.log(box.offsetHeight);
+    }
 
-  // 先写后读，触发强制自动重排
-  function triggerStyleCalcAndLayout() {
-    // 更新box样式
-    box.classList.add('super-big');
-    // 为了返回box的offsetHeight，浏览器必须先应用属性修改，接着执行布局过程
-    console.log(box.offsetHeight);
-  }
+    // 先读后写，避免强制自动重排
+    function notTriggerStyleCalcAndLayout() {
+      // 获取box.offsetHeight
+      console.log(box.offsetHeight);
+      // 更新box样式
+      box.classList.add('super-big');
+    }
+    ```
 
-  // 先读后写，避免强制自动重排
-  function notTriggerStyleCalcAndLayout() {
-    // 获取box.offsetHeight
-    console.log(box.offsetHeight);
-    // 更新box样式
-    box.classList.add('super-big');
-  }
-  ```
+    强制自动重排示意图：
+    ![强制自动重排](/performance/强制自动重排.png)
+  
+  - 通过`classname`一次性改变样式，避免频繁操作样式
+  - 脱离文档流，在内存中操作DOM，避免频繁操作DOM：如创建文档片段`document.createDocumentFragment`进行操作再替换，或克隆节点`cloneNode`进行操作再替换，或`display:none`隐藏后进行操作再恢复显示
+  - 动画元素添加`position:absolute`，避免修改样式时回流
 
-  强制自动重排示意图：
-  ![强制自动重排](/performance/强制自动重排.png)
-  
-  ③通过`classname`一次性改变样式，避免频繁操作样式
-  
-  ④脱离文档流，在内存中操作DOM，避免频繁操作DOM：如创建文档片段`document.createDocumentFragment`进行操作再替换，或克隆节点`cloneNode`进行操作再替换，或`display:none`隐藏后进行操作再恢复显示
-  
-  ⑤动画元素添加`position:absolute`，避免修改样式时回流
-
-- 4）简化绘制复杂度、减少绘制区域
-  
-  ①提升移动或渐变元素的绘制层
-  
-  ②减少绘制区域
-  
-  ③简化绘制复杂度
-  
-  ④通过计算和判断，避免无谓的绘制操作
+- 4）绘制
+  - 提升移动或渐变元素的绘制层
+  - 减少绘制区域
+  - 简化绘制复杂度
+  - 通过计算和判断，避免无谓的绘制操作
 
 ## 动画优化
 - 不同动画实现的差异

@@ -26,9 +26,9 @@ tags:
 
 ## 媒体格式
 ### 图片格式
-- jpeg：有损压缩；大小较小；不支持动画和透明。多用于照片场景
-- png：无损压缩，分8位、24位、32位；位数越大，大小越大；不支持动画；8位和32位支持全透明，24位不支持透明。多用于图带文字场景
-- webp：支持有损压缩和无损压缩；有损下比jpg小、无损下比png小；支持动画和全透明
+- jpeg：有损压缩；大小较小；不支持动画和透明。背景图可选择此格式
+- png：无损压缩，分8位、24位、32位；位数越大，大小越大；不支持动画；8位和32位支持全透明，24位不支持透明。透明图可选择此格式
+- webp：支持有损压缩和无损压缩；有损下比jpg小、无损下比png小；支持动画和全透明。兼容性较低
 - gif：无损压缩，但仅支持256种颜色；大小较大；支持动画；支持1位透明(全透或不透)
 - apng：基于png扩展的一种动画格式，增加对动画图像的支持。无损压缩，支持24位真彩色图片，支持8位Alpha通道，向下兼容PNG；比gif大，但高清全彩、支持全透。目前[兼容性较好](https://caniuse.com/?search=APNG)
 	```javascript
@@ -46,7 +46,7 @@ tags:
 		apngTest.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACGFjVEwAAAABAAAAAcMq2TYAAAANSURBVAiZY2BgYPgPAAEEAQB9ssjfAAAAGmZjVEwAAAAAAAAAAQAAAAEAAAAAAAAAAAD6A+gBAbNU+2sAAAARZmRBVAAAAAEImWNgYGBgAAAABQAB6MzFdgAAAABJRU5ErkJggg==";
 	}());
 	```
-- svg：矢量无损，非高彩；大小极小；结合JS可实现动画；支持全透明
+- svg：矢量无损，非高彩；大小极小；结合JS可实现动画；支持全透明。图标可选择此格式
 
 > EXIF：可交换图像文件格式，专门为数码相机的照片设定，可以获取照片的属性信息和拍摄数据。此处提供[EXIF在线工具](https://www.sojson.com/image/exif.html)
 
