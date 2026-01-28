@@ -17,7 +17,7 @@ tags:
 ## 构建优化
 - 代码压缩、混淆
 - 第三方依赖独立打包
-- 稳定代码可考虑独立打包为动态链接库
+- 改动频率低的代码独立打包为动态链接库
 - 按需加载：开启tree-shaking优化、按路由拆包、组件动态导入
 
 ## 网络优化
@@ -32,29 +32,37 @@ tags:
 - 加密套件优化：优先选择ECDHE-RSA-AES128-GCM-SHA256，其综合安全、性能和开销，是最优选
 
 ### 控制传输大小和减少请求数
-- nginx开启gzip，压缩资源大小，网络资源占用率低
-  ```javascript
-  // 除了nginx开启，还可以通过以下两种方式
-  // 1、静态压缩，打包处理
-  // webpack配置插件BrotliWebpackPlugin(brotli压缩)或CompressionPlugin(gzip压缩)
+- nginx开启gzip，压缩资源大小
+  
+  还有以下两种方式：
+  ```conf
+  # 1、构建时压缩，优先使用预压缩文件
+  # 1.1、webpack配置插件BrotliWebpackPlugin(brotli压缩)或CompressionPlugin(gzip压缩)
+  # 注意：图片无需压缩；字体文件eot、ttf、svg可压缩，woff/woff2已内建压缩
+  
+  # 1.2、使用预压缩文件
+  gzip on;
+  gzip_static on;
 
-  // 2、动态压缩，代码注入
+  # 验证：检查etag是否带W/，带则表示nginx实时压缩，未使用预压缩文件
+  ```
+
+  ```js
+  // *2、运行时压缩
   // 全局注入方式
   const express = require('express');
   const compression = require('compression');
-
   const app = express();
   app.use(compression());
   app.use(express.static('public'));
-
   const listener = app.listen(process.env.PORT, function() {
-  console.log('Your app is listening on port ' + listener.address().port);
+    console.log('Your app is listening on port ' + listener.address().port);
   });
-
-
+  ```
+  
+  ```js
   // 局部注入方式
   const express = require('express');
-
   const app = express();
   app.get('*.js', (req, res, next) => {
     req.url = req.url + '.gz';
@@ -98,7 +106,7 @@ HttpDNS实现原理分为两步：
 >
 > revving技术属于覆盖式发布。若静态资源和页面属于分开部署，可能先部署页面再部署静态资源，会出现用户访问到旧的资源，也可能先部署静态资源再部署页面，会出现没有缓存用户加载到新资源而报错，以上本质上都是覆盖式发布惹的祸。所以静态资源需要非覆盖式发布，即用静态资源的文件摘要信息给文件命名，这样每次更新资源不会覆盖原来的资源，先将资源发布上去，这时存在两种资源，用户用旧页面访问旧资源，然后再更新页面，用户变成新页面访问新资源，就能做到无缝切换。目前比较流行的是给文件名加`content-hash`
 
-## 加载优化
+## 交付优化
 从浏览器渲染引擎特性角度优化：
 - 特性1：JS执行会阻塞DOM和CSS OM构建
 
@@ -198,7 +206,7 @@ HttpDNS实现原理分为两步：
     
     图片懒加载：先占位，待元素可见(借助`IntersectionObserver`)再加载资源地址
     
-    长列表懒加载
+    长列表滚动加载
 
     动态导入
 
@@ -209,7 +217,7 @@ HttpDNS实现原理分为两步：
   - PWA
 
 ## 图片优化
-属于交付(加载)优化在图片上进行的处理。
+属于交付优化在图片上进行的处理。
 
 - 大图提供不同分辨率的图片，根据设备像素比，或网络情况，或设备信息，展示相应图片
 - 小图使用雪碧图(CSS Sprite，将多张小图拼成一张合成图，再通过`background-position`属性进行定位。被合并的资源越小，请求时长越短的效果越明显)，或base64内嵌，或纯CSS实现，减少请求数
