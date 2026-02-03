@@ -14,28 +14,28 @@ tags:
 - null：空类型，表示对象不存在
 - Boolean：布尔类型
 - String：字符串类型
-- Number：数字类型。包括非数字NaN (Not a Number)，正无穷大Infinity，负无穷大-Infinity，整数和浮点数
+- Number：数字类型。包括非数字NaN(Not a Number)、正无穷大Infinity、负无穷大-Infinity、整数和浮点数
 
   占8字节，分为三部分
-  - 0-51位，表示分数部分f，共52位
-  - 52-62位，表示指数部分e，共11位
-  - 63位，符号位，为0表示正数，为1表示负数
-
+  - 第0-51位表示52位二进制小数f
+  - 第52-62位表示11位二进制指数e
+  - 第63位表示符号位，为0表示正数，为1表示负数
+  
   ```javascript
   const num = 1000000000000000000000000000
-  // 数字类型溢出：parseInt第一个参数会转换为字符串，当数值非常大时可能出现精度丢失
+  // 溢出：parseInt第一个参数会转换为字符串，当数值非常大时可能出现精度丢失
   console.log(parseInt(num, 10)) // 1
   console.log(parseInt(num, 10) === num) // false
   // JS存在精度和越界问题，所以一般不用JS做精确计算，接口传递数值类型时用字符串替代
   console.log(String(num)) // 1e+27
   ```
 
-  > 绝对值计算公式
-  > - 当0 < e < 2047, f >= 0时, abs = 1.f * 2 ^ (e - 1023) 
-  > - 当e = 0, f > 0时, abs = 0.f * 2 ^ (e - 1022) 
-  > - 当e = 0, f = 0时, abs = 0 
-  > - 当e = 2047, f > 0时, abs = NaN 
-  > - 当e = 2047, f = 0时, abs = 无穷 
+  > 通过IEEE754双精度浮点数的二进制表示计算绝对值
+  > - 当0 < e < 2047，f >= 0时，此时浮点数称为规格化数，abs = 1.f * 2^(e - 1023)，其中1.f = 1 + f * 2^−52
+  > - 当e = 0，f > 0时，此时浮点数称为非规格化数或次正规数，abs = 0.f * 2^-1022，其中0.f = f * 2^−52
+  > - 当e = 0，f = 0时，abs = 0
+  > - 当e = 2047，f > 0时，abs = NaN
+  > - 当e = 2047，f = 0时，abs = 无穷 
 
 - Object：对象类型
 - [Symbol](./ES6上篇#symbol数据类型)：符号类型
@@ -62,6 +62,7 @@ tags:
   typeof null === 'object' // true
   null instanceof Object  // false
   ```
+  > typeof null === 'object'结果为true，历史原因如下：在JavaScript早期实现中，为提升性能，使用32位系统的变量类型信息存储方式。低位的类型标签中，000表示对象。而null的机器码对应全零，因此被误判为对象类型
 
 ## 类型隐式转换
 JS是弱类型的体现之一
