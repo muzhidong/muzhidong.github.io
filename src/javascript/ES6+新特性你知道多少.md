@@ -394,4 +394,63 @@ Promise.any([
 <!-- TODO: -->
 
 ## ES2025
-<!-- TODO: -->
+- Promise.try(fn)
+```js
+// 是Promise.resolve().then(fn)简写
+Promise.try(() => 'Promise.try API is available.').then(value => {
+  console.log(value)
+}).catch(err => {
+  console.error(err.message)
+})
+```
+
+- 数组迭代器对象新增drop、every、filter、find、flatMap、forEach、map、reduce、some、take、toArray等方法
+```js
+const arrIter = [1, 2, 3, 4, 5][Symbol.iterator]()
+// drop(n)表示跳过前n个元素，take(n)表示只取n个元素
+for (const n of arrIter.drop(2).take(2)) {
+  console.log(n); // 3 4
+}
+// toArray()表示将迭代器对象转化为数组
+console.log(arrIter.toArray() instanceof Array) // true
+```
+
+- RegExp.escape(str)
+```js
+new RegExp('Hello(World)').test('Hello(World)') // false
+// 转义正则特殊字符
+new RegExp('HelloWorld').test('HelloWorld') // true
+```
+
+- 允许在正则表达式中动态启用或禁用标志(如i、m、s)
+```js
+// 使用语法如表示启用的(?i:pattern)，或表示禁用的(?-i:pattern)
+const regex = /^(?i:abc)def(?-i:ghi)$/
+console.log(regex.test("AbcDefGHI")) // true
+```
+
+- 允许在正则表达式的不同分支中使用相同的命名捕获组名称，只要这些组不会同时匹配
+```js
+const regex = /^(?<year>\d{4})-(?<month>\d{2})|(?<year>\d{4})\/(?<month>\d{2})$/
+const match1 = regex.exec("2026/02")
+console.log(match1.groups.year, match1.groups.month) // 2026 02
+```
+
+- 集合对象新增union、intersection、difference等方法
+```js
+const set1 = new Set([1, 2, 3])
+const set2 = new Set([3, 4, 5])
+// 取并集
+console.log(set1.union(set2)) // Set(5) {1, 2, 3, 4, 5}
+// 取交集
+console.log(set1.intersection(set2)) // Set(1) {3}
+// 取差集
+console.log(set1.difference(set2)) // Set(2) {1, 2}
+```
+
+- 支持json文件模块化
+```js
+import config from './package.json' with { type: 'json' }
+```
+
+- TypeArray新增Float16Array
