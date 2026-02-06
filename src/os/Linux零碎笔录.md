@@ -46,20 +46,28 @@ cat /etc/redhat-release
 ### wget安装Node
 - 检查是否安装编译器、Python等环境和xz等必要工具，若没有则安装
 ```bash
-# 查询已安装的所有软件
-# rpm -qa
-
-# 查询指定包名是否已安装
-# rpm -q <software1> 
-
-# 安装尚未安装的包
-# yum -y install <software1>[,<software2>]
+# 查询已安装的所有软件：rpm -qa
+# 查询指定包是否安装：rpm -q <software> 
+# 安装：rpm –ivh <software>
+# 卸载：rpm –e <software>
 
 # 查询是否安装编译器、Python
 rpm -q gcc
 rpm -q gcc-c++
 rpm -q kernel-devel
 python -V || rpm -q python
+
+
+# 查询已安装的所有软件：yum list
+# 安装：yum -y install <software1>[,<software2>]
+# 卸载：yum -y remove <software>
+# 查询指定包的依赖包：yum deplist <software>
+# 列出所有可更新的软件清单：yum check-update
+# 更新所有软件：yum update
+# 仅更新指定软件：yum update <software>
+# 查找软件包：yum search <software>
+# 清除缓存：yum clean
+
 # 安装编译器、Python
 yum -y install gcc gcc-c++ kernel-devel python
 ```

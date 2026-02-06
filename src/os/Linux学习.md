@@ -3,19 +3,22 @@
 ## Linux系统目录
 ```
 |-- /         根目录
-|-- /bin      存放必要的命令
 |-- /boot     存放内核以及启动所需的文件
 |-- /dev      存放设备文件
-|-- /etc      存放系统配置文件
-|-- /home     普通用户的宿主目录，用户数据存放在其主目录中
-|-- /lib      存放必要的运行库
-|-- /mnt      存放临时的映射文件系统，通常用来作挂载
-|-- /proc     存放存储进程和系统信息
-|-- /root     超级用户的主目录
 |-- /sbin     存放系统管理程序
-|-- /tmp      存放临时文件
-|-- /usr      存放应用程序，命令程序文件，程序库，手册和其它文档
+|-- /bin      存放必要的命令
+|-- /proc     存放存储进程和系统信息
+|-- /lib      存放必要的运行库
+
 |-- /var      系统默认日志存放目录
+|-- /tmp      存放临时文件
+
+|-- /mnt      存放临时的映射文件系统，通常用来作挂载
+|-- /etc      存放系统配置文件
+
+|-- /usr      存放应用程序，命令程序文件，程序库，手册和其它文档
+|-- /home     普通用户的宿主目录，用户数据存放在其主目录中
+|-- /root     超级用户的主目录
 ```
 
 ## 用户命令
@@ -96,16 +99,10 @@ usermod -L mudong
 usermod -U mudong
 ```
 
-- chfn
+- id
 ```bash
-# 修改用户信息
-chfn <用户名>
-```
-
-- finger
-```bash
-# 显示用户信息
-finger <用户名>
+# 查看用户是否存在
+id mudong
 ```
 
 - passwd
@@ -123,26 +120,50 @@ passwd -l <用户名>
 change –M 100 <用户名>
 ```
 
-- whoami
+- chfn
+```bash
+# 修改用户信息
+chfn <用户名>
+```
+
+- whoami/who
 ```bash
 # 查看当前用户名
 whoami
+# 相较上面命令，会另外显示用户登录时间和方式
+who am i
+# 查看登录本台机器的用户
+who
 ```
+
+- finger
+```bash
+# 显示用户信息
+finger <用户名>
+```
+
+## 文件命令
+- 文件属性的字符表示
+  - d指文件夹
+  - l指链接文件，可认为是快捷文件(夹)
+  - b指设备文件，比如硬盘
+  - c指字符设备文件，比如鼠标、键盘
+  - s指Socket
+  - p指管道
 
 - chmod
 ```bash
 # 修改用户对文件的访问权限
-# 文件权限，标志位共九个，分为3组，分别代表文件所属用户权限，文件所属用户组权限和其它用户权限
-# 文件权限标识位含义：r(可读 ) w(可写) x(可执行)  -(无权限)
-# 用户范围含义：u（user），g（group），o（other），a（all）
+# 文件权限标识位有9位，分为3组，分别表示文件所属用户权限，文件所属用户组权限和其它用户权限，每组由3个标识位组成，分别表示是否可读，是否可写，是否可执行。其中，可读用r/4表示，可写用w/2表示，可执行用x/1表示，无权限用-/0表示。u表示文件所属用户，g表示文件所属用户组，o表示其他用户，a表示所有用户
+# 方式一：8进制数值控制整体权限，每1位代表每组权限，每位值代表3个标识位之和
 chmod 760 filename         # 文件所属用户有读写执行权限，文件所属用户组有读写权限，其他用户没有权限
-
+# 方式二：按组赋值权限
 chmod g=rw,o=-  my_file    # 组成员有访问文件的读写权限，其他用户则没有
-
+# 方式三：按组加减权限
 chmod u+x  koorka.file     # 给文件拥有者添加执行权限 
+chmod a+rw koorka.file     # 所有人具有读写权限
+chmod a-rwx koorka.file    # 所有人拒绝访问
 chmod go-r koorka.file     # 给文件属组和其它用户减去读取权限 
-chmod a-rwx koorka.file    # 所有人拒绝访问 
-chmod a+rw koorka.file     # 所有人具有读写权限 
 ```
 
 - chown
@@ -152,12 +173,11 @@ chmod a+rw koorka.file     # 所有人具有读写权限
 chown -R mongo:mongo /root/mongo
 ```
 
-## 文件命令
-- 文件属性的字符表示
-	- d指文件夹
-	- l指链接文件，可认为是快捷文件(夹)
-	- b指设备文件，比如硬盘
-	- c指字符设备文件，比如鼠标、键盘
+- chgrp
+```bash
+# 改变文件所属用户组
+chgrp [group] [file]
+```
 
 - df/du
 ```bash
@@ -215,6 +235,12 @@ du -d 1 -h # 查看当前目录内文件夹的大小
 # 3.删除超大文件
 ```
 
+- pwd
+```bash
+# 查看当前路径
+pwd
+```
+
 - ls
 ```bash
 # 先认识文件信息的含义，以下面举例说明，
@@ -245,24 +271,43 @@ cd ..
 ```bash
 # 查看文件内容
 cat package.json
+# 查看所有用户，有两种查看路径
+cat /etc/passwd  # 配置文件
+cat /etc/shadow  # 影子口令文件
+# 查看所有用户组，有两种查看路径
+cat /etc/group   # 配置文件
+cat /etc/gshadow # 影子口令文件
+
 # 查看文件前10行
 head -n 10 package.json
+
 # 查看文件倒数10行
-tail -n 10 package.json # 使用tail查看的内容比cat\strings少很多？
+tail -n 10 package.json
 
-# 查看所有用户，有两种查看路径
-cat /etc/passwd  <配置文件>
-cat /etc/shadow  <影子口令文件>
+# 只打印ASCII内容，非ASCII的会被过滤
+strings README.md
+```
 
-# 查看所有用户组，有两种查看路径
-cat /etc/group   <配置文件>
-cat /etc/gshadow <影子口令文件>
+- more/less
+```bash
+# 以vi编辑器方式可滚动查看文件，对大文件阅读更友好
+more README.md
+less README.md
 ```
 
 - grep
 ```bash
-# 选项v表示在搜索路径内查找不含搜索内容的内容
-grep -v <搜索内容> <搜索路径>  
+# grep [option] <搜索内容> <搜索文件>
+# 选项如下：
+# -c：只输出搜索路径内匹配行的总数
+# -I：搜索内容中的字母不区分大小写
+# -h：多文件查询时不显示文件名
+# -l：多文件查询时只输出包含匹配字符的文件名
+# -n：显示匹配行及行号
+# -s：不显示不存在或无匹配文本的错误信息
+# -v：在搜索路径内显示不包含匹配文本的所有行
+grep -c dev package.json  
+grep -n dev *.json  
 ```
 
 - find
@@ -277,21 +322,13 @@ find . -name abc -type d -mtime -1
 find . -name test.txt -type -f -exec cp {} /mudong \; # {}表示查找到的目标
 ```
 
-- scp
-```bash
-# 前提是两系统间能通过ssh连接
-# 从window传输文件到linux
-scp /path/to/file user@ip_address:/path/to  # 单文件传输
-scp -r /path/to/dir user@ip_address:/path/to # 多文件传输
-# 从linux传输文件到window或mac
-scp user@ip_address:/path/to/file /path/to  # 单文件传输
-scp -r user@ip_address:/path/to/dir /path/to # 多文件传输
-```
-
 - touch
 ```bash
 # 新建文件
 touch <fileName>
+# 更便捷的方式：自动新建且写入
+echo 'abc' > a.txt # 覆盖写入
+echo 'edf' >> a.txt # 追加写入
 ```
 
 - mkdir
@@ -312,20 +349,6 @@ rm -rf <path>
 rmdir <path>
 ```
 
-- sh
-
-直接输入`sh`进入shell脚本终端，输入`exit`退出shell终端
-```bash
-# 表示边执行，边打印执行代码
-sh -x <脚本名称> 
-```
-
-- source
-```bash
-# 执行文件
-source locale.conf
-```
-
 - mv
 ```bash
 # 移动文件
@@ -340,6 +363,31 @@ mv -f ./source/a.txt ./target/
 cp ./source/a.txt ./target/
 # 复制目录下所有文件
 cp -R ./source/ ./target/
+```
+
+- source
+```bash
+# 执行文件
+source locale.conf
+```
+
+- scp
+```bash
+# 前提是两系统间能通过ssh连接
+# 从window传输文件到linux
+scp /path/to/file user@ip_address:/path/to  # 单文件传输
+scp -r /path/to/dir user@ip_address:/path/to # 多文件传输
+# 从linux传输文件到window或mac
+scp user@ip_address:/path/to/file /path/to  # 单文件传输
+scp -r user@ip_address:/path/to/dir /path/to # 多文件传输
+```
+
+- sh
+
+直接输入`sh`进入shell脚本终端，输入`exit`退出shell终端
+```bash
+# 表示边执行，边打印执行代码
+sh -x <脚本名称> 
 ```
 
 ## 进程命令
@@ -447,6 +495,12 @@ ifconfig eth0 | grep inet
 ifconfig eth0 | grep HWaddr
 ```
 
+- hostname
+```bash
+# 查看主机名
+hostname
+```
+
 - nslookup
 ```bash
 # 查看域名解析情况
@@ -473,12 +527,6 @@ ping <ip>
 # 查看端口连通性、是否占用
 # telnet是windows标准服务，但在linux和mac需要自行安装telnet
 telnet <ip> <port>
-```
-
-- hostname
-```bash
-# 查看主机名
-hostname
 ```
 
 - curl
@@ -520,9 +568,17 @@ ssh root@106.53.127.43
 
 
 ## 系统命令
+- enable
+```bash
+# 查看系统内部命令
+enable
+```
+
 - which
 ```bash
-# 查看命令的可执行路径
+# 查看命令的所在执行路径和别名信息，若查看的是内部命令则只提示它是内置命令，而where命令会另外打印执行路径，type则无异
+which cd
+# cd: shell built-in command
 which ssh
 # /usr/bin/ssh
 ```
@@ -532,9 +588,7 @@ which ssh
 # 查看系统内核信息
 uname [-r]
 # 查看系统详细信息
-uname -a
-more /etc/*release*
-cat /etc/os-release
+uname -a # cat /etc/os-release 或。more /etc/*release*
 ```
 
 - locale/localectl
@@ -553,18 +607,39 @@ localectl set-locale LANG=zh_CN.utf8  #如果不起效，再执行命令 source 
 ```bash
 # 查看日历
 cal
+# 查看某年日历
+cal [year]
 ```
 
 - date
 ```bash
 # 查看日期
 date
+# 只查看年、月、日、时、分或秒
+date +%Y
+date +%m
+date +%d
+date +%H
+date +%M
+date +%S
 ```
 
 - env
 ```bash
 # 查看环境变量
 env
+```
+
+- ln
+```bash
+# 建立软链接
+ln -s /path/to/original /path/to/link
+```
+
+- history
+```bash
+# 显示终端命令操作记录
+history
 ```
 
 - 拓展一个分区 
@@ -578,22 +653,49 @@ mount <分区名> <挂载路径>
 ```
 
 ## 工具命令
-- man <命令名称>
+- man 
+```bash
+# 输出命令使用说明
+man [cmd]
+```
 
-	输出命令使用说明
+- 输入输出
+```bash
+# 从输入中写入变量var
+read var  
+# 输出变量var
+echo $var
+```
+
+- gzip/gunzip
+```bash
+# 只能压缩为gz文件，但不能压缩目录，也不保留原文件
+gzip <file>
+# 解压文件，但不保留原文件
+gunzip <file>
+```
+
+- zip/unzip
+```bash
+# 压缩文件或目录，会保留原文件
+zip a.zip a.txt
+# 解压文件，会保留原文件
+zip -r a.zip a.txt # 存在文件直接覆盖
+unzip a.zip # 存在文件会询问操作
+```
+
+- tar
+```bash
+# 压缩文件
+tar -cf test.tar.gz test.txt
+# 解压文件
+tar -xf test.tar.gz
+```
 
 - textutil
 ```bash
 # textutil -convert <要转换的格式> <要转换的文件>
 textutil -convert html *.webarchive
-```
-
-- 控制台输入输出
-```bash
-# 读取输入，并存入var
-read var  
-# 打印
-echo $var
 ```
 
 ## vi/vim编辑器
