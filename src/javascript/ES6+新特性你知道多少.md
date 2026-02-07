@@ -51,7 +51,7 @@ tags:
 
 - 正则
   ```javascript
-  // u表示启用Unicode模式，.可以匹配unicode字符
+  // u表示启用Unicode模式，.可以匹配unicode字符，默认开启
   console.log(new RegExp(/foo.bar/).test('foo\u0000bar')) // true
   console.log(new RegExp(/foo.bar/u).test('foo\u0000bar')) // true
 
@@ -76,11 +76,11 @@ tags:
   const re1 = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/
   const result = re1.exec('2018-04-30')
   console.log(result) // ["2018-04-30", "2018", "04", "30"]
-  // \k<name>引用命名捕获组
+  // \k<name>引用命名捕获组。之前是通过\1、\2方式引用捕获组
   const re2 = /(?<fruit>apple|banana)===\k<fruit>/
   console.log(re2.test('apple===orange')) // false
   console.log(re2.test('banana===banana')) // true
-  // $<name>在replace参数里引用命名捕获组
+  // $<name>在replace参数里引用命名捕获组。之前是通过$1、$2方式引用捕获组
   const re3 = /(?<firstName>[A-Za-z]+)\s(?<lastName>[A-Za-z]+)$/
   console.log('Li Qiang'.replace(re3, 'Mr(s) $<lastName> $<firstName>')) // Mr(s) Qiang Li
 
@@ -93,6 +93,8 @@ tags:
   // 相应地，早期已支持前向断言
   // 匹配前面是A的B：(?<=A)B 
   // 匹配前面不是A的B：(?<!A)B 
+
+  // ⚠️(?:)表示非捕获性分组，(?>)表示固化分组，又叫原子组，表示该分组在做匹配时不能被忽略。注意与捕获组、命名捕获组、前向断言、后向断言的写法差异，避免混淆！
   ```
 
 - rest parameter and spread operator support for object properties

@@ -310,6 +310,38 @@ grep -c dev package.json
 grep -n dev *.json  
 ```
 
+> 扩展：
+
+> 基本的正则表达式：Basic Regular Expression，简称BREs
+> 
+> 扩展的正则表达式：Extended Regular Expression，简称EREs
+> 
+> Perl正则表达式：Perl Regular Expression，简称PREs
+>
+> <a href='/os/regexp.jpg' title='BREs、EREs、PREs比较' alt='BREs、EREs、PREs比较'>BREs、EREs、PREs比较</a>
+
+> grep支持BREs、EREs、PREs
+>
+> grep指令后不跟任何参数，则表示要使用BREs
+>
+> grep指令后跟-E，则表示要使用EREs
+>
+> grep指令后跟-P, 则表示要使用PREs
+
+> egrep支持EREs、PREs
+>
+> egrep指令后不跟任何参数, 则表示要使用EREs
+>
+> egrep指令后跟-P参数, 则表示要使用PREs
+
+> sed支持BREs、EREs
+>
+> sed指令默认使用BREs
+>
+> sed指令后跟-r参数，则表示要使用EREs
+
+> awk支持EREs, 默认使用EREs
+
 - find
 ```bash
 # 搜索/路径下名为i18n的文件

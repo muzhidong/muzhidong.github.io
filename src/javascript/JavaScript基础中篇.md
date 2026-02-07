@@ -251,6 +251,16 @@ tags:
   concat(str1, str2, …, strn)：返回连接多个字符串的新字符串
 
   replace(regexp,str/fn)：用str替换匹配regexp的子串，或提供一个回调函数，以其返回值进行替换，该函数的参数分别是匹配子串、匹配子串中的分组列表参数（参数数量不定，看有多少分组）、匹配子串在原串的偏移量、原串
+  ```js
+  const tmp = "An ${a} a ${b} keeps the ${c} away"
+  const obj = { a:"apple", b:"day", c:"doctor"}
+  function transform(t, o) {  
+    return t.replace(/\${(.)}/g, function(m, p) {
+      return o[p]
+    });
+  }
+  transform(tmp, obj)
+  ```
 
   4、比较
 
@@ -492,9 +502,11 @@ tags:
   
   global：是否全局匹配
   
-  source：获取正则表达式文本
-  
   ignoreCase：是否忽略大小写
+
+  multiline：是否多行匹配
+
+  source：获取正则表达式文本
   
   lastIndex：指定下一次匹配的起始索引，可跟exec混合使用
 
@@ -504,9 +516,17 @@ tags:
 
   test(s)：指定要检索的字符串，若有匹配的文本则返回true，否则返回false。
 
-> 当正则对象使用了标识g(global)或y(stricky)时，每一次调用，其属性lastIndex会记录匹配字符串的结束索引+1，若索引检索到末尾，发现没找到匹配的，则此次调用返回false，lastIndex变回0，下次调用重新从开头开始匹配。如果拿这个方法去对同一个字符串进行多次调用的话，结果未必总是相同的。示例如下，
+- 正则表达式书写方式
+  
+  JS风格：new RegExp(正则字符串, 修饰符);
+  
+  Perl风格：/正则/修饰符
+  
+  修饰符有忽略大小写i、全局匹配g、多行匹配m
+
+> 当正则对象使用了标识g(global)或y(sticky)时，每一次调用，其属性lastIndex会记录匹配字符串的结束索引+1，若索引检索到末尾，发现没找到匹配的，则此次调用返回false，lastIndex变回0，下次调用重新从开头开始匹配。如果拿这个方法去对同一个字符串进行多次调用的话，结果未必总是相同的。示例如下，
 ```js
-var str = "pw1外";
+var str = "ab1汉";
 var regExp = /\D{2}/g;
 
 console.log(regExp.lastIndex); // 0
@@ -522,23 +542,15 @@ console.log(regExp.lastIndex); //2
 // 解决办法：每次调用前重新分配一个正则对象
 ```
 
-- 正则表达式书写方式
-  
-  JS风格：new RegExp(正则字符串, 修饰符);
-  
-  Perl风格：/正则/修饰符
-  
-  修饰符有忽略大小写i、全局匹配g、多行匹配m
-
 - 常见正则表达式
 ```javascript
-// 1、正则.*?表示非贪婪匹配模式，尽可能匹配少的
+// 1、*?或+?或{n,m}?属于非贪婪匹配的正则表达式，表示尽可能匹配少的
 // 示例一
 function render(template, context) {
   return template.replace(/{{(.*?)}}/g, (match, key) => context[key.trim()])
 }
 const template = "{{name}}很厉name害，才{{age}}岁";
-const context = { name: "jawil", age: "15" };
+const context = { name: "tom", age: "15" };
 console.log(render(template, context));
 
 // 示例二
@@ -566,23 +578,40 @@ console.log(render(template, context));
 // /^(?![0-9]+$)(?![A-Za-z]+$)(?![?~!,\.#&@$%()|{}"<>'\+\*\-:;^_`=/\\\[\]]+$)[?~!,\.#&@$%()|{}"<>'\+\*\-:;^_`=/\\\[\]0-9A-Za-z]{6,16}$/
 
 
-// 6、千分位处理
+// 6、数字, 字母, 字符至少包含两种, 同时不能包含中文和空格，长度为6-16位的正则表达式
+// /(?!^[0-9]+$)(?!^[A-z]+$)(?!^[^A-z0-9]+$)^[^\s\u4e00-\u9fa5]{6,16}$/
+
+
+// 7、千分位
 // 小数：
 // '1230.0321'.replace(/(\B)(?=(\d{3})+\.)/g, '$1,')  
 // 整数： 
-// '1230'.replace(/(\B)(?=(?:\d{3})+$)/g, '$1,')    
-// '1230'.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+// '1234567890'.replace(/\B(?=(\d{3})+$)/g, ',')
+// 带内容混杂的数字：    
+// '1234567890'.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
 
-// 7、提取src属性的img标签：
+// 8、提取src属性的img标签：
 // /(?<=\<img src=")[\:\/\.\-a-z0-9]*(?=">)/g
 // 网上：/\\< *[img][^\\>]*[src] *= *[\\"\']{0,1}([^\\"\'\ >]*)/
 
 
-// 8、密码验证，非纯数字或字母：^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$
+// 9、中国邮政编码: [1-9]\d{5}(?!\d)
 
 
-// 9、cron表达式
+// 10、中文字符：/^[\u4e00-\u9fa5]*$/
+
+
+// 11、Email: ^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$
+
+
+// 12、URL: ^https?://([\w-]+.)+[\w-]+(/[\w-./?%&=]*)?$
+
+
+// 13、身份证号: ^(\d{15}|\d{17}(\d|X))$
+
+
+// 14、cron表达式
 const secondRegex =
   /^\*$|^\?$|(^([0-9]|[1-5][0-9])-([0-9]|[1-5][0-9])$)|(^([0-9]|[1-5][0-9])\/\d+$)|(^(([0-9]|[1-5][0-9]),)*([0-9]|[1-5][0-9])$)/;
 
@@ -602,10 +631,6 @@ const weekRegex =
   /^\*$|^\?$|(^(SUN|MON|TUE|WED|THU|FRI|SAT)-(SUN|MON|TUE|WED|THU|FRI|SAT)$)|(^(SUN|MON|TUE|WED|THU|FRI|SAT)#\d+$)|(^(SUN|MON|TUE|WED|THU|FRI|SAT)L$)|(^((SUN|MON|TUE|WED|THU|FRI|SAT),)*(SUN|MON|TUE|WED|THU|FRI|SAT)$)/;
 
 const yearRegex = /^\*$|^\?$|^((\d{4,4})(\,?))+$|(^(\d{4,})(\-|\,|\/)(\d{4,}|\d{1,2}|)+$)/;
-
-
-// 10、中文
-const chineseRegex = /^[\u4e00-\u9fa5]*$/;
 ```
 
 ## Error
