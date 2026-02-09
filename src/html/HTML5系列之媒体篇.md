@@ -72,34 +72,34 @@ tags:
 ## 通用因特网邮件扩展MIME
 描述消息内容类型的因特网标准，MIME消息包含文本，图像，音频，视频以及其他应用程序专用的数据。官方的MIME信息由IETF提供，[点这完整查看MIME类型列表](https://www.iana.org/assignments/media-types/media-types.xhtml)。这里只列举常见MIME类型与其对应的文件后缀：
 
-不同格式的文本
+文本MIME对应格式
 - text/plain：txt
 - text/html：html
 
-不同格式的图像
+图像MIME对应格式
 - image/bmp：bmp
 - image/gif：gif
 - image/jpeg：jpg/jpeg
 - image/png：png
 - image/svg+xml ：svg
 
-不同音频格式
+音频MIME对应格式
 - audio/mpeg：mp3
 
-不同视频格式
+视频MIME对应格式
 - video/mp4：mp4
 - video/x-msvideo：avi
 
-不同应用程序产生的数据
+应用MIME对应格式
 - application/vnd.rn-realmedia-vbr：rmvb
 
-不同模型
+模型MIME对应格式
 - model/vrml
 
-不同报文
+消息MIME对应格式
 - message/http
 
-多种类型的组合
+多类型组合MIME对应格式
 - multipart/mixed
 - multipart/alternative
 - multipart/parallel
