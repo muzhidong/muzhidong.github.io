@@ -79,6 +79,31 @@ tags:
 
 > Worker执行模型：worker从上到下同步运行代码，然后进入一个异步阶段。当有监听消息，worker永远不会自动退出；而若没有监听消息，则直到所有任务相关的回调函数都被调用，且再也没有挂起的任务时，worker会自动退出
 
+### 示例
+- worker代码和主线程代码在同一页面
+  ```html
+  <!-- worker脚本 -->
+  <!-- 注意script标签需指定id属性，且type属性是一个浏览器不认识的值 -->
+  <script id="worker" type="app/worker">
+    addEventListener('message', function (e) {
+      postMessage("I'm fine.");
+    }, false);
+  </script>
+  <!-- 主线程脚本 -->
+  <script>
+    // Blob内容是子线程代码
+    var blob = new Blob([document.querySelector('#worker').textContent]);
+    var url = window.URL.createObjectURL(blob);
+    var worker = new Worker(url);
+    worker.postMessage('How are you?')
+    worker.onmessage = function (e) {
+      console.log(e.data);
+    };
+  </script>
+  ```
+
+- [Worker and ServiceWorker Demo](https://github.com/muzhidong/blog-demo/tree/main/docs/01html/%E8%BF%9E%E6%8E%A5/Worker)
+
 ### Worker子类
 - SharedWorker
 
@@ -301,32 +326,8 @@ tags:
   }
   ```
 
-### 示例
-- worker代码和主线程代码在同一页面
-  ```html
-  <!-- worker脚本 -->
-  <!-- 注意script标签需指定id属性，且type属性是一个浏览器不认识的值 -->
-  <script id="worker" type="app/worker">
-    addEventListener('message', function (e) {
-      postMessage("I'm fine.");
-    }, false);
-  </script>
-  <!-- 主线程脚本 -->
-  <script>
-    // Blob内容是子线程代码
-    var blob = new Blob([document.querySelector('#worker').textContent]);
-    var url = window.URL.createObjectURL(blob);
-    var worker = new Worker(url);
-    worker.postMessage('How are you?')
-    worker.onmessage = function (e) {
-      console.log(e.data);
-    };
-  </script>
-  ```
-
-- [Worker and ServiceWorker Demo](https://github.com/muzhidong/blog-demo/tree/main/docs/01html/%E8%BF%9E%E6%8E%A5/Worker)
-
-> 彩蛋：google chrome lab团队封装[comlink](https://github.com/GoogleChromeLabs/comlink)，简化线程间通信操作，并以一种更优雅的方式(Proxy + Promise)处理。另外支持回调和共享线程
+### 彩蛋
+google chrome lab团队封装[comlink](https://github.com/GoogleChromeLabs/comlink)，简化线程间通信操作，并以一种更优雅的方式(Proxy + Promise)处理。另外支持回调和共享线程
 
 ## 通道
 ### 广播通道

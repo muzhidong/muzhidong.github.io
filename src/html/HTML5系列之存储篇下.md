@@ -171,7 +171,6 @@ tags:
 
     blob:URL只允许通过GET请求获取，并且一旦获取成功，浏览器必须返回一个HTTP 200 OK的状态码，同时返回一个使用Blob type属性的Content-Type头部信息。
 
-
 ### FileReader
 
   - 概念
