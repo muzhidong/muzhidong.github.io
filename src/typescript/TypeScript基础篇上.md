@@ -651,21 +651,38 @@ console.log(l.name);
 
 ### 5、函数重载
 - 重载签名
-函数同名，但形参列表的个数、类型、顺序不同。
-```typescript
-function fn(num: number): void;
-function fn(str: string): void;
-```
+
+  函数同名，但形参列表的个数、类型、顺序不同。
+  ```typescript
+  function fn(num: number): void;
+  function fn(str: string): void;
+  ```
 
 - 重载签名实现
-根据传入不同参数，做不同处理。注意有一个以上重载签名，签名实现才有意义。
-```typescript
-function fn(p: number | string): void{
-  console.log(typeof p);
-}
-fn(1);
-fn('welcome to study typescript')
-```
+
+  根据传入不同参数，做不同处理。注意有一个以上重载签名，签名实现才有意义。
+  ```typescript
+  function fn(p: number | string): void{
+    console.log(typeof p);
+  }
+  fn(1);
+  fn('welcome to study typescript')
+  ```
+
+> 方法重写是子类重新定义父类中已有的方法，实现多态性；方法重载是同一个类中定义多个同名但参数列表不同的方法，实现方法的灵活调用
+
+| 特性 | 重写（Override） | 重载（Overload） |
+|-----|-----------------|-----------------|
+| 方法名 | 必须相同 | 必须相同 |
+| 参数列表 | 必须相同 | 必须不同（类型、顺序或数量）|
+| 返回类型 | 必须相同或是其子类 | 可以不同 |
+| 访问修饰符 | 不能更严格（可更宽松） | 无限制 |
+| 异常声明 | 不能抛出更宽泛的异常 | 无限制 |
+| 发生位置 | 父子类之间 | 同一个类中 |
+| 绑定时间 | 运行时 | 编译时 |
+| 私有/静态/构造方法 | 不能被重写 | 可以重载 |
+| 使用场景 | 继承体系中的行为替换 | 同一个类中的方法扩展 |
+
 
 ## 接口
 描述事物
