@@ -4,7 +4,7 @@ tags:
 - TypeScript
 ---
 
-本篇针对TypeScript进行查漏补缺，补充一些特性
+本篇针对TypeScript进行查漏补缺，补充特性，工具，或优化等
 
 ## 4.2开始，以_开头的变量未使用不报错
 ```typescript
@@ -104,3 +104,57 @@ type D = typeof baz // D --> string
 
 ## 操作符!
 表示类型可为空
+
+## TS注释指令
+- 行级注释指令
+  - `// @ts-ignore`表示忽略下一行的类型错误
+  - `// @ts-expect-error`表示期待下一行有错误，如果没有错误则报错
+- 文件级注释指令，写在文件顶行
+  - `// @ts-check`表示JS文件开启类型检查
+  - `// @ts-nocheck`或`/* @ts-nocheck */`告诉TypeScript编译器跳过整个TS或JS文件的类型检查
+
+> 与项目级配置文件tsconfig.json不在一个层次
+
+## TS工具库
+- [ts-morph](https://www.npmjs.com/package/ts-morph)，封装TS编译器API，提供更简便的API浏览和操作TS和JS代码
+- [tsd](https://www.npmjs.com/package/tsd)，对TS类型定义进行单测
+- [flow](https://www.npmjs.com/package/flow)，在浏览器或NodeJs中流式书写异步逻辑，类似函数组合的写法
+
+## TS编译优化或排查举措
+### 优化举措
+- 类型扩展使用接口，不用交叉类型
+  
+  接口继承的类型级联关系会被缓存
+
+- 按需编译
+  
+  配置`references`声明依赖，加以`tsc --build <packageName>`增量构建。实现ts依赖包变化，引用包自动编译
+  ```json
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      // 被引用的项目包必须开启`composite: true`
+      "composite": true,
+    },
+    // 通过`references`建立依赖关系
+    "references": [
+      // 假设引用包与被引用包目录在同级
+      { "path": "../dependency-package" }
+    ],
+  }
+  ```
+
+- 按需加载定义的类型包
+  
+  一般会加载node_modules中的所有@types包，添加`compilerOptions.types`配置，按需引入真正需要的类型定义
+
+- 启用`compilerOptions.isolatedModules`
+  
+  当ts外的构建工具遇到无法编译的语法时会给出警告，如重新导出(`export...from...`)、常量枚举(`const enum`)，启用它会保留这些语法
+
+- 使用ts-loader或[ts-node](https://www.npmjs.com/package/ts-node)做转译，跳过了编译时类型检查，可以考虑使用webpack插件fork-ts-checker-plugin加速类型检查
+
+### 排查举措
+- 使用`tsc --listFiles`列举所有引入文件，检查include和exclude配置是否正确
+
+- 添加`compilerOptions.extendDiagnostics`配置，检查ts编辑时耗时环节，如IO、解析、类型检查
