@@ -296,44 +296,44 @@ HttpDNS实现原理分为两步：
   
   可控性：JS动画可控，CSS动画难以控制
 
-> 浏览器对每一帧的渲染工作要在16ms内完成，超出该时间则称为丢帧，一般控制帧率不超过60fps。
-> 帧率，即每秒帧数。帧率对于人眼是在50-60，若帧率低于30，称为卡顿(连续出现3个低于20fps)，若高于60则太快，俗称“亮瞎”。
-```javascript
-// 实时计算帧率
-(function(){
-  const raf = (function(){
-    return window.requestAnimationFrame || 
-      window.webkitRequestAnimationFrame || 
-      function(callback) { 
-        window.setTimeout(callback, 1000 / 60) 
+  > 浏览器对每一帧的渲染工作要在16ms内完成，超出该时间则称为丢帧，一般控制帧率不超过60fps。
+  > 帧率，即每秒帧数。帧率对于人眼是在50-60，若帧率低于30，称为卡顿(连续出现3个低于20fps)，若高于60则太快，俗称“亮瞎”。
+  ```javascript
+  // 实时计算帧率
+  (function(){
+    const raf = (function(){
+      return window.requestAnimationFrame || 
+        window.webkitRequestAnimationFrame || 
+        function(callback) { 
+          window.setTimeout(callback, 1000 / 60) 
+        }
+    })()
+
+    let frame = 0
+    let allFrameCount = 0
+    let lastTime = Date.now()
+
+    const loop = function() {
+      raf(loop)
+
+      const now = Date.now()
+      frame++
+      allFrameCount++
+      if (now - lastTime > 1000) {
+        console.log('帧率:', Math.round(frame / ((now - lastTime) / 1000 )), '帧数:', allFrameCount)
+        lastTime = now
+        frame = 0
       }
-  })()
-
-  let frame = 0
-  let allFrameCount = 0
-  let lastTime = Date.now()
-
-  const loop = function() {
-    raf(loop)
-
-    const now = Date.now()
-    frame++
-    allFrameCount++
-    if (now - lastTime > 1000) {
-      console.log('帧率:', Math.round(frame / ((now - lastTime) / 1000 )), '帧数:', allFrameCount)
-      lastTime = now
-      frame = 0
     }
-  }
 
-  loop()
-})()
-```
-> 我们一般遇到的都是卡顿问题。
-> 
-> 频繁但较小的卡顿：主要原因是过高的渲染性能开销，在每一帧中做的事情太多，参考下面介绍的优化调整代码，甚至降低动画复杂(炫酷)程度。
-> 
-> 较大但偶发的卡顿：主要原因是运行复杂算法、大规模DOM操作等，考虑使用[`requestIdleCallback`](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)、[`worker`](https://developer.mozilla.org/en-US/docs/Web/API/Worker)、[`offScreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas)等。
+    loop()
+  })()
+  ```
+  > 我们一般遇到的都是卡顿问题。
+  > 
+  > 频繁但较小的卡顿：主要原因是过高的渲染性能开销，在每一帧中做的事情太多，参考下面介绍的优化调整代码，甚至降低动画复杂(炫酷)程度。
+  > 
+  > 较大但偶发的卡顿：主要原因是运行复杂算法、大规模DOM操作等，考虑使用[`requestIdleCallback`](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)、[`worker`](https://developer.mozilla.org/en-US/docs/Web/API/Worker)、[`offScreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas)等。
 
 - CSS动画优化
 
@@ -341,9 +341,11 @@ HttpDNS实现原理分为两步：
 
   应用3D转换、`opacity`、`filter`或`will-change`，开启GPU加速
 
+  > 各大浏览器也提供了相应的[Animation](https://developer.mozilla.org/en-US/docs/Web/API/Animation) API，可控性更好
+
 - JS动画实现方式
 
-  1、[setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout)
+  1、[setInterval](https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval)
 
   2、[requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame)
 
@@ -355,94 +357,90 @@ HttpDNS实现原理分为两步：
 
     - 回调节流：在高频率事件如resize、scroll中，使用requestAnimationFrame可保证每个刷新间隔内，函数只被执行一次。
 
-  3、[Animation](https://developer.mozilla.org/en-US/docs/Web/API/Animation)
+  3、[Element.animate](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate)
 
-  4、[animate](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate)
+- Canvas动画
 
-    后推出新的API，即`Animation`和`Element.animate`，在非复杂动画场景下，选择实现方式顺序如下：`Element.animate` > `Animation` > `requestAnimationFrame` > `setTimeout`
-
-  5、Canvas
-
-    复杂动画可以考虑使用Canvas动画，代替DOM动画。以下是使用Canvas实现动画时的可供参考的优化手段：
-    
-    - 尽可能减少调用渲染相关API的次数，尽可能调用渲染开销较低的API
-
-      比如执行`context.lineWidth = 5`，浏览器需立刻做一些事情，以便调用如`stroke`或`strokeRect`时，绘制的线宽正好5个像素。，它的赋值操作开销远大于对一个普通对象赋值的开销。再者，`putImageData`也是一个开销极为巨大的操作，不适合在每一帧里面去调用。下表是不同属性的赋值开销。
-
-  <style>
-  .c-container {
-    display:grid;
-    border-top:1px solid var(--vp-c-text-3);
-    border-left:1px solid var(--vp-c-text-3);
-  }
-  .c-container>div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-right: 1px solid var(--vp-c-text-3);
-    border-bottom: 1px solid var(--vp-c-text-3);
-  }
-  .c-container>div:nth-child(3n+1) {
-    grid-column:1/2;
-  }
-  .c-container>div:nth-child(3n+2) {
-    grid-column:2/3;
-  }
-  .c-container>div:nth-child(3n) {
-    grid-column:3/4;
-  }
-  </style>
-  <div class="c-container">
-    <div>属性</div>
-    <div>开销</div>
-    <div>开销（非法赋值）</div>
-
-    <div>lineWidth/lineJoin/lineCap</div>
-    <div>40+</div>
-    <div>100+</div>
+  复杂动画可以考虑使用Canvas动画，代替DOM动画。以下是使用Canvas实现动画时的可供参考的优化手段：
   
-    <div>fillStyle/strokeStyle</div>
-    <div>100+</div>
-    <div>200+</div>
+  - 尽可能减少调用渲染相关API的次数，尽可能调用渲染开销较低的API
 
-    <div>font</div>
-    <div>1000+</div>
-    <div>1000+</div>
+    比如执行`context.lineWidth = 5`，浏览器需立刻做一些事情，以便调用如`stroke`或`strokeRect`时，绘制的线宽正好5个像素。，它的赋值操作开销远大于对一个普通对象赋值的开销。再者，`putImageData`也是一个开销极为巨大的操作，不适合在每一帧里面去调用。下表是不同属性的赋值开销。
 
-    <div>textAlign/textBaseline</div>
-    <div>60+</div>
-    <div>100+</div>
+<style>
+.c-container {
+  display:grid;
+  border-top:1px solid var(--vp-c-text-3);
+  border-left:1px solid var(--vp-c-text-3);
+}
+.c-container>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid var(--vp-c-text-3);
+  border-bottom: 1px solid var(--vp-c-text-3);
+}
+.c-container>div:nth-child(3n+1) {
+  grid-column:1/2;
+}
+.c-container>div:nth-child(3n+2) {
+  grid-column:2/3;
+}
+.c-container>div:nth-child(3n) {
+  grid-column:3/4;
+}
+</style>
+<div class="c-container">
+  <div>属性</div>
+  <div>开销</div>
+  <div>开销（非法赋值）</div>
 
-    <div>shadowBlur/shadowOffsetX</div>
-    <div>40+</div>
-    <div>100+</div>
+  <div>lineWidth/lineJoin/lineCap</div>
+  <div>40+</div>
+  <div>100+</div>
 
-    <div>shadowColor</div>
-    <div>280+</div>
-    <div>400+</div>
-  </div>
+  <div>fillStyle/strokeStyle</div>
+  <div>100+</div>
+  <div>200+</div>
 
-    - 合理地调整调用绘图API顺序，降低context状态改变的频率 
+  <div>font</div>
+  <div>1000+</div>
+  <div>1000+</div>
 
-    - 采取Canvas分层
-    
-      生成多个Canvas实例，把它们重叠放置，每个Canvas使用不同z-index定义层级，然后在相应的canvas层进行重绘。
+  <div>textAlign/textBaseline</div>
+  <div>60+</div>
+  <div>100+</div>
 
-    - 将渲染阶段的开销转嫁到计算阶段之上
-    
-      使用`drawImage`绘制同样大小的区域，数据源是一张和绘制区域尺寸相仿的图片的情形，比起数据源是一张较大图片的情形，前者开销要小一些。可以认为，两者相差的开销正是**裁剪**这一操作的开销。优化思路是将**裁剪**这一步事先做好，保存起来，每一帧中仅绘制不裁剪。
+  <div>shadowBlur/shadowOffsetX</div>
+  <div>40+</div>
+  <div>100+</div>
 
-    - 离屏绘制
+  <div>shadowColor</div>
+  <div>280+</div>
+  <div>400+</div>
+</div>
 
-      `drawImage`方法的第一个参数不仅可以接收Image对象，也可以接收Canvas对象，使用Canvas对象绘制的开销与使用Image对象的开销几乎完全一致
+  - 合理地调整调用绘图API顺序，降低context状态改变的频率 
 
-    ```javascript
-    var offScreenCanvas = document.createElement('canvas');
-    offScreenCanvas.width = dw;
-    offScreenCanvas.height = dh;
-    offScreenCanvas.getContext('2d').drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
-    context.drawImage(offScreenCanvas, x, y);
-    ```
+  - 采取Canvas分层
+  
+    生成多个Canvas实例，把它们重叠放置，每个Canvas使用不同z-index定义层级，然后在相应的canvas层进行重绘。
+
+  - 将渲染阶段的开销转嫁到计算阶段之上
+  
+    使用`drawImage`绘制同样大小的区域，数据源是一张和绘制区域尺寸相仿的图片的情形，比起数据源是一张较大图片的情形，前者开销要小一些。可以认为，两者相差的开销正是**裁剪**这一操作的开销。优化思路是将**裁剪**这一步事先做好，保存起来，每一帧中仅绘制不裁剪。
+
+  - 离屏绘制
+
+    `drawImage`方法的第一个参数不仅可以接收Image对象，也可以接收Canvas对象，使用Canvas对象绘制的开销与使用Image对象的开销几乎完全一致
+
+  ```javascript
+  var offScreenCanvas = document.createElement('canvas');
+  offScreenCanvas.width = dw;
+  offScreenCanvas.height = dh;
+  offScreenCanvas.getContext('2d').drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+  context.drawImage(offScreenCanvas, x, y);
+  ```
 
 ## 内存优化
 前面介绍的渲染优化一般是从时间复杂度方面入手，而内存优化从空间复杂度上实现渲染间接优化。
