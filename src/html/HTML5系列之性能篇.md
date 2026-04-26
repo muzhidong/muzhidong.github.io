@@ -117,41 +117,41 @@ HttpDNS实现原理分为两步：
   - 当脚本不影响渲染逻辑，可以进行异步加载，浏览器提供了defer和async两种方式
 
   <style>
-  .g-container {
+  .performance-g-container {
     display:grid;
     border-top:1px solid var(--vp-c-text-3);
     border-left:1px solid var(--vp-c-text-3);
   }
-  .g-container>div {
+  .performance-g-container>div {
     display: flex;
     justify-content: center;
     align-items: center;
     border-right: 1px solid var(--vp-c-text-3);
     border-bottom: 1px solid var(--vp-c-text-3);
   }
-  .g-container>div:nth-child(5n+1) {
+  .performance-g-container>div:nth-child(5n+1) {
     grid-column:1/2;
   }
-  .g-container>div:nth-child(5n+2) {
+  .performance-g-container>div:nth-child(5n+2) {
     grid-column:2/3;
   }
-  .g-container>div:nth-child(5n+3) {
+  .performance-g-container>div:nth-child(5n+3) {
     grid-column:3/4;
   }
-  .g-container>div:nth-child(5n+4) {
+  .performance-g-container>div:nth-child(5n+4) {
     grid-column:4/5;
   }
-  .g-container>div:nth-child(5n) {
+  .performance-g-container>div:nth-child(5n) {
     grid-column:5/6;
   }
-  .g-container .r24 {
+  .performance-g-container .r24 {
     grid-row: 2/4;
   }
-  .g-container #c34 {
+  .performance-g-container #c34 {
     grid-column: 3/4;
   }
   </style>
-  <div class="g-container">
+  <div class="performance-g-container">
     <div></div>
     <div>共性</div>
     <div>特点</div>
