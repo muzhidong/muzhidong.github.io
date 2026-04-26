@@ -15,10 +15,10 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@release-it/conventional-changelog": "^10.0.2",
+    "@release-it/conventional-changelog": "^11.0.0",
     "dotenv-cli": "^11.0.0",
     "patch-package": "^8.0.0",
-    "release-it": "20.0.1",
+    "release-it": "^20.0.0",
     "sass": "^1.93.2",
     "vconsole": "^3.15.1",
     "vitepress": "^1.6.4",
