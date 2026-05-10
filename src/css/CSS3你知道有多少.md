@@ -307,13 +307,13 @@ tags:
 </div>
 
   > transform新写法，支持直接声明translate、scale、rotate
-    ```css
-    selector {
-      scale: 2;
-      rotate: 30deg;
-      translate: -50% -50%;
-    }
-    ```
+  >  ```css
+  >  .el {
+  >    scale: 2;
+  >    rotate: 30deg;
+  >    translate: -50% -50%;
+  >  }
+  >  ```
   
   > 注意transform对绝对(固定)定位元素和层叠上下文的影响，[点这](/css/CSS快速入门篇中.html#破坏流-position布局)
 
