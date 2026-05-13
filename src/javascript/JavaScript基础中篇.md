@@ -142,8 +142,18 @@ tags:
       return value.toString()
     }
     return value
-  }, '_')
-  console.log(str) // '{\n_"a": 12345678901234567000,\n_"b": null,\n_"c": null,\n_"g": "g",\n_"h": true,\n_"i": "1",\n_"j": [],\n_"k": {}\n}'
+  }, '__')
+  console.log(str)
+  // {
+  // __"a": 12345678901234567000,
+  // __"b": null,
+  // __"c": null,
+  // __"g": "g",
+  // __"h": true,
+  // __"i": "1",
+  // __"j": [],
+  // __"k": {}
+  // }
   ```
 
 - 浅拷贝与深拷贝
